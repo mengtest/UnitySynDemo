@@ -1,0 +1,9 @@
+{
+  "materials":[
+    "mst_xg02_weapon_02"
+  ],
+  "bones":[
+    "Bip001 Prop1",
+    "Bone015"
+  ]
+}

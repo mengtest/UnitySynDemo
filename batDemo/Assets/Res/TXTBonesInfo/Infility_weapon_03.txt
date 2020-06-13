@@ -1,0 +1,8 @@
+{
+  "materials":[
+    "Infility_weapon_03"
+  ],
+  "bones":[
+    "Bone013"
+  ]
+}

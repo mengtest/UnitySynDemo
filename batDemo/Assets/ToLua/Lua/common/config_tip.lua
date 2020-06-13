@@ -1,0 +1,403 @@
+---@class Buff_Dataitem
+---@field BuffId int
+---@field IsActSkill int
+---@field BuffName string
+---@field BuffIcon string
+---@field Type int
+---@field EffectId string
+---@field SoundId string
+---@field OnEventType int
+---@field liftTime int
+---@field interval int
+---@field BuffType1 int
+---@field Value1_1 string[]
+---@field Value1_2 string
+---@field BuffType2 int
+---@field Value2_1 string[]
+---@field Value2_2 string
+---@field Info string
+
+---@class GlobalBaseConfigitem
+---@field Id int
+---@field Name string
+---@field Para string[]
+---@field Info string
+
+---@class CardsSlotitem
+---@field Id int
+---@field Page int
+---@field Index int
+---@field Currency int[]
+---@field Price int[]
+
+---@class Cardsitem
+---@field Id int
+---@field PropIdx int
+---@field Name string
+---@field CharPro int
+---@field ModelUrl int
+---@field Icon int
+---@field Quality int
+---@field CanUse int
+---@field CardFragment int
+---@field UnlockkCard int
+---@field Info string
+---@field AvatarSetIdLv int[]
+
+---@class CardsPropertyitem
+---@field Id int
+---@field Name string
+---@field Level int
+---@field CharName string
+---@field SkillName string
+---@field SkillId int
+---@field SkillCD int
+---@field SkillIcon string
+---@field PassiveSkillId int
+---@field PassiveSkillIcon string
+---@field SkillType int
+---@field RewardId int
+---@field Gold int
+---@field CostCard int
+---@field Diamond int
+
+---@class RewardIndexitem
+---@field IndexId int
+---@field StartItem int
+---@field EndItem int
+---@field RandonCount int
+
+---@class RewardItemsitem
+---@field IndexId int
+---@field ItemId int
+---@field IdName string
+---@field ItemCount int
+---@field Time float
+---@field SelectRatio int
+---@field ShowPriority int
+
+---@class Rewarditem
+---@field Id int
+---@field RewardName string
+---@field StartRewardIndex int
+---@field EndRewardIndex int
+---@field ExtraItem int[]
+---@field ShowPriority int[]
+
+---@class BattleMatchitem
+---@field Id int
+---@field Name string
+---@field TeamMemberCount int
+---@field MaxCount int
+---@field MinCount int
+
+---@class BattleModelitem
+---@field Id int
+---@field Name string
+---@field UI_Info string
+---@field MapID string
+---@field Index int
+---@field MatchIDs int[]
+---@field IsOpen int
+
+---@class Battle_Bagitem
+---@field Id int
+---@field Name string
+---@field Type int
+---@field Quality int
+---@field Icon string
+---@field ModelUrl string
+---@field Volume int
+---@field ReduceDmgRate int
+---@field Durability int
+---@field Weight float
+---@field BuffId int
+---@field CastTime int
+---@field Usable int
+
+---@class BattleItemRefreshitem
+---@field Id int
+---@field Type string
+---@field TypeID int
+---@field SubType string
+---@field WeaponType int
+---@field Name string
+---@field Score int
+---@field RefreshNumber int
+---@field Quality int
+---@field EffectSize int
+---@field ModelPos string
+---@field ModelRotate string
+---@field ModelScale float
+---@field NormalItemWeight int
+---@field HeightItemWeight int
+---@field AirDropWeight int
+
+---@class BattleConfigitem
+---@field Id int
+---@field Name string
+---@field Para string
+---@field Info string
+
+---@class WeaponHitPartitem
+---@field Id int
+---@field WeaponType string
+---@field WeaponPos int
+---@field BodyDmgRate int
+---@field HeadDmgRate int
+---@field LimbDmgRate int
+
+---@class Weapon_Slotitem
+---@field Id int
+---@field WeaponType int
+---@field Name string
+---@field AmmoID int
+---@field Muzzleprefix int
+---@field Muzzle int[]
+---@field Foregripprefix int
+---@field Foregrip int[]
+---@field Magazineprefix int
+---@field Magazine int[]
+---@field Scopeprefix int
+---@field Scope int[]
+---@field Stockprefix int
+---@field Stock int
+---@field Uniqueprefix int
+---@field Unique int
+
+---@class Weapon_RecoilTempleteitem
+---@field Id int
+---@field Name string
+---@field Yaw_params float[]
+---@field Pitch_params float[]
+
+---@class Grenadeitem
+---@field ID int
+---@field WeaponType int
+---@field Name string
+---@field Quality int
+---@field Icon string
+---@field ModelUrl string
+---@field RunSpeedRate float
+---@field WalkSpeedRate float
+---@field DamageRadius int
+---@field GrenadeTiming int
+---@field ReadyDelayTime int
+---@field HitMaxCount int
+---@field RotateAngle int
+---@field Range int[]
+---@field Damage int[]
+---@field BoomSound string
+
+---@class Weaponitem
+---@field Id int
+---@field WeaponType int
+---@field Name string
+---@field WeaponLink string
+---@field FireType int
+---@field Quality int
+---@field ShowIcon string
+---@field Icon string
+---@field ModelUrl string
+---@field SwitchWeaponTime float
+---@field WeaponPos int[]
+---@field Damage int[]
+---@field Magzine int
+---@field MagzineChange int[]
+---@field ReloadTime float
+---@field BulletNum int
+---@field BodyDamageByRate float
+---@field HeadDamageByRate float
+---@field LimbDamageByRate float
+---@field FireRate float
+---@field EnableScopeDur float
+---@field AccRange_Base float
+---@field AccRange_Max float
+---@field AccAdd1 float
+---@field AccAdd2 float
+---@field AccRateRun float
+---@field AccRateJump float
+---@field AccRateSquat float
+---@field AccRateLie float
+---@field RecoilID int
+---@field shotFire_Max int
+---@field RecoilRateYaw float
+---@field RecoilRatePitch float
+---@field EnableRandomYaw int
+---@field Yaw_rateID int
+---@field ShotFireDecRate float
+---@field ShotFireDec float
+---@field AccDec float
+---@field RunSpeedRate float
+---@field WalkSpeedRate float
+---@field AimMoveAdditive float
+---@field SlowPower float
+---@field SlowTime int
+---@field FireCount int
+---@field FireInterval float
+---@field AutoAimAngleCoe float
+---@field AutoAimBaseSpeed float
+---@field StandAutoAimRate float
+---@field AutoAimOffset float
+---@field AutoAimBodyOffset float
+---@field SniperShake float
+---@field ShakeBulletCount int
+---@field DelayClipInTime float
+---@field DelayBoltTime float
+---@field FireSound string
+---@field ClipOutSound string
+---@field ClipInSound string
+---@field BoltSound string
+---@field Anim1 string
+---@field Anim2 string
+---@field Muzzle string
+
+---@class MeleeWeaponitem
+---@field ID int
+---@field WeaponType int
+---@field WeaponMeleeType int
+---@field Name string
+---@field Quality int
+---@field Icon string
+---@field ModelUrl string
+---@field RunSpeedRate float
+---@field WalkSpeedRate float
+---@field Dist float
+---@field Damage int
+---@field SwitchWeaponTime float
+---@field FireRate float
+---@field HitAngle int
+---@field anim string
+
+---@class Slot_Propertiesitem
+---@field Id int
+---@field Name string
+---@field Quality int
+---@field Describe string
+---@field Icon string
+---@field ModelUrl string
+---@field DeRecoilRateYaw float
+---@field DeRecoilRatePitch float
+---@field AddShoteFireDecRate float
+---@field DeAccRange_Base float
+---@field DeFireRate float
+---@field DeEnableScopeDur float
+---@field DeShotFireDecRate float
+---@field DeAccDec float
+---@field DeReloadTime float
+---@field Magnification float
+---@field AddWeaponPos float
+---@field Throughwall int
+
+---@class Weapon_RandomRateRecoilTempitem
+---@field Id int
+---@field Yaw_Rate_params float[]
+
+---@class PoisonCircleConfigitem
+---@field Id int
+---@field SceneID int
+---@field CircleRadius int
+---@field FindPointRadius int
+---@field PoisonSafeTime int
+---@field CircleMoveTime int
+---@field PoisonDamage int
+
+---@class Avataritem
+---@field ID int
+---@field ModelID int
+---@field Name string
+---@field Quality int
+---@field Part int
+---@field ShieldID string[]
+---@field Photo string
+---@field CloseEnv int[]
+---@field CreateGive int
+
+---@class AvatarTimeitem
+---@field ID_Level string
+---@field Time float
+
+---@class ExperienceConfigitem
+---@field Levels int
+---@field Exp int
+---@field LevelUpExp int
+---@field LvUpReward int
+
+---@class SettingConfigitem
+---@field Id int
+---@field type int
+---@field Name string
+---@field Para string
+---@field Info string
+
+---@class CareerScoreitem
+---@field Id int
+---@field ScoreType string
+---@field Name string
+---@field Section float
+---@field Power float
+---@field Slope float
+---@field Constant float
+
+---@class ItemConfigitem
+---@field Id int
+---@field Name string
+---@field Quality int
+---@field LinkId int
+---@field Description string
+---@field LimitNum int
+---@field UseType int
+---@field LimitCompose int
+---@field ComposeID int
+---@field EffectiveTime float
+---@field Value1 string
+---@field Value2 string
+---@field Icon string
+---@field ModelUrl string
+---@field Recommendation string
+
+---@class ItemIdxitem
+---@field Id int
+---@field ExcelName string
+---@field Name string
+---@field LinkIdx int
+
+---@class HotZoneitem
+---@field Id int
+---@field SceneID int
+---@field SignId int
+---@field Name string
+---@field AreaRadius int
+
+---@class Configs
+---@field Buff_Data table<int,Buff_Dataitem>
+---@field GlobalBaseConfig table<int,GlobalBaseConfigitem>
+---@field CardsSlot table<int,CardsSlotitem>
+---@field Cards table<int,Cardsitem>
+---@field CardsProperty table<int,CardsPropertyitem>
+---@field RewardIndex table<int,RewardIndexitem>
+---@field RewardItems table<int,RewardItemsitem>
+---@field Reward table<int,Rewarditem>
+---@field BattleMatch table<int,BattleMatchitem>
+---@field BattleModel table<int,BattleModelitem>
+---@field Battle_Bag table<int,Battle_Bagitem>
+---@field BattleItemRefresh table<int,BattleItemRefreshitem>
+---@field BattleConfig table<int,BattleConfigitem>
+---@field WeaponHitPart table<int,WeaponHitPartitem>
+---@field Weapon_Slot table<int,Weapon_Slotitem>
+---@field Weapon_RecoilTemplete table<int,Weapon_RecoilTempleteitem>
+---@field Grenade table<int,Grenadeitem>
+---@field Weapon table<int,Weaponitem>
+---@field MeleeWeapon table<int,MeleeWeaponitem>
+---@field Slot_Properties table<int,Slot_Propertiesitem>
+---@field Weapon_RandomRateRecoilTemp table<int,Weapon_RandomRateRecoilTempitem>
+---@field PoisonCircleConfig table<int,PoisonCircleConfigitem>
+---@field Avatar table<int,Avataritem>
+---@field AvatarTime table<int,AvatarTimeitem>
+---@field ExperienceConfig table<int,ExperienceConfigitem>
+---@field SettingConfig table<int,SettingConfigitem>
+---@field CareerScore table<int,CareerScoreitem>
+---@field ItemConfig table<int,ItemConfigitem>
+---@field ItemIdx table<int,ItemIdxitem>
+---@field HotZone table<int,HotZoneitem>
+Configs=nil

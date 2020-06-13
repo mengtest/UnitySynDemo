@@ -1,0 +1,9 @@
+{
+  "materials":[
+    "Infility_head_02"
+  ],
+  "bones":[
+    "Bip001 Neck",
+    "Bip001 Head"
+  ]
+}

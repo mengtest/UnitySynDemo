@@ -1,0 +1,35 @@
+{
+  "materials":[
+    "Infility_body_01"
+  ],
+  "bones":[
+    "Bone003(mirrored)",
+    "Bip001 L Thigh",
+    "Bip001 L Calf",
+    "Bone002(mirrored)",
+    "Bone003",
+    "Bip001 R Thigh",
+    "Bip001 R Calf",
+    "Bone002",
+    "Bip001 Spine1",
+    "Bip001 Spine2",
+    "Bip001 Spine",
+    "Bip001 R Clavicle",
+    "Bip001 Head",
+    "Bip001 RUpArmTwist",
+    "Bip001 L Clavicle",
+    "Bip001 LUpArmTwist",
+    "Bip001 Pelvis",
+    "Bone001",
+    "Bip001 Neck",
+    "Bone001(mirrored)",
+    "Bip001 LUpArmTwist1",
+    "Bip001 L ForeTwist",
+    "Bone005",
+    "Bone006",
+    "Bip001 RUpArmTwist1",
+    "Bip001 R ForeTwist",
+    "Bone007",
+    "Bone008"
+  ]
+}
