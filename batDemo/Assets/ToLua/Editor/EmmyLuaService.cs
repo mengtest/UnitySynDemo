@@ -48,27 +48,27 @@ namespace EmmyLua
 			set { EditorPrefs.SetBool(KEY_EMMY_SERVICE_ENABLE, value); }
 		}
 
-		[MenuItem("Lua/¿ªÆôEmmyLua¸üÐÂ")]
+		[MenuItem("Lua/ï¿½ï¿½ï¿½ï¿½EmmyLuaï¿½ï¿½ï¿½ï¿½")]
 		static void EnableService()
 		{
 			IsEnable = true;
 			StartConnect();
 		}
 		
-		[MenuItem("Lua/¿ªÆôEmmyLua¸üÐÂ", true)]
+		[MenuItem("Lua/ï¿½ï¿½ï¿½ï¿½EmmyLuaï¿½ï¿½ï¿½ï¿½", true)]
 		static bool EnableServiceCheck()
 		{
 			return !IsEnable;
 		}
 		
-		[MenuItem("Lua/¹Ø±ÕEmmyLua¸üÐÂ")]
+		[MenuItem("Lua/ï¿½Ø±ï¿½EmmyLuaï¿½ï¿½ï¿½ï¿½")]
 		static void DisableService()
 		{
 			IsEnable = false;
 			Stop();
 		}
 		
-		[MenuItem("Lua/¹Ø±ÕEmmyLua¸üÐÂ", true)]
+		[MenuItem("Lua/ï¿½Ø±ï¿½EmmyLuaï¿½ï¿½ï¿½ï¿½", true)]
 		static bool DisableServiceCheck()
 		{
 			return IsEnable;
@@ -96,7 +96,7 @@ namespace EmmyLua
 			}
 			catch (Exception e)
 			{
-                Log.logError(e.Message);
+                DebugLog.LogError(e.Message);
 				TryLater();
 			} 
 		}
@@ -111,7 +111,7 @@ namespace EmmyLua
 			}
 			catch (Exception e)
 			{
-                //Log.logWarning(e.Message);
+                //DebugLog.LogWarning(e.Message);
 				TryLater();
 			}
 		}
@@ -197,7 +197,7 @@ namespace EmmyLua
 				}
 				catch (Exception e)
 				{
-                    //Log.logError(e.Message);
+                    //DebugLog.LogError(e.Message);
 					TryLater();
 				}
 			}

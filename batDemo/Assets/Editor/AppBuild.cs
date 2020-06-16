@@ -25,17 +25,17 @@ public class AppBuild {
     //     DebugLog.Log(outPath);
         if (!Directory.Exists(outPath))
         {
-           FileUtils.CreateDir(outPath);
+           FileUtil.CreateDir(outPath);
         }
         string signedOutputPath = outPath+"signed";
          if (!Directory.Exists(signedOutputPath))
         {
-           FileUtils.CreateDir(signedOutputPath);
+           FileUtil.CreateDir(signedOutputPath);
         }
-         FileUtils.ClearDirectory(outPath);
+         FileUtil.ClearDirectory(outPath);
           string localFolderPath = Path.Combine(Application.streamingAssetsPath, AssetBundleConst.AssetBundleFolderSigned);
-         FileUtils.ClearDirectory(localFolderPath);
-          FileUtils.ClearDirectory(signedOutputPath);
+         FileUtil.ClearDirectory(localFolderPath);
+          FileUtil.ClearDirectory(signedOutputPath);
         // DirectoryInfo dir = new DirectoryInfo(outPath);
         // DirectoryInfo[] dirArr = dir.GetDirectories("*", SearchOption.AllDirectories);
         // FileInfo[] fiArr = dir.GetFiles("*.manifest");
@@ -123,12 +123,162 @@ public class AppBuild {
          {
              EditorUtility.DisplayDialog("完成", "资源打包完成", "OK");
          }
+        BuildLuaBundle(platform);
        //  RenameManifest(outPath, AssetBundleConst.BundleManifestName);
          AssetDatabase.Refresh();
          GenerateFileIndex(outPath);
          CopyFiles(outPath,copyStreamAsset,copyToWeb);
          EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");
     }
+    static void BuildLuaBundle(BuildTarget target)
+    {
+        string projectPath= Application.dataPath.Replace("/Assets","");
+        string outPath = projectPath + "/" + AssetBundleConst.AssetBundleFolder ;
+            // 打包前先清空
+      //  FileUtil.DeleteDirectory(outPath);
+      //  FileUtil.CreateDirectorySafely(outPath);
+        try
+        {
+            LuaBundleAdd();
+            AssetDatabase.Refresh();
+            var option = BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DisableWriteTypeTree | BuildAssetBundleOptions.DeterministicAssetBundle;
+            BuildPipeline.BuildAssetBundles(outPath, abAllList.ToArray(), option, target);
+            abAllList.Clear();
+        }
+        finally
+        {
+            LuaTempDel();
+        }
+
+        // /*-------------------proto协议二进制文件打包----------------------*/
+        // string tempProtoPath = Application.dataPath + "/ScriptsLua/PB";
+        // string tempCmdpkgPath = tempProtoPath + "/Cmdpkg.bytes";
+        // string tempCmdpkgTargetPath = outPath + "/Cmdpkg.bytes";
+        // string tempMbPath = tempProtoPath + "/md.bytes";
+        // string tempMbTargetPath = outPath + "/md.bytes";
+        // File.Copy(tempCmdpkgPath.Replace("/", "\\"), tempCmdpkgTargetPath.Replace("/", "\\"), true);
+        // File.Copy(tempMbPath.Replace("/", "\\"), tempMbTargetPath.Replace("/", "\\"), true);
+        // /*-------------------proto协议二进制文件打包----------------------*/
+
+        // // 生成md5文件
+        // StringBuilder md5 = new StringBuilder();
+        // string path = outPath;
+        // foreach (var item in Directory.GetFiles(path, "*lua*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
+        // {
+        //     if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
+        //     FileInfo info = new FileInfo(item);
+        //     md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
+        // }
+
+        // /*-------------------proto协议二进制文件打包----------------------*/
+        // foreach (var item in Directory.GetFiles(path, "*bytes*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
+        // {
+        //     if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
+        //     FileInfo info = new FileInfo(item);
+        //     md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
+        // }
+        // /*-------------------proto协议二进制文件打包----------------------*/
+
+       // File.WriteAllText(outPath + "/lua_md5", md5.ToString());
+
+        Debug.Log("Lua包导出成功");
+    }
+    
+     static void LuaBundleAdd()
+    {
+        LuaBundleAdd("32");
+        LuaBundleAdd("64");
+    }
+    static  void LuaBundleAdd(string plat)
+    {
+            var luajitpath = Application.dataPath.Replace("\\", "/").Replace("/Assets", "/Luajit" + plat + "/Build.bat");
+            if (!File.Exists(luajitpath))
+            {
+                Debug.LogError(luajitpath + "该文件不存在");
+                EditorApplication.Exit(0);
+                return;
+            }
+          //  DebugLog.Log(Application.dataPath + "/_platform" + plat);
+            FileUtil.CreateDirectorySafely(Application.dataPath + "/_platform" + plat);
+            var savepaths = new List<string>();
+            var luapaths = EditorCommon.LuaPaths;
+            List<string> uList = null;
+            foreach (var luapath in luapaths)
+            {
+                 uList = new List<string>();
+                //"Assets/ToLua/Lua", "lua"
+                var select = luapath.Key;
+                var abName = luapath.Value;
+                List<string>  LuaPaths = new List<string>();
+                string[] assetPaths = AssetDatabase.GetAllAssetPaths();
+                 foreach (string path in assetPaths)
+                {
+                    if (path.StartsWith(luapath.Key) && path.EndsWith(".lua"))
+                    {
+                      LuaPaths.Add(path);
+                    }
+                }
+                for (var i = 0; i < LuaPaths.Count; i++)
+                {
+                    var item = LuaPaths[i];
+                    var nitem = item.Replace(luapath.Key + "/", "").Replace(".lua", "");
+                    var newname = "Assets/_platform" + plat + "/" + nitem + ".bytes";
+                    uList.Add(newname);
+                    string bpath= EditorCommon.realPathToAbsPath(newname);
+              //      DebugLog.Log(bpath);
+                    var savePath = bpath.Replace(".bytes", ".lua");
+                //    DebugLog.Log(savePath);
+                    //"E:/F_work/NgGunfire/Project/gunFire/Assets/_platform32/slot.lua"
+                    savepaths.Add(savePath);
+                    if (File.Exists(savePath))
+                    {
+                        Debug.LogError(Path.GetFileName(item) + "该文件有冲突");
+                        EditorApplication.Exit(0);
+                        return;
+                    }
+                    string  sourceP=EditorCommon.realPathToAbsPath(item);
+                    string  saveDp=FileUtil.GetPathDir(savePath);
+            //          DebugLog.Log("saveDp",saveDp);
+                    if (!Directory.Exists(saveDp))
+                    {
+                       FileUtil.CreateDir(saveDp);
+                    }
+                   // if()
+                    File.Copy(sourceP, savePath,true);
+                }
+                AssetBundleBuild ab = new AssetBundleBuild();
+                ab.assetBundleName =  abName + plat;
+                ab.assetNames = uList.ToArray();
+                abAllList.Add(ab);
+            }  
+            // Assets/_platform32 Assets/_platform64 
+            EditorCommon.StartCmd(luajitpath, EditorCommon.realPathToAbsPath("Assets/_platform" + plat));
+            foreach (var item in savepaths)
+            {
+                //E:/F_work/NgGunfire/Project/gunFire/Assets/_platform32/socket/http.lua
+                if (File.Exists(item + ".bytes"))
+                {
+                    File.Move(item + ".bytes", item.Replace(".lua", "") + ".bytes");
+                }
+                else
+                {
+                    File.Move(item, item.Replace(".lua", "") + ".bytes");
+                }
+            }
+        }
+        static void LuaTempDel()
+        {
+            FileUtil.DeleteDirectory(Application.dataPath + "/_platform32");
+            FileUtil.DeleteDirectory(Application.dataPath + "/_platform64");
+        }
+      static bool IsLuaPath(string path)
+    {
+        return (path.StartsWith(AssetBundleConst.LuaPath) 
+            || path.StartsWith(AssetBundleConst.ToLuaPath))
+            && path != AssetBundleConst.LuaEditorDebugFile
+            && path.EndsWith(".lua");
+    }
+
    static void GenerateFileIndex(string outPath)
     {
         string indexPath = Path.Combine(outPath, AssetBundleConst.AssetBundleFiles);
@@ -144,7 +294,7 @@ public class AppBuild {
             {
                 continue;
             }
-            string md5 = FileUtils.MD5File(fileInfo.FullName);
+            string md5 = FileUtil.MD5File(fileInfo.FullName);
             string fileName = fileInfo.Name;
             AssetBundleFileInfo bundleFileInfo = new AssetBundleFileInfo(fileName, md5, (ulong)fileInfo.Length);
             builder.AppendLine(bundleFileInfo.ToString());
@@ -161,20 +311,20 @@ public class AppBuild {
         if(copyStreamAsset){
             if (!Directory.Exists(localFolderPath))
             {
-            FileUtils.CreateDir(localFolderPath);
+            FileUtil.CreateDir(localFolderPath);
             }else{
-                FileUtils.ClearDirectory(localFolderPath);
+                FileUtil.ClearDirectory(localFolderPath);
             }
         }
         if(copyToWeb){
             if (!Directory.Exists(webPath))
             {
-               FileUtils.CreateDir(webPath);
+               FileUtil.CreateDir(webPath);
             }else{
-                FileUtils.ClearDirectory(webPath);
+                FileUtil.ClearDirectory(webPath);
             }
         }
-        FileUtils.ClearDirectory(signedOutputPath);
+        FileUtil.ClearDirectory(signedOutputPath);
         AssetDatabase.Refresh();
 
         string timestamp = GameUtils.ConvertUTCDateTimeToSecond(DateTime.Now).ToString();
@@ -212,7 +362,7 @@ public class AppBuild {
     static AssetBundleFileInfo GetConfigInfo(string outputPath, string fileName)
     {
         string filePath = Path.Combine(outputPath, fileName);
-        AssetBundleFileInfo configFileInfo = new AssetBundleFileInfo(fileName, FileUtils.MD5File(filePath), 1024);
+        AssetBundleFileInfo configFileInfo = new AssetBundleFileInfo(fileName, FileUtil.MD5File(filePath), 1024);
         return configFileInfo;
     }
 

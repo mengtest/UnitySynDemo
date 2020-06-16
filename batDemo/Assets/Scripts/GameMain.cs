@@ -4,11 +4,13 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-04-05 16:33:19
+ * @LastEditTime: 2020-06-16 20:09:48
  */
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Lua;
+using LuaInterface;
 using UnityEngine;
 
 public class GameMain : MonoSingleton<GameMain> {
@@ -16,15 +18,27 @@ public class GameMain : MonoSingleton<GameMain> {
     List<MonoBehaviour> _behaviourList = new List<MonoBehaviour>();
     private void Awake()
     {
+
+        Application.targetFrameRate = 30;
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+
         DontDestroyOnLoad(gameObject);
     }
 
 	// Use this for initialization
 	void Start () {
-		 StartCoroutine(StartInCoroutine());
+		StartCoroutine(StartInCoroutine());
 	}
     private IEnumerator StartInCoroutine()
     {
+        yield return new WaitForEndOfFrame();
+        Screen.orientation = ScreenOrientation.AutoRotation;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+
+
         DebugLog.addErrorLogCall(onGameError);
         InitManagers();
         yield return InitGameAsset();
@@ -48,8 +62,6 @@ public class GameMain : MonoSingleton<GameMain> {
     {
 		this.ResetManager();
 		 yield return InitGameAsset();
-
-   //       LuaManager.Instance.Restart();
 	}
 
 
@@ -64,9 +76,8 @@ public class GameMain : MonoSingleton<GameMain> {
      */
     void InitManagers()
     {
-       DebugLog.MaxLogLevel=LogLevel.LogLevel_Log;
+       DebugLog.setLogSwitcher(true,true,true);
       //  this.AddBehaviour<LogManager>();
- //     this.AddBehaviour<LuaManager>();
       this.AddBehaviour<PatchManager>();
       this.AddBehaviour<GameAssetManager>();
       GameAssetManager.Instance.setLocalUrlFun(PatchManager.Instance.GetSignedFileLocalURL);
@@ -77,8 +88,8 @@ public class GameMain : MonoSingleton<GameMain> {
 		//重置游戏管理者 OnRestartGame()
 	    GameAssetManager.Instance.OnRestartGame();
          //  FontManager.Instance.OnRestartGame();
- //       LuaManager.Instance.ClearSearchBundle();
-     //   LuaManager.Instance.CallFunction("DestroyGame");
+     //    LuaManager.Instance.ClearSearchBundle();
+   //     LuaManager.Instance.CallFunction("DestroyGame");
 	}
     private GameAssetRequest reqs;
 	IEnumerator InitGameAsset()
@@ -95,7 +106,7 @@ public class GameMain : MonoSingleton<GameMain> {
         {
             DebugLog.Log("isLoadRemoteAsset PatchManager.InitializePatch");
             //通过请求获得 这两个参数.或者 找serverList中解析
-           yield return PatchManager.Instance.InitializePatch("http://192.168.0.3:8080/web");
+           yield return PatchManager.Instance.InitializePatch("http://192.168.1.230:8080/web");
            if(PatchManager.Instance.needUpDownloadWeb){
                //需要更新.
                 PatchManager.Instance.UpdatePatch(onCompleteFun,null);
@@ -120,6 +131,12 @@ public class GameMain : MonoSingleton<GameMain> {
         StartCoroutine(startLogicCoroutine());
      }
     IEnumerator startLogicCoroutine(){
+        
+       //启动lua
+        this.AddBehaviour<LuaManager>();
+        yield return LuaManager.Instance.InitStart();
+
+
         AvatarChar avatar= GameExample.Instance.CreatAvatar();	  
         AvatarChar avatar2= GameExample.Instance.CreatAvatar();	  
         avatar.gameObject.transform.Translate(new Vector3(-50,0,0));
@@ -145,5 +162,17 @@ public class GameMain : MonoSingleton<GameMain> {
         avatar2.ChangeWeapon("Infility_weapon_01");
         avatar2.ChangeWeapon("",true);
     }
+    #if !UNITY_EDITOR
+        private void OnGUI()
+        {
+            GUILayout.Space(100);
 
+            if (GUILayout.Button("REPOORT", GUILayout.Width(60), GUILayout.Height(60)))
+            {
+                Reporter.Instance.doShow();
+            }
+
+
+        }
+    #endif
 }

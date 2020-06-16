@@ -1,12 +1,12 @@
 using LuaInterface;
+using System.Collections;
+using System.IO;
 using UnityEngine;
 namespace Lua
 {
-    class LuaManager : MonoBehaviour
+    class LuaManager : MonoSingleton<LuaManager>
     {
-        public static LuaManager instance;
         static LuaLooper loop;
-        static GameObject obj;
 
         private LuaFunction _ViewHelperShowMsgFunc;
         public LuaState lua
@@ -17,54 +17,91 @@ namespace Lua
         private static LuaTable mainTable = null;
 
         static bool ok = false;
-        public static void Init(string notice)
-        {
-            ok = false;
-            obj = new GameObject("lua");
-            instance = obj.AddComponent<LuaManager>();
-            DontDestroyOnLoad(obj);
 
-            var lua = new LuaState();
-            instance.lua = lua;
-            OpenLibs();
-            OpenCJson();
+        void Awake()
+        {
+
+        }
+         public IEnumerator InitStart()
+        {
+            if (GameSettings.Instance.useAssetBundle)
+            {
+                LuaFileUtils.Instance.beZip = true;
+                yield return GameAssetManager.Instance.LoadLuaBundle();
+            }
+            lua =new LuaState();
+            this.OpenLibs();
+            this.OpenCJson();
             lua.LuaSetTop(0);
-            lua.Start();
-            loop = obj.AddComponent<LuaLooper>();
-            loop.luaState = lua;
-            DelegateFactory.Init();
-            LuaBinder.Bind(lua);
-            
-            lua.Require("common/common");
-            mainTable = lua.Require<LuaTable>("Main");
-            mainTable.Call("Start", notice);
+            InitLuaPath();
+            this.StartMain();
         }
 
-        static void OpenLibs()
+
+        /// <summary>
+        /// 初始化加载第三方库
+        /// </summary>
+        private void OpenLibs()
         {
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb);
-            instance.lua.OpenLibs(LuaDLL.luaopen_struct);
-            instance.lua.OpenLibs(LuaDLL.luaopen_lpeg);
+            lua.OpenLibs(LuaDLL.luaopen_pb);
+            lua.OpenLibs(LuaDLL.luaopen_struct);
+            lua.OpenLibs(LuaDLL.luaopen_lpeg);
             //===========
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb_io);
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb_conv);
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb_buffer);
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb_slice);
-            instance.lua.OpenLibs(LuaDLL.luaopen_pb);
+            lua.OpenLibs(LuaDLL.luaopen_pb_io);
+            lua.OpenLibs(LuaDLL.luaopen_pb_conv);
+            lua.OpenLibs(LuaDLL.luaopen_pb_buffer);
+            lua.OpenLibs(LuaDLL.luaopen_pb_slice);
+            lua.OpenLibs(LuaDLL.luaopen_pb);
             //===========
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-            instance.lua.OpenLibs(LuaDLL.luaopen_bit);
+            lua.OpenLibs(LuaDLL.luaopen_bit);
 #endif
         }
 
-        static void OpenCJson()
+        //cjson 比较特殊，只new了一个table，没有注册库，这里注册一下
+        private void OpenCJson()
         {
-            instance.lua.LuaGetField(LuaIndexes.LUA_REGISTRYINDEX, "_LOADED");
-            instance.lua.OpenLibs(LuaDLL.luaopen_cjson);
-            instance.lua.LuaSetField(-2, "cjson");
+            lua.LuaGetField(LuaIndexes.LUA_REGISTRYINDEX, "_LOADED");
+            lua.OpenLibs(LuaDLL.luaopen_cjson);
+            lua.LuaSetField(-2, "cjson");
 
-            instance.lua.OpenLibs(LuaDLL.luaopen_cjson_safe);
-            instance.lua.LuaSetField(-2, "cjson.safe");
+            lua.OpenLibs(LuaDLL.luaopen_cjson_safe);
+            lua.LuaSetField(-2, "cjson.safe");
+        }
+
+        /// <summary>
+        /// 初始化Lua代码加载路径
+        /// </summary>
+        void InitLuaPath()
+        {
+            if (!GameSettings.Instance.useAssetBundle)
+            {
+                if(Application.isEditor)
+                {
+                    lua.AddSearchPath(Application.dataPath + "/Editor");
+                }
+                lua.AddSearchPath(LuaConst.luaDir);
+                lua.AddSearchPath(LuaConst.toluaDir);
+            }
+        }
+          void StartMain()
+        {
+            lua.Start();    //启动LUAVM
+            loop = gameObject.AddComponent<LuaLooper>();
+            loop.luaState = lua;
+            DelegateFactory.Init();
+            LuaBinder.Bind(lua);
+            lua.Require("common/common");
+            mainTable = lua.Require<LuaTable>("Main");
+            mainTable.Call("Start");
+        }
+        public LuaTable NewTable()
+        {
+            return lua.NewTable();
+        }
+        public void LuaGC()
+        {
+            lua.LuaGC(LuaGCOptions.LUA_GCCOLLECT);
         }
 
         private void OnApplicationFocus(bool focus)
@@ -127,11 +164,12 @@ namespace Lua
         {
             try
             {
-                obj = null;
-                if(loop)loop.Destroy();
+                if(loop){
+                    loop.Destroy();
+                }
+                loop=null;
                 lua.Dispose();
                 lua = null;
-                instance = null;
             }
             catch { }
         }

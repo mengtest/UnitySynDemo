@@ -260,10 +260,157 @@ public class FileUtil
         }
         return ret;
     }
-    public static void DelEmptyDir(string path)
-    {
-        if (Directory.Exists(path) && Directory.GetFiles(path, "*", SearchOption.AllDirectories).Length < 1)
-            Directory.Delete(path, true);
-    }
+        public static void DelEmptyDir(string path)
+        {
+            if (Directory.Exists(path) && Directory.GetFiles(path, "*", SearchOption.AllDirectories).Length < 1)
+                Directory.Delete(path, true);
+        }
 
+
+
+        public static void CreateDirectorySafely(string path)
+            {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+            }
+
+        public static void MoveFileSafely(string sourceFileName, string destFileName)
+        {
+            if (!File.Exists(sourceFileName))
+            {
+                DebugLog.Log("MoveFileSafely noFile: "+sourceFileName);
+                return;
+            }
+            if (File.Exists(destFileName))
+            {
+                File.Delete(destFileName);
+            }
+            File.Move(sourceFileName, destFileName);
+        }
+
+        public static void CopyDirectorySafely(string sourceDirName, string destDirName)
+        {
+            if (!Directory.Exists(sourceDirName))
+            {
+                return;
+            }
+            if (Directory.Exists(destDirName))
+            {
+                Directory.Delete(destDirName);
+            }
+            Directory.Move(sourceDirName, destDirName);
+        }
+
+        public static void MoveDirectorySafely(string sourceDirName, string destDirName)
+        {
+            if (!Directory.Exists(sourceDirName))
+            {
+                return;
+            }
+            if (Directory.Exists(destDirName))
+            {
+                Directory.Delete(destDirName);
+            }
+            Directory.Move(sourceDirName, destDirName);
+        }
+        public static void ClearDirectory(string directoryPath)
+        {
+            if(!Directory.Exists(directoryPath))
+            {
+                return;
+            }
+            string[] files = Directory.GetFiles(directoryPath);
+            foreach(string file in files)
+            {
+                File.Delete(file);
+            }
+            string[] directories = Directory.GetDirectories(directoryPath);
+            foreach(string directory in directories)
+            {
+                Directory.Delete(directory, true);
+            }
+        }
+
+        public static void CreateNewDirectory(string directoryPath)
+        {
+            if (Directory.Exists(directoryPath))
+            {
+                Directory.Delete(directoryPath, true);
+            }
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        public static void DeleteFileSafely(string path)
+        {
+            if(File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
+        public static void CreateDir(string strDir)
+        {
+            string strTemp = strDir.Replace("\\", "/");
+            if (!Directory.Exists(strTemp))
+            {
+                int pos = strDir.LastIndexOf('/');
+                if (pos == -1)
+                {
+                    Directory.CreateDirectory(strTemp);
+                }
+                else
+                {
+                    CreateDir(strTemp.Substring(0, pos));
+                    Directory.CreateDirectory(strTemp);
+                }
+            }
+        }
+        public static string GetPathDir(string path){
+              string strTemp = path.Replace("\\", "/");
+               int pos = path.LastIndexOf('/');
+                if (pos == -1)
+                {
+                    return path;
+                }else
+                {
+                     return strTemp.Substring(0, pos);
+                }
+        }
+
+          /************************************************************************/
+        /* 计算文件md5                                                          */
+        /************************************************************************/
+        public static string GetFileMD5(string path)
+        {
+            FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] bytes = md5.ComputeHash(file);
+            file.Close();
+            string md5str = System.BitConverter.ToString(bytes);
+            md5str = md5str.Replace("-", "");
+            md5str = md5str.ToLower();
+            return md5str;
+        }
+        /// <summary>
+        /// 计算文件的MD5值(只取中间16位)
+        /// </summary>
+        public static string MD5File(string file, bool shorten = true)
+        {
+            string md5Hash = string.Empty;
+            try
+            {
+                FileStream fs = new FileStream(file, FileMode.Open);
+                System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                byte[] retVal = md5.ComputeHash(fs);
+                fs.Close();
+                md5Hash = System.BitConverter.ToString(retVal).Replace("-", "").ToLower();
+                return shorten ? md5Hash.Substring(8, 16) : md5Hash;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("md5 file fail, error:" + ex.Message);
+            }
+        }
 }

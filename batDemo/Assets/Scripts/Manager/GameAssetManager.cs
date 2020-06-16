@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using System;
 using System.IO;
 using UnityObject = UnityEngine.Object;
+using Lua;
+using LuaInterface;
 
 public class GameAssetManager : MonoSingleton<GameAssetManager>
 {
@@ -34,10 +36,10 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
     float _maxCacheTime = 10;
     // 只在GameAssetManager重启游戏时才设为false
     bool _unloadAllLoadedObjects = true;
-
+    // AssetBundleConst AssetBundleFolder
     public static string ABManifest="res_android";
     public static string EditorResPath="Assets/Res/";
-    public bool debugLog=true;
+    public bool Log=true;
     public delegate string GetFileLocalURL(string fileName, bool isOrigin = false);
 
     private GetFileLocalURL getFileLocalURLFun=null;
@@ -99,35 +101,40 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
         }
     }
 
-    // public IEnumerator LoadLuaBundle()
-    // {
-    //     string manifestName = AssetBundleConst.LuaBundleManifestName;
-    //     if (_luaManifest != null)
-    //     {
-    //         UnloadBundleInternal(manifestName, true);
-    //         _luaManifest = null;
-    //     }
-    //     yield return LoadBundleInCoroutine(manifestName, BundleLoadType.Manifeset);
-    //     AssetBundleInfo bundleInfo = GetLoadedAssetBundle(manifestName);
-    //     if (bundleInfo != null)
-    //     {
-    //         _luaManifest = bundleInfo.assetBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-    //         foreach (string bundleName in _luaManifest.GetAllAssetBundles())
-    //         {
-    //             yield return LoadBundleInCoroutine(bundleName, BundleLoadType.LuaBundle);
-    //             bundleInfo = GetLoadedAssetBundle(bundleName);
-    //             if (bundleInfo != null)
-    //             {
-    //                 LuaManager.Instance.AddSearchBundle(bundleName, bundleInfo.assetBundle);
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         DebugLog.LogError("Load bundle failed:" + manifestName);
-    //     }
-    // }
+    public IEnumerator LoadLuaBundle()
+    {
+        string slpa = "32";
+        if (SystemIs64())
+        {
+            slpa = "64";
+        }
+        yield return LoadBundleInCoroutine(AssetBundleConst.ToLuaBundle + slpa, BundleLoadType.Singleton);
+        AssetBundleInfo bundleInfo = GetLoadedAssetBundle(AssetBundleConst.ToLuaBundle + slpa);
+        if (bundleInfo != null)
+        {
+            yield return LuaFileUtils.Instance.AddSearchBundle(bundleInfo.assetBundle);
+        }
+        else
+        {
+            DebugLog.LogError("Load bundle failed:" + AssetBundleConst.ToLuaBundle + slpa);
+        }
 
+        yield return LoadBundleInCoroutine(AssetBundleConst.LuaBundle + slpa, BundleLoadType.Singleton);
+
+        bundleInfo = GetLoadedAssetBundle(AssetBundleConst.LuaBundle + slpa);
+        if (bundleInfo != null)
+        {
+            yield return LuaFileUtils.Instance.AddSearchBundle(bundleInfo.assetBundle);
+        }
+        else
+        {
+            DebugLog.LogError("Load bundle failed:" + AssetBundleConst.LuaBundle + slpa);
+        }
+    }
+    public static bool SystemIs64()
+    {
+        return System.IntPtr.Size > 4;
+    }
 
     public void SetMaxCacheCount(int count)
     {
@@ -198,7 +205,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             //编辑器加载prefab.ogg 等其他文件.
             yield return new WaitForSeconds(0.1f);
             loadReqeust.asset = LoadGameAssetInEditor(loadReqeust.path, loadReqeust.assetType);
-            if(debugLog){
+            if(Log){
                 DebugLog.Log("LoadGameAssetInEditor :"+loadReqeust.path);
             }
         }
@@ -276,7 +283,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
         if (loadType == BundleLoadType.Manifeset)
         {
             webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url);
-            if(debugLog){
+            if(Log){
                 DebugLog.Log("LoadBundleInCoroutine Manifeset :"+url);
             }
         }
@@ -304,7 +311,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
                 }
             }
             webRequest = UnityWebRequestAssetBundle.GetAssetBundle(url, _manifest.GetAssetBundleHash(bundleName), 0);
-             if(debugLog){
+             if(Log){
                 DebugLog.Log("LoadBundleInCoroutine GetAssetBundle :"+url);
             }
         }

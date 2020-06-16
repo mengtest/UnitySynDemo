@@ -9,35 +9,39 @@ using UnityEngine.Internal;
 
 
 
-public enum LogLevel
-{
-    /// 输出信息
-    LogLevel_Info = 1,
-    /// 错误信息
-    LogLevel_Error = 2,
-    /// 警告信息
-    LogLevel_Warning = 3,
-    /// 跟踪信息
-    LogLevel_Log = 4,
-};
+
 
 public class DebugLog
 {
     private static Queue<string> m_LogQueue;
-    /// <summary>
-    /// 游戏报错
-    /// </summary>
-    public static string GAME_ERROR = "GAME_ERROR";
 
-    // 是否打开Log
-    static public bool EnableLog = true;
-    // 允许输出的最大Log等级
-    static public LogLevel MaxLogLevel = LogLevel.LogLevel_Log;
+	//普通log颜色
+	const string _LuaColor = "<color=green>[" + "Lua-";
+	const string _CSColor = "<color=green>[" + "CS-";
+	//const string redSysColor = "<color=red>[" + "SysTem-:";
+	//警告log颜色
+	const string _WarningLuaColor = "<color=yellow>[" + "Lua-";
+	const string _WarningCSColor = "<color=yellow>[" + "CS-";
+	//const string yellowSysColor = "[<color=yellow>" + "SysTem-:";
+	//错误log颜色
+	const string _ErrorLuaColor = "<color=red>[" + "Lua-";
+	const string _ErrorCSColor = "<color=red>[" + "CS-";
+	//const string colorSysColor = "<color=blue>[" + "SysTem-:";
+	const string _colorEnd = "]</color>  ";
+
     // 是否允许写log文件
     static public List<string> m_LogError = null;
     public delegate void gameErrorLogCall();
     static private gameErrorLogCall m_gameErrorLogFun;
    
+    static StringBuilder _sb = new StringBuilder();
+    public static bool needTime=true;
+    //普通log开关
+	public static bool isOpenLog = true;
+	//错误log开关
+	public static bool isOpenError = true;
+	//警告log开关
+	public static bool isOpenWarning = true;
 
     /// <summary>
     /// 一个错误回调
@@ -55,99 +59,175 @@ public class DebugLog
     {
 
     }
+    public static void setLogSwitcher(bool isOpenLog, bool isOpenError, bool isOpenWaring)
+	{
+		DebugLog.isOpenLog = isOpenLog;
+		DebugLog.isOpenError = isOpenError;
+		DebugLog.isOpenWarning = isOpenWaring;
+	}
 
-    static public void LogInfo(string strFormat,object message=null, params object[] args)
-    {
-        if (!EnableLog)
-        {
-            return;
+	public static void Log(params object[] logInfo)
+	{
+		if (logInfo == null || !isOpenLog)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		sb = _logBefore(_CSColor, sb.ToString());
+		_log(LogType.Log, _sb.ToString());
+	}	  
+	public static void LogError(params object[] logInfo)
+	{
+		if (logInfo == null || !isOpenError)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		sb = _logBefore(_ErrorCSColor, sb.ToString());
+		_log(LogType.Error, _sb.ToString());
+	}
+	public static void LogWarning(params object[] logInfo)
+	{
+		if (logInfo == null || !isOpenWarning)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		sb = _logBefore(_WarningCSColor, sb.ToString());
+		_log(LogType.Warning, _sb.ToString());
+	}
+
+	static StringBuilder _logObjectArr(params object[] logInfo)
+	{
+		_sb.Clear();
+		for (int i = 0; i < logInfo.Length; i++)
+		{
+			_sb.Append(logInfo[i] + "  ");
+		}
+		_sb.Remove(_sb.Length - 2, 2);
+		return _sb;
+	}
+	static StringBuilder _logBefore(string color,string logInfo, UnityEngine.Object obj = null)
+	{
+		if (logInfo == null)
+			return null;
+		//获取当前堆栈信息
+		StackTrace st = new StackTrace(true);
+		StackFrame[] sf = st.GetFrames();
+		string fileName;
+		try
+		{
+			string[] str = sf[2].GetFileName().Split('\\');
+			fileName = str[str.Length - 1] + ":" + sf[2].GetMethod().Name;
+		}
+		catch
+		{
+			//_log(LogType.Error, "找不到文件名");
+            fileName = "";
+			st = null;
+			//return null;
+		}
+		_sb.Clear();
+		st = null;
+		_sb.Append(color);
+		_sb.Append(fileName);
+		_sb.Append(_colorEnd);
+		_sb.Append(logInfo);
+        if(needTime){
+            DateTime now = DateTime.Now;
+            string strTime = string.Format(" - {0}-{1}-{2} {3}:{4}:{5}.{6:000}", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
+           _sb.Append(strTime);
         }
-        if (LogLevel.LogLevel_Info > MaxLogLevel)
-        {
-            return;
-        }
-        string strFileLine = "";
-        StackTrace insStackTrace = new StackTrace(true);
-        if (insStackTrace != null)
-        {
-            StackFrame insStackFrame = insStackTrace.GetFrame(1);
-            if (insStackFrame != null)
-            {
-                strFileLine = String.Format("{0}({1})", insStackFrame.GetFileName(), insStackFrame.GetFileLineNumber());
-                strFileLine = GetScriptFileName(strFileLine);
-            }
-        }
-        Log_s(LogLevel.LogLevel_Info, strFileLine, strFormat, message, args);
+		return _sb;
+	}
+	static void _log(LogType logType, string info,UnityEngine.Object obj =null)
+	{
+		if (logType == LogType.Log )
+		{
+			if(obj==null)
+				UnityEngine.Debug.Log(info);
+			else
+				UnityEngine.Debug.Log(info, obj);
+		}		
+		else if (logType == LogType.Error)
+		{
+			if (obj == null)
+				UnityEngine.Debug.LogError(info);
+			else
+				UnityEngine.Debug.LogError(info, obj);
+		}
+		else if (logType == LogType.Warning )
+		{
+			if (obj == null)
+				UnityEngine.Debug.LogWarning(info);
+			else
+				UnityEngine.Debug.LogWarning(info, obj);
+		}
+	}
+
+    public static void LogLua(string fileName,params object[] logInfo)
+	{
+      if (logInfo == null || !isOpenLog)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		Log_Lua(LogType.Log,fileName, _sb.ToString());
     }
-    static public void LogError(string strFormat,object message=null, params object[] args)
-    {
-        if (!EnableLog)
-        {
-            return;
-        }
-        if (LogLevel.LogLevel_Error > MaxLogLevel)
-        {
-            return;
-        }
-        string strFileLine = "";
-        StackTrace insStackTrace = new StackTrace(true);
-        if (insStackTrace != null)
-        {
-            StackFrame insStackFrame = insStackTrace.GetFrame(1);
-            if (insStackFrame != null)
-            {
-                strFileLine = String.Format("{0}({1})", insStackFrame.GetFileName(), insStackFrame.GetFileLineNumber());
-                strFileLine = GetScriptFileName(strFileLine);
-            }
-        }
-        Log_s(LogLevel.LogLevel_Error, strFileLine, strFormat,message, args);
+    public static void LogErrorLua(string fileName,params object[] logInfo)
+	{
+      if (logInfo == null || !isOpenError)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		Log_Lua(LogType.Error,fileName, _sb.ToString());
     }
-    static public void LogWarning(string strFormat,object message=null ,params object[] args)
-    {
-        if (!EnableLog)
-        {
-            return;
-        }
-        if (LogLevel.LogLevel_Warning > MaxLogLevel)
-        {
-            return;
-        }
-        string strFileLine = "";
-        StackTrace insStackTrace = new StackTrace(true);
-        if (insStackTrace != null)
-        {
-            StackFrame insStackFrame = insStackTrace.GetFrame(1);
-            if (insStackFrame != null)
-            {
-                strFileLine = String.Format("{0}({1})", insStackFrame.GetFileName(), insStackFrame.GetFileLineNumber());
-                strFileLine = GetScriptFileName(strFileLine);
-            }
-        }
-        Log_s(LogLevel.LogLevel_Warning, strFileLine, strFormat,message, args);
+    public static void LogWarningLua(string fileName,params object[] logInfo)
+	{
+      if (logInfo == null || !isOpenWarning)
+			return;
+		StringBuilder sb = _logObjectArr(logInfo);
+		Log_Lua(LogType.Warning,fileName, _sb.ToString());
     }
-    static public void Log(string strFormat,object message=null, params object[] args)
-    {
-        if (!EnableLog)
-        {
-            return;
+	/// <summary>
+	///  logolua
+	/// </summary>
+	/// <param name="log类型"></param>
+	/// <param name="信息所在文件名"></param>
+	/// <param name="打印信息"></param>
+	public static void Log_Lua(LogType logType, string fileName,string logInfo)
+	{
+		// if (fileName == null)
+		// 	return;
+		_sb.Clear();
+		string color = null;
+		if (logType == LogType.Log)
+		{
+			if (isOpenLog)
+				color = _LuaColor;
+			else
+				return;
+		}
+		else if (logType == LogType.Warning)
+		{
+			if (isOpenWarning)
+				color = _WarningLuaColor;
+			else
+				return;
+		}
+		else if (logType == LogType.Error)
+		{
+			if (isOpenError)
+				color = _ErrorLuaColor;
+			else
+				return;
+		}
+		_sb.Append(color);
+        if(fileName!=null){
+	    	_sb.Append(fileName);
+        }else{
+            _sb.Append("err fileName");
         }
-        if (LogLevel.LogLevel_Log > MaxLogLevel)
-        {
-            return;
+		_sb.Append(_colorEnd);
+		_sb.Append(logInfo);
+        if(needTime){
+            DateTime now = DateTime.Now;
+            string strTime = string.Format(" - {0}-{1}-{2} {3}:{4}:{5}.{6:000}", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
+           _sb.Append(strTime);
         }
-        string strFileLine = "";
-        StackTrace insStackTrace = new StackTrace(true);
-        if (insStackTrace != null)
-        {
-            StackFrame insStackFrame = insStackTrace.GetFrame(1);
-            if (insStackFrame != null)
-            {
-                strFileLine = String.Format("{0}({1})", insStackFrame.GetFileName(), insStackFrame.GetFileLineNumber());
-                strFileLine = GetScriptFileName(strFileLine);
-            }
-        }
-        Log_s(LogLevel.LogLevel_Log, strFileLine, strFormat,message, args);
-    }
+		_log(logType, _sb.ToString());
+	}
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 以下为私有接口
@@ -183,55 +263,6 @@ public class DebugLog
         }
     }
 
-    static private void Log_s(LogLevel level, string strFileLine, string strFormat, object message,params object[] args)
-    {
-        if (!EnableLog)
-        {
-            return;
-        }
-
-        if (level > MaxLogLevel)
-        {
-            return;
-        }
-
-        // 添加时间参数
-        DateTime now = DateTime.Now;
-        string strTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}.{6:000}", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
-        string strLog = "";
-        string strOutLog = args.Length > 0 ? string.Format(strFormat, args) : strFormat;
-        switch (level)
-        {
-            case LogLevel.LogLevel_Info:
-                strLog = string.Format("{0}{1} {2} - {3}", "[Info]", strOutLog, strFileLine, strTime);
-                UnityEngine.Debug.Log(strLog); 
-                if(message!=null){
-                     UnityEngine.Debug.Log(message);
-                }  
-                break;
-            case LogLevel.LogLevel_Log:
-                strLog = string.Format("{0}{1} {2} - {3}", "[Log]", strOutLog, strFileLine, strTime);
-                UnityEngine.Debug.Log(strLog);
-                if(message!=null){
-                     UnityEngine.Debug.Log(message);
-                }
-                break;
-            case LogLevel.LogLevel_Error:
-                strLog = string.Format("{0}{1} {2} - {3}", "[Error]", strOutLog, strFileLine, strTime);
-                UnityEngine.Debug.LogError(strLog);
-                if(message!=null){
-                   UnityEngine.Debug.LogError(message);
-                }
-                break;
-            case LogLevel.LogLevel_Warning:
-                strLog = string.Format("{0}{1} {2} - {3}", "[Warning]", strOutLog, strFileLine, strTime);
-                UnityEngine.Debug.LogWarning(strLog);
-                if(message!=null){
-                     UnityEngine.Debug.LogWarning(message);
-                }
-                break;
-        }
-    }
 
     // 不常用接口
     public static void Break()

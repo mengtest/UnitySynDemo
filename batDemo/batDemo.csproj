@@ -600,7 +600,7 @@
     <Compile Include="Assets\Scripts\Common\AssetBundleFileInfo.cs" />
     <Compile Include="Assets\Scripts\Common\AssetBundleFileManifest.cs" />
     <Compile Include="Assets\Scripts\Common\CenterStarInt.cs" />
-    <Compile Include="Assets\Scripts\Common\DebugLog.cs" />
+    <Compile Include="Assets\Scripts\Common\Log.cs" />
     <Compile Include="Assets\Scripts\Common\FileEx.cs" />
     <Compile Include="Assets\Scripts\Common\FileUtils.cs" />
     <Compile Include="Assets\Scripts\Common\GameUtils.cs" />

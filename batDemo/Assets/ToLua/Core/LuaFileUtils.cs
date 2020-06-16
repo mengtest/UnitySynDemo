@@ -107,15 +107,19 @@ namespace LuaInterface
             return false;
         }
 
-        public void AddSearchBundle(AssetBundle bundle)
+        public IEnumerator AddSearchBundle(AssetBundle bundle)
         {
             var files = bundle.GetAllAssetNames();
             foreach (var f in files)
             {
-                var fileName = f.Split(new[] { "/_platform32/", "/_platform64/" } ,System.StringSplitOptions.None).Last().Replace(".bytes", ".lua");
+                 var fileName = f.Split(new[] { "/_platform32/", "/_platform64/" } ,System.StringSplitOptions.None).Last().Replace(".bytes", ".lua");
                 zipMap[fileName.ToLower()] = bundle.LoadAsset<TextAsset>(f).bytes;
+                AssetBundleRequest request = bundle.LoadAssetAsync<TextAsset>(f);
+                yield return request;
+               // Debugger.Log(request.asset);
+                zipMap[fileName.ToLower()] = (request.asset  as TextAsset).bytes;
             }
-            bundle.Unload(true);
+        //    bundle.Unload(true);
         }
 
         public string FindFile(string fileName)

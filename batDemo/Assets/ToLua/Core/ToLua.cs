@@ -217,7 +217,7 @@ namespace LuaInterface
                         }
                     }
 					if(fileName!=null)
-						Log.logLua(LogType.Log, fileName, sb.ToString());
+						DebugLog.Log_Lua(LogType.Log,sb.ToString(),fileName);
 					else
 						UnityEngine.Debug.Log(sb.ToString());            //203行与_line一致
 				}
@@ -290,7 +290,7 @@ namespace LuaInterface
                         }
                     }
 					if (fileName != null)
-						Log.logLua(LogType.Warning, fileName, sb.ToString());
+						DebugLog.Log_Lua(LogType.Warning, fileName, sb.ToString());
 					else
 						UnityEngine.Debug.Log(sb.ToString());
 				}
@@ -361,7 +361,7 @@ namespace LuaInterface
                         }
                     }
 					if (fileName != null)
-						Log.logLua(LogType.Error, fileName, sb.ToString());
+						DebugLog.Log_Lua(LogType.Error, fileName, sb.ToString());
 					else
 						UnityEngine.Debug.Log(sb.ToString());
 				}

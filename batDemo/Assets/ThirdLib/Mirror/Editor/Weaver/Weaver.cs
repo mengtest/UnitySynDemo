@@ -38,7 +38,7 @@ namespace Mirror.Weaver
         public static bool GenerateLogErrors { get; set; }
 
         // private properties
-        static readonly bool DebugLogEnabled = true;
+        static readonly bool LogEnabled = true;
 
         // Network types
         public static TypeReference NetworkBehaviourType;
@@ -135,7 +135,7 @@ namespace Mirror.Weaver
 
         public static void DLog(TypeDefinition td, string fmt, params object[] args)
         {
-            if (!DebugLogEnabled)
+            if (!LogEnabled)
                 return;
 
             Console.WriteLine("[" + td.Name + "] " + string.Format(fmt, args));

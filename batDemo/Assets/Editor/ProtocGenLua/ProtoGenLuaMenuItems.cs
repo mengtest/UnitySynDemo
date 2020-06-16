@@ -10,7 +10,7 @@ public class ProtoGenLuaMenuItems
 {
     static List<string> files = new List<string>();
 
-    [MenuItem("PBµ¼³ö¹¤¾ß/´ò¿ªPBÎÄ¼şÎ»ÖÃ")]
+    [MenuItem("PBå¯¼å‡ºå·¥å…·/æ‰“å¼€PBæ–‡ä»¶ä½ç½®")]
     public static void OpenDirForPb()
     {
         OpenDirectory(Application.dataPath.Replace("Assets", "Tools/GameProto"), false);
@@ -43,7 +43,7 @@ public class ProtoGenLuaMenuItems
             }
             else
             {
-                Log.logError("No Directory: " + path);
+                DebugLog.LogError("No Directory: " + path);
                 return;
             }
         }
@@ -54,22 +54,22 @@ public class ProtoGenLuaMenuItems
         path = path.Replace("/", "\\");
         return path;
     }
-    [MenuItem("PBµ¼³ö¹¤¾ß/Build Protobuf-lua-gen File Ö÷¸É")]
+    [MenuItem("PBå¯¼å‡ºå·¥å…·/Build Protobuf-lua-gen File ä¸»å¹²")]
     public static void BuildProtobufFileMain()
     {
         _BuildProtoFile("/main");
     }
-    [MenuItem("PBµ¼³ö¹¤¾ß/Build Protobuf-lua-gen File çÑÊ÷½­")]
+    [MenuItem("PBå¯¼å‡ºå·¥å…·/Build Protobuf-lua-gen File ç¼ªæ ‘æ±Ÿ")]
     public static void BuildProtobufFileMSJ()
     {
         _BuildProtoFile("/msj");
     }
-    [MenuItem("PBµ¼³ö¹¤¾ß/Build Protobuf-lua-gen File É£ÖÁºé")]
+    [MenuItem("PBå¯¼å‡ºå·¥å…·/Build Protobuf-lua-gen File æ¡‘è‡³æ´ª")]
     public static void BuildProtobufFileSZH()
     {
         _BuildProtoFile("/szh");
     }
-    [MenuItem("PBµ¼³ö¹¤¾ß/Build Protobuf-lua-gen File Åíè¡")]
+    [MenuItem("PBå¯¼å‡ºå·¥å…·/Build Protobuf-lua-gen File å½­ç›")]
     public static void BuildProtobufFilePC()
     {
         _BuildProtoFile("/pc");
@@ -77,22 +77,22 @@ public class ProtoGenLuaMenuItems
 
     private static void _BuildProtoFile(string canPath)
     {
-        _CheckMd5Boo = EditorUtility.DisplayDialog("µ¼³öPorotÌáÊ¾", "ÊÇ·ñÑ¡ÔñÊ¹ÓÃÔöÁ¿¸üĞÂ", "YES", "NO");
+        _CheckMd5Boo = EditorUtility.DisplayDialog("å¯¼å‡ºPorotæç¤º", "æ˜¯å¦é€‰æ‹©ä½¿ç”¨å¢é‡æ›´æ–°", "YES", "NO");
 
-        EditorUtility.DisplayProgressBar("Protoµ¼³ö", "¿ªÊ¼µ¼³ö", 0.1f);
+        EditorUtility.DisplayProgressBar("Protoå¯¼å‡º", "å¼€å§‹å¯¼å‡º", 0.1f);
 
         string AppDataPath = Application.dataPath;
         string dir = AppDataPath + "/ScriptsLua/PB";
         //string pbPath = Application.dataPath.Replace("Assets", "") + "Tools/GameProto";
-        string pluginPath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//protoµÄ¹¤¾ßÎ»ÖÃ
-        string protoExePath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//protoµÄ¹¤¾ßÎ»ÖÃ
-        //string serverPath = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/proto/ProtoSource/";//Ò»¿ªÊ¼Ê¹ÓÃµÄprotoËùÔÚÎ»ÖÃ
-        string serverPath2 = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/vendor/sparkgame.com/gframe/protoSource";//ºóÀ´Ôö¼ÓµÄÎ»ÖÃĞÅÏ¢
+        string pluginPath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//protoçš„å·¥å…·ä½ç½®
+        string protoExePath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//protoçš„å·¥å…·ä½ç½®
+        //string serverPath = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/proto/ProtoSource/";//ä¸€å¼€å§‹ä½¿ç”¨çš„protoæ‰€åœ¨ä½ç½®
+        string serverPath2 = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/vendor/sparkgame.com/gframe/protoSource";//åæ¥å¢åŠ çš„ä½ç½®ä¿¡æ¯
         string serverPath3 = Application.dataPath.Replace("Assets", "Tools") + "/GameProto"+ canPath;
 
         files.Clear();
 
-        EditorUtility.DisplayProgressBar("Protoµ¼³ö", "¼ì²âÎÄ¼şÄÚÈİ", 0.3f);
+        EditorUtility.DisplayProgressBar("Protoå¯¼å‡º", "æ£€æµ‹æ–‡ä»¶å†…å®¹", 0.3f);
 
         //List<ProtoFileInfo> tempFileInfoList = _GetProtoFiles(serverPath,serverPath2);
         List<ProtoFileInfo> tempFileInfoList = _GetProtoFilesForFloder(serverPath3, serverPath2);
@@ -141,7 +141,7 @@ public class ProtoGenLuaMenuItems
         //    files = _NoCheckMd5(tempFileInfoList);
         //}
 
-        //EditorUtility.DisplayProgressBar("Protoµ¼³ö", "µ¼³ö¸÷¸öproto¶ÔÓ¦µÄluaÎÄ¼ş", 0.5f);
+        //EditorUtility.DisplayProgressBar("Protoå¯¼å‡º", "å¯¼å‡ºå„ä¸ªprotoå¯¹åº”çš„luaæ–‡ä»¶", 0.5f);
 
         //string protoc = string.Empty;
         //string protoc_gen_dir = string.Empty;
@@ -190,32 +190,32 @@ public class ProtoGenLuaMenuItems
         //    pro.WaitForExit();
         //}
 
-        EditorUtility.DisplayProgressBar("Protoµ¼³ö", "¿ªÊ¼»ñÈ¡protoÎÄ¼şÄÚÈİ£¬ÖØĞ´pb_list", 0.7f);
+        EditorUtility.DisplayProgressBar("Protoå¯¼å‡º", "å¼€å§‹è·å–protoæ–‡ä»¶å†…å®¹ï¼Œé‡å†™pb_list", 0.7f);
 
         Dictionary<string, List<ProtoFileData>> tempFileDataList = _GetProtoFileContext(tempFileInfoList);
 
         _Writepb_list(tempFileInfoList, tempFileDataList);
 
-        EditorUtility.DisplayProgressBar("Protoµ¼³ö", "ÖØĞ´pb_listÍê±Ï", 0.99f);
+        EditorUtility.DisplayProgressBar("Protoå¯¼å‡º", "é‡å†™pb_listå®Œæ¯•", 0.99f);
 
         EditorUtility.ClearProgressBar();
 
         AssetDatabase.Refresh();
 
-        EditorUtility.DisplayDialog("Íê³É", "µ¼³öprotoµÄluaÎÄ¼şÍê³É", "OK");
+        EditorUtility.DisplayDialog("å®Œæˆ", "å¯¼å‡ºprotoçš„luaæ–‡ä»¶å®Œæˆ", "OK");
     }
 
     /// <summary>
-    /// pb_list.luaÂ·¾¶
+    /// pb_list.luaè·¯å¾„
     /// </summary>
     private static string _Md5FilePath = "Assets/ScriptsLua/PB/pb_list.lua";
     /// <summary>
-    /// ÊÇ·ñÊ¹ÓÃMD5ÔöÁ¿¸üĞÂ
+    /// æ˜¯å¦ä½¿ç”¨MD5å¢é‡æ›´æ–°
     /// </summary>
     private static bool _CheckMd5Boo = true;
 
     /// <summary>
-    /// ¼ì²âÎÄ¼şµÄMD5Öµ½øĞĞ¸üĞÂ
+    /// æ£€æµ‹æ–‡ä»¶çš„MD5å€¼è¿›è¡Œæ›´æ–°
     /// </summary>
     private static List<string> _CheckFileMd5(List<ProtoFileInfo> canFileInfos)
     {
@@ -262,7 +262,7 @@ public class ProtoGenLuaMenuItems
     }
 
     /// <summary>
-    /// ²»¼ì²âÎÄ¼şMD5
+    /// ä¸æ£€æµ‹æ–‡ä»¶MD5
     /// </summary>
     private static List<string> _NoCheckMd5(List<ProtoFileInfo> canFileInfos)
     {
@@ -275,9 +275,9 @@ public class ProtoGenLuaMenuItems
     }
 
     /// <summary>
-    /// »ñÈ¡ËùÓĞµÄ·şÎñÆ÷¶ËProtoÎÄ¼şĞÅÏ¢
+    /// è·å–æ‰€æœ‰çš„æœåŠ¡å™¨ç«¯Protoæ–‡ä»¶ä¿¡æ¯
     /// </summary>
-    /// <param name="canDataPath">·şÎñ¶ËProtoÎÄ¼ş¼ĞÂ·¾¶</param>
+    /// <param name="canDataPath">æœåŠ¡ç«¯Protoæ–‡ä»¶å¤¹è·¯å¾„</param>
     private static List<ProtoFileInfo> _GetProtoFiles(string canDataPath,string canDataPath2)
     {
         List<ProtoFileInfo> tempReturnList = new List<ProtoFileInfo>();
@@ -352,7 +352,7 @@ public class ProtoGenLuaMenuItems
     }
 
     /// <summary>
-    /// Í¨¹ıÎÄ¼şĞÅÏ¢½«ÀïÃæµÄÄÚÈİ×ª»»³ÉĞèÒªÊ¹ÓÃµÄ¸ñÊ½
+    /// é€šè¿‡æ–‡ä»¶ä¿¡æ¯å°†é‡Œé¢çš„å†…å®¹è½¬æ¢æˆéœ€è¦ä½¿ç”¨çš„æ ¼å¼
     /// </summary>
     private static Dictionary<string, List<ProtoFileData>> _GetProtoFileContext(List<ProtoFileInfo> canFileInfos)
     {
@@ -364,26 +364,26 @@ public class ProtoGenLuaMenuItems
             string all = sr.ReadToEnd();
             string[] tempLines = all.Split('\n');
 
-            //ÏÂÒ»¸öÊÇ·ñÊÇ´óÀàĞÍ×¢ÊÍ
+            //ä¸‹ä¸€ä¸ªæ˜¯å¦æ˜¯å¤§ç±»å‹æ³¨é‡Š
             bool tempNextNoteBoo = false;
-            //ÏÂÒ»¸öÊÇ·ñÊÇ´óÀàĞÍÀàĞÍ
+            //ä¸‹ä¸€ä¸ªæ˜¯å¦æ˜¯å¤§ç±»å‹ç±»å‹
             bool tempNextMessageBoo = false;
 
-            //ÏÂÒ»¸öÊÇ·ñÊÇĞ¡ÀàĞÍÀàĞÍ
+            //ä¸‹ä¸€ä¸ªæ˜¯å¦æ˜¯å°ç±»å‹ç±»å‹
             bool tempNextType = false;
-            //ÏÂÒ»¸öÊÇ·ñÊÇĞ¡ÀàĞÍÃû×Ö
+            //ä¸‹ä¸€ä¸ªæ˜¯å¦æ˜¯å°ç±»å‹åå­—
             bool tempNextTypeName = false;
-            //ÏÂÒ»¸öÊÇ·ñÊÇĞ¡ÀàĞÍ×¢ÊÍ
+            //ä¸‹ä¸€ä¸ªæ˜¯å¦æ˜¯å°ç±»å‹æ³¨é‡Š
             bool tempNextTypeNote = false;
-            //ÉÏÒ»´ÎÊÇ·ñ»ñÈ¡Ğ¡ÀàĞÍ×¢ÊÍ
+            //ä¸Šä¸€æ¬¡æ˜¯å¦è·å–å°ç±»å‹æ³¨é‡Š
             bool tempLastGetNextTypeNote = false;
 
-            //ÊÇ·ñ»ñÈ¡Ò»¸öĞ¡ÀàĞÍ½áÊø
+            //æ˜¯å¦è·å–ä¸€ä¸ªå°ç±»å‹ç»“æŸ
             bool tempNextGetTypeEndBoo = false;
-            //ÊÇ·ñ»ñÈ¡ÍêÒ»¸ö´óÀàĞÍ½áÊø
+            //æ˜¯å¦è·å–å®Œä¸€ä¸ªå¤§ç±»å‹ç»“æŸ
             bool tempNextGetMessageEndBoo = false;
 
-            //ÊÇ·ñÌí¼Ó½øÃ¶¾ÙÀàĞÍ×¢½âÀïÃæ
+            //æ˜¯å¦æ·»åŠ è¿›æšä¸¾ç±»å‹æ³¨è§£é‡Œé¢
             bool tempIsEnumTypeBoo = false;
 
             ProtoFileData curProtoData = new ProtoFileData();
@@ -391,9 +391,9 @@ public class ProtoGenLuaMenuItems
             string tempMsgNote = "";
             string tempTypeNote = "";
             string tempType = "";
-            foreach (string tempCurLine in tempLines)//±éÀúËùÓĞĞĞ
+            foreach (string tempCurLine in tempLines)//éå†æ‰€æœ‰è¡Œ
             {
-                if (tempNextGetMessageEndBoo)//ÅĞ¶ÏÊÇ²»ÊÇ´óÀàĞÍ½áÊø£¬½áÊø¾Í´´½¨Ò»¸öĞÂµÄÀàĞÍĞÅÏ¢Àà
+                if (tempNextGetMessageEndBoo)//åˆ¤æ–­æ˜¯ä¸æ˜¯å¤§ç±»å‹ç»“æŸï¼Œç»“æŸå°±åˆ›å»ºä¸€ä¸ªæ–°çš„ç±»å‹ä¿¡æ¯ç±»
                 {
                     curProtoData = new ProtoFileData();
                     curProtoData.fileName = tempFileInfo.fileName;
@@ -401,32 +401,32 @@ public class ProtoGenLuaMenuItems
                 }
                 char[] tempChar = { ' ', '\t' };
                 string tempReplaceStr = tempCurLine.Replace('=', ' ');
-                string[] tempStr = tempReplaceStr.Split(tempChar, options: StringSplitOptions.RemoveEmptyEntries);//¸ù¾İ¿Õ¸ñÇĞ·ÖĞĞÄÚÄÚÈİ
-                ///ÇĞ¸î³öÀ´µÄ×îºóÒ»¸ö×Ö¶Î
+                string[] tempStr = tempReplaceStr.Split(tempChar, options: StringSplitOptions.RemoveEmptyEntries);//æ ¹æ®ç©ºæ ¼åˆ‡åˆ†è¡Œå†…å†…å®¹
+                ///åˆ‡å‰²å‡ºæ¥çš„æœ€åä¸€ä¸ªå­—æ®µ
                 int tempLineEnd = tempStr.Length - 1;
-                for (int i = 0; i < tempStr.Length; i++)//±éÀúÇĞ·ÖµÄĞĞÄÚÄÚÈİ
+                for (int i = 0; i < tempStr.Length; i++)//éå†åˆ‡åˆ†çš„è¡Œå†…å†…å®¹
                 {
                     string tempValue = tempStr[i].Trim();
                     string tempValue2 = tempStr[i];
-                    if (tempValue == string.Empty) continue;//¿Õ¼ÌĞø
+                    if (tempValue == string.Empty) continue;//ç©ºç»§ç»­
 
                     if (tempValue == "repeated")
                         continue;
 
-                    #region ´óĞÍ×¢ÊÍ
-                    if (tempValue == "//" && !tempNextType)//ÊÇ·ñµÈÓÚ¡°//¡±£¬²¢ÇÒ²»ÊÇĞ¡ÀàĞÍ»ñÈ¡Ê±ºò£¬½øÈë´óÀàĞÍ×¢ÊÍ»ñÈ¡
+                    #region å¤§å‹æ³¨é‡Š
+                    if (tempValue == "//" && !tempNextType)//æ˜¯å¦ç­‰äºâ€œ//â€ï¼Œå¹¶ä¸”ä¸æ˜¯å°ç±»å‹è·å–æ—¶å€™ï¼Œè¿›å…¥å¤§ç±»å‹æ³¨é‡Šè·å–
                     {
-                        if (i != tempLineEnd)//ÅĞ¶Ï²¢ÇÒ²»ÊÇ×îºóÒ»ĞĞ£¬¿ªÆô´óĞÍ×¢ÊÍ
+                        if (i != tempLineEnd)//åˆ¤æ–­å¹¶ä¸”ä¸æ˜¯æœ€åä¸€è¡Œï¼Œå¼€å¯å¤§å‹æ³¨é‡Š
                         {
                             tempNextNoteBoo = true;
                         }
                         continue;
                     }
 
-                    if(tempValue.IndexOf("//") >= 0 && !tempNextType)//ÅĞ¶ÏÊÇ·ñ´øÓĞ¡°//¡±£¬²¢ÇÒ²»ÊÇĞ¡ÀàĞÍ»ñÈ¡Ê±ºò£¬½øÈë´óÀàĞÍ×¢ÊÍ»ñÈ¡
+                    if(tempValue.IndexOf("//") >= 0 && !tempNextType)//åˆ¤æ–­æ˜¯å¦å¸¦æœ‰â€œ//â€ï¼Œå¹¶ä¸”ä¸æ˜¯å°ç±»å‹è·å–æ—¶å€™ï¼Œè¿›å…¥å¤§ç±»å‹æ³¨é‡Šè·å–
                     {
                         tempMsgNote = tempMsgNote + tempValue.Replace("//", "");
-                        if (i == tempLineEnd)//ÊÇ·ñµ½ÁË×îºóÒ»¸ö×Ö¶Î£¬È»ºó¹Ø±Õ´óĞÍ×¢ÊÍ
+                        if (i == tempLineEnd)//æ˜¯å¦åˆ°äº†æœ€åä¸€ä¸ªå­—æ®µï¼Œç„¶åå…³é—­å¤§å‹æ³¨é‡Š
                         {
                             curProtoData.messageNote = tempMsgNote;
                             tempMsgNote = string.Empty;
@@ -438,7 +438,7 @@ public class ProtoGenLuaMenuItems
                     if (tempNextNoteBoo)
                     {
                         tempMsgNote = tempMsgNote + tempValue.Replace("//", "");
-                        if (i == tempLineEnd)//ÊÇ·ñµ½ÁË×îºóÒ»¸ö×Ö¶Î£¬È»ºó¹Ø±Õ´óĞÍ×¢ÊÍ
+                        if (i == tempLineEnd)//æ˜¯å¦åˆ°äº†æœ€åä¸€ä¸ªå­—æ®µï¼Œç„¶åå…³é—­å¤§å‹æ³¨é‡Š
                         {
                             curProtoData.messageNote = tempMsgNote;
                             tempMsgNote = string.Empty;
@@ -449,21 +449,21 @@ public class ProtoGenLuaMenuItems
                     #endregion
 
 
-                    if (tempValue == "message")//ÅĞ¶ÏÊÇ·ñÊÇ´óĞÍÀàĞÍ
+                    if (tempValue == "message")//åˆ¤æ–­æ˜¯å¦æ˜¯å¤§å‹ç±»å‹
                     {
                         tempNextMessageBoo = true;
                         tempIsEnumTypeBoo = false;
                         continue;
                     }
 
-                    if(tempValue == "enum")//ÅĞ¶ÏÊÇ·ñÊÇ´óĞÍÃ¶¾ÙÀàĞÍ
+                    if(tempValue == "enum")//åˆ¤æ–­æ˜¯å¦æ˜¯å¤§å‹æšä¸¾ç±»å‹
                     {
                         tempNextMessageBoo = true;
                         tempIsEnumTypeBoo = true;
                         continue;
                     }
 
-                    if (tempNextMessageBoo)//´æÈë´óĞÍÀàĞÍ£¬²¢ÇÒ¿ªÆôĞ¡ĞÍÀàĞÍ
+                    if (tempNextMessageBoo)//å­˜å…¥å¤§å‹ç±»å‹ï¼Œå¹¶ä¸”å¼€å¯å°å‹ç±»å‹
                     {
                         tempNextMessageBoo = false;
                         curProtoData.messageName = tempValue.Replace("{", "");
@@ -477,13 +477,13 @@ public class ProtoGenLuaMenuItems
                         continue;
                     }
 
-                    if (tempValue == "}")//ÅĞ¶ÏÊÇ·ñÒÑ¾­Ñ­»·ÁËÒ»¸ö´óĞÍÀàĞÍµÄËùÓĞ
+                    if (tempValue == "}")//åˆ¤æ–­æ˜¯å¦å·²ç»å¾ªç¯äº†ä¸€ä¸ªå¤§å‹ç±»å‹çš„æ‰€æœ‰
                     {
                         if (tempNextType)
                         {
                             tempNextType = false;
                             tempNextGetMessageEndBoo = true;
-                            if (tempIsEnumTypeBoo)//¸ù¾İÀàĞÍ»¹ÊÇÃ¶¾ÙÀ´´æÈëÊı¾İ
+                            if (tempIsEnumTypeBoo)//æ ¹æ®ç±»å‹è¿˜æ˜¯æšä¸¾æ¥å­˜å…¥æ•°æ®
                             {
                                 tempReturnProtoEnumFileData.Add(curProtoData);
                             }
@@ -494,16 +494,16 @@ public class ProtoGenLuaMenuItems
                         }
                     }
 
-                    if (tempNextType && tempNextGetTypeEndBoo)//ÅĞ¶ÏÊÇ·ñ¿ªÆôĞ¡ĞÍÀàĞÍ£¬ÒÔ¼°ÊÇ·ñ»ñÈ¡ÍêÒ»¸öĞ¡ĞÍÀàĞÍ
+                    if (tempNextType && tempNextGetTypeEndBoo)//åˆ¤æ–­æ˜¯å¦å¼€å¯å°å‹ç±»å‹ï¼Œä»¥åŠæ˜¯å¦è·å–å®Œä¸€ä¸ªå°å‹ç±»å‹
                     {
-                        if(tempValue == "//")//ÅĞ¶ÏÊÇ·ñµÈÓÚ¡°//¡±£¬ÊÇ·ñ¿ªÆôĞ¡ĞÍ×¢ÊÍ£¬
+                        if(tempValue == "//")//åˆ¤æ–­æ˜¯å¦ç­‰äºâ€œ//â€ï¼Œæ˜¯å¦å¼€å¯å°å‹æ³¨é‡Šï¼Œ
                         {
                             tempNextTypeNote = true;
                             tempLastGetNextTypeNote = true;
                             continue;
                         }
 
-                        if (tempValue.IndexOf("//") >= 0)//ÅĞ¶ÏÊÇ·ñ´øÓĞ¡°//¡±£¬ÊÇ·ñ¿ªÆôĞ¡ĞÍ×¢ÊÍ£¬
+                        if (tempValue.IndexOf("//") >= 0)//åˆ¤æ–­æ˜¯å¦å¸¦æœ‰â€œ//â€ï¼Œæ˜¯å¦å¼€å¯å°å‹æ³¨é‡Šï¼Œ
                         {
                             tempNextTypeNote = true;
                             tempLastGetNextTypeNote = true;
@@ -512,21 +512,21 @@ public class ProtoGenLuaMenuItems
                             //{
                             //    tempNextTypeNote = false;
                             //}
-                            if (i==tempLineEnd)//ÅĞ¶ÏÊÇ·ñÊÇ×îºóÒ»¸ö×Ö¶Î£¬¹Ø±ÕĞ¡ĞÍ×¢ÊÍ
+                            if (i==tempLineEnd)//åˆ¤æ–­æ˜¯å¦æ˜¯æœ€åä¸€ä¸ªå­—æ®µï¼Œå…³é—­å°å‹æ³¨é‡Š
                             {
                                 tempNextTypeNote = false;
                             }
                             continue;
                         }
 
-                        if (tempNextTypeNote)//Èç¹û¿ªÆôĞ¡ĞÍ×¢ÊÍ£¬¼ÌĞøÌí¼Ó×¢ÊÍ
+                        if (tempNextTypeNote)//å¦‚æœå¼€å¯å°å‹æ³¨é‡Šï¼Œç»§ç»­æ·»åŠ æ³¨é‡Š
                         {
                             tempTypeNote = tempTypeNote + tempValue;
                             //if (tempValue2.IndexOf("\r") >= 0)
                             //{
                             //    tempNextTypeNote = false;
                             //}
-                            if (i == tempLineEnd)//ÅĞ¶ÏÊÇ·ñÊÇ×îºóÒ»¸ö×Ö¶Î£¬¹Ø±ÕĞ¡ĞÍ×¢ÊÍ
+                            if (i == tempLineEnd)//åˆ¤æ–­æ˜¯å¦æ˜¯æœ€åä¸€ä¸ªå­—æ®µï¼Œå…³é—­å°å‹æ³¨é‡Š
                             {
                                 tempNextTypeNote = false;
                             }
@@ -619,7 +619,7 @@ public class ProtoGenLuaMenuItems
     }
 
     /// <summary>
-    /// Í¨¹ıÎÄ¼şĞÅÏ¢£¬ÖØĞÂ±àĞ´pb_listÎÄ¼ş
+    /// é€šè¿‡æ–‡ä»¶ä¿¡æ¯ï¼Œé‡æ–°ç¼–å†™pb_listæ–‡ä»¶
     /// </summary>
     private static bool _Writepb_list(List<ProtoFileInfo> canFileInfos, Dictionary<string, List<ProtoFileData>> canFileDatas)
     {
@@ -705,7 +705,7 @@ public class ProtoGenLuaMenuItems
                 {
                     sw.WriteLine("    ---@type string " + tempNote);
                     sw.WriteLine("    [" + tempCMDFileData.messageTypeName[i] + "] = \"md." + tempWriteName + "\",");
-                    sw.WriteLine("    ---@type string " + tempNote + " ·şÎñ¶Ë·µ»Ø");
+                    sw.WriteLine("    ---@type string " + tempNote + " æœåŠ¡ç«¯è¿”å›");
                     sw.WriteLine("    [-" + tempCMDFileData.messageTypeName[i] + "] = \"md." + tempWriteName + "Rsp\",");
                 }
             }
@@ -762,47 +762,47 @@ public class ProtoGenLuaMenuItems
     }
 
     /// <summary>
-    /// protoÎÄ¼şĞÅÏ¢
+    /// protoæ–‡ä»¶ä¿¡æ¯
     /// </summary>
     public class ProtoFileInfo
     {
         /// <summary>
-        /// ÎÄ¼şÃû
+        /// æ–‡ä»¶å
         /// </summary>
         public string fileName;
         /// <summary>
-        /// ÎÄ¼şÂ·¾¶
+        /// æ–‡ä»¶è·¯å¾„
         /// </summary>
         public string filePath;
         /// <summary>
-        /// ÎÄ¼şMD5Öµ
+        /// æ–‡ä»¶MD5å€¼
         /// </summary>
         public string md5Str;
     }
 
     /// <summary>
-    /// protoÎÄ¼şÄÚĞÅÏ¢
+    /// protoæ–‡ä»¶å†…ä¿¡æ¯
     /// </summary>
     public class ProtoFileData
     {
         /// <summary>
-        /// ËùÔÚÎÄ¼şÃû
+        /// æ‰€åœ¨æ–‡ä»¶å
         /// </summary>
         public string fileName;
         /// <summary>
-        /// Ğ­ÒéÃû
+        /// åè®®å
         /// </summary>
         public string messageName;
         /// <summary>
-        /// Ğ­Òé×¢ÊÍ
+        /// åè®®æ³¨é‡Š
         /// </summary>
         public string messageNote;
         /// <summary>
-        /// Ğ­ÒéÄÚ²ÎÊıÀàĞÍÁĞ±í
+        /// åè®®å†…å‚æ•°ç±»å‹åˆ—è¡¨
         /// </summary>
         public List<string> messageType = new List<string>();
         /// <summary>
-        /// Ğ­ÒéÄÚ²ÎÊıÃûÁĞ±í
+        /// åè®®å†…å‚æ•°ååˆ—è¡¨
         /// </summary>
         public List<string> messageTypeName = new List<string>();
 
