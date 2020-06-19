@@ -8,7 +8,7 @@ function Main.Start(str)
   
     Main.initLogSwitcher()
     --初始化全局游戏对象
-    log("Game start   hello ~~~~~~~~father~~~~~~~~~~~~~~~~")
+    log("Game start   hello ~~~~~~~~fatherer~~~~~~~~~~~~~~~~")
  --   local gameCls = require("Game.Game")
  --   gGame = gameCls:new()
  --   gGame:start()

@@ -1,7 +1,7 @@
 using System;
 
 [AttributeUsage(AttributeTargets.Class|AttributeTargets.Enum, AllowMultiple = false)]
-//×Ô¶¯×¢²áclassµ½lua
+//è‡ªåŠ¨æ³¨å†Œclassåˆ°lua
 public class AutoRegistLuaAttribute : Attribute
 {
 

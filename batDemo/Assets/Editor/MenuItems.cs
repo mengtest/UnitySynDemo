@@ -235,4 +235,64 @@ public  class MenuItems
     {
           AppBuild.DependenciesBuild(false,true);
     }
+        /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 一键清除所有依赖
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/Lua(外网包)-copyWeb", false, 202)]
+    static void luaBuildCopyWeb()
+    {
+          AppBuild.onlyLua(false,true);
+    }
+        /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 一键清除所有依赖
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/Lua(打包)-copyStreamAssets", false, 203)]
+    static void luaBuildcopyStreamAssets()
+    {
+          AppBuild.onlyLua(false,true);
+    }
+     /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 一键清除所有依赖
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/Lua(打包)", false, 201)]
+    static void luaBuild()
+    {
+          AppBuild.onlyLua(false,true);
+    }
+    /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 一键清除所有依赖
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/拷贝到StreamAssets", false, 401)]
+    static void CopyStreamAssets()
+    {
+          AppBuild.copyFiles(true,false);
+    }
+        /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 一键清除所有依赖
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/拷贝到Web", false, 402)]
+    static void CopyWeb()
+    {
+          AppBuild.copyFiles(false,true);
+    }
 }

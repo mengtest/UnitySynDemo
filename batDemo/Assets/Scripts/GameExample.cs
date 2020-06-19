@@ -4,8 +4,9 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-03-02 14:16:47
+ * @LastEditTime: 2020-06-18 17:00:10
  */
+using System.Collections;
 using UnityEngine;
 
 public class GameExample : SingletonT<GameExample> {
@@ -42,29 +43,32 @@ public class GameExample : SingletonT<GameExample> {
              reqs = null;
          }
     }
-    // IEnumerator startLogicCoroutine(){
-    //     AvatarChar avatar= GameExample.Instance.CreatAvatar();	  
-    //     AvatarChar avatar2= GameExample.Instance.CreatAvatar();	  
-    //     avatar2.gameObject.transform.Translate(new Vector3(100,0,0));
-    //     yield return new WaitForSeconds(5);
-    //     avatar.ChangePart("Infility_limb_01");
-    //     avatar2.ChangePart("Infility_limb_02");
-    //     yield return new WaitForSeconds(1);
-    //     avatar.ChangePart("Infility_body_02");
-    //     avatar2.ChangePart("Infility_body_01");
-    //     yield return new WaitForSeconds(1);
-    //     avatar.ChangePart("Infility_head_02");
-    //     avatar2.ChangePart("Infility_head_02");
-    //     yield return new WaitForSeconds(1);
-    //     avatar.ChangeWeapon("Infility_weapon_01");
-    //     avatar2.ChangeWeapon("Infility_weapon_03");
-    //     yield return new WaitForSeconds(5);
-    //     avatar.ChangeWeapon("Infility_weapon_02_01");
-    //     avatar.ChangeWeapon("Infility_weapon_02_02",true);
-    //     yield return new WaitForSeconds(5);
-    //     avatar.ChangeWeapon("Infility_weapon_03");
-    //     avatar.ChangeWeapon("",true);
-    // }
+    IEnumerator startLogicCoroutine(){
+        AvatarChar avatar= GameExample.Instance.CreatAvatar();	  
+        AvatarChar avatar2= GameExample.Instance.CreatAvatar();	  
+        avatar.gameObject.transform.Translate(new Vector3(-50,0,0));
+        avatar2.gameObject.transform.Translate(new Vector3(50,0,0));
+        yield return 0;
+        avatar.ChangePart("Infility_limb_01");
+        avatar2.ChangePart("Infility_limb_02");
+        yield return new WaitForSeconds(0.5f);
+        avatar.ChangePart("Infility_body_02");
+        avatar2.ChangePart("Infility_body_01");
+        yield return new WaitForSeconds(1);
+        avatar.ChangePart("Infility_head_02");
+        avatar2.ChangePart("Infility_head_02");
+        yield return new WaitForSeconds(2);
+        avatar.ChangeWeapon("Infility_weapon_01");
+        avatar2.ChangeWeapon("Infility_weapon_03");
+        yield return new WaitForSeconds(10);
+        avatar.ChangeWeapon("Infility_weapon_02_01");
+        avatar.ChangeWeapon("Infility_weapon_02_02",true);
+        yield return new WaitForSeconds(10);
+        avatar.ChangeWeapon("Infility_weapon_03");
+        avatar.ChangeWeapon("",true);
+        avatar2.ChangeWeapon("Infility_weapon_01");
+        avatar2.ChangeWeapon("",true);
+    }
     public AvatarChar CreatAvatar(){       
          GameObject obj1=new GameObject();
          obj1.transform.parent=null;

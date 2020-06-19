@@ -123,15 +123,44 @@ public class AppBuild {
          {
              EditorUtility.DisplayDialog("完成", "资源打包完成", "OK");
          }
-        BuildLuaBundle(platform);
+         BuildLuaBundle();
        //  RenameManifest(outPath, AssetBundleConst.BundleManifestName);
          AssetDatabase.Refresh();
          GenerateFileIndex(outPath);
          CopyFiles(outPath,copyStreamAsset,copyToWeb);
          EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");
     }
-    static void BuildLuaBundle(BuildTarget target)
+    public  static void onlyLua(bool copyStreamAsset,bool copyToWeb){
+         string projectPath= Application.dataPath.Replace("/Assets","");
+         string outPath = projectPath + "/" + AssetBundleConst.AssetBundleFolder ;
+         BuildLuaBundle();
+         GenerateFileIndex(outPath);
+         CopyFiles(outPath,copyStreamAsset,copyToWeb);
+        EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");
+    }
+     public  static void copyFiles(bool copyStreamAsset,bool copyToWeb){
+         string projectPath= Application.dataPath.Replace("/Assets","");
+         string outPath = projectPath + "/" + AssetBundleConst.AssetBundleFolder ;
+         GenerateFileIndex(outPath);
+         CopyFiles(outPath,copyStreamAsset,copyToWeb);
+        EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");
+    }
+    static void BuildLuaBundle()
     {
+
+         BuildTarget platform;
+         switch (AssetBundleConst.platformID)
+         {
+             case 0:
+                 platform = BuildTarget.Android;
+                 break;
+             case 1:
+                 platform = BuildTarget.iOS;
+                 break;
+             default:
+                 platform = BuildTarget.StandaloneWindows64;
+                 break;
+         }
         string projectPath= Application.dataPath.Replace("/Assets","");
         string outPath = projectPath + "/" + AssetBundleConst.AssetBundleFolder ;
             // 打包前先清空
@@ -142,7 +171,7 @@ public class AppBuild {
             LuaBundleAdd();
             AssetDatabase.Refresh();
             var option = BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DisableWriteTypeTree | BuildAssetBundleOptions.DeterministicAssetBundle;
-            BuildPipeline.BuildAssetBundles(outPath, abAllList.ToArray(), option, target);
+            BuildPipeline.BuildAssetBundles(outPath, abAllList.ToArray(), option, platform);
             abAllList.Clear();
         }
         finally

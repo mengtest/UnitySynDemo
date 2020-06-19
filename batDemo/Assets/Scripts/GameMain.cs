@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-06-16 20:09:48
+ * @LastEditTime: 2020-06-18 17:00:33
  */
 using System;
 using System.Collections;
@@ -135,32 +135,7 @@ public class GameMain : MonoSingleton<GameMain> {
        //启动lua
         this.AddBehaviour<LuaManager>();
         yield return LuaManager.Instance.InitStart();
-
-
-        AvatarChar avatar= GameExample.Instance.CreatAvatar();	  
-        AvatarChar avatar2= GameExample.Instance.CreatAvatar();	  
-        avatar.gameObject.transform.Translate(new Vector3(-50,0,0));
-        avatar2.gameObject.transform.Translate(new Vector3(50,0,0));
-        yield return 0;
-        avatar.ChangePart("Infility_limb_01");
-        avatar2.ChangePart("Infility_limb_02");
-        yield return new WaitForSeconds(0.5f);
-        avatar.ChangePart("Infility_body_02");
-        avatar2.ChangePart("Infility_body_01");
-        yield return new WaitForSeconds(1);
-        avatar.ChangePart("Infility_head_02");
-        avatar2.ChangePart("Infility_head_02");
-        yield return new WaitForSeconds(2);
-        avatar.ChangeWeapon("Infility_weapon_01");
-        avatar2.ChangeWeapon("Infility_weapon_03");
-        yield return new WaitForSeconds(10);
-        avatar.ChangeWeapon("Infility_weapon_02_01");
-        avatar.ChangeWeapon("Infility_weapon_02_02",true);
-        yield return new WaitForSeconds(10);
-        avatar.ChangeWeapon("Infility_weapon_03");
-        avatar.ChangeWeapon("",true);
-        avatar2.ChangeWeapon("Infility_weapon_01");
-        avatar2.ChangeWeapon("",true);
+            
     }
     #if !UNITY_EDITOR
         private void OnGUI()
