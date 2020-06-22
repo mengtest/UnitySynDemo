@@ -110,9 +110,10 @@ public class ShootBehaviour : GenericBehaviour
 	private void Update()
 	{
 		// Handle shoot weapon action.
-		if (Input.GetAxisRaw(shootButton) != 0 && !isShooting && activeWeapon > 0 && burstShotCount == 0)
+        //DebugLog.Log("shootButton GetButton",Input.GetButton(shootButton));
+		if (Input.GetButton(shootButton) && !isShooting && activeWeapon > 0 && burstShotCount == 0&& isAiming)
 		{
-			isShooting = true;
+            isShooting = true;
 			ShootWeapon(activeWeapon);
 		}
 		else if (isShooting && Input.GetAxisRaw(shootButton) == 0)
@@ -166,10 +167,12 @@ public class ShootBehaviour : GenericBehaviour
 		// Check conditions to shoot.
 		if (!isAiming || isAimBlocked || behaviourManager.GetAnim.GetBool(reloadBool) || !weapons[weapon].Shoot(firstShot))
 		{
+         //    DebugLog.Log("isAiming",isAiming);
 			return;
 		}
 		else
 		{
+       //     DebugLog.Log("ShootWeapon");
 			// Update parameters: burst count, trigger for animation, crosshair change and recoil camera bounce.
 			burstShotCount++;
 			behaviourManager.GetAnim.SetTrigger(shootingTrigger);

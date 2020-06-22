@@ -5,6 +5,7 @@ using System.Collections;
 public class AimBehaviour : GenericBehaviour
 {
 	public string aimButton = "Aim", shoulderButton = "Aim Shoulder";     // Default aim and switch shoulders buttons.
+    public string shootButton = "Fire1";
 	public Texture2D crosshair;                                           // Crosshair texture.
 	public float aimTurnSmoothing = 0.15f;                                // Speed of turn response when aiming to match camera facing.
 	public Vector3 aimPivotOffset = new Vector3(0.5f, 1.2f,  0f);         // Offset to repoint the camera when aiming.
@@ -39,11 +40,11 @@ public class AimBehaviour : GenericBehaviour
 		peekCorner = behaviourManager.GetAnim.GetBool(cornerBool);
 
 		// Activate/deactivate aim by input.
-		if (Input.GetAxisRaw(aimButton) != 0 && !aim)
+		if ((Input.GetAxisRaw(aimButton) != 0||Input.GetAxisRaw(shootButton) != 0) && !aim)
 		{
 			StartCoroutine(ToggleAimOn());
 		}
-		else if (aim && Input.GetAxisRaw(aimButton) == 0)
+		else if (aim && Input.GetAxisRaw(aimButton) == 0 && Input.GetAxisRaw(shootButton) == 0)
 		{
 			StartCoroutine(ToggleAimOff());
 		}
