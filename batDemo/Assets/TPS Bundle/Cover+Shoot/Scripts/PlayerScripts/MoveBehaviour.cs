@@ -3,8 +3,11 @@
 // MoveBehaviour inherits from GenericBehaviour. This class corresponds to basic walk and run behaviour, it is the default behaviour.
 public class MoveBehaviour : GenericBehaviour
 {
+    //移动
 	public float walkSpeed = 0.15f;                 // Default walk speed.
-	public float runSpeed = 1.0f;                   // Default run speed.
+	//跑
+    public float runSpeed = 1.0f;                   // Default run speed.
+    //冲刺
 	public float sprintSpeed = 2.0f;                // Default sprint speed.
 	public float speedDampTime = 0.1f;              // Default damp time to change the animations based on current speed.
 	public string jumpButton = "Jump";              // Default jump button.
@@ -117,6 +120,7 @@ public class MoveBehaviour : GenericBehaviour
 		Vector2 dir = new Vector2(horizontal, vertical);
 		speed = Vector2.ClampMagnitude(dir, 1f).magnitude;
 		// This is for PC only, gamepads control speed via analog stick.
+     //   DebugLog.Log("Mouse ScrollWheel",Input.GetAxis("Mouse ScrollWheel"));
 		speedSeeker += Input.GetAxis("Mouse ScrollWheel");
 		speedSeeker = Mathf.Clamp(speedSeeker, walkSpeed, runSpeed);
 		speed *= speedSeeker;

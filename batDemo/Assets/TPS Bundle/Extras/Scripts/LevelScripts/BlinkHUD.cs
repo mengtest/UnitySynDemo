@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+//using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 // This class is created for the example scene. There is no support for this script.
@@ -15,8 +15,8 @@ public class BlinkHUD : MonoBehaviour
 	private int colorGradeFactor = 1;
 	private bool blink, lastTime;
 
-	private ColorGrading colorGradingLayer;
-	private Bloom bloomLayer;
+	//private ColorGrading colorGradingLayer;
+	//private Bloom bloomLayer;
 	private float dyingSaturation;
 	private float dyingBrightness;
 
@@ -29,17 +29,17 @@ public class BlinkHUD : MonoBehaviour
 		gameObject.SetActive(false);
 		dyingSaturation = -30f;
 		dyingBrightness = -10f;
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<PostProcessVolume>().profile.TryGetSettings(out colorGradingLayer);
-		GameObject.FindGameObjectWithTag("GameController").GetComponent<PostProcessVolume>().profile.TryGetSettings(out bloomLayer);
+	//	GameObject.FindGameObjectWithTag("GameController").GetComponent<PostProcessVolume>().profile.TryGetSettings(out colorGradingLayer);
+	//	GameObject.FindGameObjectWithTag("GameController").GetComponent<PostProcessVolume>().profile.TryGetSettings(out bloomLayer);
 	}
 
     void Update()
     {
 		if (blink)
 		{
-			colorGradingLayer.saturation.value = Mathf.Lerp(0, dyingSaturation, colorGradeTimer / blinkFadeStep);
-			colorGradingLayer.brightness.value = Mathf.Lerp(0, dyingBrightness, colorGradeTimer / blinkFadeStep);
-			bloomLayer.intensity.value = Mathf.Lerp(0, 7f, colorGradeTimer / blinkFadeStep);
+	//		colorGradingLayer.saturation.value = Mathf.Lerp(0, dyingSaturation, colorGradeTimer / blinkFadeStep);
+	//		colorGradingLayer.brightness.value = Mathf.Lerp(0, dyingBrightness, colorGradeTimer / blinkFadeStep);
+		//	bloomLayer.intensity.value = Mathf.Lerp(0, 7f, colorGradeTimer / blinkFadeStep);
 
 			colorGradeTimer += colorGradeFactor * Time.deltaTime;
 
@@ -72,8 +72,8 @@ public class BlinkHUD : MonoBehaviour
 
 	public void ApplyRespawnFilter()
 	{
-		colorGradingLayer.saturation.value = -40;
-		colorGradingLayer.brightness.value = 0;
-		bloomLayer.intensity.value = 0;
+//		colorGradingLayer.saturation.value = -40;
+//		colorGradingLayer.brightness.value = 0;
+//		bloomLayer.intensity.value = 0;
 	}
 }

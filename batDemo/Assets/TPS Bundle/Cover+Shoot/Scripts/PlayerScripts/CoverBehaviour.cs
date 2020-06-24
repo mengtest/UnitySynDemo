@@ -474,7 +474,7 @@ public class CoverBehaviour : GenericBehaviour
 			else
 				behaviourManager.GetRigidBody.AddForce (-100 * coverWall.normal, ForceMode.Acceleration);
 		}
-
+         //锁摄像机
 		// Make the camera follows the player when orientation is changing (turning corners or rounded covers).
 		if (behaviourManager.IsHorizontalMoving ())
 			behaviourManager.GetCamScript.LockOnDirection (-coverWall.normal);

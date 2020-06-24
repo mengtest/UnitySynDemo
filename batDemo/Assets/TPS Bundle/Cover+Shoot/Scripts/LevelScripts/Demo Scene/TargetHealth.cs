@@ -7,7 +7,7 @@ public class TargetHealth : HealthManager
 	public AudioClip toggleSound;
 
 	private Vector3 targetRotation;
-	private float health, totalHealth = 80;
+	private float health, totalHealth = 100;
 	private RectTransform healthBar;
 	private float originalBarScale;
 

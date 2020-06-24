@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-06-18 17:00:33
+ * @LastEditTime: 2020-06-24 10:02:38
  */
 using System;
 using System.Collections;
@@ -132,8 +132,15 @@ public class GameMain : MonoSingleton<GameMain> {
      }
     IEnumerator startLogicCoroutine(){
         
-       //启动lua
+       //启动lua   
         this.AddBehaviour<LuaManager>();
+          //完全  热更方案
+        //1. 通过lua  做UI  驱动 服务器CS执行命令 反馈 客户端 动作表现  单向发送命令  UDP     服务器 单向 推送同步 UDP
+         //2. 客户端 只存在 动作 事件与执行  还有渲染  最大减少性能开销 ps:优化 可以客户端先做移动 然后服务器数据去lerp 也行. 
+         //3. 服务器 做逻辑  移动逻辑 开枪逻辑  同步结果   (因为移动逻辑开销其实不大, 50人同时做移动其实还好, 射击逻辑开销也很小 同时开枪频率不高)
+         //4.  AI逻辑 behaviorDesginer 去做. 可以通过服务器实现 最多 同时 AI最大数 25人 消耗应该不大.
+         //5. 共开25个房间  50人异常   1250 人 场 人均同时在线 800  4核8G  5000链接 
+         
         yield return LuaManager.Instance.InitStart();
             
     }

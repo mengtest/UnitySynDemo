@@ -41,12 +41,13 @@ public class Footsteps : MonoBehaviour
 		float factor = 0.15f;
 		if(anim.GetBool(coverBool) || anim.GetBool(aimBool))
 		{
+            //蹲下 crouch  并且 没有肩射
 			if (anim.GetFloat(crouchFloat) < 0.5f && !anim.GetBool(aimBool))
 				factor = 0.17f;
 			else
 				factor = 0.11f;
 		}
-
+     // DebugLog.Log("anim.velocity.magnitude",anim.velocity.magnitude);
 		if(grounded && anim.velocity.magnitude > 1.6f)
 		{
 			oldDist = maxDist;
@@ -57,6 +58,7 @@ public class Footsteps : MonoBehaviour
 					maxDist = dist > maxDist ? dist : maxDist;
 					if (dist <= factor)
 					{
+                    DebugLog.Log("LEFT dist",dist ,"maxDist",maxDist);
 						PlayFootStep();
 						step = Foot.RIGHT;
 					}
@@ -66,6 +68,7 @@ public class Footsteps : MonoBehaviour
 					maxDist = dist > maxDist ? dist : maxDist;
 					if (dist <= factor)
 					{
+                     DebugLog.Log("RIGHT dist",dist ,"maxDist",maxDist);
 						PlayFootStep();
 						step = Foot.LEFT;
 					}

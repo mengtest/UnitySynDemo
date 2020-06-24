@@ -1,0 +1,9 @@
+{
+  "materials":[
+    "110"
+  ],
+  "bones":[
+    "Bip001 L Hand",
+    "Bip001 L Forearm"
+  ]
+}

@@ -18,6 +18,7 @@ public class BasicBehaviour : MonoBehaviour
 	private Vector3 lastDirection;                        // Last direction the player was moving.
 	private Animator anim;                                // Reference to the Animator component.
 	private ThirdPersonOrbitCam camScript;                // Reference to the third person camera script.
+    //冲刺.
 	private bool sprint;                                  // Boolean to determine whether or not the player activated the sprint mode.
 	private bool changedFOV;                              // Boolean to store when the sprint action has changed de camera FOV.
 	private int hFloat;                                   // Animator variable related to Horizontal Axis.
@@ -260,7 +261,7 @@ public class BasicBehaviour : MonoBehaviour
 
 	// Common functions to any behaviour:
 
-	// Check if player is sprinting.
+	// Check if player is sprinting. 冲刺
 	public virtual bool IsSprinting()
 	{
 		return sprint && IsMoving() && CanSprint();

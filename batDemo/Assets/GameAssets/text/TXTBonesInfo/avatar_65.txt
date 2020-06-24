@@ -1,0 +1,32 @@
+{
+  "materials":[
+    "65"
+  ],
+  "bones":[
+    "Bone01",
+    "Bone13",
+    "Bone14",
+    "Bip001 Pelvis",
+    "Bip001 Spine",
+    "Bip001 Spine1",
+    "Bip001 L Thigh",
+    "Bip001 L UpperArm",
+    "Bip001 R Thigh",
+    "Bone29",
+    "Bone30",
+    "Bone05",
+    "Bone10",
+    "Bone09",
+    "Bip001 R UpperArm",
+    "Bone25",
+    "Bone31",
+    "Bone26",
+    "Bone27",
+    "Bip001 L Clavicle",
+    "Bip001 L Forearm",
+    "Bip001 R Clavicle",
+    "Bip001 R Forearm",
+    "Bip001 L Hand",
+    "Bip001 R Hand"
+  ]
+}

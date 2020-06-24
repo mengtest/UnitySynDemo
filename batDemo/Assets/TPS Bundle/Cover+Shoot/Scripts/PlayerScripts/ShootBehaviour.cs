@@ -308,7 +308,7 @@ public class ShootBehaviour : GenericBehaviour
 		SetWeaponCrosshair(newWeapon > 0);
 	}
 
-	// Handle the shot parameters during its lifetime.
+	// Handle the shot parameters during its lifetime. Decay衰变
 	private void ShotDecay()
 	{
 		// Update parameters on imminent shot death.

@@ -16,7 +16,7 @@ public class HintManagement : MonoBehaviour
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
-		manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<ControlsTutorial> ();
+		manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<ControlsTutorial>();
 	}
 
 	void OnTriggerEnter(Collider other)

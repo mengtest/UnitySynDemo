@@ -31,7 +31,7 @@ public class ShowLuaInspectorRect : Editor
 		//if(isShow)
 		if (!_isHasLuaScript())
 		{
-			if (GUILayout.Button("ï¿½ï¿½ï¿½Ó½Å±ï¿½"))
+			if (GUILayout.Button("Ìí¼Ó½Å±¾"))
 			{
 				_generateLuaScript();
 			}
@@ -58,11 +58,11 @@ public class ShowLuaInspectorRect : Editor
 				//name = name.Replace(" ", "");
 				sb.AppendLine("---@class " + name + " : BaseView");
 				sb.AppendLine("local " + name + " = createView(\""+ name + "\")");
-				sb.AppendLine("--ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ë²»ÒªÐ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
-				//ï¿½ï¿½ï¿½ï¿½function:init
+				sb.AppendLine("--×Ô¶¯Éú³É£¬Âß¼­´úÂë²»ÒªÐ´ÔÚÕâÀï");
+				//Ìí¼Ófunction:init
 				sb.AppendLine("function " + name + ":Init()");
 				sb.AppendLine("end\n");
-				//ï¿½ï¿½ï¿½ï¿½functionï¿½ï¿½baseCreateView()
+				//Ìí¼Ófunction£ºbaseCreateView()
 				sb.AppendLine("function " + name + ":baseCreateView()");
 				sb.AppendLine("end\n");
 				sb.AppendLine("return " + name);
@@ -347,7 +347,7 @@ class LuaObject
             Regex r = new Regex(@"self\." + name + @"([^\w\d_])");
             if (r.IsMatch(text))
             {
-                DebugLog.LogError(string.Format("ï¿½ï¿½luaï¿½Ä¼ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª{0}ï¿½Ä±ï¿½ï¿½ï¿½", name));
+                DebugLog.LogError(string.Format("¸ÃluaÎÄ¼þÒÑ¾­ÓÐÁËÃûÎª{0}µÄ±äÁ¿", name));
                 name = oldname;
                 oldname = "";
                 return;
@@ -481,7 +481,7 @@ class DrawLuaInspector
                 {
                     change = false;
                     //if (luatext != "")
-                    //    if (EditorUtility.DisplayDialog("ï¿½ï¿½ï¿½ï¿½luaï¿½Ä¼ï¿½", "luaï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½,ï¿½Ç·ñ±£´ï¿½?", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"))
+                    //    if (EditorUtility.DisplayDialog("±£³ÖluaÎÄ¼þ", "luaÎÄ¼þÓÐÐÞ¸Ä,ÊÇ·ñ±£´æ?", "±£´æ", "²»±£´æ"))
                     //    {
                     //        UpdateLua(true);
                     //    }
@@ -572,7 +572,7 @@ class DrawLuaInspector
     {
         if (count == 3)
         {
-            GUILayout.Label(Path.GetFileNameWithoutExtension(path) + " ï¿½ï¿½luaï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            GUILayout.Label(Path.GetFileNameWithoutExtension(path) + " ¸ÃluaÎÄ¼þÓÐÖØÃû");
         }
         else if (count == 1)
         {
@@ -580,11 +580,11 @@ class DrawLuaInspector
             GUILayout.Space(10);
             GUILayout.BeginHorizontal();
             GUILayout.Label("LuaScript:" + Path.GetFileNameWithoutExtension(path));
-            if (GUILayout.Button("Ñ¡ï¿½ï¿½"))
+            if (GUILayout.Button("Ñ¡ÖÐ"))
             {
                 Selection.activeInstanceID = asset.GetInstanceID();
             }
-            //if (GUILayout.Button("ï¿½ï¿½"))
+            //if (GUILayout.Button("´ò¿ª"))
             //{
             //    string editorPath = OpenLuaHelper.SubLimePath();
             //    System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -647,8 +647,8 @@ class DrawLuaInspector
 			}
 			UpdateLua();
 			//stopwatch.Stop();
-			//DebugLog.LogError("Onenableï¿½ï¿½Ê±ï¿½ï¿½" + count+"---" + stopwatch.ElapsedMilliseconds);
-			//GUILayout.Label("ï¿½ï¿½ï¿½ï¿½Â¼ï¿½");
+			//Log.logError("OnenableºÄÊ±£º" + count+"---" + stopwatch.ElapsedMilliseconds);
+			//GUILayout.Label("µã»÷ÊÂ¼þ");
 			//foreach (var item in luaobjs.Where(x => x.isClick && x.Obj != null))
 			//{
 			//    GUILayout.BeginHorizontal();
@@ -672,14 +672,14 @@ class DrawLuaInspector
             if (update) OnEnable(transform, true);
             GUILayout.BeginHorizontal();
             if (GUI.changed) { change = true; }
-            if (GUILayout.Button("ï¿½ï¿½È¡luaï¿½Ä¼ï¿½"))
+            if (GUILayout.Button("¶ÁÈ¡luaÎÄ¼þ"))
             {
                 change = false;
                 Clear();
                 OnEnable(transform);
             }
             //if (change) GUI.color = Color.red;
-            if (GUILayout.Button("ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Äµï¿½lua"))
+            if (GUILayout.Button("±£´æÐÞ¸Äµ½lua"))
             {
                 UpdateLua(true);
                 change = false;
@@ -692,9 +692,9 @@ class DrawLuaInspector
         {
             if (transform.parent && transform.parent.name.ToLower() == "uiroot")
             {
-                if (GUILayout.Button("ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Æºï¿½luaï¿½ï¿½ï¿½ï¿½"))
+                if (GUILayout.Button("Éú³ÉÔ¤ÖÆºÍlua´úÂë"))
                 {
-                    if (EditorUtility.DisplayDialog("ï¿½ï¿½ï¿½ï¿½", "ï¿½Ç·ñ´´½ï¿½ï¿½ï¿½Í¼" + transform.name, "È·ï¿½ï¿½", "È¡ï¿½ï¿½"))
+                    if (EditorUtility.DisplayDialog("´´½¨", "ÊÇ·ñ´´½¨ÊÓÍ¼" + transform.name, "È·¶¨", "È¡Ïû"))
                     {
                         PrefabUtility.SaveAsPrefabAssetAndConnect(transform.gameObject, viewpath + "/" + transform.name + ".prefab", InteractionMode.AutomatedAction);
                         File.WriteAllText(luapath + "/" + transform.name + ".lua", string.Format(@"{0}=CreateView(""{0}"")

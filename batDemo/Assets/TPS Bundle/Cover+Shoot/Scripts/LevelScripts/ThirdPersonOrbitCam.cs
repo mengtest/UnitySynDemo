@@ -7,8 +7,10 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
-	public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
-	public float verticalAimingSpeed = 6f;                             // Vertical turn speed.
+	//水平
+    public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
+	//垂直
+    public float verticalAimingSpeed = 6f;                             // Vertical turn speed.
 	public float maxVerticalAngle = 30f;                               // Camera max clamp angle. 
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
@@ -70,6 +72,8 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 		angleH += Mathf.Clamp(Input.GetAxis(XAxis), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
 		angleV += Mathf.Clamp(Input.GetAxis(YAxis), -1, 1) * 60 * verticalAimingSpeed * Time.deltaTime;
 
+     //   DebugLog.Log("angleH",angleH);
+      //  DebugLog.Log("angleV",angleV);
 		// Set vertical movement limit.
 		angleV = Mathf.Clamp(angleV, minVerticalAngle, targetMaxVerticalAngle);
 
@@ -96,6 +100,8 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 		cam.rotation = aimRotation;
 
 		// Set FOV.
+   //     DebugLog.Log("targetFOV",targetFOV);
+    //      DebugLog.Log("fieldOfView",cam.GetComponent<Camera>().fieldOfView);
 		cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp (cam.GetComponent<Camera>().fieldOfView, targetFOV,  Time.deltaTime);
 
 		// Test for collision with the environment based on current camera position.

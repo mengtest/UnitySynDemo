@@ -42,14 +42,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		// Set the movement vector based on the axis input.
 		movement.Set(h, 0f, v);
-
+   //      DebugLog.Log("movement",movement);
 		// Normalise the movement vector and make it proportional to the speed per second.
 		movement = movement.normalized * (Input.GetKey(KeyCode.LeftShift)?runSpeed:walkSpeed) * Time.deltaTime;
 
 		// Move the player to it's current position plus the movement.
 		playerRigidbody.MovePosition(transform.position + movement);
 	}
-
+    //枪面向 准星  屏幕中心点.
 	void Turning()
 	{
 		// Create a ray from the mouse cursor on screen in the direction of the camera.
