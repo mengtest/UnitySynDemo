@@ -1,10 +1,10 @@
-﻿/*
+/*
  * @Descripttion: 
  * @version: 1.0.0
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-06-24 10:02:38
+ * @LastEditTime: 2020-07-01 13:12:57
  */
 using System;
 using System.Collections;
@@ -14,6 +14,13 @@ using LuaInterface;
 using UnityEngine;
 
 public class GameMain : MonoSingleton<GameMain> {
+
+    public string LuaMemory="Lua内存使用量: 0 KB";
+   //刷新时间.
+    private float memTimeRefsh=0;
+    private bool luainitCom=false;
+    
+
 
     List<MonoBehaviour> _behaviourList = new List<MonoBehaviour>();
     private void Awake()
@@ -25,6 +32,20 @@ public class GameMain : MonoSingleton<GameMain> {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update() {
+        LuaMemoryShow();
+    }
+    private void LuaMemoryShow(){
+        if(!luainitCom){
+            return;
+        }
+        if(memTimeRefsh<=0){
+           LuaMemory=string.Format("Lua内存使用量: {0}KB",LuaManager.Instance.getGCCount());
+           memTimeRefsh=1;
+        }else{
+          memTimeRefsh-=Time.deltaTime;
+        }
+    }
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(StartInCoroutine());
@@ -37,6 +58,7 @@ public class GameMain : MonoSingleton<GameMain> {
         Screen.autorotateToLandscapeRight = true;
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        luainitCom=false;
 
 
         DebugLog.addErrorLogCall(onGameError);
@@ -142,6 +164,9 @@ public class GameMain : MonoSingleton<GameMain> {
          //5. 共开25个房间  50人异常   1250 人 场 人均同时在线 800  4核8G  5000链接 
          
         yield return LuaManager.Instance.InitStart();
+        luainitCom=true;
+        //TODO: 关闭加载界面.
+        
             
     }
     #if !UNITY_EDITOR
@@ -153,8 +178,15 @@ public class GameMain : MonoSingleton<GameMain> {
             {
                 Reporter.Instance.doShow();
             }
+            GUILayout.Label(string.Format("Lua内存使用量: {0}k",LuaMemory));
 
+        }
+    #else
+        private void OnGUI()
+        {
+            GUILayout.Space(100);
 
+            GUILayout.Label(string.Format("Lua内存使用量: {0}k", LuaMemory));
         }
     #endif
 }

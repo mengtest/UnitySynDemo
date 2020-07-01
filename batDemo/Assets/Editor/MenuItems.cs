@@ -36,7 +36,20 @@ public  class MenuItems
         UnityEditor.EditorPrefs.SetBool("isLoadRemoteAsset", GameSettings.Instance.isLoadRemoteAsset);
     }  
 
-
+    const string isLocalLua = "AssetBundle/isLocalLua 本地lua加载";
+    [MenuItem(isLocalLua,true,100)]  
+    public static bool set_isLocalLua()  
+    {    
+         //设置模块
+         Menu.SetChecked(isLocalLua, GameSettings.Instance.localLua);
+        return true;  
+    }  
+    [MenuItem(isLocalLua)]  
+    public static void do_isLocalLua()  
+    { 
+        GameSettings.Instance.localLua = !GameSettings.Instance.localLua;
+        UnityEditor.EditorPrefs.SetBool("isReadLocalLua", GameSettings.Instance.localLua);
+    }  
 
 
 

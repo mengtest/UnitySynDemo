@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 /// <summary>
 /// 加解密，文件相关的工具方法
 /// </summary>
-[AutoRegistLua]
 public class FileUtil
 {
     // aes加密

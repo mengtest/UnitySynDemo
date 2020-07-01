@@ -8,7 +8,6 @@ using System.IO;
 using UnityEngine.EventSystems;
 using LuaInterface;
 
-[AutoRegistLua]
 public static class Utils
 {
     /// <summary>
@@ -128,11 +127,6 @@ public static class Utils
 #endif
         return resolution;
     }
-	
-	public static void SetLogSwitcher(bool isOpenLog, bool isOpenError, bool isOpenWarning)
-	{
-	 	 DebugLog.setLogSwitcher(isOpenLog, isOpenError, isOpenWarning);
-	}
 
     //把长度信息转换，比如10000B转成10KB
     public static string SizeToMes(int size)

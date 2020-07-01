@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-06-18 17:00:10
+ * @LastEditTime: 2020-06-30 11:05:31
  */
 using System.Collections;
 using UnityEngine;
@@ -77,5 +77,6 @@ public class GameExample : SingletonT<GameExample> {
          return avatar;
     }
 
-
+      //ugui
+      //text  脚本  Shadow outline
 }

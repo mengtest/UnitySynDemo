@@ -8,6 +8,20 @@ SceneType = {
     Battle = "Battle"
 }
 
+--文字效果，与EditorGameSettings.TextEffectType一致
+TEXT_EFFECT_TYPE = 
+{
+    NONE = "None", 	--无文字效果
+    BUTTON_GREEN = "ButtonGreen",	    --绿色按钮上文字的投影效果
+    BUTTON_YELLOW = "ButtonYellow",	    --黄色按钮上文字的投影效果
+    BUTTON_RED = "ButtonRed",	        --红色按钮上文字的投影效果
+    SHADOW_WHITE = "ShadowWhite",	    --白色投影
+    SHADOW_BROWN = "ShadowBrown",	    --棕色投影
+    OUTLINE_WHITE = "OutlineWhite",		--白色描边
+    OUTLINE_BROWN = "OutlineBrown",	    --棕色描边
+    BUTTON_BLUE = "ButtonBlue",         --蓝色按钮上文字的投影效果
+}
+
 LayerType =
 {
     UI = "UI"

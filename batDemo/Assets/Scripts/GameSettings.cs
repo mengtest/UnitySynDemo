@@ -23,8 +23,28 @@ public class GameSettings : ScriptableObject
             return mInstance;
         }
     }
+
+    public readonly static string[] TextEffectType = new string[]
+    {
+        "None",         //无文字效果
+        "ButtonGreen",  //绿色按钮上文字的投影效果
+        "ButtonYellow", //黄色按钮上文字的投影效果
+        "ButtonRed",    //红色按钮上文字的投影效果
+        "ButtonBlue",   //蓝色按钮上文字的投影效果
+        "ShadowWhite",  //白色投影
+        "ShadowBrown",  //棕色投影
+        "OutlineWhite", //白色描边
+        "OutlineBrown",  //棕色描边
+        "CustomOutline", //自定义描边
+        "CustomShadow", //自定义投影
+    };
+
+
+
     //是否不加载assetBundle. 编辑可以不加载. 不加载AB 就是load prefab
     public  bool useAssetBundle = true;
+
+    public bool localLua =false;
 
     public string currentLanguage=SupportedLanguages.Chinese;
     
@@ -67,11 +87,13 @@ public class GameSettings : ScriptableObject
        this.currentLanguage = UnityEditor.EditorPrefs.GetString("currentLanguage", SupportedLanguages.Chinese);
        this.isLoadRemoteAsset = UnityEditor.EditorPrefs.GetBool("isLoadRemoteAsset", false);
         this._gameConfigUrl = UnityEditor.EditorPrefs.GetString("gameConfigUrl", "http://192.168.0.3:8080/gameconfig.xml");
+        this.localLua = UnityEditor.EditorPrefs.GetBool("isReadLocalLua", true);
 #else
        this.currentLanguage = SupportedLanguages.GetCurrentLanguage();
        //非编辑器加载AssetBundle
        this.useAssetBundle = true;
        this.isLoadRemoteAsset=true;
+       this.localLua =false;
 #endif
     }
 }

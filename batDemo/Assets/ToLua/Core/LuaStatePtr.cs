@@ -400,6 +400,12 @@ namespace LuaInterface
         {
             return LuaDLL.lua_gc(L, what, data);
         }
+        public double lua_getgccount()
+        {
+            double b = (double)LuaDLL.lua_gc(L, LuaGCOptions.LUA_GCCOUNT, 0);
+            return b;
+        }
+
 
         public bool LuaNext(int index)
         {

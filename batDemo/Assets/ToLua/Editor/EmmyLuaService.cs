@@ -48,27 +48,27 @@ namespace EmmyLua
 			set { EditorPrefs.SetBool(KEY_EMMY_SERVICE_ENABLE, value); }
 		}
 
-		[MenuItem("Lua/����EmmyLua����")]
+		[MenuItem("Lua/开启EmmyLua更新")]
 		static void EnableService()
 		{
 			IsEnable = true;
 			StartConnect();
 		}
 		
-		[MenuItem("Lua/����EmmyLua����", true)]
+		[MenuItem("Lua/开启EmmyLua更新", true)]
 		static bool EnableServiceCheck()
 		{
 			return !IsEnable;
 		}
 		
-		[MenuItem("Lua/�ر�EmmyLua����")]
+		[MenuItem("Lua/关闭EmmyLua更新")]
 		static void DisableService()
 		{
 			IsEnable = false;
 			Stop();
 		}
 		
-		[MenuItem("Lua/�ر�EmmyLua����", true)]
+		[MenuItem("Lua/关闭EmmyLua更新", true)]
 		static bool DisableServiceCheck()
 		{
 			return IsEnable;
@@ -111,7 +111,7 @@ namespace EmmyLua
 			}
 			catch (Exception e)
 			{
-                //DebugLog.LogWarning(e.Message);
+                //Log.logWarning(e.Message);
 				TryLater();
 			}
 		}
@@ -197,7 +197,7 @@ namespace EmmyLua
 				}
 				catch (Exception e)
 				{
-                    //DebugLog.LogError(e.Message);
+                    //Log.logError(e.Message);
 					TryLater();
 				}
 			}

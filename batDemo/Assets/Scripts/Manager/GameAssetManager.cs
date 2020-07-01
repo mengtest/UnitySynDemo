@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.IO;
-using UnityObject = UnityEngine.Object;
-using Lua;
 using LuaInterface;
 
 public class GameAssetManager : MonoSingleton<GameAssetManager>
@@ -145,19 +143,28 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
     {
         _maxCacheTime = time;
     }
-
-
-    public GameAssetRequest LoadAsset<T>(string path, Action<UnityObject[]> callback) where T : UnityObject
+    //Lua单个加载
+    public GameAssetRequest LoadAssetLua(string path, Type assetType, LuaFunction callback)
+    {
+        return LoadAsset(new string[] { path }, assetType,null, callback);
+    }
+    //Lua多个加载
+    public GameAssetRequest LoadAssetLua(string[] paths, Type assetType, LuaFunction callback)
+    {
+        return LoadAsset(paths, assetType,null, callback);
+    }
+    //指定类型单个加载.
+    public GameAssetRequest LoadAsset<T>(string path, Action<UnityEngine.Object[]> callback) where T : UnityEngine.Object
     {
         return LoadAsset(new string[] { path }, typeof(T), callback);
     }
-
-    public GameAssetRequest LoadAsset<T>(string[] paths, Action<UnityObject[]> callback) where T : UnityObject
+    //指定类型多个加载.
+    public GameAssetRequest LoadAsset<T>(string[] paths, Action<UnityEngine.Object[]> callback) where T : UnityEngine.Object
     {
         return LoadAsset(paths, typeof(T), callback);
     }
 
-    private GameAssetRequest LoadAsset(string[] paths, Type assetType, Action<UnityObject[]> callback)
+    private GameAssetRequest LoadAsset(string[] paths, Type assetType, Action<UnityEngine.Object[]> callback=null,LuaFunction luaCallback=null)
     {
         List<LoadAssetRequest> loadReqeustList = new List<LoadAssetRequest>();
         for (int i = 0; i < paths.Length; ++i)
@@ -186,7 +193,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             }
             loadReqeustList.Add(loadReqeust);
         }
-        GameAssetRequest request = new GameAssetRequest(loadReqeustList, callback);
+        GameAssetRequest request = new GameAssetRequest(loadReqeustList, callback,luaCallback);
         if (request.IsLoadComplete())
         {
             request.OnLoadComplete();
@@ -536,9 +543,9 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
 
 #if UNITY_EDITOR
     static string[] s_supportedExtensions = { ".prefab",".txt", ".png", ".jpg", ".tga", ".mat", ".asset", ".spriteatlas", ".mp3", ".ogg", ".wav"};
-    public static UnityObject LoadGameAssetInEditor(string path, Type assetType)
+    public static UnityEngine.Object LoadGameAssetInEditor(string path, Type assetType)
     {
-        UnityObject asset = null;
+        UnityEngine.Object asset = null;
         foreach (string extension in s_supportedExtensions)
         {
             asset = UnityEditor.AssetDatabase.LoadAssetAtPath(EditorResPath + path + extension, assetType);
@@ -550,7 +557,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
         return asset;
     }
 #else
-    public static UnityObject LoadGameAssetInEditor(string path, Type assetType)
+    public static UnityEngine.Object LoadGameAssetInEditor(string path, Type assetType)
     {
         return null;
     }
@@ -567,16 +574,17 @@ public class AssetBundleInfo
         referencedCount = 1;
     }
 }
-
+[AutoRegistLua]
 public class GameAssetRequest
 {
    private List<LoadAssetRequest> _loadReqeusts;
-   private Action<UnityObject[]> _callback;
-
-    public GameAssetRequest(List<LoadAssetRequest> loadReqeusts, Action<UnityObject[]> callback)
+   private Action<UnityEngine.Object[]> _callback;
+   private LuaFunction _luaCallback;
+    public GameAssetRequest(List<LoadAssetRequest> loadReqeusts, Action<UnityEngine.Object[]> callback=null,LuaFunction luaCallback=null)
     {
         _loadReqeusts = loadReqeusts;
         _callback = callback;
+        _luaCallback = luaCallback;
     }
 
     public void OnLoadComplete()
@@ -585,7 +593,7 @@ public class GameAssetRequest
         {
             return;
         }
-        UnityObject[] assets = new UnityObject[_loadReqeusts.Count];
+        UnityEngine.Object[] assets = new UnityEngine.Object[_loadReqeusts.Count];
         for (int i = 0; i < _loadReqeusts.Count; ++i)
         {
             LoadAssetRequest loadReqeust = _loadReqeusts[i];
@@ -595,6 +603,13 @@ public class GameAssetRequest
         {
             _callback(assets);
         }
+        if (_luaCallback != null)
+        {
+            _luaCallback.Call(assets);
+            if(_luaCallback!=null){
+              _luaCallback.Dispose();
+            }
+        }
         DisposeCallback();
     }
 
@@ -603,6 +618,10 @@ public class GameAssetRequest
         if (_callback != null)
         {
             _callback = null;
+        }
+        if (_luaCallback != null)
+        {
+            _luaCallback = null;
         }
     }
 
@@ -631,7 +650,7 @@ public class GameAssetRequest
         }
     }
 
-    public UnityObject GetAsset(int index = 0)
+    public UnityEngine.Object GetAsset(int index = 0)
     {
         return (index < _loadReqeusts.Count && index >= 0) ? _loadReqeusts[index].asset : null;
     }
@@ -650,7 +669,7 @@ public class LoadAssetRequest
     public string bundleName { get; private set; }
     public string assetName { get; private set; }
     public Type assetType { get; private set; }
-    public UnityObject asset { get; set; }
+    public UnityEngine.Object asset { get; set; }
     public float unloadTime { get; private set; }
     public string path { get; private set; }
 

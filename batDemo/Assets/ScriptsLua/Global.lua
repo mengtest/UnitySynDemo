@@ -11,16 +11,29 @@ Input           = UnityEngine.Input
 Rect            = UnityEngine.Rect
 PlayerPrefs     = UnityEngine.PlayerPrefs
 
+require ("Utils")
+require ("Class")
+
 --第三方封装
-require("Extension.table")
-require("Extension.string")
-require("Extension.QueueList")
-require("Extension.Array")
+require("Common.Extension.table")
+require("Common.Extension.string")
+require("Common.Extension.QueueList")
+require("Common.Extension.Array")
+
+
+--管理者类.
+require("Manager.TweenManager");
+require("Manager.EventManager");
+
+
+require("Manager.EventObj");
+require("Game.GameObjBase");
 
 --视图基类
 require("View.BaseView")
 --控制器基类
-require("Controller.BaseController")
+require("Controller.BaseController");
+
 
 
 --以下全局变量在[ToLua/Lua/tolua.lua]已require，可直接使用

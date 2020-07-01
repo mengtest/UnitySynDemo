@@ -1,4 +1,4 @@
-function Class(classname, super)
+function OldClass(classname, super)
     local cls
     assert(type(classname)=="string","class的第二个参数错误:"..tostring(classname))
     if super~=nil then
