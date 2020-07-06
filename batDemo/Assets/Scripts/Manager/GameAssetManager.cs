@@ -500,6 +500,11 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
              bundleName = split[0]+"_"+split[3];
             // Avatar/infility/Model/infility_body_01   avatar_infility_body_01.model
          }
+        if (path.StartsWith("View")){
+             string[] split = path.Split('/');
+            bundleName = split[0]+"_"+split[1];
+            //"View/Login/LoginPanel"     view_login
+        }
         // else if(path.StartsWith(AssetBundleConst.VariantFolder))
         // {
         //     string[] split = path.Split('/');

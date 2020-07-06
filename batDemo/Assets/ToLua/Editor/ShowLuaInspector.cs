@@ -18,22 +18,33 @@ public class ShowLuaInspectorRect : Editor
 	//Stopwatch stopwatch = new Stopwatch();
 	Transform transform;
 	string path;
+    string subPPath;
 	bool isShow = false;
 	private void OnEnable()
     {
+        subPPath=(target as LuaView).subPath;
 		path = Application.dataPath + "/ScriptsLua/View/";
+        if(subPPath!=""){
+         path=path+ subPPath+"/";
+        }
 		transform = (target as LuaView).transform;
 		DrawLuaInspector.OnEnable(transform);
 	}
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
+        
 		//if(isShow)
 		if (!_isHasLuaScript())
 		{
-			if (GUILayout.Button("Ìí¼Ó½Å±¾"))
+			if (GUILayout.Button("æ·»åŠ è„šæœ¬childView"))
 			{
-				_generateLuaScript();
+				_generateLuaChildScript();
+			}
+            if (GUILayout.Button("æ·»åŠ è„šæœ¬PanelView"))
+			{
+				_generateLuaPanelScript();
 			}
 		}
 		else
@@ -46,25 +57,140 @@ public class ShowLuaInspectorRect : Editor
 	{
 		return File.Exists(path + target.name+".lua") ? true : false;
 	}
-	void _generateLuaScript()
+	void _generateLuaPanelScript()
 	{
 		string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
 		{
+             FileUtil.CreateDirectorySafely(path);
 			using (StreamWriter sw = File.CreateText(path1))
 			{
 				StringBuilder sb = new StringBuilder();
 				//name = name.Replace(" ", "");
-				sb.AppendLine("---@class " + name + " : BaseView");
-				sb.AppendLine("local " + name + " = createView(\""+ name + "\")");
-				sb.AppendLine("--×Ô¶¯Éú³É£¬Âß¼­´úÂë²»ÒªĞ´ÔÚÕâÀï");
-				//Ìí¼Ófunction:init
-				sb.AppendLine("function " + name + ":Init()");
+				sb.AppendLine("---@class " + name + " : PanelView");
+				sb.AppendLine(name + " = Class(\""+ name + "\",PanelView)");
+                sb.AppendLine("---@return " + name);
+				sb.AppendLine("--è‡ªåŠ¨ç”Ÿæˆ-------------------------------------------");
+				//æ·»åŠ function:OnUIInit
+                 sb.AppendLine("---æ·»åŠ UIå¼•ç”¨.");
+				sb.AppendLine("function " + name + ":OnUIInit()");
 				sb.AppendLine("end\n");
-				//Ìí¼Ófunction£ºbaseCreateView()
-				sb.AppendLine("function " + name + ":baseCreateView()");
+				//æ·»åŠ functionï¼šOnUIDestory()
+                sb.AppendLine("---ç§»é™¤UIå¼•ç”¨.");
+				sb.AppendLine("function " + name + ":OnUIDestory()");
+                sb.AppendLine("---OnUIDestoryè‡ªåŠ¨ç”Ÿæˆ----");
 				sb.AppendLine("end\n");
+                sb.AppendLine("--è‡ªåŠ¨ç”Ÿæˆ-----------end------------------------------");
+
+                //initialize()
+                sb.AppendLine("function " + name + ":initialize()");
+                sb.AppendLine("PanelView.initialize(self)");
+                  if(subPPath!=""){
+                     sb.AppendLine("self.viewName= \"View."+subPPath+"." + name + "\"");
+                    sb.AppendLine("self.url=\"View/"+ subPPath+"/"+ name + "\"");
+                }else{
+                    sb.AppendLine("self.viewName= \"View." + name + "\"");
+                    sb.AppendLine("self.url=\"View/" + name + "\"");
+                }
+                sb.AppendLine("self.needUpdate=false");
+                sb.AppendLine("self.ViewLayer=ViewLayer.content");
+                sb.AppendLine("self.showMode=ViewShowMode.Normal");
+				sb.AppendLine("end\n");
+
+	            sb.AppendLine("function " + name + ":Init()");
+                sb.AppendLine("PanelView.Init(self)");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":OnDestory()");
+                sb.AppendLine("--è®°å¾—nilç§»é™¤å˜é‡");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":AddListener()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":RemoveListener()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":Update()");
+                sb.AppendLine("--- update");
+				sb.AppendLine("end\n");
+                
+				sb.AppendLine("return " + name);
+				sw.WriteLine(sb.ToString());
+			}
+			DrawLuaInspector.OnEnable(transform);
+			AssetDatabase.Refresh();
+		}
+	}
+    void _generateLuaChildScript()
+	{
+     //   DebugLog.Log(target.)
+		string path1 = path + name + ".lua";
+		if (!File.Exists(path1))
+		{
+            FileUtil.CreateDirectorySafely(path);
+			using (StreamWriter sw = File.CreateText(path1))
+			{
+				StringBuilder sb = new StringBuilder();
+				//name = name.Replace(" ", "");
+				sb.AppendLine("---@class " + name + " : ChildView");
+				sb.AppendLine(name + " = Class(\""+ name + "\",ChildView)");
+                sb.AppendLine("---@return " + name);
+				sb.AppendLine("--è‡ªåŠ¨ç”Ÿæˆ-------------------------------------------");
+				//æ·»åŠ function:OnUIInit
+                 sb.AppendLine("---æ·»åŠ UIå¼•ç”¨.");
+				sb.AppendLine("function " + name + ":OnUIInit()");
+				sb.AppendLine("end\n");
+				//æ·»åŠ functionï¼šOnUIDestory()
+                sb.AppendLine("---ç§»é™¤UIå¼•ç”¨.");
+				sb.AppendLine("function " + name + ":OnUIDestory()");
+                sb.AppendLine("---OnUIDestoryè‡ªåŠ¨ç”Ÿæˆ----");
+				sb.AppendLine("end\n");
+                sb.AppendLine("--è‡ªåŠ¨ç”Ÿæˆ-----------end------------------------------");
+
+                //initialize()
+                sb.AppendLine("function " + name + ":initialize()");
+                sb.AppendLine("ChildView.initialize(self)");
+                if(subPPath!=""){
+                     sb.AppendLine("self.viewName= \"View."+subPPath+"." + name + "\"");
+                    sb.AppendLine("self.url=\"View/"+ subPPath+"/"+ name + "\"");
+                }else{
+                    sb.AppendLine("self.viewName= \"View." + name + "\"");
+                    sb.AppendLine("self.url=\"View/" + name + "\"");
+                }
+                sb.AppendLine("self.needUpdate=false");
+                sb.AppendLine("self.ViewLayer=ViewLayer.content");
+				sb.AppendLine("end\n");
+
+	            sb.AppendLine("function " + name + ":Init()");
+                sb.AppendLine("ChildView.Init(self)");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+
+                sb.AppendLine("function " + name + ":OnDestory()");
+                sb.AppendLine("--è®°å¾—nilç§»é™¤å˜é‡");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":AddListener()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":RemoveListener()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":Update()");
+                sb.AppendLine("--- update");
+				sb.AppendLine("end\n");
+
+
 				sb.AppendLine("return " + name);
 				sw.WriteLine(sb.ToString());
 			}
@@ -297,7 +423,7 @@ class LuaObject
                 }
                 catch (Exception e)
                 {
-                    DebugLog.LogError(e.Message);
+                    Debug.LogError(e.Message);
                 }
             }
         return types;
@@ -318,7 +444,7 @@ class LuaObject
             }
             catch (Exception e)
             {
-                DebugLog.LogError(e.Message);
+                Debug.LogError(e.Message);
             }
         }
         return typeof(RectTransform).FullName;
@@ -347,7 +473,7 @@ class LuaObject
             Regex r = new Regex(@"self\." + name + @"([^\w\d_])");
             if (r.IsMatch(text))
             {
-                DebugLog.LogError(string.Format("¸ÃluaÎÄ¼şÒÑ¾­ÓĞÁËÃûÎª{0}µÄ±äÁ¿", name));
+                Debug.LogError(string.Format("è¯¥luaæ–‡ä»¶å·²ç»æœ‰äº†åä¸º{0}çš„å˜é‡", name));
                 name = oldname;
                 oldname = "";
                 return;
@@ -360,11 +486,12 @@ class LuaObject
 		else
 		{
 			if (isClick && (transform == null || FunName == "")) return;
-			Regex r = new Regex(@":Init\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
+			Regex r = new Regex(@":OnUIInit\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
 			var code = GetCode();
 			if (code == "") return;
 			foreach (Match item in r.Matches(text))
 			{
+           //    DebugLog.Log(item.Groups[1].Value);
 				var str = item.Groups[1].Value;
 				if (string.IsNullOrEmpty(str)) continue;
 				string str1 = "";
@@ -404,7 +531,7 @@ class LuaObject
 class DrawLuaInspector
 {
     static string luapath = Application.dataPath + "/ScriptsLua/View";
-    static string viewpath = "Assets/Resources/prefab/View";
+    static string viewpath = "Assets/Res/View";
     static List<string> funnames;
     public static List<string> Funnames
     {
@@ -481,7 +608,7 @@ class DrawLuaInspector
                 {
                     change = false;
                     //if (luatext != "")
-                    //    if (EditorUtility.DisplayDialog("±£³ÖluaÎÄ¼ş", "luaÎÄ¼şÓĞĞŞ¸Ä,ÊÇ·ñ±£´æ?", "±£´æ", "²»±£´æ"))
+                    //    if (EditorUtility.DisplayDialog("ä¿æŒluaæ–‡ä»¶", "luaæ–‡ä»¶æœ‰ä¿®æ”¹,æ˜¯å¦ä¿å­˜?", "ä¿å­˜", "ä¸ä¿å­˜"))
                     //    {
                     //        UpdateLua(true);
                     //    }
@@ -497,7 +624,7 @@ class DrawLuaInspector
         }
         else if (count < 3 && luaobjs.Count < 1)
         {
-            Regex r = new Regex(@":Init\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
+            Regex r = new Regex(@":OnUIInit\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
             var str = "";
             foreach (Match item in r.Matches(luatext))
             {
@@ -558,10 +685,30 @@ class DrawLuaInspector
 		UpdateFunmes();
 		if (save)
         {
+            addOnUIDestory(ref luatext);
             File.WriteAllText(path, luatext);
         }
     }
-
+    private static void addOnUIDestory(ref string luatext){
+           	Regex r = new Regex(@":OnUIDestory\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
+			foreach (Match item in r.Matches(luatext))
+			{
+           //    DebugLog.Log(item.Groups[1].Value);
+				var str = item.Groups[1].Value;
+                if (string.IsNullOrEmpty(str)) continue;
+          //       DebugLog.Log(str);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("");
+                foreach (var itemvv in luaobjs)
+			    {
+                  sb.AppendLine("self."+itemvv.Name+"=nil");
+                }
+                string strnew=sb.ToString();
+         //       DebugLog.Log(strnew);
+                luatext=luatext.Replace(str,strnew);
+                return;
+            }
+    }
     static void Clear()
     {
         luaobjs.Clear();
@@ -572,7 +719,7 @@ class DrawLuaInspector
     {
         if (count == 3)
         {
-            GUILayout.Label(Path.GetFileNameWithoutExtension(path) + " ¸ÃluaÎÄ¼şÓĞÖØÃû");
+            GUILayout.Label(Path.GetFileNameWithoutExtension(path) + " è¯¥luaæ–‡ä»¶æœ‰é‡å");
         }
         else if (count == 1)
         {
@@ -580,11 +727,11 @@ class DrawLuaInspector
             GUILayout.Space(10);
             GUILayout.BeginHorizontal();
             GUILayout.Label("LuaScript:" + Path.GetFileNameWithoutExtension(path));
-            if (GUILayout.Button("Ñ¡ÖĞ"))
+            if (GUILayout.Button("é€‰ä¸­"))
             {
                 Selection.activeInstanceID = asset.GetInstanceID();
             }
-            //if (GUILayout.Button("´ò¿ª"))
+            //if (GUILayout.Button("æ‰“å¼€"))
             //{
             //    string editorPath = OpenLuaHelper.SubLimePath();
             //    System.Diagnostics.Process proc = new System.Diagnostics.Process();
@@ -599,11 +746,11 @@ class DrawLuaInspector
             {
                 if (GUILayout.Button("+"))
                 {
-                    if (!luatext.Contains(":Init()"))
+                    if (!luatext.Contains(":OnUIInit()"))
                     {
-                        luatext += "\r\nfunction " + Path.GetFileNameWithoutExtension(path) + ":Init()\r\nend";
+                        luatext += "\r\nfunction " + Path.GetFileNameWithoutExtension(path) + ":OnUIInit()\r\nend";
                     }
-                    File.WriteAllText(path, luatext.Replace(":Init()", ":Init()\r\n    self.temp=nil"));
+                    File.WriteAllText(path, luatext.Replace(":OnUIInit()", ":OnUIInit()\r\n    self.temp=nil"));
                     Clear();
                     OnEnable(transform);
                 }
@@ -647,8 +794,8 @@ class DrawLuaInspector
 			}
 			UpdateLua();
 			//stopwatch.Stop();
-			//Log.logError("OnenableºÄÊ±£º" + count+"---" + stopwatch.ElapsedMilliseconds);
-			//GUILayout.Label("µã»÷ÊÂ¼ş");
+			//Log.logError("Onenableè€—æ—¶ï¼š" + count+"---" + stopwatch.ElapsedMilliseconds);
+			//GUILayout.Label("ç‚¹å‡»äº‹ä»¶");
 			//foreach (var item in luaobjs.Where(x => x.isClick && x.Obj != null))
 			//{
 			//    GUILayout.BeginHorizontal();
@@ -672,14 +819,14 @@ class DrawLuaInspector
             if (update) OnEnable(transform, true);
             GUILayout.BeginHorizontal();
             if (GUI.changed) { change = true; }
-            if (GUILayout.Button("¶ÁÈ¡luaÎÄ¼ş"))
+            if (GUILayout.Button("è¯»å–luaæ–‡ä»¶"))
             {
                 change = false;
                 Clear();
                 OnEnable(transform);
             }
             //if (change) GUI.color = Color.red;
-            if (GUILayout.Button("±£´æĞŞ¸Äµ½lua"))
+            if (GUILayout.Button("ä¿å­˜ä¿®æ”¹åˆ°lua"))
             {
                 UpdateLua(true);
                 change = false;
@@ -690,26 +837,7 @@ class DrawLuaInspector
 		}
         else
         {
-            if (transform.parent && transform.parent.name.ToLower() == "uiroot")
-            {
-                if (GUILayout.Button("Éú³ÉÔ¤ÖÆºÍlua´úÂë"))
-                {
-                    if (EditorUtility.DisplayDialog("´´½¨", "ÊÇ·ñ´´½¨ÊÓÍ¼" + transform.name, "È·¶¨", "È¡Ïû"))
-                    {
-                        PrefabUtility.SaveAsPrefabAssetAndConnect(transform.gameObject, viewpath + "/" + transform.name + ".prefab", InteractionMode.AutomatedAction);
-                        File.WriteAllText(luapath + "/" + transform.name + ".lua", string.Format(@"{0}=CreateView(""{0}"")
-function {0}:Init()
-end
-function {0}:Awake()
-end
-", transform.name));
-                        AssetDatabase.Refresh();
-                        change = false;
-                        Clear();
-                        OnEnable(transform);
-                    }
-                }
-            }
+           
         }
     }
 }

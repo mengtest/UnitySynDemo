@@ -8,7 +8,8 @@ local AssetReqs;
 function Example.Start()
     --Example:Start()  Example.Start(this) 相同 self
  
-   ---- Example.LoadMonster();
+  --  Example.LoadMonster();
+       Example.testArray();
 
     --初始化全局游戏对象
  --   local gameCls = require("Game.Game")
@@ -49,8 +50,10 @@ function Example.AssetCallBack(objs)
 
     TweenManager.tween(Example.monster, {
           --           冲压时间,  冲压次数, 每次衰减
-        --来回冲压 旋转         {TweenFun.punchRotation,0,50,0,2,3,0.7},
-        --来回冲压 位移          {TweenFun.punchPosition,0,1,0,2,5,0.1},
+        --来回冲压 旋转         
+        {TweenFun.punchRotation,0,50,0,2,3,0.7},
+        --来回冲压 位移          
+        {TweenFun.punchPosition,0,1,0,2,5,0.1},
         --来回冲压 缩放          {TweenFun.punchScale,1,1,1,2,5,0.1},
                                 {TweenFun.delay, 5},
                                 {TweenFun.call, function()
@@ -61,7 +64,7 @@ function Example.AssetCallBack(objs)
                                     end
                                 end}});
 
-
+      -- 完成UI封装 简单    
       --proto 通讯 UIView 封装.                          
 end
 
@@ -96,6 +99,25 @@ function Example.testClass()
     log(lemon:isSweet()) -- false
 end
 
+function Example.testArray()
+    require("Common.Extension.Array");
+
+    local arr = Array(1,2,3)
+    log(arr[1])   -- 1
+    log(arr[4])   -- nil
+    arr[1] = 4
+    arr:print()     -- 4,3,2
+    arr[4] = 'a'    -- warning : [4] index out of range.
+    arr[2] = nil    -- warning : can not remove element by using  `nil`.
+    arr:insert('a')
+    arr:insert('b', 2)
+    arr:print()     -- 4,b,2,3,a
+    arr:remove(1)
+    arr:print()     -- b,2,3,a
+    arr:remove(3)
+    log(arr[3]);
+    log(arr:len().." len~~~~~~~~~");
+end
 
 return Example
 

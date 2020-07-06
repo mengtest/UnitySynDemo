@@ -68,7 +68,7 @@ namespace Lua {
                 if (Application.isEditor) {
                     lua.AddSearchPath (Application.dataPath + "/Editor");
                 }
-                lua.AddSearchPath (LuaConst.luaDir);
+                lua.AddSearchPath (LuaConst.luaDir); 
                 lua.AddSearchPath (LuaConst.toluaDir);
             }
         }

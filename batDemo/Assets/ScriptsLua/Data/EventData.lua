@@ -1,5 +1,6 @@
 --事件类型
 EventType = {
+
     onLoginFailed = 'onLoginFailed',
     onLoginSuccess = 'onLoginSuccess',
     onRandomRoleName = 'onRandomRoleName',

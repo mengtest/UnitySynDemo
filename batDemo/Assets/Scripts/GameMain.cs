@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-07-01 13:12:57
+ * @LastEditTime: 2020-07-04 15:49:39
  */
 using System;
 using System.Collections;
@@ -30,6 +30,11 @@ public class GameMain : MonoSingleton<GameMain> {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
 
         DontDestroyOnLoad(gameObject);
+
+        GameObject obj= GameObject.Find("Reporter");
+        if(obj!=null){
+              DontDestroyOnLoad(obj);
+        }
     }
 
     private void Update() {
@@ -66,7 +71,7 @@ public class GameMain : MonoSingleton<GameMain> {
         yield return InitGameAsset();
 
     //    LuaManager.Instance.InitStart();
-
+    
     }	
 	private void onGameError()
     {
@@ -128,7 +133,7 @@ public class GameMain : MonoSingleton<GameMain> {
         {
             DebugLog.Log("isLoadRemoteAsset PatchManager.InitializePatch");
             //通过请求获得 这两个参数.或者 找serverList中解析
-           yield return PatchManager.Instance.InitializePatch("http://192.168.1.230:8080/web");
+           yield return PatchManager.Instance.InitializePatch(GameSettings.Instance.GetInitWebPath());
            if(PatchManager.Instance.needUpDownloadWeb){
                //需要更新.
                 PatchManager.Instance.UpdatePatch(onCompleteFun,null);
@@ -153,7 +158,6 @@ public class GameMain : MonoSingleton<GameMain> {
         StartCoroutine(startLogicCoroutine());
      }
     IEnumerator startLogicCoroutine(){
-        
        //启动lua   
         this.AddBehaviour<LuaManager>();
           //完全  热更方案
@@ -166,7 +170,6 @@ public class GameMain : MonoSingleton<GameMain> {
         yield return LuaManager.Instance.InitStart();
         luainitCom=true;
         //TODO: 关闭加载界面.
-        
             
     }
     #if !UNITY_EDITOR
@@ -178,7 +181,7 @@ public class GameMain : MonoSingleton<GameMain> {
             {
                 Reporter.Instance.doShow();
             }
-            GUILayout.Label(string.Format("Lua内存使用量: {0}k",LuaMemory));
+            GUILayout.Label(LuaMemory);
 
         }
     #else
@@ -186,7 +189,7 @@ public class GameMain : MonoSingleton<GameMain> {
         {
             GUILayout.Space(100);
 
-            GUILayout.Label(string.Format("Lua内存使用量: {0}k", LuaMemory));
+            GUILayout.Label(LuaMemory);
         }
     #endif
 }

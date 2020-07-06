@@ -1,4 +1,7 @@
+---@class EventManager
 EventManager = {}
+---@return EventManager
+
 
 function EventManager.init()
     -- 事件表

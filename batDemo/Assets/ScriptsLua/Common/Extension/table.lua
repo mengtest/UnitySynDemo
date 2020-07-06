@@ -119,3 +119,11 @@ table.print =function(msgLint,table)
         log(i,v)
     end
 end
+
+table.printList =function(table)
+    local str="";
+    for i, v in pairs(table) do
+        str=str..tostring(i).." - "..tostring(v).." | ";
+    end
+    log(str)
+end

@@ -123,17 +123,12 @@ public class AppBuild {
          {
              EditorUtility.DisplayDialog("完成", "资源打包完成", "OK");
          }
-         BuildLuaBundle();
-       //  RenameManifest(outPath, AssetBundleConst.BundleManifestName);
-         AssetDatabase.Refresh();
-         GenerateFileIndex(outPath);
-         CopyFiles(outPath,copyStreamAsset,copyToWeb);
-         EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");
     }
     public  static void onlyLua(bool copyStreamAsset,bool copyToWeb){
          string projectPath= Application.dataPath.Replace("/Assets","");
          string outPath = projectPath + "/" + AssetBundleConst.AssetBundleFolder ;
          BuildLuaBundle();
+         AssetDatabase.Refresh();
          GenerateFileIndex(outPath);
          CopyFiles(outPath,copyStreamAsset,copyToWeb);
         EditorUtility.DisplayDialog("完成", "拷贝资源", "OK");

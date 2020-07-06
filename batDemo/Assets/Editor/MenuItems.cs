@@ -212,6 +212,18 @@ public  class MenuItems
     {
         AppBuild.removeDependencies();
     }
+     /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg:
+     * @param {type} 1
+     * @return: 
+     */
+    [MenuItem("打包/一键 资源 打包", false, 101)]
+    static void DependenciesBuildAsset()
+    {
+          AppBuild.DependenciesBuild(false,false);
+    }
       /**
      * @name: xsddxr909
      * @test: 
@@ -219,10 +231,11 @@ public  class MenuItems
      * @param {type} 1
      * @return: 
      */
-    [MenuItem("打包/一键依赖打包", false, 101)]
+    [MenuItem("打包/一键 lua+资源 打包", false, 101)]
     static void DependenciesBuild()
     {
-          AppBuild.DependenciesBuild(false,false);
+        AppBuild.DependenciesBuild(false,false);
+        AppBuild.onlyLua(false,false);
     }
        /**
      * @name: xsddxr909
@@ -235,6 +248,7 @@ public  class MenuItems
     static void DependenciesBuildCopy()
     {
           AppBuild.DependenciesBuild(true,false);
+          AppBuild.onlyLua(true,false);
     }
     /**
      * @name: xsddxr909
@@ -246,7 +260,8 @@ public  class MenuItems
     [MenuItem("打包/一键依赖打包(外网包)-copyWeb", false, 103)]
     static void DependenciesBuildCopyWeb()
     {
-          AppBuild.DependenciesBuild(false,true);
+         AppBuild.DependenciesBuild(false,true);
+         AppBuild.onlyLua(false,true);
     }
         /**
      * @name: xsddxr909
@@ -258,7 +273,7 @@ public  class MenuItems
     [MenuItem("打包/Lua(外网包)-copyWeb", false, 202)]
     static void luaBuildCopyWeb()
     {
-          AppBuild.onlyLua(false,true);
+        AppBuild.onlyLua(false,true);
     }
         /**
      * @name: xsddxr909
@@ -270,7 +285,7 @@ public  class MenuItems
     [MenuItem("打包/Lua(打包)-copyStreamAssets", false, 203)]
     static void luaBuildcopyStreamAssets()
     {
-          AppBuild.onlyLua(false,true);
+        AppBuild.onlyLua(false,true);
     }
      /**
      * @name: xsddxr909

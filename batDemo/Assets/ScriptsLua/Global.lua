@@ -1,24 +1,44 @@
 --全局变量和函数统一在此添加和require
 
 --导出类简写
+---@class Object
 Object          = UnityEngine.Object
+---@class GameObject
 GameObject      = UnityEngine.GameObject
+---@class Transform
 Transform       = UnityEngine.Transform
+---@class RectTransform
 RectTransform   = UnityEngine.RectTransform
+---@class Application
 Application     = UnityEngine.Application
+---@class Screen
 Screen          = UnityEngine.Screen
+---@class Input
 Input           = UnityEngine.Input
+---@class Rect
 Rect            = UnityEngine.Rect
 PlayerPrefs     = UnityEngine.PlayerPrefs
 
-require ("Utils")
-require ("Class")
+
+---游戏常用
+---@class GameAssetRequest
+AssetRequest = GameAssetRequest
+
+
+
+require ("LuaUtils");
+require ("Class");
 
 --第三方封装
-require("Common.Extension.table")
-require("Common.Extension.string")
-require("Common.Extension.QueueList")
-require("Common.Extension.Array")
+require("Common.Extension.table");
+require("Common.Extension.string");
+require("Common.Extension.QueueList");
+require("Common.Extension.Array");
+require("Common.CallbackSequence");
+
+
+require("GameSet");
+require("Data.DataInit");
 
 
 --管理者类.
@@ -30,7 +50,10 @@ require("Manager.EventObj");
 require("Game.GameObjBase");
 
 --视图基类
-require("View.BaseView")
+require("View.BaseView");
+require("View.PanelView");
+require("View.ChildView");
+require("View.ViewManager");
 --控制器基类
 require("Controller.BaseController");
 

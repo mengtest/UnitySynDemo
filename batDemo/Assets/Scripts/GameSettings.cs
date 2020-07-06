@@ -46,6 +46,12 @@ public class GameSettings : ScriptableObject
 
     public bool localLua =false;
 
+    public string WebPath="http://192.168.1.230:8080";
+    
+    public string GetInitWebPath(){
+         return WebPath + "/web"; 
+    }
+
     public string currentLanguage=SupportedLanguages.Chinese;
     
     // 是否测试模式

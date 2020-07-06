@@ -1,4 +1,4 @@
-local Main = {}
+Main = {}
 
 --lua加载完毕后执行
 function Main.Start(str)
@@ -29,8 +29,9 @@ end
 function Main.initManager()
 
     TweenManager.init();
-
-   
+    EventManager.init();
+    Main.ViewManager = ViewManager:new();
+    Main.ViewManager:init();
 end
 
 

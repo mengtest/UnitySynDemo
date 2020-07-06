@@ -1,4 +1,7 @@
+---@class TweenManager
 TweenManager = {}
+---@return TweenManager
+
 TweenFun={}
 
 
