@@ -97,6 +97,7 @@ public class AppBuild {
          _imageAllList.Clear();
          allEffect();
          allChar();
+         allUI();
          BuildTarget platform;
          switch (AssetBundleConst.platformID)
          {
@@ -398,7 +399,52 @@ public class AppBuild {
         List<AssetBundleFileInfo> fileInfoList = new List<AssetBundleFileInfo>(manifest.fileInfoDict.Values);
         return fileInfoList;
     }
+    public static void allUI(){
+        string basePath = "Assets/Res/View/";
+        string ffName = "";
+        string prefabStr = "";
+        string assetsPath = "";
 
+        string sourcePath = basePath ;
+        DirectoryInfo[] di = new DirectoryInfo(sourcePath).GetDirectories();
+        for (int k = 0; k < di.Length; k++)
+        {
+            ffName = di[k].Name;
+            FileInfo[] iArr = di[k].GetFiles("*.prefab", SearchOption.TopDirectoryOnly);
+            if (iArr.Length == 0) continue;
+            List<string> uList = new List<string>();
+            for (int h = 0; h < iArr.Length; h++)
+            {
+                prefabStr = iArr[h].Name.Replace(".prefab", "");
+                assetsPath = sourcePath + "/" + ffName + "/" + iArr[h].Name;
+                uList.Add(assetsPath);
+                // string[] depArrs = AssetDatabase.GetDependencies(assetsPath);
+                // for (int t = 0; t < depArrs.Length; t++)
+                // {
+                //     string dStr = depArrs[t];
+                //     if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
+                //     {
+                //         string[] uArr = dStr.Split('/');
+                //         string cName = uArr[uArr.Length - 1];
+                //         cName = cName.Split('.')[0];
+                //         if (_imageAllList.IndexOf(cName) != -1) continue;
+                //         _imageAllList.Add(cName);
+                //         AssetBundleBuild abc = new AssetBundleBuild();
+                //         abc.assetBundleName = "tx_" + cName ;
+                //         abc.assetNames = new string[1] { dStr };
+                //         abAllList.Add(abc);
+                //     }
+                // }
+            }
+            
+            AssetBundleBuild ab = new AssetBundleBuild();
+            string outP = "effect_";
+            ab.assetBundleName = outP + ffName;
+            ab.assetNames = uList.ToArray();
+            abAllList.Add(ab);
+        }
+        
+    }
     public static void allChar()
     {
         // "Avatar" 

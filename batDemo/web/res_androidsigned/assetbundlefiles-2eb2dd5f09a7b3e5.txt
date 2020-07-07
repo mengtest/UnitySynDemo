@@ -1,4 +1,4 @@
-avatar_infility|790d430be7f4c99d|2310591
+avatar_infility|57ea2376f977d2f9|2335962
 avatar_infility_body_01|413d5605fa4ebfd3|100238
 avatar_infility_body_02|e423f3632eb96e6b|87461
 avatar_infility_body_03|22f3536055339978|87855
@@ -35,10 +35,10 @@ effect_hit|1a8185adc2b58268|11312
 effect_hit_hy|b47fcff1646a9798|2409
 effect_hit_kb|b552d7fe955f5ec6|14120
 effect_hit_shackle|83cec074ff80b4a1|5645
-gamelua32|7d2710e2e0894b55|24829
-gamelua64|e5e1a51c342e42b1|24956
-lua32|ba8fb4f4af6553b7|287354
-lua64|16ee9e02faebd9b4|285459
+gamelua32|10f67d6e80522dee|52175
+gamelua64|6477ec31e67c687b|52543
+lua32|d3797d3aa47ff9c0|285442
+lua64|e7d2358b61b08ab0|288254
 monster_mst_xg01|34113f743b635955|383217
 monster_mst_xg01a|4d7ea2ce4f0896d7|416514
-res_android|bbe0e2a34ca42581|426
+res_android|648a2f9e1f7d8da0|1747

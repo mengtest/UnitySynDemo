@@ -47,18 +47,21 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\AppBuild.cs" />
      <Compile Include="Assets\Editor\CharacterBuild.cs" />
+     <Compile Include="Assets\Editor\DesginEditor\NoiseGenerator.cs" />
+     <Compile Include="Assets\Editor\DesginEditor\TransformInspector.cs" />
      <Compile Include="Assets\Editor\EditorCommon.cs" />
      <Compile Include="Assets\Editor\EditorConst.cs" />
      <Compile Include="Assets\Editor\FtpClient.cs" />
      <Compile Include="Assets\Editor\MenuItems.cs" />
+     <Compile Include="Assets\Editor\MiniMap\Gen2DMapByCameraEditor.cs" />
      <Compile Include="Assets\Editor\PrefabUtils.cs" />
      <Compile Include="Assets\Editor\ProjectActionLabel.cs" />
      <Compile Include="Assets\Editor\ProtocGenLua\ProtoGenLuaMenuItems.cs" />
      <Compile Include="Assets\Editor\SelectGameObjectsWithMissingScripts.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Editor\FieldOfViewEditor.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Editor\SetupProject.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Editor\SetupRagdoll.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Editor\SetupTagLayer.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Editor\FieldOfViewEditor.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Editor\SetupProject.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Editor\SetupRagdoll.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Editor\SetupTagLayer.cs" />
      <Compile Include="Assets\ThirdLib\Unity-Logs-Viewer\Reporter\Editor\ReporterEditor.cs" />
      <Compile Include="Assets\ToLua\Editor\Custom\CustomSettings.cs" />
      <Compile Include="Assets\ToLua\Editor\EmmyLuaService.cs" />
@@ -729,6 +732,10 @@
       <Project>{eb9b860f-34ab-ce50-ba8f-4747aa0c117d}</Project>
       <Name>Mirror.CompilerSymbols</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
+      <Project>{77190fe4-2c84-e091-5c17-28c7029815e0}</Project>
+      <Name>Unity.TextMeshPro.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Ninja.WebSockets.csproj">
       <Project>{e3a9b819-c9f2-9e48-d41f-8bc2fd4735d5}</Project>
       <Name>Ninja.WebSockets</Name>
@@ -740,6 +747,14 @@
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{e16f1062-4415-915a-e011-b789f3e28a4e}</Project>
       <Name>Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
+      <Project>{46c3615f-df54-15e2-db81-db6e247e1d39}</Project>
+      <Name>Unity.CollabProxy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
+      <Project>{dccc03e1-3904-882f-2c4e-68e928f3ed51}</Project>
+      <Name>Unity.Postprocessing.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.multiplayer-weaver.Editor.csproj">
       <Project>{a6644621-0aa5-3526-7caf-c10998f76aeb}</Project>
@@ -761,6 +776,10 @@
       <Project>{c9c93226-c35e-26ec-f65e-269b6718a2a2}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
+      <Project>{e216b337-0afa-674c-4039-64fea903aec3}</Project>
+      <Name>Unity.Postprocessing.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
       <Project>{7f324740-d7a2-efcc-c10c-b426fcff3438}</Project>
       <Name>Unity.2D.Tilemap.Editor</Name>
@@ -777,6 +796,10 @@
       <Project>{19d0aa2c-e349-c538-af86-94c9a08ebeb0}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{8af87be1-a6f0-63a5-271b-3709ebcfcbaa}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
       <Project>{46cc0281-9cde-253a-a0ed-d40edc393dd0}</Project>
       <Name>UnityEditor.XR.LegacyInputHelpers</Name>
@@ -788,26 +811,6 @@
     <ProjectReference Include="com.unity.multiplayer-hlapi.Runtime.csproj">
       <Project>{77d54d19-d013-e2fc-07a6-aac1500d44e4}</Project>
       <Name>com.unity.multiplayer-hlapi.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{77190fe4-2c84-e091-5c17-28c7029815e0}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{46c3615f-df54-15e2-db81-db6e247e1d39}</Project>
-      <Name>Unity.CollabProxy.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
-      <Project>{dccc03e1-3904-882f-2c4e-68e928f3ed51}</Project>
-      <Name>Unity.Postprocessing.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
-      <Project>{e216b337-0afa-674c-4039-64fea903aec3}</Project>
-      <Name>Unity.Postprocessing.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{8af87be1-a6f0-63a5-271b-3709ebcfcbaa}</Project>
-      <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -45,6 +45,84 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\OtherAsset\Modern Shooting UI Pack\Modern Shooting UI Resources\Scripts\PressedBtn.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\ControlsTutorial.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\HintManagement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\InteractiveSwitch.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\TargetHealth.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\TimeTrialManager.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\HealthManager.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\InteractiveWeapon.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\ParticleSystemAutoDestroy.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\ThirdPersonOrbitCam.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\WeaponUIManager.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\AimBehaviour.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\BasicBehaviour.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\CoverBehaviour.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\Demo Scene\Footsteps.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\MoveBehaviour.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\ShootBehaviour.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Characters\LightGunCharacter\Scripts\CursorTrack.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Characters\TopDownCharacter\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Characters\TopDownCharacter\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\EnemyFootsteps.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\LevelTrigger.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\LightGunShooterGameManagement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\TopDownGameManagement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\HurtHUD.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\PlayerShooting.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\SimplePlayerHealth.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Utility\CurveControlledBob.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Utility\FOVKick.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Examples\Utility\LerpControlledBob.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\EnemyScripts\EnemyAnimation.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\EnemyScripts\EnemyHealth.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\EnemyScripts\HealthBillboardManager.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\EnemyScripts\StateController.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\LevelScripts\AlertManagement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\LevelScripts\CoverLookup.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Action.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\AttackAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ExitFocusAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\FindCoverAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\FocusMoveAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\GoToShotSpotAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\PatrolAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ReloadAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ReturnToCoverAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\SearchAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\SpotFocusAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\TakeCoverAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\ClassStats.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\AdvanceCoverDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\ClearShotDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\EndBurstDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\EngageDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\FeelAlertDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\FocusDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\HearDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\LookDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\ReachedPointDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\TakeCoverDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\TargetDeadDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\WaitedDecision.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\EnemyVariables.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\GeneralStats.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\State.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Transition.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\EnemyAI\Setup\DebugAimAction.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\BlinkHUD.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\DemoSceneManagement.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\HeadShotHUDFader.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\SceneFadeInOut.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\SliderHandler.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\SpawnEffect.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\StartCountdown.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\LevelScripts\TPSBundleTimeTrial.cs" />
+     <Compile Include="Assets\OtherAsset\TPS Bundle\Extras\Scripts\PlayerScripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Common\AssetBundleBuildInfo.cs" />
      <Compile Include="Assets\Scripts\Common\AssetBundleConst.cs" />
      <Compile Include="Assets\Scripts\Common\AssetBundleFileInfo.cs" />
@@ -61,6 +139,7 @@
      <Compile Include="Assets\Scripts\Common\SingletonT.cs" />
      <Compile Include="Assets\Scripts\Common\SupportedLanguages.cs" />
      <Compile Include="Assets\Scripts\Common\Utils.cs" />
+     <Compile Include="Assets\Scripts\Extensions\DoTween.cs" />
      <Compile Include="Assets\Scripts\GameExample.cs" />
      <Compile Include="Assets\Scripts\GameMain.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
@@ -74,85 +153,10 @@
      <Compile Include="Assets\Scripts\Manager\Event\GEventDispatcher.cs" />
      <Compile Include="Assets\Scripts\Manager\Event\GEventDispatcherMono.cs" />
      <Compile Include="Assets\Scripts\Manager\GameAssetManager.cs" />
+     <Compile Include="Assets\Scripts\Manager\GameLuaManager.cs" />
      <Compile Include="Assets\Scripts\Manager\PatchManager.cs" />
      <Compile Include="Assets\Scripts\Mono\AvatarChar.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\ControlsTutorial.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\HintManagement.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\InteractiveSwitch.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\TargetHealth.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\Demo Scene\TimeTrialManager.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\HealthManager.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\InteractiveWeapon.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\ParticleSystemAutoDestroy.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\ThirdPersonOrbitCam.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\LevelScripts\WeaponUIManager.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\AimBehaviour.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\BasicBehaviour.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\CoverBehaviour.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\Demo Scene\Footsteps.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\MoveBehaviour.cs" />
-     <Compile Include="Assets\TPS Bundle\Cover+Shoot\Scripts\PlayerScripts\ShootBehaviour.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Characters\LightGunCharacter\Scripts\CursorTrack.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Characters\TopDownCharacter\Scripts\CameraFollow.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Characters\TopDownCharacter\Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\EnemyFootsteps.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\LevelTrigger.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\LightGunShooterGameManagement.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\LevelScripts\TopDownGameManagement.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\HurtHUD.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\PlayerShooting.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Scripts\PlayerScripts\SimplePlayerHealth.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Utility\CurveControlledBob.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Utility\FOVKick.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Examples\Utility\LerpControlledBob.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\EnemyScripts\EnemyAnimation.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\EnemyScripts\EnemyHealth.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\EnemyScripts\HealthBillboardManager.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\EnemyScripts\StateController.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\LevelScripts\AlertManagement.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\LevelScripts\CoverLookup.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Action.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\AttackAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ExitFocusAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\FindCoverAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\FocusMoveAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\GoToShotSpotAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\PatrolAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ReloadAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\ReturnToCoverAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\SearchAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\SpotFocusAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Actions\TakeCoverAction.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\ClassStats.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\AdvanceCoverDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\ClearShotDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\EndBurstDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\EngageDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\FeelAlertDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\FocusDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\HearDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\LookDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\ReachedPointDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\TakeCoverDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\TargetDeadDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Decisions\WaitedDecision.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\EnemyVariables.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\GeneralStats.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\State.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Scripts\ScriptableObjects\Transition.cs" />
-     <Compile Include="Assets\TPS Bundle\EnemyAI\Setup\DebugAimAction.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\BlinkHUD.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\DemoSceneManagement.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\HeadShotHUDFader.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\SceneFadeInOut.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\SliderHandler.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\SpawnEffect.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\StartCountdown.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\LevelScripts\TPSBundleTimeTrial.cs" />
-     <Compile Include="Assets\TPS Bundle\Extras\Scripts\PlayerScripts\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\ShowGameFPS.cs" />
      <Compile Include="Assets\ThirdLib\Unity-Logs-Viewer\Reporter\MultiKeyDictionary.cs" />
      <Compile Include="Assets\ThirdLib\Unity-Logs-Viewer\Reporter\Reporter.cs" />
      <Compile Include="Assets\ThirdLib\Unity-Logs-Viewer\Reporter\ReporterGUI.cs" />
@@ -206,6 +210,50 @@
      <Compile Include="Assets\ToLua\Core\ToLua.cs" />
      <Compile Include="Assets\ToLua\Core\TypeChecker.cs" />
      <Compile Include="Assets\ToLua\Core\TypeTraits.cs" />
+     <Compile Include="Assets\ToLua\Examples\01_HelloWorld\HelloWorld.cs" />
+     <Compile Include="Assets\ToLua\Examples\02_ScriptsFromFile\ScriptsFromFile.cs" />
+     <Compile Include="Assets\ToLua\Examples\03_CallLuaFunction\CallLuaFunction.cs" />
+     <Compile Include="Assets\ToLua\Examples\04_AccessingLuaVariables\AccessingLuaVariables.cs" />
+     <Compile Include="Assets\ToLua\Examples\05_LuaCoroutine\TestCoroutine.cs" />
+     <Compile Include="Assets\ToLua\Examples\06_LuaCoroutine2\TestCoroutine2.cs" />
+     <Compile Include="Assets\ToLua\Examples\07_LuaThread\TestLuaThread.cs" />
+     <Compile Include="Assets\ToLua\Examples\08_AccessingArray\AccessingArray.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\System_Collections_Generic_Dictionary_int_TestAccountWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\System_Collections_Generic_Dictionary_int_TestAccount_KeyCollectionWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\System_Collections_Generic_Dictionary_int_TestAccount_ValueCollectionWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\System_Collections_Generic_KeyValuePair_int_TestAccountWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\TestAccountWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\09_Dictionary\UseDictionary.cs" />
+     <Compile Include="Assets\ToLua\Examples\10_Enum\AccessingEnum.cs" />
+     <Compile Include="Assets\ToLua\Examples\11_Delegate\TestDelegate.cs" />
+     <Compile Include="Assets\ToLua\Examples\11_Delegate\TestEventListener.cs" />
+     <Compile Include="Assets\ToLua\Examples\11_Delegate\TestEventListenerWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\12_GameObject\TestGameObject.cs" />
+     <Compile Include="Assets\ToLua\Examples\13_CustomLoader\TestCustomLoader.cs" />
+     <Compile Include="Assets\ToLua\Examples\14_Out\TestOutArg.cs" />
+     <Compile Include="Assets\ToLua\Examples\15_ProtoBuffer\TestProtoBuffer.cs" />
+     <Compile Include="Assets\ToLua\Examples\15_ProtoBuffer\TestProtol.cs" />
+     <Compile Include="Assets\ToLua\Examples\15_ProtoBuffer\TestProtolWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\16_Int64\TestInt64.cs" />
+     <Compile Include="Assets\ToLua\Examples\17_Inherit\TestInherit.cs" />
+     <Compile Include="Assets\ToLua\Examples\18_Bundle\TestABLoader.cs" />
+     <Compile Include="Assets\ToLua\Examples\19_cjson\TestCJson.cs" />
+     <Compile Include="Assets\ToLua\Examples\20_utf8\TestUTF8.cs" />
+     <Compile Include="Assets\ToLua\Examples\21_String\TestString.cs" />
+     <Compile Include="Assets\ToLua\Examples\22_Reflection\TestReflection.cs" />
+     <Compile Include="Assets\ToLua\Examples\23_List\UseList.cs" />
+     <Compile Include="Assets\ToLua\Examples\24_Struct\PassStruct.cs" />
+     <Compile Include="Assets\ToLua\Examples\Performance\TestPerformance.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestErrorStack\TestInstantiate.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestErrorStack\TestInstantiate2.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestErrorStack\TestLuaStack.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestInjection\BaseTestWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestInjection\TestInjection.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestInjection\ToLuaInjectionTest.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestInjection\ToLuaInjectionTestWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestOverload\TestExportWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestOverload\TestExport_SpaceWrap.cs" />
+     <Compile Include="Assets\ToLua\Examples\TestOverload\TestOverload.cs" />
      <Compile Include="Assets\ToLua\Injection\LuaInjectionStation.cs" />
      <Compile Include="Assets\ToLua\LuaView.cs" />
      <Compile Include="Assets\ToLua\Misc\LuaClient.cs" />
@@ -227,7 +275,9 @@
      <Compile Include="Assets\ToLua\Source\Generate\DG_Tweening_TweenWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\DG_Tweening_TweenerWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\DelegateFactory.cs" />
-     <Compile Include="Assets\ToLua\Source\Generate\FileUtilWrap.cs" />
+     <Compile Include="Assets\ToLua\Source\Generate\DoTweenWrap.cs" />
+     <Compile Include="Assets\ToLua\Source\Generate\GameAssetRequestWrap.cs" />
+     <Compile Include="Assets\ToLua\Source\Generate\GameLuaManagerWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\LuaBinder.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\LuaInterface_DebuggerWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\LuaInterface_InjectTypeWrap.cs" />
@@ -303,12 +353,9 @@
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_DropdownWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_Dropdown_OptionDataWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_GraphicWrap.cs" />
-     <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_GridLayoutGroupWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_ImageWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_InputFieldWrap.cs" />
-     <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_LayoutGroupWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_MaskableGraphicWrap.cs" />
-     <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_RawImageWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_ScrollRectWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_SelectableWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_SliderWrap.cs" />
@@ -317,18 +364,25 @@
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_UI_ToggleWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_WWWWrap.cs" />
      <Compile Include="Assets\ToLua\Source\Generate\UnityEngine_WrapModeWrap.cs" />
-     <Compile Include="Assets\ToLua\Source\Generate\UtilsWrap.cs" />
      <Compile Include="Assets\ToLua\Source\LuaConst.cs" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Specular\T4M 2 TexturesSpec.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel1\T4M 2 Textures ManualAdd BeastLM_1DC.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\MobileVertex\T4M 3 TexturesTest.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_22.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_head_02.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_humian.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_188.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Pink_Sea_lightmap.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM mobile.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M 4 Textures.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec Mobile.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_19.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_214.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30100004.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_38.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_184.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_56.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Toon\T4M 4 Textures Toon.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Star_newSea.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_limb_02.txt" />
@@ -336,123 +390,296 @@
      <None Include="Assets\Resources\Shaders\Base.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Star_SceneRoll.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Star_Chenbinglin.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_1.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_147.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_210.txt" />
      <None Include="Assets\Resources\Shaders\BaseCube_Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_9.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\WSequence_Alpha.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_171.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_202.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_91.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_157.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_196.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_203.txt" />
      <None Include="Assets\Resources\Shaders\Base_Dissolve.shader" />
      <None Include="Assets\Resources\Shaders\BaseCubeUV_alpha_Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_93.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_47.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_24.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_115.txt" />
      <None Include="Assets\Resources\Shaders\Scene\RainSplash.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_170.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\Scroll2Layers_AlphaBlended.shader" />
      <None Include="Assets\Resources\Shaders\UI\TextureCompress_fore 2.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_69.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_64.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_94.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Specular\T4M 4 Textures Spec.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_201.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M 6 Textures.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_40.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_23.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_89.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_114.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Specular\T4M 3 TexturesSpec.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Specular\T4M 3 Textures Spec.shader" />
      <None Include="Assets\Res\TXTBonesInfo\mst_xg01.txt" />
-     <None Include="Assets\PolygonBattleRoyale\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_137.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_4.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_104.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_7.txt" />
+     <None Include="Assets\OtherAsset\PolygonBattleRoyale\Materials\Shader\Particle VertexLit Blended_Backface.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Star_newSeaBake.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_162.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\4TexturesUnlit.shader" />
      <None Include="Assets\Resources\Shaders\BaseGai_org.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_160.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_82.txt" />
      <None Include="Assets\Resources\Shaders\BaseCubeUV_Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_118.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\6TexturesUnlit.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_127.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\HS_AlphaBlended.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_weapon_03.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_weapon_02_02.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\BumpSpec\T4M 3 TexturesBumpSpec.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_70.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30100001.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_65.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_116.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_169.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\6TexturesUnlitNoLM.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M 5 Textures.shader" />
      <None Include="Assets\ToLua\Injection\InjectionBlackList.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Bump\T4M 3 TexturesBump.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Toon\T4M 3 Textures Toon.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_11.txt" />
      <None Include="Assets\ThirdLib\DOTween\readme.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_100.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_95.txt" />
      <None Include="Assets\Resources\Shaders\BaseNoShadow_Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_206.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\HS_AlphaAdd.shader" />
      <None Include="Assets\Resources\Shaders\EffectShader\HS_Sequence.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_197.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_142.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\DirectionLM\T4M 3 TexturesBumped DLM.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_120.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_132.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_45.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_181.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\MobileVertex\T4M 4 TexturesTest.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_46.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_77.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_174.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_39.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_87.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_225.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_body_02.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_140.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_75.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30300002.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_68.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_220.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_183.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30100003.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_213.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_204.txt" />
      <None Include="Assets\StreamingAssets\build_info.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_219.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_112.txt" />
+     <None Include="Assets\OtherAsset\Scopes Shader\Shaders\Scope.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_51.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Pink_Sea.shader" />
      <None Include="Assets\Resources\Shaders\EffectShader\HS_AlphaAdd_1.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_101.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_110.txt" />
      <None Include="Assets\ThirdLib\Mirror\version.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_8.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\Scroll2Layers_AlphaAdd.shader" />
      <None Include="Assets\ThirdLib\Mirror\Readme.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unified\T4M 3 TexturesUnified.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30300004.txt" />
      <None Include="Assets\Resources\Shaders\BaseCube.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_218.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_207.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_Scenebuilding.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel1\T4M 2 Textures ManualAdd CustoLM 1DC.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_17.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_119.txt" />
      <None Include="Assets\Res\EffectRes\Tasharen Water.shader" />
+     <None Include="Assets\GameAssets\font\numfont2.fnt" />
      <None Include="Assets\Resources\Shaders\UI\TextureCompress_fore 1.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_67.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_head_01.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_80.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_body_01.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_173.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_215.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_43.txt" />
      <None Include="Assets\Res\TXTBonesInfo\mst_xg01a.txt" />
      <None Include="Assets\Resources\GameConfig.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_3a.txt" />
      <None Include="Assets\Resources\Shaders\BaseNoShadow.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_55.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_28.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_145.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_148.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_13.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_41.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_head_03.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M World Projection Shader.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_106.txt" />
      <None Include="Assets\ToLua\readme.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_Zhiwu_updt.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M 2 Textures.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_body_03.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Toon\T4M 2 Textures Toon.shader" />
      <None Include="Assets\Res\TXTBonesInfo\mst_xg02.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_18.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_25.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_35.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_97.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30100002.txt" />
+     <None Include="Assets\OtherAsset\Scopes Shader\Shaders\RedDot.shader" />
      <None Include="Assets\Resources\Shaders\BaseUV_Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_111.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Specular\T4M 2 Textures Spec.shader" />
      <None Include="Assets\Resources\Shaders\EffectShader\theMove_addtive.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_90.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_217.txt" />
      <None Include="Assets\Resources\Shaders\BaseAlpha.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Bump\T4M 4 TexturesBumped.shader" />
-     <None Include="Assets\PolygonBattleRoyale\Materials\Shader\DamageZone.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_151.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_84.txt" />
+     <None Include="Assets\OtherAsset\PolygonBattleRoyale\Materials\Shader\DamageZone.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_117.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_195.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_105.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_newSeaFinally.shader" />
      <None Include="Assets\link.xml" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_57.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_20.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Specular\T4M 4 TexturesSpec.shader" />
      <None Include="Assets\Resources\Shaders\EffectShader\dissolution_mine.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\2TexturesUnlit.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_weapon_02_01.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_SceneRain.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30300001.txt" />
      <None Include="Assets\ToLua\Injection\InjectionBridgeEditorInfo.xml" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_172.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_52.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_96.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_212.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\5TexturesUnlit.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_205.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\BumpSpec\T4M 4 TexturesBumpSpec.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_29.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_124.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_26.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Bump\T4M 4 TexturesBump.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Pink_SeaUnder.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_83.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_44.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_49.txt" />
      <None Include="Assets\ToLua\Injection\LuaInjectionSkipPaths.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unified\T4M 4 TexturesUnified.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Diffuse\T4M 5 Textures.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_88.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Diffuse\T4M 6 Textures.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Shaders_Tex\EasyWater2_CTD.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_121.txt" />
      <None Include="Assets\Resources\Shaders\BaseCube_Normal.shader" />
      <None Include="Assets\ThirdLib\Mirror\Plugins\Mono.Cecil\License.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_144.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_149.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_71.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\dissolution_add.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Bump\T4M 2 TexturesBumped Mobile.shader" />
      <None Include="Assets\Resources\Shaders\BaseUV.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_180.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Bump\T4M 2 TexturesBump.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_164.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\dissolution_blend.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_178.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_10.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\MobileVertex\T4M 2 TexturesTest.shader" />
      <None Include="Assets\Resources\Shaders\Scene\Star_Wangzheshui.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_73.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Bump\T4M 3 TexturesBumped Mobile.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_limb_03.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_125.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_159.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel1\T4M 2 Textures Auto BeastLM 2DrawCall.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_123.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\HS_Particle Add.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_107.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_126.txt" />
      <None Include="Assets\Resources\Shaders\BaseCubeUV.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_54.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_216.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Diffuse\T4M 3 Textures.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_175.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_208.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_81.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_133.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_223.txt" />
      <None Include="Assets\Resources\Shaders\UI\TextureCompress_fore.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_200.txt" />
      <None Include="Assets\Resources\Shaders\EffectShader\WSequence.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_3.txt" />
      <None Include="Assets\Resources\Shaders\UI\TextureCompress_fore 3.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_76.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\T4M World Projection Shader Unlit+LM.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\Diffuse\T4M 4 Textures.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_179.txt" />
      <None Include="Assets\Resources\Shaders\UI\TextureCompress.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_14.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unified\T4M 2 TexturesUnified.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel3\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_176.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Diffuse\T4M 3 Textures.shader" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\DirectionLM\T4M 2 TexturesBumped DLM.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_143.txt" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_limb_01.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_146.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_209.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_79.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_199.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_50.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_163.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_158.txt" />
      <None Include="Assets\Resources\Shaders\BaseCubeUV_alpha.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_211.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_113.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\Unlit\3TexturesUnlit.shader" />
      <None Include="Assets\Res\TXTBonesInfo\Infility_weapon_01.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_6.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_4a.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_198.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_122.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_63.txt" />
      <None Include="Assets\Resources\Shaders\ShaderModel2\BumpSpec\T4M 2 TexturesBumpSpec.shader" />
-     <None Include="Assets\TPS Bundle\Extras\Shaders\Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_221.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_15.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_78.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_135.txt" />
+     <None Include="Assets\OtherAsset\TPS Bundle\Extras\Shaders\Dissolve.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_182.txt" />
+     <None Include="Assets\GameAssets\battleAssets\Material\CircleOfPoison.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_109.txt" />
      <None Include="Assets\Resources\Shaders\Scene\Star_linshi.shader" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_139.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_102.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_37.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_30300003.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_99.txt" />
+     <None Include="Assets\GameAssets\text\TXTBonesInfo\avatar_86.txt" />
  <Reference Include="UnityEngine">
  <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -1058,6 +1285,10 @@
       <Project>{eb9b860f-34ab-ce50-ba8f-4747aa0c117d}</Project>
       <Name>Mirror.CompilerSymbols</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
+      <Project>{77190fe4-2c84-e091-5c17-28c7029815e0}</Project>
+      <Name>Unity.TextMeshPro.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Ninja.WebSockets.csproj">
       <Project>{e3a9b819-c9f2-9e48-d41f-8bc2fd4735d5}</Project>
       <Name>Ninja.WebSockets</Name>
@@ -1069,6 +1300,14 @@
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{e16f1062-4415-915a-e011-b789f3e28a4e}</Project>
       <Name>Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
+      <Project>{46c3615f-df54-15e2-db81-db6e247e1d39}</Project>
+      <Name>Unity.CollabProxy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
+      <Project>{dccc03e1-3904-882f-2c4e-68e928f3ed51}</Project>
+      <Name>Unity.Postprocessing.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.multiplayer-weaver.Editor.csproj">
       <Project>{a6644621-0aa5-3526-7caf-c10998f76aeb}</Project>
@@ -1090,6 +1329,10 @@
       <Project>{c9c93226-c35e-26ec-f65e-269b6718a2a2}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
+      <Project>{e216b337-0afa-674c-4039-64fea903aec3}</Project>
+      <Name>Unity.Postprocessing.Runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
       <Project>{7f324740-d7a2-efcc-c10c-b426fcff3438}</Project>
       <Name>Unity.2D.Tilemap.Editor</Name>
@@ -1106,6 +1349,10 @@
       <Project>{19d0aa2c-e349-c538-af86-94c9a08ebeb0}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{8af87be1-a6f0-63a5-271b-3709ebcfcbaa}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
       <Project>{46cc0281-9cde-253a-a0ed-d40edc393dd0}</Project>
       <Name>UnityEditor.XR.LegacyInputHelpers</Name>
@@ -1117,26 +1364,6 @@
     <ProjectReference Include="com.unity.multiplayer-hlapi.Runtime.csproj">
       <Project>{77d54d19-d013-e2fc-07a6-aac1500d44e4}</Project>
       <Name>com.unity.multiplayer-hlapi.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{77190fe4-2c84-e091-5c17-28c7029815e0}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{46c3615f-df54-15e2-db81-db6e247e1d39}</Project>
-      <Name>Unity.CollabProxy.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
-      <Project>{dccc03e1-3904-882f-2c4e-68e928f3ed51}</Project>
-      <Name>Unity.Postprocessing.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
-      <Project>{e216b337-0afa-674c-4039-64fea903aec3}</Project>
-      <Name>Unity.Postprocessing.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{8af87be1-a6f0-63a5-271b-3709ebcfcbaa}</Project>
-      <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
