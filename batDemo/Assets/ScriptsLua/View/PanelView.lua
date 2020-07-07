@@ -77,6 +77,8 @@ end
 
 function PanelView:Close()
     if not self:changeState(ViewPanelState.Close) then return end
+    self.canvasGroup.Alpha=0;
+    self.gameObject:setActive(false);
     self:UnRegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:UnRegisterEvent()
@@ -88,6 +90,8 @@ function PanelView:Close()
 end
 function PanelView:Redisplay()
     if not self:changeState(ViewPanelState.Redisplay) then return end
+    self.canvasGroup.Alpha=1;
+    self.gameObject:setActive(true);
     self:RegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:RegisterEvent()
@@ -96,6 +100,8 @@ function PanelView:Redisplay()
 end
 function PanelView:Hiding()
     if not self:changeState(ViewPanelState.Hiding) then return end
+    self.canvasGroup.Alpha=0;
+    self.gameObject:setActive(false);
     self:UnRegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:UnRegisterEvent()
@@ -104,6 +110,8 @@ function PanelView:Hiding()
 end
 function PanelView:Open()
     if not self:changeState(ViewPanelState.Open) then return end
+    self.canvasGroup.Alpha=1;
+    self.gameObject:setActive(true);
     self._OnUpdateHandle = UpdateBeat:CreateListener(self.Update,self)
     UpdateBeat:AddListener(self._OnUpdateHandle);
     self:RegisterEvent();
@@ -116,6 +124,16 @@ function PanelView:Open()
      self.openParam=nil;
    end
 end
+---冻结 仍然显示 但没有监听
+function PanelView:Freeze()
+    if not self:changeState(ViewPanelState.Freeze) then return end
+    self:UnRegisterEvent();
+    for i, v in ipairs(self._childViews) do
+        v:UnRegisterEvent()
+    end
+    self.isstateCg=false;
+end
+
 
 -----------------------子类重写生命周期----------------------------
 
@@ -134,9 +152,14 @@ end
 
 
 function PanelView: Init()
+    self.canvasGroup = self.gameObject:GetComponent(typeof(CanvasGroup));
+    if not self.canvasGroup then
+        logError(" self.canvasGroup not found >>> "..self.viewName);
+    end
+    self.canvasGroup.Alpha=1;
+    self.gameObject:setActive(true);
     Main.ViewManager:addToLayer(self);
     self:OnUIInit();
-    
     if self.panelstate~=ViewPanelState.Init and self[self.panelstate] then
         self[self.panelstate]();
     end
