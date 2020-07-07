@@ -180,6 +180,7 @@ public class PatchManager : MonoSingleton<PatchManager>
                 signedFileName = fileInfo.signedFileName;
             }else{
                DebugLog.LogError("GetSignedFileLocalURL LogError"+fileName+" manifest"+manifest.fileInfoDict.Count);
+               return "";
             }
         }
         else
@@ -468,7 +469,7 @@ public class PatchManager : MonoSingleton<PatchManager>
         //顺便删除 旧版本的
         if(!AssetBundleFileInfo.IsConfigFile(fileInfo.fileName)){
              string  url= GetSignedFileLocalURL(fileInfo.fileName);
-             if(!url.Contains(_streamingAssetsURL)){
+             if(url!=""&&!url.Contains(_streamingAssetsURL)){
                  DebugLog.Log("DeleteFileSafely :"+url);
                 FileUtil.DeleteFileSafely(url);
              }

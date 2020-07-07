@@ -54,7 +54,7 @@ public class ProtoGenLuaMenuItems
         path = path.Replace("/", "\\");
         return path;
     }
-    [MenuItem("PB导出工具/Build Protobuf-lua-gen File 主干")]
+    [MenuItem("PB导出工具/Build Protobuf-lua-gen File Main")]
     public static void BuildProtobufFileMain()
     {
         _BuildProtoFile("/main");
@@ -77,7 +77,7 @@ public class ProtoGenLuaMenuItems
 
     private static void _BuildProtoFile(string canPath)
     {
-        _CheckMd5Boo = EditorUtility.DisplayDialog("导出Porot提示", "是否选择使用增量更新", "YES", "NO");
+      //  _CheckMd5Boo = EditorUtility.DisplayDialog("导出Porot提示", "是否选择使用增量更新", "YES", "NO");
 
         EditorUtility.DisplayProgressBar("Proto导出", "开始导出", 0.1f);
 
@@ -86,8 +86,9 @@ public class ProtoGenLuaMenuItems
         //string pbPath = Application.dataPath.Replace("Assets", "") + "Tools/GameProto";
         string pluginPath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//proto的工具位置
         string protoExePath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/plugin";//proto的工具位置
-        //string serverPath = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/proto/ProtoSource/";//一开始使用的proto所在位置
-        string serverPath2 = Application.dataPath.Replace("Assets", "").Replace("gunFire/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/vendor/sparkgame.com/gframe/protoSource";//后来增加的位置信息
+        //string serverPath = Application.dataPath.Replace("Assets", "").Replace("batDemo/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/proto/ProtoSource/";//一开始使用的proto所在位置
+      //  string serverPath2 = Application.dataPath.Replace("Assets", "").Replace("batDemo/", "") + "server/SparkGameGO/src/sparkgame.com/miniworld/vendor/sparkgame.com/gframe/protoSource";//后来增加的位置信息
+        string cmdpkgPath = Application.dataPath.Replace("Assets", "") + "Tools/GameProto/";
         string serverPath3 = Application.dataPath.Replace("Assets", "Tools") + "/GameProto"+ canPath;
 
         files.Clear();
@@ -95,7 +96,7 @@ public class ProtoGenLuaMenuItems
         EditorUtility.DisplayProgressBar("Proto导出", "检测文件内容", 0.3f);
 
         //List<ProtoFileInfo> tempFileInfoList = _GetProtoFiles(serverPath,serverPath2);
-        List<ProtoFileInfo> tempFileInfoList = _GetProtoFilesForFloder(serverPath3, serverPath2);
+        List<ProtoFileInfo> tempFileInfoList = _GetProtoFilesForFloder(serverPath3, cmdpkgPath);
 
         string tempStrPath = Application.dataPath + "/ScriptsLua/pb/md.bytes";
         if (System.IO.File.Exists(tempStrPath))
@@ -312,7 +313,7 @@ public class ProtoGenLuaMenuItems
 		}
 		return tempReturnList;
     }
-
+    ///生成cmdpkg.proto
     private static List<ProtoFileInfo> _GetProtoFilesForFloder(string canServerPath,string canServerPath2)
     {
         List<string> fileList = new List<string>();
@@ -635,9 +636,10 @@ public class ProtoGenLuaMenuItems
         sw.WriteLine("--Auto Create , Don't Edit--");
         sw.WriteLine("--If you have any questions, please contact ma huibao--");
         sw.Write("\n");
-        sw.WriteLine("local tempPath1 = Util.GetProtoBytesPath()..\"Cmdpkg.bytes\"");
-        sw.WriteLine("local tempPath2 = Util.GetProtoBytesPath()..\"md.bytes\"");
-        sw.WriteLine("assert(pb.loadfile(tempPath1))");
+      //  sw.WriteLine("local tempPath1 = Util.GetProtoBytesPath()..\"cmdpkg.bytes\"");
+       // sw.WriteLine("local tempPath2 = Util.GetProtoBytesPath()..\"md.bytes\"");
+         sw.WriteLine("local tempPath2 = GameLuaManager.GetProtoBytesPath()");
+     //   sw.WriteLine("assert(pb.loadfile(tempPath1))");
         sw.WriteLine("assert(pb.loadfile(tempPath2))");
         //foreach(ProtoFileInfo tempInfo in canFileInfos)
         //{

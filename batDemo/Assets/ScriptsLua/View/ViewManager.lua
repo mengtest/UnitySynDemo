@@ -14,6 +14,7 @@ function ViewManager:initialize()
     self._mapShowingUI = {}
     -- 需要反向的队列 PanelView
     self._arrReverseChangeUI = Array();
+    ---UI存活时间
     self._delUiTime=20;
     self._releaseUITime=2;
     self._releaseUITempTime=0;
@@ -171,7 +172,7 @@ function ViewManager:Update()
     self._releaseUITempTime = Time.deltaTime + self._releaseUITempTime;
     if self._releaseUITempTime>=self._releaseUITime then
         for k, v in ipairs(self._mapUIPool) do
-            if (not v.isOpen) and (Time.GetTimestamp()-v.closeTime >self._delUiTime) then
+            if v.panelstate==ViewPanelState.Close and (Time.GetTimestamp()-v.closeTime >self._delUiTime) then
                     table.remove(self._mapUIPool,k);
                     v.destory();
             end

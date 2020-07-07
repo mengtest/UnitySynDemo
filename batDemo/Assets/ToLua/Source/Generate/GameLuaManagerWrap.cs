@@ -10,6 +10,7 @@ public class GameLuaManagerWrap
 		L.RegFunction("LoadAsset", LoadAsset);
 		L.RegFunction("SetLogSwitcher", SetLogSwitcher);
 		L.RegFunction("RefreshShader", RefreshShader);
+		L.RegFunction("GetProtoBytesPath", GetProtoBytesPath);
 		L.RegFunction("New", _CreateGameLuaManager);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -102,6 +103,22 @@ public class GameLuaManagerWrap
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			GameLuaManager.RefreshShader(ref arg0);
 			ToLua.PushSealed(L, arg0);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetProtoBytesPath(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			string o = GameLuaManager.GetProtoBytesPath();
+			LuaDLL.lua_pushstring(L, o);
 			return 1;
 		}
 		catch (Exception e)

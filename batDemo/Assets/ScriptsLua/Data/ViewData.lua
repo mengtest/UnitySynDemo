@@ -23,12 +23,12 @@ ViewShowMode={
 ---面板状态.
 ---@class ViewPanelState
 ViewPanelState={
-      init = 0,
-      Open = 1,
-      Close = 2,
-      Hiding = 3,
-      Redisplay =4,
-      Freeze = 5,
+      Init = "Init",
+      Open = "Open",
+      Close = "Close",
+      Hiding = "Hiding",
+      Redisplay ="Redisplay",
+      Freeze = "Freeze",
 }
 
 --视图类型

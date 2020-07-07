@@ -5,10 +5,10 @@ BaseView = Class("BaseView",EventObj)
 
 -- 类初始化，类似构造函数
 function BaseView:initialize()
-    self.viewName = "BaseView";
+    self.viewName = "View.BaseView";
     self.needUpdate=false;
     self.isFin=false;
-    self.Url="url..";
+    self.Url="View/BaseView";
     self.ViewLayer=ViewLayer.content;
 
     self._isDestroyed=false;

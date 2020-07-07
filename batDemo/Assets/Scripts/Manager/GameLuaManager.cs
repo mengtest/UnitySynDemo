@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using LuaInterface;
 using UnityEngine;
+using UnityEngine.UI;
 
 [AutoRegistLua]
 public class GameLuaManager
@@ -32,4 +33,32 @@ public class GameLuaManager
         }
 
     }
+#if UNITY_EDITOR
+    public static string GetProtoBytesPath()
+    {
+       //persistentDataPath = Application.dataPath + "/ScriptsLua/PB";
+        string urle = Application.dataPath + "/ScriptsLua/PB/md.bytes";
+        return urle;
+    }
+#else
+    public static string GetProtoBytesPath()
+    {
+        string url= PatchManager.Instance.GetSignedFileLocalURL("md.bytes",false);
+         return url;
+    }
+#endif
+
+
+    #region 提供lua ScrollView使用
+    /// <summary>
+    /// 添加拖拽监听
+    /// </summary>
+    public static void AddScrollViewOnValueChangeListener(ScrollRect canRect, LuaFunction canFunc)
+    {
+        canRect.onValueChanged.AddListener((canVector2) =>
+        {
+            canFunc.Call(canVector2);
+        });
+    }
+    #endregion
 }

@@ -175,36 +175,36 @@ public class AppBuild {
             LuaTempDel();
         }
 
-        // /*-------------------proto协议二进制文件打包----------------------*/
-        // string tempProtoPath = Application.dataPath + "/ScriptsLua/PB";
-        // string tempCmdpkgPath = tempProtoPath + "/Cmdpkg.bytes";
-        // string tempCmdpkgTargetPath = outPath + "/Cmdpkg.bytes";
-        // string tempMbPath = tempProtoPath + "/md.bytes";
-        // string tempMbTargetPath = outPath + "/md.bytes";
-        // File.Copy(tempCmdpkgPath.Replace("/", "\\"), tempCmdpkgTargetPath.Replace("/", "\\"), true);
-        // File.Copy(tempMbPath.Replace("/", "\\"), tempMbTargetPath.Replace("/", "\\"), true);
-        // /*-------------------proto协议二进制文件打包----------------------*/
+         /*-------------------proto协议二进制文件打包----------------------*/
+         string tempProtoPath = Application.dataPath + "/ScriptsLua/PB";
+         string tempCmdpkgPath = tempProtoPath + "/cmdpkg.bytes";
+         string tempCmdpkgTargetPath = outPath + "/cmdpkg.bytes";
+         string tempMbPath = tempProtoPath + "/md.bytes";
+         string tempMbTargetPath = outPath + "/md.bytes";
+         File.Copy(tempCmdpkgPath.Replace("/", "\\"), tempCmdpkgTargetPath.Replace("/", "\\"), true);
+         File.Copy(tempMbPath.Replace("/", "\\"), tempMbTargetPath.Replace("/", "\\"), true);
+         /*-------------------proto协议二进制文件打包----------------------*/
 
-        // // 生成md5文件
-        // StringBuilder md5 = new StringBuilder();
-        // string path = outPath;
-        // foreach (var item in Directory.GetFiles(path, "*lua*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
-        // {
-        //     if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
-        //     FileInfo info = new FileInfo(item);
-        //     md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
-        // }
+        //  // 生成md5文件
+        //  StringBuilder md5 = new StringBuilder();
+        //  string path = outPath;
+        //  foreach (var item in Directory.GetFiles(path, "*lua*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
+        //  {
+        //      if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
+        //      FileInfo info = new FileInfo(item);
+        //      md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
+        //  }
 
-        // /*-------------------proto协议二进制文件打包----------------------*/
-        // foreach (var item in Directory.GetFiles(path, "*bytes*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
-        // {
-        //     if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
-        //     FileInfo info = new FileInfo(item);
-        //     md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
-        // }
-        // /*-------------------proto协议二进制文件打包----------------------*/
+        //  /*-------------------proto协议二进制文件打包----------------------*/
+        //  foreach (var item in Directory.GetFiles(path, "*bytes*", SearchOption.AllDirectories).OrderBy(x => !x.Contains("platform")))
+        //  {
+        //      if (item.EndsWith(".manifest") || item.EndsWith(".meta")) continue;
+        //      FileInfo info = new FileInfo(item);
+        //      md5.AppendLine(item.Replace(path, "").Replace("\\", "/") + ":" + FileUtil.md5file(item) + ":" + info.Length + ":lua:");
+        //  }
+        //  /*-------------------proto协议二进制文件打包----------------------*/
 
-       // File.WriteAllText(outPath + "/lua_md5", md5.ToString());
+        // File.WriteAllText(outPath + "/lua_md5", md5.ToString());
 
         Debug.Log("Lua包导出成功");
     }
@@ -438,8 +438,9 @@ public class AppBuild {
             }
             
             AssetBundleBuild ab = new AssetBundleBuild();
-            string outP = "effect_";
+            string outP = "view_";
             ab.assetBundleName = outP + ffName;
+           ab.assetBundleName=  ab.assetBundleName.ToLower();
             ab.assetNames = uList.ToArray();
             abAllList.Add(ab);
         }

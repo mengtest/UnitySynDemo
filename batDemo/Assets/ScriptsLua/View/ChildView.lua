@@ -12,6 +12,7 @@ end
 function ChildView:destory()
    self.panelView=nil;
    self.isPart=false;
+   self:UnRegisterEvent();
    self:OnUIDestory();
    BaseView.destory(self);
 end
@@ -19,7 +20,7 @@ end
 ---@param panelView PanelView
 function ChildView:setPlaneView(panelView)
     self.panelView=panelView;
-    if  self.isPart and self.transform then
+    if  self.isPart and self.transform and self.panelView.transform then
         self.transform.SetParent(self.panelView.transform);
     end
 end
