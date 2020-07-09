@@ -19,7 +19,7 @@ namespace Mirror.Examples.Tanks
 
         [Header("Game Stats")]
         [SyncVar]
-        public int health;
+        public int health=100;
         [SyncVar]
         public int score;
         [SyncVar]
