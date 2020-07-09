@@ -31,7 +31,7 @@ function ViewManager:initialize()
 
 end
 
-function ViewManager: Release()
+function ViewManager:Release()
     self:CloseAllUI();
     UpdateBeat:RemoveListener(self._OnUpdateHandle);
     for k, v in ipairs(self._mapUIPool) do
@@ -56,14 +56,14 @@ function ViewManager:addToLayer(baseView)
 end
 
 
-function ViewManager: init()
+function ViewManager:init()
     self._OnUpdateHandle = UpdateBeat:CreateListener(self.Update,self)
     UpdateBeat:AddListener(self._OnUpdateHandle);
 end
 
 ----获取其他面板.
 ---@param viewType ViewType
-function ViewManager: getPanelView(viewType)
+function ViewManager:getPanelView(viewType)
     if self._mapUIPool[viewType] then
        return self._mapUIPool[viewType];
     end
