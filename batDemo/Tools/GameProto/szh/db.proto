@@ -1,0 +1,198 @@
+syntax = "proto3";
+
+package md;
+import "enum.proto";
+
+
+// 用户信息
+message UserInfo {
+
+    // 第三方ID
+    string OpenID   = 1;
+
+    // 唯一id,展示给用户
+    string UID      = 2;
+
+    // 玩家名称
+    string Name     = 3;
+
+     //区域
+    REGION Region = 4;
+
+    // 是否有创建角色，如果没有则创建
+    bool HasRole = 5;
+
+    // 创建时间
+    //@inject_tag: response:"-"
+    int32 CreateTime = 6;
+
+    //游戏渠道
+    CHANNEL ChannelID = 7;
+
+    //登录类型
+    LOGIN_TYPE LoginType = 8;
+
+    //账号获取类型
+    ACCOUNT_GAIN_TYPE AccountGainType = 9;
+
+    //账号类型：QQ微信等
+    SDK_TYPE SdkType = 10;
+
+    //手机操作系统
+    PHONE_OS Phone_OS = 11;
+
+    //游客ID
+    string GuestId = 12;
+
+    //是否禁用
+    bool IsDisable = 13;
+}
+
+
+//装备信息
+message EquipmentInfo {
+
+    //装备id
+    uint32 EquipID =1;
+
+    //装备等级
+    uint32 Level =2;
+}
+
+
+//角名信息
+message RoleInfo{
+
+    //
+    string RoleId = 1;
+
+    //账号ID
+    string UID = 2;
+
+    //角色名字
+    string RoleName = 3;
+
+    //性别 0: 未设置，1：男，2：女
+    SEX Sex = 4;
+
+    // 创建时间
+    int32 CreateTime = 5;
+
+    //金币数量
+    uint32 CoinNum = 6;
+
+    //钻石
+    uint32 DiamondNum = 7;
+
+    //当前等级
+    uint32 Level = 8;
+
+    //当前经验
+    int64 CurrentExp = 9;
+
+    //升级所需经验
+    int64 UpLvNeedExp = 10;
+
+    //头像
+    string HeadImg = 11;
+}
+
+//装备数据
+message AvatarItemData{
+    //装备唯一id
+    uint32 EquipID =1;
+    //装备类型时间: -1：永久装备 0：到期时间,避免冲突 >0 到期时间戳
+    int32 Time = 2;
+}
+
+//avatar:所有时装数据
+message AvatarItems{
+   //时装列表 type: data
+   map<uint32, AvatarItemData> Items = 2;
+}
+
+//avatar:槽数据
+message AvatarSlotData{
+    uint32 Slot =1;
+    uint32 Id =2;
+}
+
+//avatar:所有槽数据
+message AvatarSlot{
+   map<uint32,AvatarSlotData> SlotData= 2;
+}
+
+message CurrencyInfo{
+     //货币类型
+    CURRENCY Currency =1;
+    //货币数量
+    uint32 Num = 2;
+}
+
+//搭配配置数据
+message SettingLockData{
+    //状态1开 0是锁住
+    uint32 Status =1;
+    //解锁货币相关
+    repeated CurrencyInfo Info =2;
+}
+
+//avatar: 搭配方案Data
+message AvatarSettingData{
+    //方案index
+    uint32 Index = 1;
+    //方案列表
+    repeated uint32 EquipID =2;
+    //状态1开 0是锁住
+    uint32 Status =3;
+    //解锁货币相关
+    repeated CurrencyInfo Info =4;
+}
+
+//avatar: 搭配方案Data
+message AvatarSettingRspData{
+    //方案index
+    uint32 Index = 1;
+    //方案列表
+    //repeated uint32 EquipID =2;
+    string EquipID = 2;
+    //状态1开 0是锁住
+    uint32 Status =3;
+    //解锁货币相关
+    string Info = 4;
+}
+
+//avatar:所有搭配数据
+message AvatarSetting{
+  repeated AvatarSettingData Setting =1;
+}
+
+
+//卡牌系统start
+//卡分页数据
+message CardPageData {
+    // cardId:index 方便查找卡牌数据
+	map<uint32,uint32> PageData =1;
+}
+
+//卡牌数据
+message CardData{
+   //卡牌唯一id
+   uint32 Id =1;
+   //level
+   uint32 Level =2;
+   //碎片数量
+   uint32 DebrisNum =3;
+}
+//卡牌系统end
+
+
+
+//玩家基础信息
+message PlayerBaseInfo{
+    //角色信息
+    RoleInfo  Player = 1;
+
+    //avatar 时装
+    repeated  uint32 EquipID =2;
+}

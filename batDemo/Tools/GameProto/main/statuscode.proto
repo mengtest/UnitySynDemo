@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package md;
+
+// 返回状态码(response status code)
+// 1~999 网络框架层错误
+// 1000~1999 登录及账号相关错误
+
+enum STATUS_CODE{
+    //通用成功
+    OK = 0;
+    //通用错误
+    ERR_COMMON =1;
+
+    //配置表数据不存在
+    ERR_CONFIG_DATA_NOT_EXIST =2;
+
+    //通用获取db数据error
+    ERR_GET_DB_DATA_ERR =3;
+
+    //通用获取db数据error
+    ERR_GET_SAVE_DATA_ERR =4;
+
+    //通用货币不足
+    ERR_CURRENCY_NOT_ENOUGH = 5;
+
+    //没有登录
+    ERR_NO_LOGIN = 1000;
+
+    //已经登录无需再次登录
+    ERR_ALREALY_LOGIN = 1001;
+
+    //登录账号为空
+    ERR_LOGIN_ACCOUNT_EMPTY       = 1002;
+
+    //创建账号失败
+    ERR_LOGIN_CREATEACCOUNT_FAIL  = 1003;
+
+    //无效OPEN_ID
+    ERR_INVALID_OPENID = 1004;
+
+    //创建角色失败
+    ERR_ROLE_CREATE_FAIL = 1005;
+
+    //创建角色名字已经存在
+    ERR_ROLE_CREATE_NAME_EXIST = 1006;
+
+    //玩家角色重名
+    ERR_CREATEROLE_REPEATEDNAME = 1007;
+
+    //玩家角色已经存在
+    ERR_CREATEROLE_EXIST = 1008;
+
+    // 创建角色名字太长
+    ERR_ROLE_NAME_TOO_LONG = 1009;
+
+    // 创建角色名字太短
+    ERR_ROLE_NAME_TOO_SHORT = 1010;
+
+    // 账号被禁用
+    ERR_ACCOUNT_DISABLE = 1011;
+
+    //角色消耗货币失败
+    ERR_ROLE_COST_CURRENCY_FAIL = 1012;
+
+    //匹配失败
+    ERR_DO_MATCH = 1101;
+
+    //查询结果失败
+    ERR_QUERY_MATCH = 1102;
+
+    //取消匹配失败
+    ERR_CANCEL_MATCH = 1103;
+
+    //加入房间失败
+    ERR_JOIN_BATTLE = 1104;
+
+
+    //avatar: 相同装备不用装备
+    ERR_AVATAR_CHANGE_SAME_EQUIP = 1201;
+
+    //avatar: 槽位数据为空
+    ERR_AVATAR_CHANGE_SLOT_DATA_EMPTY = 1202;
+
+    //avatar: 方案保存失败,未解锁
+    ERR_AVATAR_SAVE_SETTING_FAIL_UNLOCK = 1203;
+
+    //avatar:添加时装，已拥有相同永久
+    ERR_AVATAR_HAD_SAME_PERMANENT_ITEM = 1204;
+
+    //avatar:方案解锁失败:缺少货币
+    //ERR_AVATAR_UNLOCK_SETTING_FAIL_LACK_CURRENCY = 1205;
+
+    //avatar:方案存档失败
+    ERR_AVATAR_DB_SAVE_SETTING_FAIL = 1206;
+
+    //avatar:方案卸载装备失败：没有装备过此装备
+    ERR_AVATAR_UNEQUIP_FAIL_SLOT_EMPTY= 1207;
+
+    //avatar:搭配解锁失败：已经解锁了
+    ERR_AVATAR_UNLOCK_SETTING_FAIL_HAD_UNLOCK = 1208;
+
+    //avatar:换装失败：槽位不匹配
+    ERR_AVATAR_UNLOCK_SETTING_FAIL_PART_NOT_MATCH= 1209;
+
+    //avatar:换装通用失败
+    ERR_AVATAR_CHANGE_ERROR = 1230;
+
+    //avatar: 解锁失败,没有找到玩家数据
+    ERR_AVATAR_UNLOCK_SETTING_FAIL_PLAYER_DATA_MISS= 1231;
+
+    //avatar:换装失败：没有此装备
+    ERR_AVATAR_CHANGE_FAIL_NOT_ITEM = 1232;
+
+    //卡牌系统：物品不存在
+    ERR_CARD_UPGRADE_FAIL_CARD_NOT_EXIT = 1300;
+
+    //卡牌系统：物品最大等级
+    ERR_CARD_UPGRADE_FAIL_MAX_LEVEL = 1301;
+
+    //卡牌系统：货币不足
+    //ERR_CARD_UPGRADE_FAIL_LACK_CURRENCY = 1302;
+
+    //卡牌系统：碎片不足
+    ERR_CARD_UPGRADE_FAIL_LACK_DEBRIS = 1303;
+
+    //卡牌系统：卡槽锁住中
+    ERR_CARD_EQUIP_SLOT_LOCK = 1304;
+
+    //卡牌系统：卡槽不存在
+    ERR_CARD_UPEQUIP_NOT_EXIST = 1305;
+
+    //卡牌系统：卡片还没开放
+    ERR_CARD_UPGRADE_FAIL_NOT_OPEN = 1306;
+
+    //卡牌系统：通用核心兑换数量不足
+    ERR_CARD_EXCHANGE_DEBRIS_LACK_ITEM = 1307;
+
+    //卡牌系统:添加卡牌,已经拥有无需添加
+    ERR_CARD_ADD_FAIL_HAD = 1308;
+
+    //卡牌系统:添加卡牌,无需解锁
+    ERR_CARD_SLOT_HAD_UNLOCK = 1309;
+
+    //卡牌系统:前一个卡槽还处于锁住中
+    ERR_CARD_SLOT_PRE_SLOT_LOCK= 1310;
+
+    //卡牌系统: 卡页锁住中
+    ERR_CARD_PAGE_LOCK= 1311;
+
+
+}

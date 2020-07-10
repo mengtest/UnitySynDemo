@@ -1,0 +1,401 @@
+syntax = "proto3";
+
+package md;
+
+import "db.proto";
+import "enum.proto";
+
+//request response
+// 用于返回错误用的
+// message EmptyRsp {
+// }
+
+// 握手请求
+message Hello {
+}
+
+message HelloRsp {
+    string Version = 1;
+}
+
+// 登录请求
+message Login {
+    //区域
+    REGION Region = 1;
+    //第三账号ID
+    string OpenID  = 2;
+    //登录 TOKEN
+    string Token = 3;
+    //游戏渠道
+    CHANNEL ChannelID = 4;
+    //登录类型
+    LOGIN_TYPE LoginType = 5;
+    //账号获取类型
+    ACCOUNT_GAIN_TYPE AccountGainType = 6;
+    //额外参数：用于一些特殊传递的参数,例如客户端要求服务器获取openid
+    string ExtraParams = 7;
+    //账号来源
+    SDK_TYPE SdkType =8;
+    //操作系统
+    PHONE_OS Phone_Os = 9;
+}
+
+// 登录返回
+message LoginRsp {
+    //用户唯一ID
+    string UID  = 1;
+    //用户信息
+    UserInfo UseInfo  =2;
+}
+
+//心跳包
+message Heartbeat{
+    //心跳包数量
+    int32 Counter      = 1;
+    //网络延迟
+    int32 TimeDelay    = 2;
+}
+
+message HeartbeatRsp {
+    //心跳包数量
+    int32 Counter   = 1;
+}
+
+//随机角色名称
+message RandRoleName{
+
+    //性别 0: 未设置，1：男，2：女
+    SEX Sex = 1;
+}
+
+message RandRoleNameRsp {
+    //角色名称
+    string RoleName = 1;
+}
+
+//创建角色
+message CreateRole{
+    //角色名称
+    string RoleName = 1;
+    //性别 0: 未设置，1：男，2：女
+    SEX Sex = 2;
+    //头像
+    string HeadImg = 3;
+}
+
+message CreateRoleRsp{
+    //角色信息
+    RoleInfo  RoleInfo = 1;
+}
+
+//获取角色信息
+message GetRole{
+}
+
+message GetRoleRsp{
+    //角色信息
+    RoleInfo  RoleInfo = 1;
+}
+
+//avatar:获取槽位数据
+message GetAvatarSlot{
+}
+
+//avatar:获取槽位回调
+message GetAvatarSlotRsp{
+     map<uint32, AvatarSlotData>  SlotData= 1;
+}
+
+//avatar:换装
+message ChangeAvatar{
+     //槽位
+     uint32 Slot = 1;
+     //UID
+     uint32 UID =2;
+}
+
+//avatar:换装回调
+message ChangeAvatarRsp{
+      //槽位
+      uint32 Slot = 1;
+      //UID
+      uint32 UID =2;
+}
+
+//avatar:卸载装备
+message UnEquipAvatar{
+    //卸载槽位装备
+    uint32 Slot = 1;
+}
+
+//avatar:卸载装备回调
+message UnEquipAvatarRsp{
+    //卸载槽位装备
+    uint32 Slot = 1;
+    //UID
+    uint32 UID =2;
+}
+
+
+//avatar: 获取搭配方案
+message GetAvatarSetting{
+}
+
+//avatar: 获取搭配方案回调
+message GetAvatarSettingRsp{
+    //当前选择
+    uint32 CurrSetting = 1;
+    //所有搭配方案
+    repeated AvatarSettingRspData SettingData= 2;
+}
+
+//avatar:获取装备数据
+message GetAvatarItemData{
+
+}
+//avatar:获取装备数据回调
+message GetAvatarItemDataRsp{
+     map<uint32, AvatarItemData> Items =1;
+}
+
+//avatar:修改搭配方案
+message SaveAvatarSetting{
+
+}
+
+//avatar:修改搭配方案回调
+message SaveAvatarSettingRsp{
+
+}
+
+//avatar:解锁方案
+message UnLockAvatarSetting{
+   //方案index
+   uint32 Index = 1;
+   //货币类型
+   uint32 CurrencyType = 2;
+}
+
+//avatar:解锁方案回调
+message UnLockAvatarSettingRsp{
+   //方案index
+   uint32 Index = 1;
+   //方案数据
+   //AvatarSettingData SettingData=2;
+   AvatarSettingRspData SettingData=2;
+}
+
+//avatar:切换搭配方案
+message ChangeSetting{
+   //方案index
+   uint32 Index = 1;
+
+}
+//avatar:切换搭配方案回调
+message ChangeSettingRsp{
+   //方案index
+   uint32 Index = 1;
+   //方案数据
+   //AvatarSettingData SettingData=2;
+   AvatarSettingRspData SettingData=2;
+}
+
+//role:gm命令
+message GM{
+   //GM_COMMAND枚举
+   uint32 Id = 1;
+   string Args = 2;
+}
+
+//role:gm命令
+message GMRsp{
+
+}
+
+//战斗需求数据
+message GetBattleDataInfo{
+
+}
+
+//战斗需求数据回调
+message GetBattleDataInfoRsp{
+    repeated uint32 avatarData = 1;
+}
+
+//卡牌系统start
+//卡牌系统： 卡槽数据
+message GetCardPageData{
+
+}
+
+//卡牌系统：卡槽数据回调
+message GetCardPageDataRsp{
+    //分頁
+    uint32 CurPage = 1;
+    //頁數據
+    repeated CardPageData PageData =2;
+}
+
+//卡牌系统：當前頁數據
+message GetCardCurPageData{
+}
+
+//卡牌系统：當前頁數據回調
+message GetCardCurPageDataRsp{
+    //当前页
+    uint32 CurPage = 1;
+    //当前页数据
+    CardPageData PageData =2;
+    //总页
+    uint32 TotalPage = 3;
+}
+
+
+//卡牌系统：當前頁數據卡牌具体数据
+message GetCardCurPageAllData{
+}
+
+//卡牌系统：當前頁數據回調
+message GetCardCurPageAllDataRsp{
+    //当前页
+    uint32 CurPage = 1;
+    //所有卡牌数据
+    map<uint32,CardData> CardsData = 2;
+}
+
+//卡牌系统：頁數據
+message GetCardOnePageData{
+       uint32 Page = 1;
+}
+
+//卡牌系统：頁數據回調
+message GetCardOnePageDataRsp{
+    //当前页
+    uint32 Page = 1;
+    //当前页数据
+    CardPageData PageData =2;
+}
+
+//卡牌系統: 切換卡牌數據
+message ChangeCardPage{
+    uint32 Page = 1;
+}
+
+//卡牌系統: 切換卡牌數據
+message ChangeCardPageRsp{
+   //分頁
+   uint32 CurPage = 1;
+}
+
+//卡牌系统：卡片数据
+message GetCardData{
+
+}
+
+//卡牌系统：卡片数据回调
+message GetCardDataRsp{
+    map<uint32,CardData> PageData =1;
+}
+
+
+//卡牌系统：获取某个卡牌
+message GetCardDataByID{
+   //卡牌id
+   uint32 CardID = 1;
+   //当前选中页
+   uint32 SelectPage =2;
+}
+
+//卡牌系统：获取某个卡牌回调
+message GetCardDataByIDRsp{
+    //cardID
+    uint32 CardID = 1;
+    //卡片数据
+    CardData CardData =2;
+    //通用碎片核心
+    uint32 CommonDebris =3;
+    //当前选中页
+    uint32 SelectPage =4;
+    //是否被装备
+    bool isOnSelectPage = 5;
+}
+
+//卡牌系统：升级卡片
+message UpgradeCard{
+   //卡片ID
+   uint32 CardId = 1;
+   //货币类型
+   CURRENCY CurrencyType=2;
+}
+
+//卡牌系统：升级卡片回调
+message UpgradeCardRsp{
+   //卡片ID
+   uint32 CardId = 1;
+   //货币类型
+   CURRENCY CurrencyType = 2;
+   //当前等级
+   uint32 Level = 3;
+   //碎片数量
+   uint32 DebrisNum = 4;
+}
+
+//卡牌系统：兑换碎片
+message ExchangeCardDebris{
+    //卡片ID
+    uint32 CardId =1;
+    //兑换数量
+    uint32 num = 2;
+}
+
+//卡牌系统：兑换碎片回调
+message ExchangeCardDebrisRsp{
+    //卡片ID
+    uint32 CardId =1;
+    //卡片碎片核心数量
+    uint32 num = 2;
+    //通用碎片核心
+    uint32 CommonDebris =3;
+}
+
+//卡牌系统：卸载/安装上卡牌
+message HandleCard{
+    uint32 Page = 1;
+    uint32 Index = 2;
+    uint32 CardID =3;
+    CARD_HANDLE Handle =4;
+}
+
+//卡牌系统：卸载/安装上卡牌回调
+message HandleCardRsp{
+    //当前页
+    uint32 Page = 1;
+    //卡槽
+    uint32 Index = 2;
+    //卡片id
+    uint32 CardID =3;
+    //卸载/安装
+    CARD_HANDLE Handle =4;
+}
+
+//卡牌系统：解锁卡槽
+message UnlockCardSlot{
+    //当前页
+    uint32 Page = 1;
+    //卡槽
+    uint32 Index = 2;
+    //货币类型
+    CURRENCY CurrencyType = 3;
+}
+
+
+//卡牌系统：解锁卡槽回调
+message UnlockCardSlotRsp{
+    //当前页
+    uint32 Page = 1;
+    //卡槽
+    uint32 Index = 2;
+    //货币类型
+    CURRENCY CurrencyType = 3;
+}
+//卡牌系统end

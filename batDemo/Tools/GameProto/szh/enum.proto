@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package md;
+
+// 登录类型
+enum LOGIN_TYPE {
+    LOGIN_TYPE_KNOWN     = 0;
+    //游客登录
+    LOGIN_TYPE_GUEST     = 1;
+    //自建账号登录
+    LOGIN_TYPE_SELF_ACCOUNT =2;
+    //第三方sdk登入
+    LOGIN_TYPE_SDK =3;
+}
+
+//账号获取来源：有些渠道账号必须服务器去获取
+//Client:账号信息是由客户端去获取
+//Server:账号openid由服务器去获取
+enum ACCOUNT_GAIN_TYPE {
+    ACCOUNT_GAIN_TYPE_CLIENT = 0;
+    ACCOUNT_GAIN_TYPE_SERVER = 1;
+}
+
+//渠道来源： 华为，小米，等等
+enum CHANNEL {
+    //无来源,包括自建账号,游客账号等等
+    CHANNEL_NONE = 0;
+}
+
+//账号来源：QQ、微信、facebook等等
+enum SDK_TYPE{
+    SDK_TYPE_NONE = 0;
+    SDK_TYPE_QQ = 1;
+    SDK_TYPE_WCHAT =2;
+}
+
+//包区域来源
+enum REGION {
+    //中国区
+    REGION_CN = 0;
+}
+
+//操作系统
+enum PHONE_OS {
+    //android
+    PHONE_OS_ANDROID = 0;
+    //IOS
+    PHONE_OS_IOS= 1;
+    //window等其他
+    PHONE_OS_OTHERS = 2;
+}
+
+enum SEX {
+    //未知
+    UNKNOW = 0;
+    //男
+    MALE = 1;
+    //女
+    FEMAILE = 2;
+}
+
+//货币类型
+enum CURRENCY{
+    //人民币
+    CURRENCY_RMB = 0;
+    //金币
+    CURRENCY_GOLD =1;
+    //钻石
+    CURRENCY_DIAMOND =2;
+}
+
+//时装类型
+enum AVATAR_TYPE_TYPE{
+    //0=裸模整体
+    AVATAR_TYPE_BARE_MOLD = 0;
+    //1=头饰
+    AVATAR_TYPE_HEAD = 1;
+    //2=表情
+    AVATAR_TYPE_EXPRESSION = 2;
+    //3=面饰
+    AVATAR_TYPE_FACE = 3;
+    //4=上衣
+    AVATAR_TYPE_COAT = 4;
+    //5=手饰,
+    AVATAR_TYPE_HAND = 5;
+    //6=裤子,
+    AVATAR_TYPE_PANTS = 6;
+    //7=鞋子,
+    AVATAR_TYPE_SHOES = 7;
+    //8=背饰,
+    AVATAR_TYPE_BAG = 8;
+    //9=脚印
+    AVATAR_TYPE_FOOTPRINT =9;
+}
+
+enum AVATAR_SETTING_TYPE{
+    //保存方案
+    AVATAR_SETTING_TYPE_SAVE = 0;
+    //解锁方案
+    AVATAR_SETTING_TYPE_UNLOCK = 1;
+}
+
+//gm命令
+enum GM_COMMAND{
+    //更新货币
+    GM_COMMAND_UPDATE_CURRENCY =0;
+    //添加时装
+    GM_COMMAND_ADD_AVATAR_ITEM =1;
+    //删除时装
+    GM_COMMAND_DELETE_AVATAR_ITEM =2;
+    //一键添加所有时装
+    GM_COMMAND_ADD_ALL_AVATAR_ITEM =3;
+}
+
+//avatar方法搭配状态
+enum AVATAR_SETTING_STATUS{
+    //锁住
+    AVATAR_SETTING_STATUS_LOCK = 0;
+    //已经开启
+    AVATAR_SETTING_STATUS_OPEN = 1;
+}

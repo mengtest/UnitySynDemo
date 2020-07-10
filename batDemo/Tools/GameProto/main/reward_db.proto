@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package md;
+
+//奖励
+message  Reward {
+    //对应道具表的ID
+    int32 PropsId = 1;
+
+    //数量
+    int32 Quantity = 2;
+
+    //有效时间
+    int32 Ttl = 3;
+
+    //获得时间
+    int32 GetTime = 4;
+
+    //过期时间
+    int32 Expired = 5;
+
+    //展示优先级
+    int32 ShowPriority = 6;
+}
+
+//结算奖励(金币，经验等结算固定奖励)
+message SummaryReward{
+    //对应道具表的ID
+    int32 PropsId = 1;
+    //数量
+    int32 Quantity = 2;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PiggyTraval在线安装</title>
+		<meta charset="utf-8">
+		<link href="main.css" media="all" rel="stylesheet">
+	</head>
+	<body>
+		<div style="font-size: 1.8em;text-align: center;margin-top: 15%">
+			<div style="font-size: 2em;color: #1ea73b">安装事项</div>
+			<div>仅支持内网，连接“Aladin”WIFI，不要使用4G</div>
+			<div>使用iPhone打开网页，点击按钮，选择安装.</div>
+			<div>完成后需要做以下事情：</div>
+			<div style="color: #e46e49;font-size: 0.7em;">设置->通用->设备管理->ShenZhen 7Road Technology……->信任“ShenZhen 7Road Technology”</div>
+			<hr/>
+			<div style="color: #ffffff;font-size: 1em;font-style: bold;background-color: #505050">如果点击安装发生错误，请重新打开本页面，并尝试:</div>
+			<div style="color: #ffffff;font-size: 1em;font-style: bold;background-color: #505050">点击右上角的“...”. 然后选择使用Safari打开</div>
+			<hr/>
+			<div style="height: 10px"></div>
+			<center>
+				<div style="font-size: 3em;width: 80%;height: 120px;">
+					<a class="btn btn-primary btn-large f4 btn-block" style="font-size: 24px !important" href="itms-services://?action=download-manifest&url=#{root_url}/#{plist_name}"><div style="height:90px; line-height: 90px;">#{button_name}</div></a>
+				</div>
+			</center>
+		</div>
+		<script type="text/javascript">
+			function getQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if (r != null) return unescape(r[2]); return null;
+			}
+			var u = navigator.userAgent;
+			var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+			if(!isiOS)
+			{
+				alert("此网页仅支持用iPhone打开");
+			}
+			else
+			{
+				var isAuto = getQueryString("auto")=="true";
+				if (isAuto) {
+					var url = "itms-services://?action=download-manifest&url=#{root_url}/#{plist_name}";
+					window.open(url,"_blank");
+				}
+			}
+		</script>
+	</body>
+</html>

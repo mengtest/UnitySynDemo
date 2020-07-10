@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package md;
+
+// cmd 组成规则，服务器mod*10000+cmd
+//
+enum GAME_CMD {
+    INVALID_CMD = 0;
+
+    //测试用例
+    GAME_CMD_GETTEST= 99;
+
+    GAME_CMD_HELLO = 1;
+
+    //登录系统
+    GAME_CMD_LOGIN   = 10000;
+
+    //心跳 Heartbeat
+    GAME_CMD_HEARTBEAT = 10001;
+
+    //获取随机角色名字
+    GAME_CMD_RANDROLENAME = 10002;
+
+    //创建角色
+    GAME_CMD_CREATEROLE = 10003;
+
+    //角色信息
+    GAME_CMD_GETROLE = 10004;
+
+    //gm命令
+    GAME_CMD_GM = 10005;
+
+
+    //通知更新某一对象 NoticeObjUpdate
+    GAME_CMD_NOTICEOBJUPDATE = 19000;
+
+    //通知用户下线，（被踢下线，或，被挤下线）的通知
+    GAME_CMD_NOTICEOFFLINE = 19999;
+
+    //通知战斗结算
+    GAME_CMD_NOTICESUMMARY = 19001;
+
+    //通知升级
+    GAME_CMD_NOTICEUPLV = 19002;
+
+    //开始匹配
+    GAME_CMD_DOMATCH = 20001;
+
+    //查询匹配结果
+    GAME_CMD_QUERYMATCH = 20002;
+
+    //取消匹配
+    GAME_CMD_CANCELMATCH = 20003;
+
+    //加入战斗房间
+    GAME_CMD_JOINBATTLE = 20004;
+
+    //avatar:获取数据
+    GAME_CMD_GETAVATARSLOT = 30000;
+
+    //avatar:选择换装
+    GAME_CMD_CHANGEAVATAR = 30001;
+
+    //avatar:历史换装方案
+    GAME_CMD_GETAVATARSETTING = 30002;
+
+    //avatar:保存换装方案
+    GAME_CMD_SAVEAVATARSETTING = 30003;
+
+    //avatar:获取装备数据
+    GAME_CMD_GETAVATARITEMDATA = 30005;
+
+    //avatar:解锁搭配方案
+    GAME_CMD_UNLOCKAVATARSETTING =30006;
+
+    //avatar:卸载装备
+    GAME_CMD_UNEQUIPAVATAR = 30007;
+
+    //avatar:切换方案
+    GAME_CMD_CHANGESETTING = 30008;
+
+    //battle相关
+    GAME_CMD_GETBATTLEDATA = 30009;
+
+    //卡牌系统：获取卡槽数据
+    GAME_CMD_GETCARDSLOTDATA = 40000;
+
+    //卡牌系统：获取卡槽数据
+     GAME_CMD_GETCARDDATA= 40001;
+
+
+    //Batle数据
+    GAME_CMD_GETBATTLEDATAINFO = 50000;
+ }

@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package md;
+
+import "battle_round_db.proto";
+import "reward_db.proto";
+import "cmd.proto";
+import "db.proto";
+
+//通知
+message Notice {
+     //CMD
+     GAME_CMD Cmd = 1;
+     //发送人
+     string FromUID = 2;
+     //接收人,如果空表示所有人
+     repeated string ToUID = 3;
+     //内容
+     bytes   Body = 4;
+}
+
+//通知更新对象
+enum NOTICE_UPDATE_OBJ {
+    //未知，即默认值
+    UPDATE_UNKNOWN = 0;
+    //更新角色
+    UPDATE_ROLE = 1;
+}
+
+//通知更新
+message NoticeObjUpdate {
+
+    //需要更新的对象
+    NOTICE_UPDATE_OBJ  UpdateObj = 1;
+
+    //用户ID
+    string UID  = 2;
+
+    //字段
+    repeated string  Fileds = 3;
+}
+message NoticeObjUpdateRsp{}
+
+
+// 通知用户下线 GAME_CMD_NOTICEOFFLINE
+message NoticeOffLine {
+    //下线消息内容
+    string Message = 1;
+}
+message NoticeOffLineRsp{}
+
+
+//通知升级奖励
+message NoticeUpLevel {
+    //奖励
+    repeated Reward Rewards  = 1;
+}
+message NoticeUpLevelRsp{}
+
+//通知结算
+message NoticeSummary {
+    //局唯一ID
+    string  RoundId  = 1;
+
+    //战局玩家数
+    int32 RoundPlayerCount = 2;
+
+    //战斗结算
+    BattleRoundTeam BattleSummary = 3;
+
+    //玩家角色信息
+    repeated PlayerBaseInfo PlayerInfo = 4;
+}
+message NoticeSummaryRsp {}

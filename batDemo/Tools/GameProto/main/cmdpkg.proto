@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package cmdpkg;
+option csharp_namespace  = "TcpSocket.Proto";
+
+enum TRANS_TYPE {
+    // request tag
+    REQUEST = 0;
+
+    // response tag
+    RESPONSE = 1;
+}
+
+message PkgHead {
+
+    //CMD
+    uint32 Cmd = 1;
+
+    // 0表示request, 1表示response
+	TRANS_TYPE  TransType = 2;
+
+	// 序列号
+	uint32 Serial = 3;
+
+	// 状态码
+	uint32 StatusCode = 4;
+
+    //超时包设置为1 用于前端重试
+    uint32 Timeout = 5;
+
+	// 自定义Options 是 Map对象
+	map<string, string> Options = 6;
+}
+
+message CmdPacket {
+	PkgHead Head = 1;
+    bytes   Body = 2;
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package md;
+
+import "db.proto";
+
+//test pb测试用例
+message GetTest{
+}
+//
+enum Gender {
+  MAN = 0;
+  WOMAN = 1;
+}
+
+//test pb测试用例
+message GetTestRsp{
+    //int 64数字类型
+    int64  id = 1;
+    //数组嵌套数组
+    //repeated AvatarSettingData SettingData= 2;
+    // repeated 列表
+    repeated string Sons = 2;
+    // Enum值
+    Gender Gender = 3;
+    // 新的对象List
+    string Name = 4;
+    // Any对象
+    uint64 Age = 5;
+    // 定义Map对象
+    map<string, AvatarSettingData> StrMap = 6;
+
+    //嵌套
+    message Result {
+        string url = 1;
+        string title = 2;
+        repeated string snippets = 3;
+    }
+    repeated Result Results = 7;
+    //
+    map<int32, AvatarSettingData> IntMap = 8;
+}

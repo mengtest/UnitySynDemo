@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package md;
+
+//匹配状态
+enum MATCH_STATUS {
+    //未知，即默认值
+    MATCH_UNKNOWN = 0;
+    //正在等待匹配
+    MATCH_WAITTING = 1;
+    //匹配完成
+    MATCH_COMPLETED = 2;
+    //匹配取消
+    MATCH_CANCELED = 3;
+    //匹配超时
+    MATCH_TIMEOUT = 4;
+}
+
+//开始匹配
+message DoMatch {
+    //匹配玩家人数(此字段暂时不用)
+    uint32 MatchNum = 1;
+    //匹配码(需前后端约定生成规则)
+    string MatchCode = 2;
+    //是否自动匹配
+    bool MatchTeamAuto = 3;
+}
+message DoMatchRsp {
+    //匹配请求的唯一ID
+    string MatchRequestId   = 1;
+}
+
+//查询匹配结果
+message QueryMatch {
+    //匹配请求的唯一ID
+    string MatchRequestId   = 1;
+    //房间最大玩家数量
+    uint32 RoomMaxPlayerNum = 2;
+}
+message QueryMatchRsp {
+    //匹配请求的唯一ID
+    string MatchRequestId   = 1;
+    //已经匹配到的玩家ID
+    repeated  string MatchedPlayerIds = 2;
+    //状态
+    MATCH_STATUS Status = 3;
+    //游戏服务器会话ID
+    string GameServerSessionId = 4;
+}
+
+//取消匹配
+message CancelMatch {
+    //匹配请求的唯一ID
+    string MatchRequestId   = 1;
+}
+message CancelMatchRsp {
+    string MatchRequestId   = 1;
+}
+
+//joinGameServerSession
+//用于加入游戏服务器会话
+message JoinBattle {
+    //游戏服务器会话ID
+    string GameServerSessionId = 1;
+}
+message JoinBattleRsp {
+    //游戏服务器会话ID
+    string GameServerSessionId = 1;
+
+    // 玩家ID
+    string PlayerId = 2;
+
+    // 玩家会话ID
+    string PlayerSessionId = 3;
+
+    // 玩家会话的状态
+    string Status = 4;
+
+    // 游戏服务器会话运行的DNS标识
+    string DnsName = 5;
+
+    // 游戏服务器会话运行的CVM地址
+    string	IpAddress = 6;
+
+    // 端口号
+    uint64 Port  = 7;
+
+    // 战斗局ID
+    string RoundId = 8;
+
+    // 组队ID
+    string TeamId = 9;
+}

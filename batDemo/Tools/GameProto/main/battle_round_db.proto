@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package md;
+
+import "reward_db.proto";
+
+//战斗回合状态
+enum ROUND_STATUS {
+    //准备就续-未开始
+    ROUND_READY = 0;
+
+    //战斗中-已开始
+    ROUND_BATTLING = 1;
+
+    //战斗结束
+    ROUND_COMPLETE = 2;
+}
+
+//战斗玩家状态 [未进入战斗,已进入战斗,提前退出,完成战斗]
+enum ROUND_PLAYER_STATUS {
+    //准备就续-未开始
+    PLAYER_READY = 0;
+
+    //准备就续-未开始
+    PLAYER_JOINED = 1;
+
+    //战斗中-已开始
+    PLAYER_BATTLING = 2;
+
+    //提前退出
+    PLAYER_EARLY_QUIT = 3;
+
+    //战斗结束
+    PLAYER_COMPLETE = 4;
+}
+
+//玩家维度(职业)评分
+message UserCareerScore {
+    //账号ID
+    string UID = 1;
+
+    //总(整个职业生涯)共参于（战局）的回合数
+    int32 TotalRound = 2;
+
+    //总(整个职业生涯)胜利次数
+    int32 TotalVictory = 3;
+
+    //总(整个职业生涯)击杀数
+    int32 TotalKillNum = 4;
+
+    //总(整个职业生涯)评分,目前有7个维度
+    CareerScore TotalCareerScore = 5;
+
+    //最近更新时间
+    int64 UpdateTime = 6;
+}
+
+//维度(职业)评分
+message CareerScore {
+    //淘汰评分
+    float  Elimination = 1;
+
+    //胜率评分
+    float  Victory = 2;
+
+    //生存评分
+    float  Survival = 3;
+
+    //探索评分
+    float  Discovery = 4;
+
+    //技巧评分
+    float  Skill = 5;
+
+    //治疗评分
+    float  Heal = 6;
+
+    //救援评分
+    float  Rescue = 7;
+}
+
+
+//战斗回合
+message BattleRoundLog {
+    //局唯一ID
+    string  RoundId  = 1;
+
+    //匹配码
+    string MatchCode = 2;
+
+    //GSE 的唯一session ID
+    string GameServerSessionId = 3;
+
+    //总玩家数
+    int32 PlayerCount = 4;
+
+    //总队伍数
+    int32 TeamCount = 5;
+
+    //创建时间(Unix时间戳)
+    int64 CreateTime = 6;
+
+    //开局时间(Unix时间戳)
+    int64 BeginTime = 7;
+
+    //结束时间(Unix时间戳)
+    int64 EndTime = 8;
+
+    //状态 [未开始,已开始,已结束]
+    ROUND_STATUS RoundStatus = 9;
+
+    //队伍
+    repeated BattleRoundTeam Teams = 10;
+}
+
+//战斗队伍记录
+message BattleRoundTeam {
+     //队伍ID
+     string TeamId = 1;
+
+     //队伍名次
+     int32 Rank = 2;
+
+     //玩家数
+     int32 PlayerCount = 3;
+
+     //评级 [1冠军,2胜利,3优秀,4再接再厉,5淘汰,6落地成盒]
+     int32 Rating = 4;
+
+     //玩家
+     repeated BattleRoundPlayer Players = 5;
+}
+
+//战斗玩家记录
+message BattleRoundPlayer {
+    //玩家ID
+    string PlayerId  = 1;
+
+    //段位
+    string Segment = 2;
+
+    //创建时间(Unix时间戳)
+    int64 JoinTime = 3;
+
+    //开局时间(Unix时间戳)
+    int64 BeginTime = 4;
+
+    //结束时间(Unix时间戳)
+    int64 EndTime = 5;
+
+    //击杀人数
+    int32 KillNum = 6;
+
+    //伤害值
+    int32 HurtVal = 7;
+
+    //治疗值
+    int32 CureVal = 8;
+
+    //救援值
+    int32 RescueVal = 9;
+
+    //探索分值
+    int32 DiscoveryVal = 10;
+
+    //评分
+    float Score = 11;
+
+    //状态 [未进入战斗,已进入战斗,提前退出,完成战斗]
+    ROUND_PLAYER_STATUS Status = 12;
+
+    //评级 [1冠军,2胜利,3优秀,4再接再厉,5淘汰,6落地成盒]
+    int32 Rating = 13;
+
+    //是否MVP
+    bool  Mvp = 14;
+
+    //队伍名次
+    int32 TeamRank = 15;
+
+    //存活时间(秒数：BeginTime - EndTime)
+    int32 Ttl = 16;
+
+    //结算奖励(金币，经验等结算固定奖励)
+    repeated SummaryReward SummaryRewards = 17;
+
+    //维度评分,目前有7个维度
+    CareerScore CareerScore = 18;
+
+    //奖励(此字段暂时用不到,除金币，经验外的额外奖励)
+    repeated Reward Rewards = 19;
+}
+
