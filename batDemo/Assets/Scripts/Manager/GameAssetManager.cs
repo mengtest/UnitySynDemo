@@ -173,11 +173,13 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             string bundleName = GetBundleNameByPath(path);
         //    string bundleName = RemapVariantName(GetBundleNameByPath(path));
             if(GameSettings.Instance.useAssetBundle){
+                //把res path 变成 打包后的 ab名字/prefab名字
                GetUseABloadPath(ref path);
             }
             LoadAssetRequest loadReqeust;
             if (!_loadReqeustDict.TryGetValue(path, out loadReqeust))
             {
+                //获得 prefab名字
                 string assetName = GetAssetNameByPath(path);
                 loadReqeust = new LoadAssetRequest(path, bundleName, assetName, assetType);
                 _loadReqeustDict[path] = loadReqeust;
@@ -462,6 +464,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             }
         }
     }
+    //ab包 的 ab名字/资源名字  abName/assetName
     public static void GetUseABloadPath(ref string path)
     {
         string bundleName;
@@ -477,11 +480,17 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
               string[] split = path.Split('/');
              path = split[0]+"_"+split[2]+"/"+split[3];
          }else if(path.StartsWith("Avatar")){
-            // Avatar/infility/Model/infility_body_01          
+            // Avatar/infility/Model/infility_body_01      
+            //  获得 Avatar_infility/infility_body_01       
               string[] split = path.Split('/');
               path = split[0]+"_"+split[1]+"/"+split[3];
-         }
+         }else if (path.StartsWith("View")){
+             string[] split = path.Split('/');
+            bundleName = split[0]+"_"+split[1]+"/"+split[2];;
+            //"View/Login/LoginPanel"  获得   view_login/LoginPanel
+        }
    }
+   //获取 资源AB包名称
     public static string GetBundleNameByPath(string path)
     {
         string bundleName;
@@ -500,33 +509,12 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
              bundleName = split[0]+"_"+split[3];
             // Avatar/infility/Model/infility_body_01   avatar_infility_body_01.model
          }
-        if (path.StartsWith("View")){
+        else if (path.StartsWith("View")){
              string[] split = path.Split('/');
             bundleName = split[0]+"_"+split[1];
             //"View/Login/LoginPanel"     view_login
         }
-        // else if(path.StartsWith(AssetBundleConst.VariantFolder))
-        // {
-        //     string[] split = path.Split('/');
-        //     string variant = split[2];
-        //     List<string> splitList = new List<string>(split);
-        //     splitList.RemoveAt(split.Length - 1);
-        //     splitList.RemoveAt(2);
-        //     bundleName = string.Join("_", splitList.ToArray()) + "." + variant;
-        // }
-        // else if(path.StartsWith(AssetBundleConst.RemoteAssetsFolder))
-        // {
-        //     string[] split = path.Split('/');
-        //     if (split.Length > 4)
-        //     {
-        //         List<string> splitList = new List<string>(split);
-        //         bundleName = string.Join("_", splitList.GetRange(0, 3).ToArray());
-        //     }
-        //     else
-        //     {
-        //         bundleName = Path.GetDirectoryName(path).Replace("/", "_");
-        //     }
-        // }
+
         else
         {
             bundleName = Path.GetDirectoryName(path).Replace("/", "_");

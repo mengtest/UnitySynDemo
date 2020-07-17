@@ -4,9 +4,7 @@ public class GEvent
     public string type = "";
     public object data;
     public object param = null;
-  //  public GameObject target;
-  //  public GEventDispatcherMono targetMono;
-    public GEventDispatcher eventTarget;
+    public IDispatcher eventTarget;
     public GEvent(string _type, object _data = null)
     {
         type = _type;
@@ -17,4 +15,8 @@ public class GEvent
         param = null;
         eventTarget = null;
     }
+}
+public interface IDispatcher 
+{
+
 }

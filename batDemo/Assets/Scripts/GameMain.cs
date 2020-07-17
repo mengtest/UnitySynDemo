@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-07-04 15:49:39
+ * @LastEditTime: 2020-07-17 20:00:18
  */
 using System;
 using System.Collections;
@@ -107,6 +107,8 @@ public class GameMain : MonoSingleton<GameMain> {
       //  this.AddBehaviour<LogManager>();
       this.AddBehaviour<PatchManager>();
       this.AddBehaviour<GameAssetManager>();
+      this.AddBehaviour<CharManager>();
+      CharManager.Instance.Init();
       GameAssetManager.Instance.setLocalUrlFun(PatchManager.Instance.GetSignedFileLocalURL);
       GameAssetManager.ABManifest=AssetBundleConst.AssetBundleFolder;
 

@@ -449,8 +449,8 @@ public class AppBuild {
     public static void allChar()
     {
         // "Avatar" 
-     //   string[] fileArr = new string[1] { "Avatar"};
-        string[] fileArr = new string[4] { "Monster", "Avatar","Building","Character" };
+     //   string[] fileArr = new string[1] { "Avatar"}; //"Avatar",
+        string[] fileArr = new string[3] { "Monster", "Building","Character" };
         string basePath = "Assets/Res/";
         string assetsPath = "";
         string ffName = "";

@@ -66,6 +66,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), factory.UnityEngine_Canvas_WillRenderCanvases);
+		dict.Add(typeof(System.Func<TcpSocket.Proto.CmdPacket,bool>), factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -116,6 +117,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.UnityEngine_Canvas_WillRenderCanvases);
+		DelegateTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -166,6 +168,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.Check_UnityEngine_Canvas_WillRenderCanvases);
+		TypeTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.Check_System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -216,6 +219,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.Canvas.WillRenderCanvases>.Push = factory.Push_UnityEngine_Canvas_WillRenderCanvases;
+		StackTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Push = factory.Push_System_Func_TcpSocket_Proto_CmdPacket_bool;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -3162,6 +3166,67 @@ public class DelegateFactory
 	}
 
 	void Push_UnityEngine_Canvas_WillRenderCanvases(IntPtr L, UnityEngine.Canvas.WillRenderCanvases o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Func_TcpSocket_Proto_CmdPacket_bool_Event : LuaDelegate
+	{
+		public System_Func_TcpSocket_Proto_CmdPacket_bool_Event(LuaFunction func) : base(func) { }
+		public System_Func_TcpSocket_Proto_CmdPacket_bool_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public bool Call(TcpSocket.Proto.CmdPacket param0)
+		{
+			func.BeginPCall();
+			func.PushSealed(param0);
+			func.PCall();
+			bool ret = func.CheckBoolean();
+			func.EndPCall();
+			return ret;
+		}
+
+		public bool CallWithSelf(TcpSocket.Proto.CmdPacket param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushSealed(param0);
+			func.PCall();
+			bool ret = func.CheckBoolean();
+			func.EndPCall();
+			return ret;
+		}
+	}
+
+	public System.Func<TcpSocket.Proto.CmdPacket,bool> System_Func_TcpSocket_Proto_CmdPacket_bool(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Func<TcpSocket.Proto.CmdPacket,bool> fn = delegate(TcpSocket.Proto.CmdPacket param0) { return false; };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Func_TcpSocket_Proto_CmdPacket_bool_Event target = new System_Func_TcpSocket_Proto_CmdPacket_bool_Event(func);
+			System.Func<TcpSocket.Proto.CmdPacket,bool> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Func_TcpSocket_Proto_CmdPacket_bool_Event target = new System_Func_TcpSocket_Proto_CmdPacket_bool_Event(func, self);
+			System.Func<TcpSocket.Proto.CmdPacket,bool> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Func_TcpSocket_Proto_CmdPacket_bool(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Func<TcpSocket.Proto.CmdPacket,bool>), L, pos);
+	}
+
+	void Push_System_Func_TcpSocket_Proto_CmdPacket_bool(IntPtr L, System.Func<TcpSocket.Proto.CmdPacket,bool> o)
 	{
 		ToLua.Push(L, o);
 	}

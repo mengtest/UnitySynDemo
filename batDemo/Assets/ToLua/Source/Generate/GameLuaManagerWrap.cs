@@ -11,6 +11,7 @@ public class GameLuaManagerWrap
 		L.RegFunction("SetLogSwitcher", SetLogSwitcher);
 		L.RegFunction("RefreshShader", RefreshShader);
 		L.RegFunction("GetProtoBytesPath", GetProtoBytesPath);
+		L.RegFunction("AddScrollViewOnValueChangeListener", AddScrollViewOnValueChangeListener);
 		L.RegFunction("New", _CreateGameLuaManager);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -120,6 +121,23 @@ public class GameLuaManagerWrap
 			string o = GameLuaManager.GetProtoBytesPath();
 			LuaDLL.lua_pushstring(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AddScrollViewOnValueChangeListener(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.UI.ScrollRect arg0 = (UnityEngine.UI.ScrollRect)ToLua.CheckObject<UnityEngine.UI.ScrollRect>(L, 1);
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
+			GameLuaManager.AddScrollViewOnValueChangeListener(arg0, arg1);
+			return 0;
 		}
 		catch (Exception e)
 		{

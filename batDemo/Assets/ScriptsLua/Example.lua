@@ -8,8 +8,8 @@ local AssetReqs;
 function Example.Start()
     --Example:Start()  Example.Start(this) 相同 self
  
-  --  Example.LoadMonster();
-       Example.testArray();
+    Example.LoadMonster();
+  --     Example.testArray();
 
     --初始化全局游戏对象
  --   local gameCls = require("Game.Game")
@@ -44,16 +44,34 @@ end
 function Example.AssetCallBack(objs)
     if objs~=nil then 
         Example.monster = GameObject.Instantiate(objs[0]);
+        Example.cam= GameObject.FindGameObjectWithTag("MainCamera")
         GameLuaManager.RefreshShader(Example.monster);
     end
     log("loader Com");
-
-    TweenManager.tween(Example.monster, {
+              ---Example.monster
+    TweenManager.tween(Example.cam, {
           --           冲压时间,  冲压次数, 每次衰减
         --来回冲压 旋转         
-        {TweenFun.punchRotation,0,50,0,2,3,0.7},
-        --来回冲压 位移          
-        {TweenFun.punchPosition,0,1,0,2,5,0.1},
+        {TweenFun.delay, 5},
+          ---        冲压力度v3,  冲压时间,  冲压力度, 随机偏移
+         {TweenFun.shakeRotation,0,0,6,0.03,60},
+         {TweenFun.delay, 0.15},
+         {TweenFun.shakeRotation,0,0,6,0.03,60},
+         {TweenFun.delay, 0.15},
+         {TweenFun.shakeRotation,0,0,6,0.03,60},
+         {TweenFun.delay, 0.15},
+         {TweenFun.shakeRotation,0,0,6,0.03,60},
+         {TweenFun.delay, 2},
+         {TweenFun.shakeRotation,0,0,6,0.03,80},
+
+
+        --                         角度 x,y,z, 冲压时间,  冲压力度, 每次衰减      
+     ----   {TweenFun.punchRotation,0,0,6,0.03,1,0},
+        {TweenFun.delay, 0.3},
+
+        
+        --来回冲压 位移   x,y,z,  冲压时间,  冲压次数, 每次衰减      
+       --- {TweenFun.punchPosition,0,1,0,2,5,0.1},
         --来回冲压 缩放          {TweenFun.punchScale,1,1,1,2,5,0.1},
                                 {TweenFun.delay, 5},
                                 {TweenFun.call, function()

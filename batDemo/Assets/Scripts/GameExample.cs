@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-06-30 11:05:31
+ * @LastEditTime: 2020-07-17 20:01:08
  */
 using System.Collections;
 using UnityEngine;
@@ -15,6 +15,13 @@ public class GameExample : SingletonT<GameExample> {
     {
 
     }
+
+    public void testPool(){
+       Character char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
+       Monster monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+    }
+
+
     private  GameAssetRequest reqs;
     //加载对象.
     public  void LoadResObj(){

@@ -707,7 +707,7 @@ public class AvatarChar : MonoBehaviour
         }
         if (mainObj != null)
         {
-            //	   GameObject.DestroyImmediate(mainObj);
+            GameObject.DestroyImmediate(mainObj);
             mainObj = null;
         }
     }

@@ -37,6 +37,9 @@ public class DoTweenWrap
 		L.RegFunction("DOPunchPosition", DOPunchPosition);
 		L.RegFunction("DOPunchScale", DOPunchScale);
 		L.RegFunction("DOPunchRotation", DOPunchRotation);
+		L.RegFunction("DOShakeRotation", DOShakeRotation);
+		L.RegFunction("DOShakePosition", DOShakePosition);
+		L.RegFunction("DOShakeScale", DOShakeScale);
 		L.RegFunction("MoveTo", MoveTo);
 		L.RegFunction("MoveBy", MoveBy);
 		L.RegFunction("RotateTo", RotateTo);
@@ -701,6 +704,186 @@ public class DoTweenWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: DoTween.DOPunchRotation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DOShakeRotation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DoTween o = DoTween.DOShakeRotation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				DoTween o = DoTween.DOShakeRotation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DoTween o = DoTween.DOShakeRotation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 6);
+				DoTween o = DoTween.DOShakeRotation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: DoTween.DOShakeRotation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DOShakePosition(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DoTween o = DoTween.DOShakePosition(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				DoTween o = DoTween.DOShakePosition(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DoTween o = DoTween.DOShakePosition(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 6);
+				DoTween o = DoTween.DOShakePosition(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: DoTween.DOShakePosition");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DOShakeScale(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DoTween o = DoTween.DOShakeScale(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				DoTween o = DoTween.DOShakeScale(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DoTween o = DoTween.DOShakeScale(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				int arg3 = (int)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				bool arg5 = LuaDLL.luaL_checkboolean(L, 6);
+				DoTween o = DoTween.DOShakeScale(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: DoTween.DOShakeScale");
 			}
 		}
 		catch (Exception e)

@@ -4,11 +4,10 @@ using System.Linq;
 
 
 
-public class GEventDispatcher 
+public class GEventDispatcher :IDispatcher
 {
     public delegate void callback(GEvent e);
 
-    private System.Object m_target=null;
     class EventCallback
     {
         public callback cb = null;
@@ -33,7 +32,7 @@ public class GEventDispatcher
         List<EventCallback> list = dict[type] as List<EventCallback>;
         if (list.Find(x => x.cb == fn) != null)
         {
-  //          StarEngine.Debuger.LogTrace("重复加入了侦听");
+            DebugLog.Log("重复加入了侦听");
             return;
         }
 
@@ -48,7 +47,6 @@ public class GEventDispatcher
     //删除一个类型的，一个指定回调
     public void removeEventListener(string type, callback fn)
     {
-        if (dict == null) return;
         if (dict.ContainsKey(type))
         {
             List<EventCallback> list = dict[type] as List<EventCallback>;

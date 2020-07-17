@@ -43,7 +43,9 @@ TweenFun.normalizedPosTo ="normalizedPosTo";
 TweenFun.punchPosition ="punchPosition";
 TweenFun.punchRotation="punchRotation";
 TweenFun.punchScale="punchScale";
-
+TweenFun.shakePosition ="shakePosition";
+TweenFun.shakeRotation="shakeRotation";
+TweenFun.shakeScale="shakeScale";
 
 -- 初始化
 function TweenManager.init()
@@ -52,7 +54,7 @@ end
 
 -- 执行动画
 function TweenManager.tween( gameObj, tweening )
-	if Utils.isNilGameObject(gameObj) then return end
+	if LuaUtils.isNilGameObject(gameObj) then return end
 	local tween = TweenManager.onDo(gameObj, tweening)
 
 	if not TweenManager.tweenMap[gameObj] then
@@ -66,7 +68,7 @@ end
 -- 停止动画
 -- complete 停止后是否直接跳到完成动画后的状态 默认false
 function TweenManager.stopAllTweens( gameObj, complete )
-	if Utils.isNilGameObject(gameObj) then return end
+	if LuaUtils.isNilGameObject(gameObj) then return end
 	local tweenList = TweenManager.tweenMap[gameObj]
 	if tweenList then
 		for i=#tweenList, 1, -1 do
@@ -80,14 +82,14 @@ function TweenManager.stopAllTweens( gameObj, complete )
 end
 
 function TweenManager._unpack( param )
-	if Utils.isTable(param) then
+	if LuaUtils.isTable(param) then
 		return unpack(param)
 	end
 	return param
 end
 
 function TweenManager.setCallBack(tween, callback, aFunc, ...)
-	if Utils.isFunction(aFunc) then
+	if LuaUtils.isFunction(aFunc) then
 		local args = {...}
 		return tween[callback](tween, #args == 0 and aFunc or function()
 			aFunc(unpack(args))
@@ -242,14 +244,23 @@ TweenManager.Function = {
     end,
     punchRotation = function( gameObj, x, y, z, duration,vibrato,elascity, ... )
 		return TweenManager.setOnComplete(DoTween.DOPunchRotation(gameObj, Vector3(x,y,z), duration, vibrato or 10, elascity or 1), ...)
-	end
+    end,
+    shakeRotation = function( gameObj, x, y, z, duration,vibrato,randomness,fadeOut, ... )
+		return TweenManager.setOnComplete(DoTween.DOShakeRotation(gameObj,duration, Vector3(x,y,z), vibrato or 10, randomness or 90,fadeOut or true), ...)
+    end,
+    shakePosition = function( gameObj, x, y, z, duration,vibrato,randomness,fadeOut, ... )
+		return TweenManager.setOnComplete(DoTween.DOShakePosition(gameObj,duration, Vector3(x,y,z), vibrato or 10, randomness or 90,fadeOut or true), ...)
+    end,
+    shakeScale = function( gameObj, x, y, z, duration,vibrato,randomness,fadeOut, ... )
+		return TweenManager.setOnComplete(DoTween.DOShakeScale(gameObj,duration, Vector3(x,y,z), vibrato or 10, randomness or 90,fadeOut or true), ...)
+    end
 }
 
 function TweenManager.setParam( tween, tweening, funcName )
 	if tween ~= nil then
 		for name, param in pairs(tweening) do
-			if Utils.isString(name) then
-				Utils.safeCallFunc(TweenManager.Param[name], tween, TweenManager._unpack(param))
+			if LuaUtils.isString(name) then
+				LuaUtils.safeCallFunc(TweenManager.Param[name], tween, TweenManager._unpack(param))
 			end
 		end
 	else
@@ -262,7 +273,7 @@ function TweenManager.sequenceTween( gameObj, tweening, opt )
 	local sequence = DoTween.Sequence(gameObj)
 	local i = 0;
 	for _, act in ipairs(tweening) do
-		if Utils.isTable(act) then
+		if LuaUtils.isTable(act) then
 			sequence[opt](sequence, TweenManager.onDo(gameObj, act))
 		end
 		i = i + 1
@@ -275,11 +286,11 @@ function TweenManager.onDo( gameObj, tweening )
 end
 
 function TweenManager.createTween( gameObj, tweening, funcName, ... )
-	if Utils.isString(funcName) then
-		return TweenManager.setParam( Utils.safeDoFunc(TweenManager.Function[funcName], gameObj, ...), tweening, funcName )
-	elseif Utils.isTable(funcName) then
+	if LuaUtils.isString(funcName) then
+		return TweenManager.setParam( LuaUtils.safeDoFunc(TweenManager.Function[funcName], gameObj, ...), tweening, funcName )
+	elseif LuaUtils.isTable(funcName) then
 		return TweenManager.sequenceTween( gameObj, tweening, "Append" )
-	elseif Utils.isFunction(funcName) then
+	elseif LuaUtils.isFunction(funcName) then
 		return TweenManager.Function.call(gameObj, funcName, ...)
 	end
 end

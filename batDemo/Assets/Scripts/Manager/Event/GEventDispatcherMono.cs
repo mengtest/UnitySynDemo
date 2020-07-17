@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public class GEventDispatcherMono : MonoBehaviour
+public class GEventDispatcherMono : MonoBehaviour ,IDispatcher
 {
     public delegate void callback(GEvent e);
     class EventCallback
@@ -12,9 +12,8 @@ public class GEventDispatcherMono : MonoBehaviour
         public object param = null;
     }
     private Dictionary<string, List<EventCallback>> dict;
-    private System.Object m_target=null;
 
-    public GEventDispatcherMono()
+    private void Awake() 
     {
         dict = new Dictionary<string, List<EventCallback>>();
     }
@@ -42,23 +41,17 @@ public class GEventDispatcherMono : MonoBehaviour
     }
     public void addEventListener(string type, callback fn, object param = null)
     {
-        //如果不存在就创建一个字典  
-        if (!dict.ContainsKey(type))
+        if (dict == null) return;
+        if (dict.ContainsKey(type))
         {
-//			StarEngine.Debuger.LogTrace("加入了侦听:" + type);
-            dict.Add(type, new List<EventCallback>());
+            List<EventCallback> list = dict[type] as List<EventCallback>;
+            //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
+            list.RemoveAll(x => x.cb == fn);
+            if (list.Count <= 0)
+            {
+                dict.Remove(type);
+            }
         }
-        List<EventCallback> list = dict[type] as List<EventCallback>;
-        if (list.Find(x => x.cb == fn) != null)
-        {
-           // DebugLog.Log("重复加入了{0}侦听",null, type);
-            return;
-        }
-
-        EventCallback ecb = new EventCallback();
-        ecb.cb = fn;
-        ecb.param = param;
-        dict[type].Add(ecb);
 
         //List<callback> c = dict[type];
 
@@ -80,25 +73,8 @@ public class GEventDispatcherMono : MonoBehaviour
 
     }
 
-    //删除一个类型的，一个指定回调
-    public void removeEventListener(short type, callback fn)
-    {
-        string _type = type.ToString();
-        if (dict.ContainsKey(_type))
-        {
-//			StarEngine.Debuger.LogTrace("删除了侦听:" + _type);
-            List<EventCallback> list = dict[_type] as List<EventCallback>;
-            //			StarEngine.Debuger.LogTrace("删除了侦听:" + type);
-            list.RemoveAll(x => x.cb == fn);
-            if (list.Count <= 0)
-            {
-                dict.Remove(_type);
-            }
-        }
-
-    }
-    //将一个类型的事件都删除
-    public void removeEventListenerByType(string type)
+  //将一个类型的事件都删除
+    public virtual void removeEventListenerByType(string type)
     {
         if (dict.ContainsKey(type))
         {
@@ -120,11 +96,12 @@ public class GEventDispatcherMono : MonoBehaviour
         dispatchEvent(e);
     }
     //发出一个事件
-    public void dispatchEvent(GEvent e,object data=null)
+    public virtual void dispatchEvent(GEvent e)
     {
         //如果存在这个事件
-        if (dict.ContainsKey(e.type))
+        if (dict != null && dict.ContainsKey(e.type))
         {
+            e.eventTarget = this;
             List<EventCallback> list = (dict[e.type] as List<EventCallback>).ToList();
             callback fn = null;
             for (int i = 0; i < list.Count; i++)
@@ -136,6 +113,19 @@ public class GEventDispatcherMono : MonoBehaviour
                     fn(e);
                 }
             }
+            list.Clear();
+            list = null;
         }
+        e.release();
+        e = null;
+    }
+    public virtual void ClearAllEvent() {
+        if (dict == null) return;
+        dict.Clear();
+    }
+    private void OnDestroy() 
+    {
+        ClearAllEvent();
+        dict = null;
     }
 }

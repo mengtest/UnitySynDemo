@@ -185,7 +185,7 @@ public class DoTween
    /**
    **   第一个参数 punch：表示方向及强度
         第二个参数 duration：表示动画持续时间
-        第三个参数 vibrato：震动次数
+        第三个参数 vibrato：震动力度
         第四个参数 elascity: 这个值是0到1的
         当为0时，就是在起始点到目标点之间运动
         不为0时，会把你赋的值乘上一个参数，作为你运动方向反方向的点，物体在这个点和目标点之间运动
@@ -202,7 +202,27 @@ public class DoTween
     {
         return new DoTween(go.GetComponent<Transform>().DOPunchRotation(punch, duration + 0.00001f,vibrato,elascity), go);
     }
-
+   // Shake
+   /**
+      持续时间: duration
+    strength 力量：实际就是震动的幅度,可以理解成相机施加的力的大小 使用Vector3可以选择每个轴向不同的强度
+    vibrato 震动：震动力度
+    randomness 随机性：改变震动方向的随机值（大小：0~180）
+   fadeOut 淡出：就是运动最后是否缓慢移动回到原本位置
+   *****/
+    public static DoTween DOShakeRotation(GameObject go, float duration, Vector3 strength, int vibrato = 10, float randomness = 90, bool fadeOut = true)
+    {
+        return new DoTween(go.GetComponent<Transform>().DOShakeRotation(duration, strength ,  vibrato,  randomness,  fadeOut), go);
+    }
+    public static DoTween DOShakePosition(GameObject go, float duration, Vector3 strength, int vibrato = 10, float randomness = 90, bool fadeOut = true)
+    {
+        return new DoTween(go.GetComponent<Transform>().DOShakePosition(duration, strength ,  vibrato,  randomness,  fadeOut), go);
+    }
+    public static DoTween DOShakeScale(GameObject go, float duration, Vector3 strength, int vibrato = 10, float randomness = 90, bool fadeOut = true)
+    {
+        return new DoTween(go.GetComponent<Transform>().DOShakeScale(duration, strength ,  vibrato,  randomness,  fadeOut), go);
+    }
+    
     public static DoTween MoveTo(GameObject go, Vector3 pos, float duration)
     {
         return new DoTween(go.GetComponent<Transform>().DOMove(pos, duration + 0.00001f), go);
