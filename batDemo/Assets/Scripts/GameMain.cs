@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-07-17 20:00:18
+ * @LastEditTime: 2020-07-17 20:57:23
  */
 using System;
 using System.Collections;
@@ -172,7 +172,8 @@ public class GameMain : MonoSingleton<GameMain> {
         yield return LuaManager.Instance.InitStart();
         luainitCom=true;
         //TODO: 关闭加载界面.
-            
+        GameExample.Instance.testPool();
+        
     }
     #if !UNITY_EDITOR
         private void OnGUI()
