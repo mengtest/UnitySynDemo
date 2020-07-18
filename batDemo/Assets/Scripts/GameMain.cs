@@ -172,7 +172,7 @@ public class GameMain : MonoSingleton<GameMain> {
         yield return LuaManager.Instance.InitStart();
         luainitCom=true;
         //TODO: 关闭加载界面.
-        GameExample.Instance.testPool();
+       yield return  GameExample.Instance.testPool();
         
     }
     #if !UNITY_EDITOR
@@ -193,6 +193,9 @@ public class GameMain : MonoSingleton<GameMain> {
             GUILayout.Space(100);
 
             GUILayout.Label(LuaMemory);
+            if(CharManager.Instance.CharPool!=null){
+             GUILayout.Label(CharManager.Instance.CharPool.toString());
+            }
         }
     #endif
 }

@@ -57,16 +57,13 @@ public class MultipleOnListPool<T> : MultiplePool  where T: PoolObj,new ()
 
     public override string toString() {
         StringBuilder str=new StringBuilder();
-         str.Append(name);
+        str.Append(name+ " \n");
+        str.Append("mapCount: "+ this.map.Count+ " \n");
         str.Append(" onList count: " + this.onList.Count + " \n");
-       foreach (var item in this.map)
+        foreach (var item in this.map)
         {
-            List<IRecycleAble> Templist=item.Value;
-            for (int i = Templist.Count - 1; i >= 0 ; i--)
-            {
-                if (Templist[i] != null) {
-                    str.Append(item.Key + " onPool count: " + Templist.Count + " \n");
-                }
+            if (item.Value != null) {
+                str.Append(item.Key + " onPool count: " + item.Value.Count + " \n");
             }
         };
         return str.ToString();

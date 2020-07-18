@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CharManager  : MonoSingleton<CharManager>
 {
+    public string str="";
     private  List<Character> _charOnList;
     private MultipleOnListPool<Character> _characterPool;
     public MultipleOnListPool<Character> CharPool {
@@ -15,6 +16,9 @@ public class CharManager  : MonoSingleton<CharManager>
        this._characterPool =new MultipleOnListPool<Character>("CharacterPool");
        this._charOnList= this._characterPool.getOnList();
        
+    }
+    private void Update() {
+     
     }
 
     

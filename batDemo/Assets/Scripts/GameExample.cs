@@ -16,9 +16,26 @@ public class GameExample : SingletonT<GameExample> {
 
     }
 
-    public void testPool(){
+    public IEnumerator testPool(){
        Character char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
+        Character  char2 =  CharManager.Instance.CharPool.get<Character>("char_A");
        Monster monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+       yield return new WaitForSeconds(5);
+       char1.recycleSelf();
+
+        yield return new WaitForSeconds(5);
+        monster1.recycleSelf();
+        char2.recycleSelf();
+
+          yield return new WaitForSeconds(5);
+          char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
+          char2=CharManager.Instance.CharPool.get<Character>("char_A");
+          monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+
+           yield return new WaitForSeconds(5);
+            char1.recycleSelf();
+             monster1.recycleSelf();
+              char2.recycleSelf();
     }
 
 
