@@ -47,19 +47,20 @@ self.ViewLayer=ViewLayer.content
 self.showMode=ViewShowMode.Normal
 end
 
------UI加载完成---------
-function HuDBatPanel:Init(param)
-PanelView.Init(self,param)
+-----UI加载完成--Open之前-------
+function HuDBatPanel:OnInit(param)
  ---@type Hud_RightBtnArea
  self.rightBtnArea= self:creatChildView(ChildViewType.Hud_RightBtnArea,true,true)
  ---self.rightBtnArea:Close();
- log("HuDBatPanel init "..param);
+ ---@type Hud_DragArea
+  self.dragArea= self:creatChildView(ChildViewType.Hud_DragArea)
+ ---log("HuDBatPanel init "..param);
 end
 
 function HuDBatPanel:OnDestory()
 --记得nil移除变量
 self.rightBtnArea=nil
-
+self.dragArea=nil
 end
 
 function HuDBatPanel:AddListener()
@@ -73,7 +74,7 @@ end
 --- update
 function HuDBatPanel:Update()
      PanelView.Update(self)
-     
+
 end
 
 -- 首次打开

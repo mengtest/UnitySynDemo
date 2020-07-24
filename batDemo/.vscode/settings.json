@@ -63,6 +63,7 @@
         "Utils",
         "GameAssetRequest",
         "CanvasGroup",
-        "LoopType"
+        "LoopType",
+        "UIEventListener"
     ]
 }

@@ -20,8 +20,6 @@ self.FireBtn=nil
 self.SprintCloseImg=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
-
-
 end
 
 --自动生成-----------end------------------------------
@@ -31,12 +29,12 @@ self.viewName= "View.Battle.Hud_RightBtnArea"
 self.url="View/Battle/Hud_RightBtnArea"
 self.needUpdate=true
 self.ViewLayer=ViewLayer.content
+self.isPart=true;
 end
 
 -----UI加载完成---------
-function Hud_RightBtnArea:Init(param)
-self.isPart=true;
-ChildView.Init(self)
+function Hud_RightBtnArea:OnInit(param)
+
 
 end
 

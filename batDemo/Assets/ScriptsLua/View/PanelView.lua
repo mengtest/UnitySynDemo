@@ -36,7 +36,7 @@ end
 
 ---@param childViewType ChildViewType
 ---@param addchild bool 是否添加到父节点
-function PanelView:creatChildView(childViewType,addchild,...)
+function PanelView:creatChildView(childViewType,...)
     local viewCls = require(childViewType);
     if viewCls == nil then
         logError("视图逻辑类加载失败", childViewType)
@@ -44,9 +44,7 @@ function PanelView:creatChildView(childViewType,addchild,...)
     end
     ---@type ChildView
     local childView = viewCls:new();
-    if addchild==nil or addchild==true then
-        self:addChildView(childView);
-    end
+    self:addChildView(childView);
     local args = {...};
     childView:create(args);
     return childView
@@ -180,6 +178,7 @@ function PanelView: Init(param)
     Main.ViewManager:addToLayer(self);
     self.gameObject:SetActive(true);
     self:OnUIInit();
+    self:OnInit(param);
     if self.panelstate~=ViewPanelState.Init and self[self.panelstate] then
         local switch = {
             Open = function ()
@@ -237,6 +236,11 @@ end
 function PanelView: OnUIInit()
 
 end
+----自动生成---
+function PanelView: OnInit(param)
+
+end
+
 ----自动生成---
 function PanelView: OnUIDestory()
 

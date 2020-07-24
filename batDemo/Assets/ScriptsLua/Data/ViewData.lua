@@ -43,5 +43,7 @@ ViewType = {
 --视图类型
 ---@class ChildViewType
 ChildViewType = {
+    --HUD.
     Hud_RightBtnArea = "View.Battle.Hud_RightBtnArea",
+    Hud_DragArea = "View.Battle.Hud_DragArea",
 }

@@ -59,6 +59,11 @@ public class ShowLuaInspectorRect : Editor
 	}
 	void _generateLuaPanelScript()
 	{
+        subPPath=(target as LuaView).subPath;
+        path = Application.dataPath + "/ScriptsLua/View/";
+        if(subPPath!=""){
+         path=path+ subPPath+"/";
+        }
 		string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
@@ -70,7 +75,6 @@ public class ShowLuaInspectorRect : Editor
 				//name = name.Replace(" ", "");
 				sb.AppendLine("---@class " + name + " : PanelView");
 				sb.AppendLine(name + " = Class(\""+ name + "\",PanelView)");
-                sb.AppendLine("---@return " + name);
 				sb.AppendLine("--自动生成-------------------------------------------");
 				//添加function:OnUIInit
                  sb.AppendLine("---添加UI引用.");
@@ -98,8 +102,8 @@ public class ShowLuaInspectorRect : Editor
                 sb.AppendLine("self.showMode=ViewShowMode.Normal");
 				sb.AppendLine("end\n");
 
-	            sb.AppendLine("function " + name + ":Init()");
-                sb.AppendLine("PanelView.Init(self)");
+                sb.AppendLine("-----UI加载完成--Open之前-------");
+	            sb.AppendLine("function " + name + ":OnInit(param)");
                 sb.AppendLine("");
 				sb.AppendLine("end\n");
 
@@ -108,18 +112,31 @@ public class ShowLuaInspectorRect : Editor
                 sb.AppendLine("");
 				sb.AppendLine("end\n");
 
+                sb.AppendLine("--open 时候开始监听");
                 sb.AppendLine("function " + name + ":AddListener()");
                 sb.AppendLine("");
 				sb.AppendLine("end\n");
 
+                sb.AppendLine("--close hiding freeze 时候关闭监听");
                 sb.AppendLine("function " + name + ":RemoveListener()");
                 sb.AppendLine("");
 				sb.AppendLine("end\n");
 
-                sb.AppendLine("function " + name + ":Update()");
                 sb.AppendLine("--- update");
+                sb.AppendLine("function " + name + ":Update()");
+                sb.AppendLine("  PanelView.Update(self)");
+                sb.AppendLine("");
 				sb.AppendLine("end\n");
                 
+                sb.AppendLine("function " + name + ":onOpen()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("function " + name + ":onClose()");
+                sb.AppendLine("");
+				sb.AppendLine("end\n");
+
+                sb.AppendLine("---@return " + name);
 				sb.AppendLine("return " + name);
 				sw.WriteLine(sb.ToString());
 			}
@@ -130,6 +147,11 @@ public class ShowLuaInspectorRect : Editor
     void _generateLuaChildScript()
 	{
      //   DebugLog.Log(target.)
+        subPPath=(target as LuaView).subPath;
+        path = Application.dataPath + "/ScriptsLua/View/";
+        if(subPPath!=""){
+         path=path+ subPPath+"/";
+        }
         string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
@@ -166,10 +188,12 @@ public class ShowLuaInspectorRect : Editor
                 }
                 sb.AppendLine("self.needUpdate=false");
                 sb.AppendLine("self.ViewLayer=ViewLayer.content");
+                sb.AppendLine("--是否为部件");
+                sb.AppendLine("self.isPart=true");
 				sb.AppendLine("end\n");
 
-	            sb.AppendLine("function " + name + ":Init()");
-                sb.AppendLine("ChildView.Init(self)");
+                sb.AppendLine("--初始化");
+	            sb.AppendLine("function " + name + ":OnInit(param)");
                 sb.AppendLine("");
 				sb.AppendLine("end\n");
 

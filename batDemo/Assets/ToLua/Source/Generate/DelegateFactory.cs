@@ -66,6 +66,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), factory.UnityEngine_Canvas_WillRenderCanvases);
+		dict.Add(typeof(UIEventListener.VectorDelegate), factory.UIEventListener_VectorDelegate);
 		dict.Add(typeof(System.Func<TcpSocket.Proto.CmdPacket,bool>), factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
@@ -117,6 +118,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.UnityEngine_Canvas_WillRenderCanvases);
+		DelegateTraits<UIEventListener.VectorDelegate>.Init(factory.UIEventListener_VectorDelegate);
 		DelegateTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
@@ -168,6 +170,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.Check_UnityEngine_Canvas_WillRenderCanvases);
+		TypeTraits<UIEventListener.VectorDelegate>.Init(factory.Check_UIEventListener_VectorDelegate);
 		TypeTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.Check_System_Func_TcpSocket_Proto_CmdPacket_bool);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
@@ -219,6 +222,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.Canvas.WillRenderCanvases>.Push = factory.Push_UnityEngine_Canvas_WillRenderCanvases;
+		StackTraits<UIEventListener.VectorDelegate>.Push = factory.Push_UIEventListener_VectorDelegate;
 		StackTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Push = factory.Push_System_Func_TcpSocket_Proto_CmdPacket_bool;
 	}
     
@@ -3166,6 +3170,63 @@ public class DelegateFactory
 	}
 
 	void Push_UnityEngine_Canvas_WillRenderCanvases(IntPtr L, UnityEngine.Canvas.WillRenderCanvases o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class UIEventListener_VectorDelegate_Event : LuaDelegate
+	{
+		public UIEventListener_VectorDelegate_Event(LuaFunction func) : base(func) { }
+		public UIEventListener_VectorDelegate_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public UIEventListener.VectorDelegate UIEventListener_VectorDelegate(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			UIEventListener.VectorDelegate fn = delegate(UnityEngine.EventSystems.PointerEventData param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			UIEventListener_VectorDelegate_Event target = new UIEventListener_VectorDelegate_Event(func);
+			UIEventListener.VectorDelegate d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			UIEventListener_VectorDelegate_Event target = new UIEventListener_VectorDelegate_Event(func, self);
+			UIEventListener.VectorDelegate d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_UIEventListener_VectorDelegate(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(UIEventListener.VectorDelegate), L, pos);
+	}
+
+	void Push_UIEventListener_VectorDelegate(IntPtr L, UIEventListener.VectorDelegate o)
 	{
 		ToLua.Push(L, o);
 	}

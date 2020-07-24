@@ -88,19 +88,19 @@ function Example.AssetCallBack(objs)
 end
 
 function Example.openPanel()
-    Main.ViewManager:Show(ViewType.HuDBatPanel,"~~123123");
-    Example.cam= GameObject.FindGameObjectWithTag("MainCamera")
-    TweenManager.tween(Example.cam, {
-        {TweenFun.delay, 5},
-        {TweenFun.call, function()
-            Main.ViewManager:Show(ViewType.HuDBatPanel,"~~66677");
-        end},
-        {TweenFun.delay, 5},
-        {TweenFun.call, function()
-            Main.ViewManager:Close(ViewType.HuDBatPanel);
-        end}
-    });
-    Main.ViewManager:Close(ViewType.HuDBatPanel);
+    Main.ViewManager:Show(ViewType.HuDBatPanel);
+    -- Example.cam= GameObject.FindGameObjectWithTag("MainCamera")
+    -- TweenManager.tween(Example.cam, {
+    --     {TweenFun.delay, 5},
+    --     {TweenFun.call, function()
+    --         Main.ViewManager:Show(ViewType.HuDBatPanel,"~~66677");
+    --     end},
+    --     {TweenFun.delay, 5},
+    --     {TweenFun.call, function()
+    --         Main.ViewManager:Close(ViewType.HuDBatPanel);
+    --     end}
+    -- });
+    -- Main.ViewManager:Close(ViewType.HuDBatPanel);
 end
 
 function Example.LoadMonster()
