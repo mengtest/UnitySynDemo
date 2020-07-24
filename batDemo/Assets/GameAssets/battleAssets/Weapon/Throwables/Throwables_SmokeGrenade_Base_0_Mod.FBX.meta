@@ -1,34 +1,18 @@
 fileFormatVersion: 2
-guid: e7e4072876633b049963e4c11632e831
+guid: 8ae91beccd444ef46b8c73c6fc229e9c
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: //RootNode
-  - first:
-      4: 400000
-    second: //RootNode
-  - first:
-      21: 2100000
-    second: Material #47
-  - first:
-      23: 2300000
-    second: //RootNode
-  - first:
-      33: 3300000
-    second: //RootNode
-  - first:
-      43: 4300000
-    second: Throwables_SmokeGrenade_Base_0_Mod
-  - first:
-      95: 9500000
-    second: //RootNode
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
+      name: Material #1
+    second: {fileID: 2100000, guid: 43208e43d51ef13418088d83adc5c600, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #47
     second: {fileID: 2100000, guid: f44fbf1b31e348f4a91952cee0a93a58, type: 2}
   materials:
     materialImportMode: 1

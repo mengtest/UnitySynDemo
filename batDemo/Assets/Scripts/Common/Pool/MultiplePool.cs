@@ -6,18 +6,18 @@ using System.Text;
 public class MultiplePool : IPool
 {
     public string name;
-    protected Dictionary<string,List<IRecycleAble>> map;
+    protected Dictionary<string,List<IPoolObj>> map;
     private int m_iNewID = 1;
 
     public MultiplePool(string name="MultiplePool")
     {
         this.name = name;
-        this.map = new Dictionary<string, List<IRecycleAble>>();
+        this.map = new Dictionary<string, List<IPoolObj>>();
     }
      public int CreateID() {
         return this.m_iNewID++;
     }
-    public virtual void recycle(IRecycleAble item)
+    public virtual void recycle(IPoolObj item)
     {
          if (!item.isRecycled) {
             item.isRecycled = true;
@@ -39,9 +39,9 @@ public class MultiplePool : IPool
     public  T get<T>(string poolname) where T:PoolObj,new() {
         if(!this.map.ContainsKey(poolname)){
              DebugLog.Log("creat: "+poolname);
-           this.map[poolname]=new List<IRecycleAble>();
+           this.map[poolname]=new List<IPoolObj>();
         }
-        List<IRecycleAble> tempList = this.map[poolname];
+        List<IPoolObj> tempList = this.map[poolname];
         T item;
         if (tempList.Count > 0) {
             item  =(T)tempList[tempList.Count-1];
@@ -64,21 +64,21 @@ public class MultiplePool : IPool
     public virtual void onGet(PoolObj item){ 
 
     }
-    public virtual void onRecycle(IRecycleAble item){ 
+    public virtual void onRecycle(IPoolObj item){ 
 
     }
-    public virtual void onClear(IRecycleAble item){ 
+    public virtual void onClear(IPoolObj item){ 
 
     }
       /**清除一个池 */
     public void clear(string poolname) {
-         List<IRecycleAble> lists;
+         List<IPoolObj> lists;
           if(this.map.TryGetValue(poolname,out lists)){
-            List<IRecycleAble> Templist=new List<IRecycleAble>(lists.ToArray());
-             this.map[poolname]=new List<IRecycleAble>();
+            List<IPoolObj> Templist=new List<IPoolObj>(lists.ToArray());
+             this.map[poolname]=new List<IPoolObj>();
             for (int i = Templist.Count - 1; i >= 0 ; i--)
             {
-                IRecycleAble obj=Templist[i];
+                IPoolObj obj=Templist[i];
                 this.onClear(obj);
                 Templist[i].Release();
             }
@@ -90,7 +90,7 @@ public class MultiplePool : IPool
     public virtual void clearAll() {
         foreach (var item in this.map)
         {
-            List<IRecycleAble> Templist=new List<IRecycleAble>(item.Value.ToArray());
+            List<IPoolObj> Templist=new List<IPoolObj>(item.Value.ToArray());
             item.Value.Clear();
             for (int i = Templist.Count - 1; i >= 0 ; i--)
             {
@@ -106,7 +106,7 @@ public class MultiplePool : IPool
         StringBuilder str=new StringBuilder();
        foreach (var item in this.map)
         {
-            List<IRecycleAble> Templist=item.Value;
+            List<IPoolObj> Templist=item.Value;
             for (int i = Templist.Count - 1; i >= 0 ; i--)
             {
                 if (Templist[i] != null) {

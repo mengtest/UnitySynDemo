@@ -3,7 +3,6 @@
     "25"
   ],
   "bones":[
-    "Bip001 Spine",
     "Bip001 Spine1"
   ]
 }

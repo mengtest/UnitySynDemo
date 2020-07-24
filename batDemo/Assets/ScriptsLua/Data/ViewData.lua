@@ -31,9 +31,17 @@ ViewPanelState={
       Freeze = "Freeze",
 }
 
+
 --视图类型
 ---@class ViewType
 ViewType = {
     ---登录界面
     LoginView = "View.Login.LoginView",
+    ---战斗HUD
+    HuDBatPanel = "View.Battle.HuDBatPanel",
+}
+--视图类型
+---@class ChildViewType
+ChildViewType = {
+    Hud_RightBtnArea = "View.Battle.Hud_RightBtnArea",
 }

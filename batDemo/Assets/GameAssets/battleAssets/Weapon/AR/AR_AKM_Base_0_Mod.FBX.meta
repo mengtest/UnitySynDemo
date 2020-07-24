@@ -8,7 +8,7 @@ ModelImporter:
     second: //RootNode
   - first:
       1: 100002
-    second: AR_AKM_Base_0_Mod
+    second: Assault_AKM_Base_1_Mod
   - first:
       1: 100004
     second: Bone001
@@ -20,16 +20,13 @@ ModelImporter:
     second: Bone003
   - first:
       1: 100010
-    second: Grips
-  - first:
-      1: 100012
-    second: Scopes
+    second: Assault_AKM_Base_1_ModM
   - first:
       4: 400000
     second: //RootNode
   - first:
       4: 400002
-    second: AR_AKM_Base_0_Mod
+    second: Assault_AKM_Base_1_Mod
   - first:
       4: 400004
     second: Bone001
@@ -41,28 +38,44 @@ ModelImporter:
     second: Bone003
   - first:
       4: 400010
-    second: Grips
-  - first:
-      4: 400012
-    second: Scopes
+    second: Assault_AKM_Base_1_ModM
   - first:
       21: 2100000
-    second: Material #29
+    second: Material #0
+  - first:
+      21: 2100002
+    second: Material #1
   - first:
       43: 4300000
-    second: AR_AKM_Base_0_Mod
+    second: Assault_AKM_Base_1_Mod
+  - first:
+      43: 4300002
+    second: Assault_AKM_Base_1_ModM
   - first:
       95: 9500000
     second: //RootNode
   - first:
       137: 13700000
-    second: AR_AKM_Base_0_Mod
+    second: Assault_AKM_Base_1_Mod
+  - first:
+      137: 13700002
+    second: Assault_AKM_Base_1_ModM
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
+      name: Material #0
     second: {fileID: 2100000, guid: 89f0b11ce3639204a92c2671c251a56d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #1
+    second: {fileID: 2100000, guid: a6332eb8308950143bc77032a0e9db4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #29
+    second: {fileID: 2100000, guid: caec5ae7332234643a600a6ae5dc10cc, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -1,6 +1,6 @@
 {
   "materials":[
-    "81"
+    "80"
   ],
   "bones":[
     "Bip001 Pelvis"

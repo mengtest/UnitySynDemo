@@ -20,11 +20,11 @@ public class EventManager
         public object param = null;
     }
 
-    private static Dictionary<string, List<EventCallback>> dict = new Dictionary<string, List<EventCallback>>();
-    private static Dictionary<string, List<VoteCallback>> dictvote = new Dictionary<string, List<VoteCallback>>();
+    private static Dictionary<int, List<EventCallback>> dict = new Dictionary<int, List<EventCallback>>();
+    private static Dictionary<int, List<VoteCallback>> dictvote = new Dictionary<int, List<VoteCallback>>();
 
     //加入一个侦听
-    public static void addListener(string type, callback fn, object param = null)
+    public static void addListener(int type, callback fn, object param = null)
     {
         //如果不存在就创建一个字典  
         if (!dict.ContainsKey(type))
@@ -47,7 +47,7 @@ public class EventManager
     }
 
     //删除一个类型的，一个指定回调
-    public static void removeListener(string type, callback fn)
+    public static void removeListener(int type, callback fn)
     {
         if (dict.ContainsKey(type))
         {
@@ -61,7 +61,7 @@ public class EventManager
         }
     }
     //将一个类型的事件都删除
-    public static void removeListenerByType(string type)
+    public static void removeListenerByType(int type)
     {
         if (dict.ContainsKey(type))
         {
@@ -70,7 +70,7 @@ public class EventManager
         }
     }
 
-    public static void addVote(string type, votecallback fn, object param = null)
+    public static void addVote(int type, votecallback fn, object param = null)
     {
         //如果不存在就创建一个字典  
         if (!dictvote.ContainsKey(type))
@@ -93,7 +93,7 @@ public class EventManager
     }
 
     //删除一个类型的，一个指定回调
-    public static void removeVote(string type, votecallback fn)
+    public static void removeVote(int type, votecallback fn)
     {
         if (dictvote.ContainsKey(type))
         {
@@ -107,7 +107,7 @@ public class EventManager
         }
     }
     //将一个类型的事件都删除
-    public static void removeVoteByType(string type)
+    public static void removeVoteByType(int type)
     {
         if (dictvote.ContainsKey(type))
         {
@@ -117,7 +117,7 @@ public class EventManager
     }
 
     //发出一个事件，简化操作
-    public static void send(string type, object data = null)
+    public static void send(int type, object data = null)
     {
         GEvent e = new GEvent(type, data);
         sendEvent(e);
@@ -146,7 +146,7 @@ public class EventManager
 
 
     //发出一个事件，简化操作
-    public static bool sendVote(string type, object data = null)
+    public static bool sendVote(int type, object data = null)
     {
         GEvent e = new GEvent(type, data);
         return sendVoteEvent(e);

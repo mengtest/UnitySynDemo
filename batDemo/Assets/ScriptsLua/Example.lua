@@ -7,15 +7,16 @@ local AssetReqs;
 --lua加载完毕后执行
 function Example.Start()
     --Example:Start()  Example.Start(this) 相同 self
- 
-    Example.LoadMonster();
+    Example.openPanel();
+  -- Example.LoadMonster();
   --     Example.testArray();
+end
+function Example.Class()
 
     --初始化全局游戏对象
- --   local gameCls = require("Game.Game")
- --   gGame = gameCls:new()
- --   gGame:start()
-
+    --   local gameCls = require("Game.Game")
+    --   gGame = gameCls:new()
+    --   gGame:start()
 ---  Manager 单例 方法 都用.
 ---  class方法 都用:  class必须new 继承class
        ---@type GameObjBase
@@ -84,6 +85,22 @@ function Example.AssetCallBack(objs)
 
       -- 完成UI封装 简单    
       --proto 通讯 UIView 封装.                          
+end
+
+function Example.openPanel()
+    Main.ViewManager:Show(ViewType.HuDBatPanel,"~~123123");
+    Example.cam= GameObject.FindGameObjectWithTag("MainCamera")
+    TweenManager.tween(Example.cam, {
+        {TweenFun.delay, 5},
+        {TweenFun.call, function()
+            Main.ViewManager:Show(ViewType.HuDBatPanel,"~~66677");
+        end},
+        {TweenFun.delay, 5},
+        {TweenFun.call, function()
+            Main.ViewManager:Close(ViewType.HuDBatPanel);
+        end}
+    });
+    Main.ViewManager:Close(ViewType.HuDBatPanel);
 end
 
 function Example.LoadMonster()

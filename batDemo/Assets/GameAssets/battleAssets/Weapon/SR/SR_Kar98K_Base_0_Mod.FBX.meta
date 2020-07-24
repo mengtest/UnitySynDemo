@@ -2,61 +2,13 @@ fileFormatVersion: 2
 guid: b585c5bf1611924429d72e36eac9752e
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: Bone001
-  - first:
-      1: 100002
-    second: Bone004
-  - first:
-      1: 100004
-    second: Grips
-  - first:
-      1: 100006
-    second: Scopes
-  - first:
-      1: 100008
-    second: //RootNode
-  - first:
-      1: 100010
-    second: SR_Kar98K_Base_0_Mod
-  - first:
-      4: 400000
-    second: Bone001
-  - first:
-      4: 400002
-    second: Bone004
-  - first:
-      4: 400004
-    second: Grips
-  - first:
-      4: 400006
-    second: Scopes
-  - first:
-      4: 400008
-    second: //RootNode
-  - first:
-      4: 400010
-    second: SR_Kar98K_Base_0_Mod
-  - first:
-      21: 2100000
-    second: Material #1662
-  - first:
-      43: 4300000
-    second: SR_Kar98K_Base_0_Mod
-  - first:
-      95: 9500000
-    second: //RootNode
-  - first:
-      137: 13700000
-    second: SR_Kar98K_Base_0_Mod
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: f8fbbdb7e8c12b5489fc2df17c4d93eb, type: 2}
+      name: Material #1662
+    second: {fileID: 2100000, guid: 4a6bb08b671d2ca4ebe32a196e493403, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

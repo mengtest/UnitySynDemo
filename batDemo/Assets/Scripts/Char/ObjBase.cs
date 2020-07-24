@@ -9,7 +9,10 @@ public class ObjBase : PoolObj
      //事件派发器;
     private GEventDispatcher _event=null;
     //目标对象.
-    public GameObject Target=null;
+    public ObjBase Target=null;
+    //半径 如果是点 半径可以是0
+    public float radius=0f;
+
     //根节点.
     protected GameObject node=null;
     /***
@@ -23,12 +26,14 @@ public class ObjBase : PoolObj
     //通用_显示对象加载reqs.
     private  GameAssetRequest _viewReqs=null;
     //销毁
-    protected bool isDestory=false;
+    public bool isDestory=false;
+    public bool isDead=false;
 
     public ObjBase()
     {
         this.node =new GameObject(this._name);
         this.isDestory=false;
+        this.isDead=false;
     }
     public override void init(){
         string[] split = poolname.Split('/');
@@ -79,6 +84,22 @@ public class ObjBase : PoolObj
             }
         }
     }
+    /**
+    * 计算目标距离;
+    * @param Vec2 目標位置
+    * @param Radius 目標半徑
+    * @param subMyRadius 是否计算自身的半径
+    */
+    public float getDic(Vector3 targetPos,float tagetRadius,bool subMyRadius = true) {
+        float dic = 0;
+       Vector3  tempV= targetPos-this.gameObject.transform.position;
+        if (subMyRadius) {
+            dic = tempV.magnitude - tagetRadius - this.radius;
+        } else {
+            dic = tempV.magnitude - tagetRadius;
+        }
+        return dic;
+    }
     public GEventDispatcher GetEvent(){
         if(this._event==null){
             this._event=new GEventDispatcher();
@@ -91,28 +112,37 @@ public class ObjBase : PoolObj
         }
         return this._move;
     }
+    public override void onGet()
+    {
+         this.isDead=false;
+          if(this.node!=null){
+             this.node.SetActive(true);
+        }
+    }
     /**
      回收..
     **/
     public override void onRecycle()
     {
         this.Target=null;
+        this.isDead=true;
         if(this._move!=null){
-            this._move.init();
+            this._move.Init();
         }
         if(this._event!=null) {
             this._event.ClearAllEvent();
-            this._event=null;
         } 
         if(this.node!=null){
              this.node.SetActive(false);
         }
+
     }
     /*********
       销毁
     *******/
     public override void Release(){
        this.Target=null;
+        this.isDead=true;
        if(this._move !=null){
            this._move.Dispose();
            this._move=null;

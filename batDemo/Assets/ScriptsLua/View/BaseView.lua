@@ -26,7 +26,6 @@ function BaseView:destory()
     self.needUpdate=false;
     self.ViewLayer=nil;
     
-    self.gameObject = nil;
     if self.gameObject~=nil then 
         GameObject.Destroy(self.gameObject);
         self.gameObject = nil;
@@ -40,7 +39,7 @@ function BaseView:destory()
 end
 
 ---创建预制对象 ..通过prfab加载.
-function BaseView: create()
+function BaseView: create(param)
     self._objrequest= GameLuaManager.LoadAsset(self.url,typeof(GameObject),
         function (objs)
             ---如果加载完时,已经销毁.
@@ -52,9 +51,11 @@ function BaseView: create()
                 ---@type Transform
                 self.transform = self.gameObject:GetComponent(typeof(Transform));
                 self.isFin=true;
-                
-                self:Init();
-                
+                if  #param == 0 then
+                    self:Init();
+                else
+                      self:Init(unpack(param));
+                end
             end
         end
     );
@@ -76,7 +77,7 @@ end
 
 -- 创建视图之后，只执行一次
 -- 处理适配等
-function BaseView: Init()
+function BaseView: Init(param)
 
 end
 

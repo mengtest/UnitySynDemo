@@ -20,9 +20,9 @@ end
 ---@param panelView PanelView
 function ChildView:setPlaneView(panelView)
     self.panelView=panelView;
-    if  self.isPart and self.transform and self.panelView.transform then
-        self.transform.SetParent(self.panelView.transform);
-    end
+  ---  if  self.isPart and self.transform and self.panelView.transform then
+ ---       self.transform.SetParent(self.panelView.transform,true);
+  ---  end
 end
 
 -----------------------子类重写生命周期----------------------------
@@ -32,10 +32,10 @@ function ChildView:Update()
 end
 
 function ChildView:Close()
-    self.gameObject:setActive(false);
+    self.gameObject:SetActive(false);
 end
 function ChildView:Show()
-    self.gameObject:setActive(true);
+    self.gameObject:SetActive(true);
 end
 
 -- 添加监听
@@ -52,7 +52,8 @@ function ChildView: Init()
   --不是部件 添加到指定层级.
    if self.isPart then
        if  self.panelView then
-           self.transform.SetParent(self.panelView.transform);
+           self.transform:SetParent(self.panelView.transform,false);
+           self.transform:SetAsLastSibling();
        end
    else
       Main.ViewManager:addToLayer(self);

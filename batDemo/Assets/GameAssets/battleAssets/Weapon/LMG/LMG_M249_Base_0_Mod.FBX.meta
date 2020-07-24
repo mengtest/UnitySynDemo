@@ -17,7 +17,7 @@ ModelImporter:
     second: //RootNode
   - first:
       1: 100008
-    second: LMG_M249_Base_0_Mod
+    second: LMG_M249_Base_1_Mod
   - first:
       4: 400000
     second: Bone001
@@ -32,25 +32,30 @@ ModelImporter:
     second: //RootNode
   - first:
       4: 400008
-    second: LMG_M249_Base_0_Mod
+    second: LMG_M249_Base_1_Mod
   - first:
       21: 2100000
-    second: Material #1661
+    second: Material #1660
   - first:
       43: 4300000
-    second: LMG_M249_Base_0_Mod
+    second: LMG_M249_Base_1_Mod
   - first:
       95: 9500000
     second: //RootNode
   - first:
       137: 13700000
-    second: LMG_M249_Base_0_Mod
+    second: LMG_M249_Base_1_Mod
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
+      name: Material #1660
     second: {fileID: 2100000, guid: 7dad8bb65cd08c2429daaf6c38014463, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #1661
+    second: {fileID: 2100000, guid: beae31b98d53759419cfdeecfe22a416, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -136,7 +141,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

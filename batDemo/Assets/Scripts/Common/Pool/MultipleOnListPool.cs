@@ -10,7 +10,7 @@ public class MultipleOnListPool<T> : MultiplePool  where T: PoolObj,new ()
     public MultipleOnListPool(string name="MultipleOnListPool")
     {
         this.name = name;
-        this.map = new Dictionary<string, List<IRecycleAble>>();
+        this.map = new Dictionary<string, List<IPoolObj>>();
         this.onList=new List<T>();
     }
 
@@ -26,13 +26,13 @@ public class MultipleOnListPool<T> : MultiplePool  where T: PoolObj,new ()
             this.onList.Add(obj);
         }
     }
-    public override void onRecycle(IRecycleAble item){ 
+    public override void onRecycle(IPoolObj item){ 
         T obj=(T)item;
         if(this.onList.Contains(obj)){
             this.onList.Remove(obj);
         }
     }
-    public override void onClear(IRecycleAble item){ 
+    public override void onClear(IPoolObj item){ 
         T obj=(T)item;
         if(this.onList.Contains(obj)){
             this.onList.Remove(obj);

@@ -130,6 +130,7 @@ public class ShowLuaInspectorRect : Editor
     void _generateLuaChildScript()
 	{
      //   DebugLog.Log(target.)
+        string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
 		{

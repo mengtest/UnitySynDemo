@@ -13,14 +13,14 @@ public class GEventDispatcher :IDispatcher
         public callback cb = null;
         public object param = null;
     }
-    private Dictionary<string, List<EventCallback>> dict;
+    private Dictionary<int, List<EventCallback>> dict;
 
     public GEventDispatcher()
     {
-        dict = new Dictionary<string, List<EventCallback>>();
+        dict = new Dictionary<int, List<EventCallback>>();
     }
 
-    public void addEventListener(string type, callback fn, object param = null)
+    public void addEventListener(int type, callback fn, object param = null)
     {
         //如果不存在就创建一个字典  
         if (!dict.ContainsKey(type))
@@ -45,7 +45,7 @@ public class GEventDispatcher :IDispatcher
     }
 
     //删除一个类型的，一个指定回调
-    public void removeEventListener(string type, callback fn)
+    public void removeEventListener(int type, callback fn)
     {
         if (dict.ContainsKey(type))
         {
@@ -60,7 +60,7 @@ public class GEventDispatcher :IDispatcher
 
     }
     //将一个类型的事件都删除
-    public virtual void removeEventListenerByType(string type)
+    public virtual void removeEventListenerByType(int type)
     {
         if (dict.ContainsKey(type))
         {
@@ -68,7 +68,7 @@ public class GEventDispatcher :IDispatcher
             dict.Remove(type);
         }
     }
-    public bool hasEventListener(string type)
+    public bool hasEventListener(int type)
     {
         if(dict.ContainsKey(type)){
             return true;
@@ -76,7 +76,7 @@ public class GEventDispatcher :IDispatcher
         return false;
     }
     //发出一个事件，简化操作
-    public virtual void dispatchEventWith(string type, object data=null)
+    public virtual void dispatchEventWith(int type, object data=null)
     {
         GEvent e = new GEvent(type, data);
         dispatchEvent(e);

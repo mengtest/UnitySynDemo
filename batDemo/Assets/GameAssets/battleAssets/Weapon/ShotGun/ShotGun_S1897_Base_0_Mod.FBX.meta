@@ -2,60 +2,17 @@ fileFormatVersion: 2
 guid: f231b5adcee26be4f9d5f20d48811cd6
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: Bone001
-  - first:
-      1: 100002
-    second: Bone002
-  - first:
-      1: 100004
-    second: Bone003
-  - first:
-      1: 100006
-    second: Scopes
-  - first:
-      1: 100008
-    second: //RootNode
-  - first:
-      1: 100010
-    second: ShotGun_S1897_Base_0_Mod
-  - first:
-      4: 400000
-    second: Bone001
-  - first:
-      4: 400002
-    second: Bone002
-  - first:
-      4: 400004
-    second: Bone003
-  - first:
-      4: 400006
-    second: Scopes
-  - first:
-      4: 400008
-    second: //RootNode
-  - first:
-      4: 400010
-    second: ShotGun_S1897_Base_0_Mod
-  - first:
-      21: 2100000
-    second: Material #35
-  - first:
-      43: 4300000
-    second: ShotGun_S1897_Base_0_Mod
-  - first:
-      95: 9500000
-    second: //RootNode
-  - first:
-      137: 13700000
-    second: ShotGun_S1897_Base_0_Mod
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
+      name: Material #34
+    second: {fileID: 2100000, guid: 705947677d4244d48a7582508bb75da7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #35
     second: {fileID: 2100000, guid: 50554a1c9ef635e4baed71826dc81571, type: 2}
   materials:
     materialImportMode: 1

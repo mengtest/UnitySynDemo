@@ -1,4 +1,4 @@
-﻿public class PoolObj : IRecycleAble
+﻿public class PoolObj : IPoolObj
 {
     public int id { get ; set ; }
     public string poolname { get; set ; }

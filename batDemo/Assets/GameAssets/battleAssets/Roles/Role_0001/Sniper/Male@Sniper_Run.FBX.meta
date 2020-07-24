@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: d9ae060fcaa671d42b837602163a173a
+guid: 99e382b0f9b69014dba75bc1490d5b9f
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Sniper_Run
+    second: Sniper_Run1
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Sniper_Run
+      name: Sniper_Run1
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -283,11 +283,6 @@ ModelImporter:
       position: {x: 0.0003228399, y: 0.537015, z: -0.0355239}
       rotation: {x: -0.5000003, y: 0.4999997, z: 0.4999997, w: 0.5000003}
       scale: {x: 1, y: 1, z: 1}
-    - name: Bip01 Footsteps
-      parentName: Bip001
-      position: {x: -0, y: 0, z: -0.53593767}
-      rotation: {x: 0, y: 0, z: -0.70710635, w: 0.7071072}
-      scale: {x: 1, y: 1, z: 1}
     - name: Bip001 Pelvis
       parentName: Bip001
       position: {x: -0, y: 0, z: 0}
@@ -303,21 +298,6 @@ ModelImporter:
       position: {x: -0.1475341, y: -0.00017574549, z: -4.842877e-10}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.0000001, y: 1.0000001, z: 1}
-    - name: leftWeaponDummy
-      parentName: Bip001 Spine1
-      position: {x: -0.15902595, y: -0.29421747, z: 0.21350603}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1}
-    - name: rightWeaponDummy
-      parentName: Bip001 Spine1
-      position: {x: -0.15902588, y: -0.29421675, z: -0.21778515}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1}
-    - name: bagDummy
-      parentName: Bip001 Spine1
-      position: {x: -0.06260162, y: -0.26109838, z: -0.00083796005}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1}
     - name: Bip001 L Clavicle
       parentName: Bip001 Spine1
       position: {x: -0.16281906, y: 0.026836634, z: 0.08229611}
@@ -425,7 +405,7 @@ ModelImporter:
     hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7a63826ae91c79e49bfe4b7baa0b714e,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ffbc4a10a3f177b49bb4016a5e3990e4,
     type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3

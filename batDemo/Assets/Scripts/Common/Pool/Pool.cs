@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Pool<T>:IPool where T: IRecycleAble,new ()
+public class Pool<T>:IPool where T: IPoolObj,new ()
 {
     public delegate T CreatPoolObj();
     protected List<T> _list;
@@ -43,7 +43,7 @@ public class Pool<T>:IPool where T: IRecycleAble,new ()
         return item;
     }
     //回收
-    public void recycle(IRecycleAble item)
+    public void recycle(IPoolObj item)
     {
          if (!item.isRecycled) {
             item.isRecycled = true;

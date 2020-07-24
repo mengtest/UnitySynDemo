@@ -13,8 +13,8 @@ function EventObj:initialize()
 end
 
 -- 销毁
-function EventObj:destroy()
-    log("EventObj destroy")
+function EventObj:destory()
+    log("EventObj destory")
     self._eventMap = nil;
     self._eventIndex = 0;
 end

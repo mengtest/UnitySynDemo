@@ -2,13 +2,26 @@ fileFormatVersion: 2
 guid: 7986eec2240d4114aa1c3c3e800f5a37
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material #1693
     second: {fileID: 2100000, guid: b0b7bdc8c6fa4fc4cb5720328f5784c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #1694
+    second: {fileID: 2100000, guid: b0b7bdc8c6fa4fc4cb5720328f5784c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pistol_P99_Base_0_Mod
+    second: {fileID: 2100000, guid: 5f4a61a7beaa3124f9fc19a5c452d27c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -72,7 +85,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 1128e0b8afbb13548bf24ac54be64683
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

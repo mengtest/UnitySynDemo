@@ -6,8 +6,6 @@
     "Bip001 Spine1",
     "Bip001 Spine",
     "Bip001 L UpperArm",
-    "Bip001 R UpperArm",
-    "Bip001 L Clavicle",
-    "Bip001 R Clavicle"
+    "Bip001 R UpperArm"
   ]
 }

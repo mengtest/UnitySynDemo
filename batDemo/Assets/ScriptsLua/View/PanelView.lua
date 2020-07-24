@@ -1,6 +1,8 @@
 ---@class PanelView : BaseView
 PanelView = Class("PanelView",BaseView)
 ---@return PanelView
+--- childView 跟随父类一起隐藏 自动销毁 放空引用便可----------------------------
+--- PanelView创建完后 会在init 中 调用创建childView   允许 多个childView相同 ChildView 里面可以创建各种baseView 自己管理 自己销毁
 function PanelView:initialize()
     self.showMode=ViewShowMode.Normal
     self._childViews = {}
@@ -13,17 +15,17 @@ function PanelView:initialize()
 end
 
 function PanelView:destory()
-    
+
     self:UnRegisterEvent();
     if self._OnUpdateHandle then
       UpdateBeat:RemoveListener(self._OnUpdateHandle);
+      self._OnUpdateHandle=nil;
     end
    for i, v in ipairs(self._childViews) do
-        v:destroy()
+        v:destory()
    end
    self._childViews = nil;
    self.openParam=nil;
-   self._OnUpdateHandle=nil;
    self.closeTime=0;
    self.isstateCg=false;
    
@@ -32,6 +34,23 @@ function PanelView:destory()
    BaseView.destory(self);
 end
 
+---@param childViewType ChildViewType
+---@param addchild bool 是否添加到父节点
+function PanelView:creatChildView(childViewType,addchild,...)
+    local viewCls = require(childViewType);
+    if viewCls == nil then
+        logError("视图逻辑类加载失败", childViewType)
+        return nil;
+    end
+    ---@type ChildView
+    local childView = viewCls:new();
+    if addchild==nil or addchild==true then
+        self:addChildView(childView);
+    end
+    local args = {...};
+    childView:create(args);
+    return childView
+end
 
 ---@param childView ChildView
 function PanelView:addChildView(childView)
@@ -39,9 +58,9 @@ function PanelView:addChildView(childView)
     table.insert(self._childViews, childView)
 end
 
----获取chidView
----@param ViewType ViewType
-function PanelView:getChildView(ViewType)
+---获取chidView 如果viewName相同请自己缓存
+---@param viewName string
+function PanelView:getChildView(viewName)
     for i, v in ipairs(self._childViews) do
         if v.viewName == ViewType then
             return v;
@@ -77,21 +96,24 @@ end
 
 function PanelView:Close()
     if not self:changeState(ViewPanelState.Close) then return end
-    self.canvasGroup.Alpha=0;
-    self.gameObject:setActive(false);
+    self.canvasGroup.alpha=0;
+    self.gameObject:SetActive(false);
     self:UnRegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:UnRegisterEvent()
     end
     self.closeTime=Time.GetTimestamp();
-    UpdateBeat:RemoveListener(self._OnUpdateHandle);
+    if self._OnUpdateHandle then
+         UpdateBeat:RemoveListener(self._OnUpdateHandle);
+         self._OnUpdateHandle=nil
+    end
     self.isstateCg=false;
     self:onClose();
 end
 function PanelView:Redisplay()
     if not self:changeState(ViewPanelState.Redisplay) then return end
-    self.canvasGroup.Alpha=1;
-    self.gameObject:setActive(true);
+    self.canvasGroup.alpha=1;
+    self.gameObject:SetActive(true);
     self:RegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:RegisterEvent()
@@ -100,8 +122,8 @@ function PanelView:Redisplay()
 end
 function PanelView:Hiding()
     if not self:changeState(ViewPanelState.Hiding) then return end
-    self.canvasGroup.Alpha=0;
-    self.gameObject:setActive(false);
+    self.canvasGroup.alpha=0;
+    self.gameObject:SetActive(false);
     self:UnRegisterEvent();
     for i, v in ipairs(self._childViews) do
         v:UnRegisterEvent()
@@ -110,8 +132,8 @@ function PanelView:Hiding()
 end
 function PanelView:Open()
     if not self:changeState(ViewPanelState.Open) then return end
-    self.canvasGroup.Alpha=1;
-    self.gameObject:setActive(true);
+    self.canvasGroup.alpha=1;
+    self.gameObject:SetActive(true);
     self._OnUpdateHandle = UpdateBeat:CreateListener(self.Update,self)
     UpdateBeat:AddListener(self._OnUpdateHandle);
     self:RegisterEvent();
@@ -119,10 +141,7 @@ function PanelView:Open()
         v:RegisterEvent()
     end
     self.isstateCg=false;
-   if self.openParam~=nil then
-     self:onOpen(self.openParam);
-     self.openParam=nil;
-   end
+    self:onOpen();
 end
 ---冻结 仍然显示 但没有监听
 function PanelView:Freeze()
@@ -142,6 +161,7 @@ function PanelView:Update()
     for i, v in ipairs(self._childViews) do
         if v.needUpdate then
             v:Update()
+        ----    log("update "..v.viewName);
         end
    end
 end
@@ -151,17 +171,36 @@ end
 
 
 
-function PanelView: Init()
+function PanelView: Init(param)
     self.canvasGroup = self.gameObject:GetComponent(typeof(CanvasGroup));
     if not self.canvasGroup then
         logError(" self.canvasGroup not found >>> "..self.viewName);
     end
-    self.canvasGroup.Alpha=1;
-    self.gameObject:setActive(true);
+    self.canvasGroup.alpha=1;
     Main.ViewManager:addToLayer(self);
+    self.gameObject:SetActive(true);
     self:OnUIInit();
     if self.panelstate~=ViewPanelState.Init and self[self.panelstate] then
-        self[self.panelstate]();
+        local switch = {
+            Open = function ()
+               self:Open();
+            end,
+            Close = function ()
+                self:Close();
+            end,
+            Hiding = function ()
+                self:Hiding();
+            end,
+            Redisplay = function ()
+                self:Redisplay();
+            end,
+            Freeze = function ()
+                self:Freeze();
+            end,
+        }
+        if switch[self.panelstate] then
+            switch[self.panelstate]();
+        end
     end
 end
 
@@ -183,7 +222,7 @@ function PanelView: OnDestory()
 end
 
 -- 首次打开
-function PanelView: onOpen(...)
+function PanelView: onOpen()
     
 end
 

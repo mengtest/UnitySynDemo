@@ -620,6 +620,10 @@ public class GameAssetRequest
 
     public bool IsLoadComplete()
     {
+         if(_loadReqeusts == null)
+        {
+            return true;
+        }
         foreach (LoadAssetRequest loadReqeust in _loadReqeusts)
         {
             if(loadReqeust.asset == null)

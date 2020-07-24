@@ -1,11 +1,12 @@
 ﻿
 public class GEvent
 {
-    public string type = "";
+    //G
+    public int type = 1;
     public object data;
     public object param = null;
     public IDispatcher eventTarget;
-    public GEvent(string _type, object _data = null)
+    public GEvent(int _type, object _data = null)
     {
         type = _type;
         data = _data;

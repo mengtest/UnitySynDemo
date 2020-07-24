@@ -5,13 +5,10 @@
   "bones":[
     "Bip001 Spine",
     "Bip001 Spine1",
+    "Bip001 Pelvis",
     "Bone17",
     "Bone13",
-    "Bip001 Pelvis",
     "Bone33",
-    "Bone34",
-    "Bone18",
-    "Bone09",
-    "Bone14"
+    "Bone09"
   ]
 }

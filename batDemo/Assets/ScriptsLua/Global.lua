@@ -18,7 +18,7 @@ Input           = UnityEngine.Input
 ---@class Rect
 Rect            = UnityEngine.Rect
 PlayerPrefs     = UnityEngine.PlayerPrefs
-
+CanvasGroup     = UnityEngine.CanvasGroup
 
 ---游戏常用
 ---@class GameAssetRequest
