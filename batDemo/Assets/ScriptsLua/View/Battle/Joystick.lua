@@ -81,7 +81,7 @@ function Joystick:onDown(eventData)
     self.fingerId = eventData.pointerId;
     self.pointerDownPos = eventData.position;
     self.pointerRealPos = eventData.position;
-    self.BackGround.locpalPosition=Vector3(eventData.position.x,eventData.position.y,0);
+    self.BackGround.localPosition=Vector3(eventData.position.x,eventData.position.y,0);
 end
 function Joystick:OnDrag(eventData)
   ---   log("onDrag "..eventData.position)
