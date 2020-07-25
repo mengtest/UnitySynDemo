@@ -11,7 +11,7 @@ public class UIEventListener : EventTrigger
     public delegate void VoidDelegate(GameObject obj);
 
     public delegate void VectorDelegate(PointerEventData data);
-    public VectorDelegate onClick;
+    public VoidDelegate onClick;
     public VectorDelegate onDown;
     public VectorDelegate onUp;
 	//public VoidDelegate onEnter;
@@ -28,22 +28,26 @@ public class UIEventListener : EventTrigger
         if (listener == null)
         {
             listener = obj.AddComponent<UIEventListener>();
+	    	DebugLog.Log("creat UIEventListener");
         }
         return listener;
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        onClick?.Invoke(eventData);
+		DebugLog.Log("UIEventListener OnPointerClick");
+        onClick?.Invoke(gameObject);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+			DebugLog.Log("UIEventListener OnPointerDown");
         onDown?.Invoke(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
+		DebugLog.Log("UIEventListener OnPointerUp");
         onUp?.Invoke(eventData);
     }
 

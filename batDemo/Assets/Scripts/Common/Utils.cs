@@ -8,6 +8,7 @@ using System.IO;
 using UnityEngine.EventSystems;
 using LuaInterface;
 
+[AutoRegistLua]
 public static class Utils
 {
     /// <summary>

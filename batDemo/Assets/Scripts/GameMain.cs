@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Lua;
 using LuaInterface;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameMain : MonoSingleton<GameMain> {
 

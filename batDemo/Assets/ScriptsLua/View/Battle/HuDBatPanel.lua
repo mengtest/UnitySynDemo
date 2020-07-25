@@ -63,9 +63,14 @@ self.rightBtnArea=nil
 self.dragArea=nil
 end
 
+function HuDBatPanel:onCKtest()
+    log("~~~~~~~~~~~~~~~~~~~~~~CK")
+ end
 function HuDBatPanel:AddListener()
-
+   self:setBtnClick(self.BoxBtn,self.onCKtest);
 end
+
+
 
 function HuDBatPanel:RemoveListener()
 

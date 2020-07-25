@@ -60,7 +60,7 @@ end
 
 function Joystick:AddListener()
     log("Joystick AddListener");
-    UIEventListener.Get(self.MoveArea.gameObject).onDown = function(eventData) self:onDown(eventData) end
+    UIEventListener.Get(self.MoveArea.gameObject).onDown = function(eventData)  self:onDown(eventData) end
     UIEventListener.Get(self.MoveArea.gameObject).onDrag = function(eventData)  self:OnDrag(eventData) end
     UIEventListener.Get(self.MoveArea.gameObject).onUp = function(eventData)  self:OnUp(eventData) end
 end
@@ -72,24 +72,26 @@ function Joystick:RemoveListener()
     UIEventListener.Get(self.MoveArea.gameObject).onUp = nil
 end
 
+---@param    eventData UnityEngine.EventSystems.PointerEventData
 function Joystick:onDown(eventData)
-    log("onDown "..eventData.position)
+    log("onDownx "..eventData.position.x)
+    log("onDowny "..eventData.position.y)
     if eventData.pointerId<-1 or self.fingerId~=nil then return end
     self.isDown = true;
     self.fingerId = eventData.pointerId;
     self.pointerDownPos = eventData.position;
     self.pointerRealPos = eventData.position;
-    self.BackGround.position=eventData.position;
+    self.BackGround.locpalPosition=Vector3(eventData.position.x,eventData.position.y,0);
 end
 function Joystick:OnDrag(eventData)
-     log("onDrag "..eventData.position)
+  ---   log("onDrag "..eventData.position)
     if self.fingerId ~= eventData.pointerId then  return end;
     self.isPress = true;
     self.pointerRealPos = eventData.position;
     -----得到BackGround 指向 Handle 的向量
     local direction = eventData.position - self.pointerDownPos;
     ---获取并锁定向量的长度 以控制 Handle 半径
-    local radius = Mathf.Clamp(Vector3.Magnitude(direction), 0, self.maxRadius); 
+    local radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius); 
     local localPosition = Vector2((direction.normalized * radius).x, (direction.normalized * radius).y);
     self.handle.localPosition = localPosition;
 

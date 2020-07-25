@@ -23,6 +23,7 @@ public class UIEventListenerWrap
 		L.RegVar("onDrag", get_onDrag, set_onDrag);
 		L.RegVar("onEndDrag", get_onEndDrag, set_onEndDrag);
 		L.RegFunction("VectorDelegate", UIEventListener_VectorDelegate);
+		L.RegFunction("VoidDelegate", UIEventListener_VoidDelegate);
 		L.EndClass();
 	}
 
@@ -172,7 +173,7 @@ public class UIEventListenerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UIEventListener obj = (UIEventListener)o;
-			UIEventListener.VectorDelegate ret = obj.onClick;
+			UIEventListener.VoidDelegate ret = obj.onClick;
 			ToLua.Push(L, ret);
 			return 1;
 		}
@@ -286,7 +287,7 @@ public class UIEventListenerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			UIEventListener obj = (UIEventListener)o;
-			UIEventListener.VectorDelegate arg0 = (UIEventListener.VectorDelegate)ToLua.CheckDelegate<UIEventListener.VectorDelegate>(L, 2);
+			UIEventListener.VoidDelegate arg0 = (UIEventListener.VoidDelegate)ToLua.CheckDelegate<UIEventListener.VoidDelegate>(L, 2);
 			obj.onClick = arg0;
 			return 0;
 		}
@@ -408,6 +409,33 @@ public class UIEventListenerWrap
 			{
 				LuaTable self = ToLua.CheckLuaTable(L, 2);
 				Delegate arg1 = DelegateTraits<UIEventListener.VectorDelegate>.Create(func, self);
+				ToLua.Push(L, arg1);
+			}
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UIEventListener_VoidDelegate(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+			LuaFunction func = ToLua.CheckLuaFunction(L, 1);
+
+			if (count == 1)
+			{
+				Delegate arg1 = DelegateTraits<UIEventListener.VoidDelegate>.Create(func);
+				ToLua.Push(L, arg1);
+			}
+			else
+			{
+				LuaTable self = ToLua.CheckLuaTable(L, 2);
+				Delegate arg1 = DelegateTraits<UIEventListener.VoidDelegate>.Create(func, self);
 				ToLua.Push(L, arg1);
 			}
 			return 1;

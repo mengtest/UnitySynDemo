@@ -8,6 +8,7 @@
  */
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameExample : SingletonT<GameExample> {
     
@@ -101,6 +102,4 @@ public class GameExample : SingletonT<GameExample> {
          return avatar;
     }
 
-      //ugui
-      //text  脚本  Shadow outline
 }

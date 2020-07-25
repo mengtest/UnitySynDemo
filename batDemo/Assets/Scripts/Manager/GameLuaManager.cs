@@ -1,7 +1,6 @@
 ﻿//游戏调用加载 其他等主方法口  提供lua调用. 
 
 using System;
-using System.Collections.Generic;
 using LuaInterface;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,6 +46,7 @@ public class GameLuaManager
          return url;
     }
 #endif
+
 
 
     #region 提供lua ScrollView使用
