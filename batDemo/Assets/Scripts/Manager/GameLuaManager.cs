@@ -48,7 +48,6 @@ public class GameLuaManager
 #endif
 
 
-
     #region 提供lua ScrollView使用
     /// <summary>
     /// 添加拖拽监听

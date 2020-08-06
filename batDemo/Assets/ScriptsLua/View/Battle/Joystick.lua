@@ -11,8 +11,8 @@ end
 
 ---@param MoveArea RectTransform
 ---@param Handle RectTransform
----@param SprintJoyStick RectTransform
----@param Sprint RectTransform
+---@param SprintJoyStick Image
+---@param Sprint Image
 ---@param BackGround RectTransform
 function Joystick:init(MoveArea,Handle,SprintJoyStick,Sprint,BackGround)
     self.MoveArea=MoveArea
@@ -30,6 +30,7 @@ function Joystick:init(MoveArea,Handle,SprintJoyStick,Sprint,BackGround)
     self.pointerRealPos=nil;
     self.isDown=false;
     self.isPress=false;
+    self.isSprinting=false;
 end
 
 function Joystick:destory()
@@ -50,11 +51,7 @@ function Joystick:Reset()
     self.fingerId = nil;
     self.isDown = false;
     self.isPress = false;
-end
--- 测试event事件.
-function Joystick:testEvent(EventKey,value)
-    self:dispatchEvent(EventKey,value);
-    log("GameObjBase test"..self.name);
+    self.Sprint.enabled=false;
 end
 
 
@@ -66,16 +63,29 @@ function Joystick:AddListener()
 end
 
 function Joystick:RemoveListener()
-    log("Joystick RemoveListener");
+  --  log("Joystick RemoveListener");
     UIEventListener.Get(self.MoveArea.gameObject).onDown = nil
     UIEventListener.Get(self.MoveArea.gameObject).onDrag = nil
     UIEventListener.Get(self.MoveArea.gameObject).onUp = nil
 end
 
+function Joystick:OnShowSprint(isSprinting)
+
+end
+---冲刺模式C
+---@param isSprinting boolean 是否冲刺
+function Joystick:SetSprint(isSprinting)
+    self.isSprinting=isSprinting;
+    self.handle.gameObject:GetComponent(typeof(Image)).enabled = not isSprinting;
+    self.backGround.gameObject:GetComponent(typeof(Image)).enabled  = not isSprinting;
+    self.SprintJoyStick.enabled= isSprinting;
+end
+
+
 ---@param    eventData UnityEngine.EventSystems.PointerEventData
 function Joystick:onDown(eventData)
-    log("onDownx "..eventData.position.x)
-    log("onDowny "..eventData.position.y)
+  --  log("onDownx "..eventData.position.x)
+ --   log("onDowny "..eventData.position.y)
     if eventData.pointerId<-1 or self.fingerId~=nil then return end
     self.isDown = true;
     self.fingerId = eventData.pointerId;
@@ -88,20 +98,42 @@ function Joystick:OnDrag(eventData)
     if self.fingerId ~= eventData.pointerId then  return end;
     self.isPress = true;
     self.pointerRealPos = eventData.position;
-    -----得到BackGround 指向 Handle 的向量
+    ---@ type Vector2 得到BackGround 指向 Handle 的向量
     local direction = eventData.position - self.pointerDownPos;
     ---获取并锁定向量的长度 以控制 Handle 半径
-    local radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius); 
-    local localPosition = Vector2((direction.normalized * radius).x, (direction.normalized * radius).y);
+    local radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius);
+    --- Vector2.Normalize(direction);
+    ---判断冲刺状态.
+    direction=direction.normalized;
+  ----  direction:Normalize();
+     local localPosition = Vector2(direction.x* radius, direction.y * radius);
+    ---   Vector2(direction.x * radius, direction.y * radius);
+      log("onDrag "..localPosition.x .. " Y "..localPosition.y)
+    local isRun =false;
+    if radius==self.maxRadius then
+        isRun=true;
+        ---判断夹角
+        local angle = Vector2.Angle(localPosition, Vector2.up);
+        if angle<=70 and angle>= -70 then
+           ---显示冲锋按钮.
+           self.Sprint.enabled=true;
+        else
+            self.Sprint.enabled=false;
+        end
+    else
+      self.Sprint.enabled=false;
+    end
     self.handle.localPosition = localPosition;
-
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{localPosition,isRun});
 end
 
 function Joystick:OnUp(eventData)
     ---正确的手指抬起时重置摇杆
-    log("OnUp ")
+  --  log("OnUp ")
     if self.fingerId ~= eventData.pointerId then return end
     self:Reset();
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE);
+    ---判断摇杆抬起时的位置.
 end
 
 return Joystick

@@ -28,26 +28,26 @@ public class UIEventListener : EventTrigger
         if (listener == null)
         {
             listener = obj.AddComponent<UIEventListener>();
-	    	DebugLog.Log("creat UIEventListener");
+	//    	DebugLog.Log("creat UIEventListener");
         }
         return listener;
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-		DebugLog.Log("UIEventListener OnPointerClick");
+	//	DebugLog.Log("UIEventListener OnPointerClick");
         onClick?.Invoke(gameObject);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-			DebugLog.Log("UIEventListener OnPointerDown");
+	//		DebugLog.Log("UIEventListener OnPointerDown");
         onDown?.Invoke(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-		DebugLog.Log("UIEventListener OnPointerUp");
+	//	DebugLog.Log("UIEventListener OnPointerUp");
         onUp?.Invoke(eventData);
     }
 

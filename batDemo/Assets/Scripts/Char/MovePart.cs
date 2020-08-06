@@ -189,7 +189,7 @@ public class MovePart
         //  }
         this.reset(resSpeed);
         if (needEvent) {
-            this.obj.GetEvent().dispatchEventWith(GameEventID.CharEvent.MOVE_END);
+            this.obj.GetEvent().dispatchEvent(CharEvent.MOVE_END);
             //         console.log("Move_End");
         }
     }

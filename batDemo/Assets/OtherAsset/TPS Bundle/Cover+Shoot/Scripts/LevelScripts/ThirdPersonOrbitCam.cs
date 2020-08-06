@@ -259,7 +259,7 @@ public class ThirdPersonOrbitCam : MonoBehaviour
 	// Double check for collisions: concave objects doesn't detect hit from outside, so cast in both directions.
 	bool DoubleViewingPosCheck(Vector3 checkPos, float offset)
 	{
-		float playerFocusHeight = player.GetComponent<CharacterController> ().height * 0.75f;
+		float playerFocusHeight = player.GetComponent<CapsuleCollider> ().height * 0.75f;
 		return ViewingPosCheck (checkPos, playerFocusHeight) && ReverseViewingPosCheck (checkPos, playerFocusHeight, offset);
 	}
 

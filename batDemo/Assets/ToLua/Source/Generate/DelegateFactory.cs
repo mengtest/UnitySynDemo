@@ -68,6 +68,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Canvas.WillRenderCanvases), factory.UnityEngine_Canvas_WillRenderCanvases);
 		dict.Add(typeof(System.Action<float>), factory.System_Action_float);
 		dict.Add(typeof(System.Action<UnityEngine.Vector2>), factory.System_Action_UnityEngine_Vector2);
+		dict.Add(typeof(System.Action<object[]>), factory.System_Action_objects);
 		dict.Add(typeof(UIEventListener.VoidDelegate), factory.UIEventListener_VoidDelegate);
 		dict.Add(typeof(UIEventListener.VectorDelegate), factory.UIEventListener_VectorDelegate);
 		dict.Add(typeof(System.Func<TcpSocket.Proto.CmdPacket,bool>), factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
@@ -123,6 +124,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.UnityEngine_Canvas_WillRenderCanvases);
 		DelegateTraits<System.Action<float>>.Init(factory.System_Action_float);
 		DelegateTraits<System.Action<UnityEngine.Vector2>>.Init(factory.System_Action_UnityEngine_Vector2);
+		DelegateTraits<System.Action<object[]>>.Init(factory.System_Action_objects);
 		DelegateTraits<UIEventListener.VoidDelegate>.Init(factory.UIEventListener_VoidDelegate);
 		DelegateTraits<UIEventListener.VectorDelegate>.Init(factory.UIEventListener_VectorDelegate);
 		DelegateTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.System_Func_TcpSocket_Proto_CmdPacket_bool);
@@ -178,6 +180,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Canvas.WillRenderCanvases>.Init(factory.Check_UnityEngine_Canvas_WillRenderCanvases);
 		TypeTraits<System.Action<float>>.Init(factory.Check_System_Action_float);
 		TypeTraits<System.Action<UnityEngine.Vector2>>.Init(factory.Check_System_Action_UnityEngine_Vector2);
+		TypeTraits<System.Action<object[]>>.Init(factory.Check_System_Action_objects);
 		TypeTraits<UIEventListener.VoidDelegate>.Init(factory.Check_UIEventListener_VoidDelegate);
 		TypeTraits<UIEventListener.VectorDelegate>.Init(factory.Check_UIEventListener_VectorDelegate);
 		TypeTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Init(factory.Check_System_Func_TcpSocket_Proto_CmdPacket_bool);
@@ -233,6 +236,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Canvas.WillRenderCanvases>.Push = factory.Push_UnityEngine_Canvas_WillRenderCanvases;
 		StackTraits<System.Action<float>>.Push = factory.Push_System_Action_float;
 		StackTraits<System.Action<UnityEngine.Vector2>>.Push = factory.Push_System_Action_UnityEngine_Vector2;
+		StackTraits<System.Action<object[]>>.Push = factory.Push_System_Action_objects;
 		StackTraits<UIEventListener.VoidDelegate>.Push = factory.Push_UIEventListener_VoidDelegate;
 		StackTraits<UIEventListener.VectorDelegate>.Push = factory.Push_UIEventListener_VectorDelegate;
 		StackTraits<System.Func<TcpSocket.Proto.CmdPacket,bool>>.Push = factory.Push_System_Func_TcpSocket_Proto_CmdPacket_bool;
@@ -3296,6 +3300,63 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_UnityEngine_Vector2(IntPtr L, System.Action<UnityEngine.Vector2> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_objects_Event : LuaDelegate
+	{
+		public System_Action_objects_Event(LuaFunction func) : base(func) { }
+		public System_Action_objects_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(object[] param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(object[] param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<object[]> System_Action_objects(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<object[]> fn = delegate(object[] param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_objects_Event target = new System_Action_objects_Event(func);
+			System.Action<object[]> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_objects_Event target = new System_Action_objects_Event(func, self);
+			System.Action<object[]> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_objects(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<object[]>), L, pos);
+	}
+
+	void Push_System_Action_objects(IntPtr L, System.Action<object[]> o)
 	{
 		ToLua.Push(L, o);
 	}

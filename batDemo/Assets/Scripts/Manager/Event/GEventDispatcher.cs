@@ -1,55 +1,47 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
-
-public class GEventDispatcher :IDispatcher
+[AutoRegistLua]
+public class GEventDispatcher 
 {
-    public delegate void callback(GEvent e);
-
-    class EventCallback
-    {
-        public callback cb = null;
-        public object param = null;
-    }
-    private Dictionary<int, List<EventCallback>> dict;
+    private Dictionary<string, List<Event_Callback>> dict;
 
     public GEventDispatcher()
     {
-        dict = new Dictionary<int, List<EventCallback>>();
+        dict = new Dictionary<string, List<Event_Callback>>();
     }
 
-    public void addEventListener(int type, callback fn, object param = null)
+    public void addEventListener(string type,  Action<object[]> fn)
     {
         //如果不存在就创建一个字典  
         if (!dict.ContainsKey(type))
         {
 //            StarEngine.Debuger.LogTrace("加入了侦听:" + type);
-            dict.Add(type, new List<EventCallback>());
+            dict.Add(type, new List<Event_Callback>());
         }
 
-        List<EventCallback> list = dict[type] as List<EventCallback>;
+        List<Event_Callback> list = dict[type] as List<Event_Callback>;
         if (list.Find(x => x.cb == fn) != null)
         {
             DebugLog.Log("重复加入了侦听");
             return;
         }
 
-        EventCallback ecb = new EventCallback();
+        Event_Callback ecb = new Event_Callback();
         ecb.cb = fn;
-        ecb.param = param;
         dict[type].Add(ecb);
 
         //List<callback> c = dict[type];
     }
 
     //删除一个类型的，一个指定回调
-    public void removeEventListener(int type, callback fn)
+    public void removeEventListener(string type,  Action<object[]> fn)
     {
         if (dict.ContainsKey(type))
         {
-            List<EventCallback> list = dict[type] as List<EventCallback>;
+            List<Event_Callback> list = dict[type] as List<Event_Callback>;
             //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
             list.RemoveAll(x => x.cb == fn);
             if (list.Count <= 0)
@@ -60,7 +52,7 @@ public class GEventDispatcher :IDispatcher
 
     }
     //将一个类型的事件都删除
-    public virtual void removeEventListenerByType(int type)
+    public virtual void removeEventListenerByType(string type)
     {
         if (dict.ContainsKey(type))
         {
@@ -68,42 +60,36 @@ public class GEventDispatcher :IDispatcher
             dict.Remove(type);
         }
     }
-    public bool hasEventListener(int type)
+    public bool hasEventListener(string type)
     {
         if(dict.ContainsKey(type)){
             return true;
         }
         return false;
     }
-    //发出一个事件，简化操作
-    public virtual void dispatchEventWith(int type, object data=null)
-    {
-        GEvent e = new GEvent(type, data);
-        dispatchEvent(e);
+    public virtual void send(string type, object data=null){
+        this.dispatchEvent(type,new object[]{data} );
     }
     //发出一个事件
-    public virtual void dispatchEvent(GEvent e)
+    public virtual void dispatchEvent(string type, object[] data=null)
     {
         //如果存在这个事件
-        if (dict != null && dict.ContainsKey(e.type))
+        if (dict != null && dict.ContainsKey(type))
         {
-            e.eventTarget = this;
-            List<EventCallback> list = (dict[e.type] as List<EventCallback>).ToList();
-            callback fn = null;
+           // e.eventTarget = this;
+            List<Event_Callback> list = (dict[type] as List<Event_Callback>).ToList();
+             Action<object[]> fn = null;
             for (int i = 0; i < list.Count; i++)
             {
                 fn = list[i].cb;
-                e.param = list[i].param;
                 if (fn != null)
                 {
-                    fn(e);
+                    fn(data);
                 }
             }
             list.Clear();
             list = null;
         }
-        e.release();
-        e = null;
     }
     public virtual void ClearAllEvent() {
         if (dict == null) return;

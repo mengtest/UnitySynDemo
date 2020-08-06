@@ -1,3 +1,11 @@
+--[[
+Description: 
+Version: 1.0
+Autor: xsddxr909
+Date: 2020-08-03 17:41:45
+LastEditors: xsddxr909
+LastEditTime: 2020-08-06 16:48:44
+--]]
 --全局变量和函数统一在此添加和require
 
 --导出类简写
@@ -17,6 +25,8 @@ Screen          = UnityEngine.Screen
 Input           = UnityEngine.Input
 ---@class Rect
 Rect            = UnityEngine.Rect
+---@class Image
+Image           = UnityEngine.UI.Image
 PlayerPrefs     = UnityEngine.PlayerPrefs
 CanvasGroup     = UnityEngine.CanvasGroup
 

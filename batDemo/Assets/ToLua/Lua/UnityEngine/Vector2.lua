@@ -10,7 +10,7 @@ local rawget = rawget
 local math = math
 local acos = math.acos
 local max = math.max
-
+---@class Vector2
 local Vector2 = {}
 local get = tolua.initget(Vector2)
 

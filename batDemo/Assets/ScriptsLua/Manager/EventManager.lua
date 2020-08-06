@@ -1,3 +1,11 @@
+--[[
+Description: 
+Version: 1.0
+Autor: xsddxr909
+Date: 2020-08-03 17:41:46
+LastEditors: xsddxr909
+LastEditTime: 2020-08-05 20:38:00
+--]]
 ---@class EventManager
 EventManager = {}
 ---@return EventManager
@@ -42,17 +50,28 @@ function EventManager.removeListener(eventKey, eventId)
     end
 end
 
-function EventManager.dispatchEvent( eventKey, ... )
+function EventManager.dispatchEvent( eventKey, param )
  
     if type(eventKey) == "string" then
         if EventManager._eventMap[eventKey] ~= nil then
             for eventId, eventFunc in pairs(EventManager._eventMap[eventKey]) do
-                eventFunc(...)
+                eventFunc(param)
              -- gGame.crashHelper:addEventLog(eventKey,...)
             end
         end
     else
         log("EventManager dispatchEvent error")
+    end
+end
+
+---C#层EventCenter 派发事件
+function EventManager.dispatchEventToC( eventKey,param )
+    if type(eventKey) == "string" then
+    --    local param = {...}
+        --print("tessss")
+         EventCenter.send(eventKey,param,false);
+    else
+        log("EventManager dispatchEvent To C# error")
     end
 end
 

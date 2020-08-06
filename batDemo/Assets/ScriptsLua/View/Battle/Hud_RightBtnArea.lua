@@ -1,3 +1,11 @@
+--[[
+Description: 
+Version: 1.0
+Autor: xsddxr909
+Date: 2020-08-03 17:41:46
+LastEditors: xsddxr909
+LastEditTime: 2020-08-06 16:55:42
+--]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 ---@return Hud_RightBtnArea
@@ -34,9 +42,20 @@ end
 
 -----UI加载完成---------
 function Hud_RightBtnArea:OnInit(param)
-
-
+    self._isSprinting=false;
 end
+
+function Hud_RightBtnArea:OnSprintClick(obj)
+    ---@type Joystick
+    local joyStick =self.panelView.dragArea.joyStick;
+    if joyStick.isPress then return end
+    self._isSprinting = not self._isSprinting;
+    self.SprintCloseImg.enabled = not self._isSprinting;
+    self.SprintBtn.enabled =  self._isSprinting;
+    joyStick:SetSprint(self._isSprinting);
+    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_SPRINT_STATE,{self._isSprinting});
+end
+
 
 function Hud_RightBtnArea:OnDestory()
 --记得nil移除变量
@@ -44,11 +63,11 @@ function Hud_RightBtnArea:OnDestory()
 end
 
 function Hud_RightBtnArea:AddListener()
-
+    UIEventListener.Get(self.SprintBtn.gameObject).onClick = function(obj)  self:OnSprintClick(obj) end
 end
 
 function Hud_RightBtnArea:RemoveListener()
-
+    UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
 end
 
 function Hud_RightBtnArea:Update()

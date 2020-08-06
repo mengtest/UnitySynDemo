@@ -1,3 +1,11 @@
+--[[
+Description: 
+Version: 1.0
+Autor: xsddxr909
+Date: 2020-08-03 17:41:45
+LastEditors: xsddxr909
+LastEditTime: 2020-08-05 14:48:48
+--]]
 Main = {}
 
 --lua加载完毕后执行
@@ -30,8 +38,11 @@ function Main.initManager()
 
     TweenManager.init();
     EventManager.init();
+    EventManager.dispatchEventToC(SystemEvent.LUA_INIT_COMPLETE);
     Main.ViewManager = ViewManager:new();
     Main.ViewManager:init();
+
+    
 end
 
 
