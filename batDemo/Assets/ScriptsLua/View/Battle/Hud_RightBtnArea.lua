@@ -12,23 +12,28 @@ Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 --自动生成-------------------------------------------
 ---添加UI引用.
 function Hud_RightBtnArea:OnUIInit()
+    ---@type UnityEngine.RectTransform
+    self.FreeSeeBtn=self:Find("FreeSeeBtn")
     ---@type UnityEngine.UI.Button
     self.FireBtn=self:SubGet("FireBtn","Button")
-    ---@type UnityEngine.RectTransform
-    self.SprintCloseImg=self:Find("SprintBtn/Image")
-    ---@type UnityEngine.RectTransform
-    self.SprintBtn=self:Find("SprintBtn")
+    ---@type UnityEngine.UI.Image
+    self.Image=self:SubGet("SprintBtn/Image","Image")
+    ---@type UnityEngine.UI.Image
+    self.SprintBtn=self:SubGet("SprintBtn","Image")
     ---@type UnityEngine.UI.Button
     self.SettingBtn=self:SubGet("SettingBtn","Button")
 end
 
 ---移除UI引用.
 function Hud_RightBtnArea:OnUIDestory()
+self.FreeSeeBtn=nil
 self.FireBtn=nil
-self.SprintCloseImg=nil
+self.Image=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
 end
+
+
 
 --自动生成-----------end------------------------------
 function Hud_RightBtnArea:initialize()
@@ -49,18 +54,19 @@ function Hud_RightBtnArea:OnSprintClick(obj)
     ---@type Joystick
     local joyStick =self.panelView.dragArea.joyStick;
     if joyStick.isPress then return end
-    self._isSprinting = not self._isSprinting;
-    self.SprintCloseImg.enabled = not self._isSprinting;
-    self.SprintBtn.enabled =  self._isSprinting;
+    self:OnSprintState(not self._isSprinting);
     joyStick:SetSprint(self._isSprinting);
-    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_SPRINT_STATE,{self._isSprinting});
 end
-
+function Hud_RightBtnArea:OnSprintState(isSprinting)
+    self._isSprinting = isSprinting;
+    self.Image.enabled =  self._isSprinting;
+    self.SprintBtn.enabled = not self._isSprinting;
+end
 
 function Hud_RightBtnArea:OnDestory()
---记得nil移除变量
-
+    --记得nil移除变量
 end
+
 
 function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = function(obj)  self:OnSprintClick(obj) end

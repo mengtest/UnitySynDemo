@@ -20,6 +20,7 @@ public class ShowLuaInspectorRect : Editor
 	string path;
     string subPPath;
 	bool isShow = false;
+    public static string tagName="";
 	private void OnEnable()
     {
         subPPath=(target as LuaView).subPath;
@@ -28,6 +29,7 @@ public class ShowLuaInspectorRect : Editor
          path=path+ subPPath+"/";
         }
 		transform = (target as LuaView).transform;
+        tagName=target.name;
 		DrawLuaInspector.OnEnable(transform);
 	}
 
@@ -64,6 +66,7 @@ public class ShowLuaInspectorRect : Editor
         if(subPPath!=""){
          path=path+ subPPath+"/";
         }
+         tagName=target.name;
 		string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
@@ -152,6 +155,7 @@ public class ShowLuaInspectorRect : Editor
         if(subPPath!=""){
          path=path+ subPPath+"/";
         }
+         tagName=target.name;
         string name = target.name;
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
@@ -715,21 +719,25 @@ class DrawLuaInspector
         }
     }
     private static void addOnUIDestory(ref string luatext){
-           	Regex r = new Regex(@":OnUIDestory\(.*?\)([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
+      //  DebugLog.Log("~~~~~<>>~~~~~~ ",luatext);
+            string des= "function " + ShowLuaInspectorRect.tagName + ":OnUIDestory()";
+           	Regex r = new Regex(des+@"([\s\S]*?)[\r\n]+end", RegexOptions.Multiline);
 			foreach (Match item in r.Matches(luatext))
 			{
-           //    DebugLog.Log(item.Groups[1].Value);
-				var str = item.Groups[1].Value;
+           //    DebugLog.Log("~~~~~~~~~~~~~~~~~ ",item.Groups[0].Value);
+				var str = item.Groups[0].Value;
                 if (string.IsNullOrEmpty(str)) continue;
-          //       DebugLog.Log(str);
+           //      DebugLog.Log("@!#@#!@#@! ",str);
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("");
+                sb.AppendLine(des);
+              //  sb.AppendLine("");
                 foreach (var itemvv in luaobjs)
 			    {
                   sb.AppendLine("self."+itemvv.Name+"=nil");
                 }
+                sb.AppendLine("end");
                 string strnew=sb.ToString();
-         //       DebugLog.Log(strnew);
+             //   DebugLog.Log(strnew);
                 luatext=luatext.Replace(str,strnew);
                 return;
             }

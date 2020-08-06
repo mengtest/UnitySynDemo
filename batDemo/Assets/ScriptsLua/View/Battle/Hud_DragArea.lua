@@ -46,13 +46,13 @@ self.isPart=true
 end
 
 function Hud_DragArea:OnInit(param)
-
-require("View.Battle.Joystick");
-self.joyStick=Joystick:new();
-self.joyStick:init(self.MoveArea,self.Handle,self.SprintJoyStick,self.Sprint,self.BackGround);
-require("View.Battle.TouchRotation");
-self.touchRotation=TouchRotation:new();
-self.touchRotation:init(self.RotateArea);
+    self.transform:SetAsFirstSibling();
+    require("View.Battle.Joystick");
+    self.joyStick=Joystick:new();
+    self.joyStick:init(self.MoveArea,self.Handle,self.SprintJoyStick,self.Sprint,self.BackGround,self.SprintOn,self.panelView);
+    require("View.Battle.TouchRotation");
+    self.touchRotation=TouchRotation:new();
+    self.touchRotation:init(self.RotateArea);
 end
 
 function Hud_DragArea:OnDestory()

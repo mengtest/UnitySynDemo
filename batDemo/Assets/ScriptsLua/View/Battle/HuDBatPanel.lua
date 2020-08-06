@@ -50,7 +50,7 @@ end
 -----UI加载完成--Open之前-------
 function HuDBatPanel:OnInit(param)
  ---@type Hud_RightBtnArea
- self.rightBtnArea= self:creatChildView(ChildViewType.Hud_RightBtnArea,true,true)
+ self.rightBtnArea= self:creatChildView(ChildViewType.Hud_RightBtnArea)
  ---self.rightBtnArea:Close();
  ---@type Hud_DragArea
   self.dragArea= self:creatChildView(ChildViewType.Hud_DragArea)
