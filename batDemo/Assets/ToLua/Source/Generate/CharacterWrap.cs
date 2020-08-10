@@ -7,12 +7,12 @@ public class CharacterWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(Character), typeof(ObjBase));
-		L.RegFunction("initCtrl", initCtrl);
-		L.RegFunction("initView", initView);
+		L.RegFunction("GetCtrl", GetCtrl);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("Release", Release);
 		L.RegFunction("New", _CreateCharacter);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.EndClass();
 	}
 
@@ -41,45 +41,15 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int initCtrl(IntPtr L)
+	static int GetCtrl(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.initCtrl();
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int initView(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 1)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				obj.initView();
-				return 0;
-			}
-			else if (count == 2)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				string arg0 = ToLua.CheckString(L, 2);
-				obj.initView(arg0);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.initView");
-			}
+			Controller o = obj.GetCtrl();
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -116,6 +86,44 @@ public class CharacterWrap
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ctrlType(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Character obj = (Character)o;
+			GameEnum.CtrlType ret = obj.ctrlType;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ctrlType(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Character obj = (Character)o;
+			GameEnum.CtrlType arg0 = (GameEnum.CtrlType)ToLua.CheckObject(L, 2, typeof(GameEnum.CtrlType));
+			obj.ctrlType = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
 		}
 	}
 }

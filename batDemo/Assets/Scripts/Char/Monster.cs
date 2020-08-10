@@ -2,6 +2,7 @@
 /****
 怪物基类
 ****/
+[AutoRegistLua]
 public class Monster : Character
 {
     public Monster()
@@ -11,9 +12,7 @@ public class Monster : Character
     }
     //重写显示.
     public override void initView(string prefabPath=""){
-
-        this.avatar= this.node.AddComponent<AvatarChar>();
-        this.avatar.Init("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
+          base.initView(prefabPath);
         //this.poolname=prefabPath;
     }
 

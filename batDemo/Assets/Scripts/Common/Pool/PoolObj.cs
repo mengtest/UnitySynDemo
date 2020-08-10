@@ -20,6 +20,8 @@
         this.onRecycle();
         this.pool.recycle(this);
     }
+
+    #region 继承 可重写..................
     /**
      * 释放
      **/
@@ -41,5 +43,6 @@
     {
 
     }
+    #endregion  
 }
 

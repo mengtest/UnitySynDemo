@@ -2,21 +2,13 @@
 /****
 控制器基类
 ****/
-public class Controller : IController
+public class Controller :PoolObj, IController
 {
-    public static int m_iNewID = 1000;
-    public static int CreateID {
-            get{
-                return m_iNewID++;
-            }
-    }
-    public int id { get; private set; }
-
     protected Character _char= null;
 
     public Controller()
     {
-        this.id = CreateID;
+        
     }
     public  void  init(Character character){
         this._char=character;
@@ -30,9 +22,17 @@ public class Controller : IController
         }
         this.OnMessage(code,param);
     }
-    public   void Release(){
+      public override void onRecycle()
+    {
+        base.onRecycle();
+    }
+    public  override void Release(){
         this.OnRelease();
         this._char=null;
+        base.Release();
+    }
+    public override void onGet(){
+        base.onGet();
     }
 
     #region 继承 可重写..................

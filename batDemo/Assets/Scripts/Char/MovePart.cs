@@ -282,7 +282,7 @@ public class MovePart
                 // }
                 // this.targetData.position.add(this.targetVetOf, this._targetDirection).sub(this.pos.position, this._targetDirection);
                 //       console.log(this.targetData.position,this.targetVetOf);
-                this._targetDirection=  this.target.gameObject.transform.TransformPoint(this.targetOffset)-this.obj.gameObject.transform.position;
+                this._targetDirection =  this.target.gameObject.transform.TransformPoint(this.targetOffset)-this.obj.gameObject.transform.position;
                 this._targetDirection.Normalize();
                 //3D.
             }

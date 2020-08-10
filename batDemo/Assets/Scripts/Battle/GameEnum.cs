@@ -6,7 +6,14 @@ using UnityEngine;
 
 namespace GameEnum
 {
-    
+     //控制类型...
+     public enum CtrlType
+    {
+        JoyCtrl=0,
+        keyBordCtrl=1,
+        AiCtrl=2,
+        NetCtrl=3,
+    }
     public class EventType_Entity
     {
         public static string Jump_To_Ground = "JumpToGround";
