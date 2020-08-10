@@ -48,10 +48,10 @@ public class MultipleOnListPool<T> : MultiplePool  where T: PoolObj,new ()
         }
     }
     /**
-     * 清空所有对象;
+     * 清空所有对象; 包括正在外部使用的对象.
      */
     public override void clearAll() {
-        this.onList.Clear();
+        this.recycleAll();
         base.clearAll();
     }
 

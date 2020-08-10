@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//老动画系统适配.
 public class AvatarChar : MonoBehaviour
 {
 
@@ -15,6 +16,9 @@ public class AvatarChar : MonoBehaviour
     public bool combineTexture = false;
 
     public bool combineMesh = false;
+    //是否新动画系统.
+    public bool isNewAnimatorSystem=true;
+
     // 最终材质（合并所有模型后使用的材质）
     public Material material;
     //
@@ -163,8 +167,12 @@ public class AvatarChar : MonoBehaviour
         inited = true;
     }
     private void resetAni(){
-        Animation ani = mainObj.GetComponent<Animation>();
-        ani.cullingType=AnimationCullingType.BasedOnRenderers;
+        if(isNewAnimatorSystem){
+
+        }else{
+           Animation ani = mainObj.GetComponent<Animation>();
+           ani.cullingType=AnimationCullingType.BasedOnRenderers;
+        }
     }
     // 合并Mesh
     private void CombineMeshs()
@@ -621,12 +629,15 @@ public class AvatarChar : MonoBehaviour
 
     private string GetLoadPath(string path)
     {
-        //	Avatar/xx/Model/xx
-        return "Avatar/" + this._charName + "/Model/" + path;
+        if(isNewAnimatorSystem){
+            return "NAvatar/" + this._charName + "/Model/" + path;
+        }else{
+            //	Avatar/xx/Model/xx
+            return "Avatar/" + this._charName + "/Model/" + path;
+        }
     }
     private string GetBoneInfoPath(string path)
     {
-        //	Avatar/xx/Model/xx
         return "TXTBonesInfo/" + path;
     }
 

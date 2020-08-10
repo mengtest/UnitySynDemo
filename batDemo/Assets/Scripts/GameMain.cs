@@ -108,9 +108,11 @@ public class GameMain : MonoSingleton<GameMain> {
       //  this.AddBehaviour<LogManager>();
       this.AddBehaviour<PatchManager>();
       this.AddBehaviour<GameAssetManager>();
+      this.AddBehaviour<CtrlManager>();
       this.AddBehaviour<CharManager>();
       this.AddBehaviour<CameraManager>();
       EventCenter.init();
+      CtrlManager.Instance.Init();
       CharManager.Instance.Init();
       CameraManager.Instance.Init();
       GameAssetManager.Instance.setLocalUrlFun(PatchManager.Instance.GetSignedFileLocalURL);
@@ -119,7 +121,10 @@ public class GameMain : MonoSingleton<GameMain> {
 	}
 	void ResetManager(){
 		//重置游戏管理者 OnRestartGame()
-	    GameAssetManager.Instance.OnRestartGame();
+        //顺序 必须由大到小.char ctrl ai 等
+         CharManager.Instance.ClearAll();
+         CtrlManager.Instance.ClearAll();
+	     GameAssetManager.Instance.OnRestartGame();
          //  FontManager.Instance.OnRestartGame();
      //    LuaManager.Instance.ClearSearchBundle();
    //     LuaManager.Instance.CallFunction("DestroyGame");

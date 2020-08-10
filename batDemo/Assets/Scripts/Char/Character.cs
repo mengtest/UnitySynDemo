@@ -36,14 +36,14 @@ public class Character : ObjBase
     //回收.
      public override void onRecycle(){
          if(ctrl!=null){
-             ctrl.Release();
+             ctrl.recycleSelf();
              ctrl=null;
          }
         base.onRecycle();
      }
     public override void Release(){
          if(ctrl!=null){
-             ctrl.Release();
+             ctrl.recycleSelf();
              ctrl=null;
          }
         base.Release();

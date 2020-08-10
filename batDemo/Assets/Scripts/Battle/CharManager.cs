@@ -20,7 +20,11 @@ public class CharManager  : MonoSingleton<CharManager>
     private void Update() {
      
     }
-
-    
+    public void RecycleAll(){
+        this._characterPool.recycleAll();
+    }
+    public void ClearAll(){
+        this._characterPool.clearAll();
+    }
    
 }

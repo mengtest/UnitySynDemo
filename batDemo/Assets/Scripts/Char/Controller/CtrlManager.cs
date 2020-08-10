@@ -31,7 +31,12 @@ public class CtrlManager  : MonoSingleton<CtrlManager>
     private void Update() {
      
     }
-
+    public void RecycleAll(){
+        this._ctrlPool.recycleAll();
+    }
+    public void ClearAll(){
+        this._ctrlPool.clearAll();
+    }
     
    
 }
