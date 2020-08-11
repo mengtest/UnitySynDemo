@@ -5,6 +5,10 @@
 public class ObjBase : PoolObj
 {
     private string _name="ObjBase";
+     //类型.
+
+    protected IData  objData=null;
+    public GameEnum.ObjType charType=GameEnum.ObjType.Obj;
     protected MovePart _move=null;
      //事件派发器;
     private GEventDispatcher _event=null;
@@ -28,6 +32,8 @@ public class ObjBase : PoolObj
     //销毁
     public bool isDestory=false;
     public bool isDead=false;
+    
+    public bool needUpdate = false;
 
     public ObjBase()
     {
@@ -82,6 +88,15 @@ public class ObjBase : PoolObj
             if(this.isRecycled){
                  this.node.SetActive(false);
             }
+            onViewLoadFin();
+        }
+    }
+    public virtual void onViewLoadFin(){
+         objData = this.node.GetComponent<ObjData>();
+        if(objData==null){
+            DebugLog.LogError("no charData mono ->",this.poolname);
+        }else{
+            objData.init(this,fixUpdate);
         }
     }
     /**
@@ -109,9 +124,18 @@ public class ObjBase : PoolObj
     public MovePart GetMovePart(){
         if(this._move==null){
             this._move=new MovePart(this);
+            this.needUpdate=true;
         }
         return this._move;
     }
+     
+    protected virtual void fixUpdate() {
+        if(!this.needUpdate)return;
+        if(this._move!=null){
+            this._move.fixUpdate();
+        }
+    }
+
     public override void onGet()
     {
          this.isDead=false;
@@ -142,7 +166,8 @@ public class ObjBase : PoolObj
     *******/
     public override void Release(){
        this.Target=null;
-        this.isDead=true;
+       this.isDead=true;
+       this.objData=null;
        if(this._move !=null){
            this._move.Dispose();
            this._move=null;

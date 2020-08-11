@@ -12,7 +12,6 @@ public class Controller :PoolObj, IController
     }
     public  void  init(Character character){
         this._char=character;
-        this.OnInit();
     }
 
     public  void sendMessage(int code, object[] param)
@@ -22,8 +21,10 @@ public class Controller :PoolObj, IController
         }
         this.OnMessage(code,param);
     }
-      public override void onRecycle()
+    public override void onRecycle()
     {
+        this.OnRecycle_Fun();
+        this._char=null;
         base.onRecycle();
     }
     public  override void Release(){
@@ -32,24 +33,31 @@ public class Controller :PoolObj, IController
         base.Release();
     }
     public override void onGet(){
+        this.OnGet_Fun();
         base.onGet();
     }
 
     #region 继承 可重写..................
-    public virtual void Update(float dt)
+    //Time.deltaTime update
+    public virtual void Update()
     {
         
-    }
-
-    public  virtual void OnInit()
-    {
-
     }
     public  virtual void OnMessage(int code, object[] param)
     {
 
     }
     public  virtual void OnRelease()
+    {
+      
+    }
+    //回收.
+    public  virtual void OnRecycle_Fun()
+    {
+      
+    }
+    //获取
+    public  virtual void OnGet_Fun()
     {
       
     }

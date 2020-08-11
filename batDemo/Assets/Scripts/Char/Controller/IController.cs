@@ -9,5 +9,5 @@ public interface IController {
     //回收;
     void Release();
     //更新;
-    void Update(float dt);
+    void Update();
 }

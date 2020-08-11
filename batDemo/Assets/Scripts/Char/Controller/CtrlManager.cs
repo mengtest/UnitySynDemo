@@ -16,6 +16,8 @@ public class CtrlManager  : MonoSingleton<CtrlManager>
     public Controller getController(GameEnum.CtrlType type) {
             Controller controller=null;
             switch(type){
+                case  GameEnum.CtrlType.Null:
+                break;
                 case GameEnum.CtrlType.JoyCtrl:
                     controller= this._ctrlPool.get<JoyController>("JoyController");
                 break;
@@ -29,7 +31,10 @@ public class CtrlManager  : MonoSingleton<CtrlManager>
             return controller;
     }
     private void Update() {
-     
+         for (int i = 0; i < this._ctrlsOnList.Count; i++)
+         {
+             _ctrlsOnList[i].Update();
+         }
     }
     public void RecycleAll(){
         this._ctrlPool.recycleAll();

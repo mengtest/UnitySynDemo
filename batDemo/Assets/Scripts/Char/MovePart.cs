@@ -104,9 +104,10 @@ public class MovePart
         }
     }
 
-    private void fixUpdate(float dt) {
+    public void fixUpdate() {
         if (this._pause) return;
         if (!this._isMoving) return;
+        //float dt=Time.fixedDeltaTime;
         //跟随对象检测;
         if (this.target != null) {
             if (this.target.isRecycled) {
@@ -115,14 +116,14 @@ public class MovePart
                 return;
             }
         }
-        this.changeDir(this.rotateSpeed,dt);
+        this.changeDir(this.rotateSpeed,Time.fixedDeltaTime);
         //移动速度;
-        this.calMoveSpeed(dt);
+        this.calMoveSpeed(Time.fixedDeltaTime);
         //添加移动
         this.obj.gameObject.transform.position =  this.obj.gameObject.transform.position+_moveSpeed;
       //  this.obj.position.addSelf(this._moveSpeed);
         //额外移动
-        this.extraMove(dt);
+        this.extraMove(Time.fixedDeltaTime);
         this.chkMove();
     }
     //额外移动...todo 改成多个运动力 motion 控制移动.

@@ -5,12 +5,13 @@
 [AutoRegistLua]
 public class Character : ObjBase
 {
-    private GameEnum.CtrlType _ctrlType;
-    protected Controller ctrl;
+    private GameEnum.CtrlType _ctrlType=GameEnum.CtrlType.Null;
+    protected Controller ctrl=null;
+    
     public Character()
     {
-       
-
+        this.charType=GameEnum.ObjType.Character;
+        this.needUpdate=false;
     }
     
     public GameEnum.CtrlType ctrlType   { 
@@ -24,8 +25,24 @@ public class Character : ObjBase
                    ctrl.recycleSelf();
                }
                ctrl=CtrlManager.Instance.getController(this._ctrlType);
-               ctrl.init(this);
+               if(ctrl!=null){
+                 ctrl.init(this);
+               }
            }       
+        }
+    }
+    public override void onViewLoadFin(){
+        objData = this.node.GetComponent<CharData>();
+        if(objData==null){
+            DebugLog.LogError("no charData mono ->",this.poolname);
+        }else{
+            objData.init(this,onFixUpdate);
+        }
+    }
+    //mono 各自的updtate;
+    public virtual void onFixUpdate() {
+       if(this._move!=null){
+            this._move.fixUpdate();
         }
     }
     //获取控制器.
@@ -35,6 +52,7 @@ public class Character : ObjBase
 
     //回收.
      public override void onRecycle(){
+         _ctrlType=GameEnum.CtrlType.Null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;

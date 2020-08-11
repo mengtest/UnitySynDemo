@@ -7,12 +7,24 @@ using UnityEngine;
 namespace GameEnum
 {
      //控制类型...
-     public enum CtrlType
+    public enum CtrlType
     {
-        JoyCtrl=0,
-        keyBordCtrl=1,
-        AiCtrl=2,
-        NetCtrl=3,
+        Null=0,
+        JoyCtrl=1,
+        keyBordCtrl=2,
+        AiCtrl=3,
+        NetCtrl=4,
+    }
+    public enum ObjType
+    {
+        //对象.
+        Obj=0,
+        //角色
+        Character=1,
+        //怪物
+        Monster=2,
+        //玩家
+        Player=3,
     }
     public class EventType_Entity
     {

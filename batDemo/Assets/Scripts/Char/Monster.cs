@@ -7,7 +7,7 @@ public class Monster : Character
 {
     public Monster()
     {
-       
+        charType=GameEnum.ObjType.Monster;
 
     }
     //重写显示.
