@@ -66,7 +66,7 @@ require("View.ChildView");
 require("View.ViewManager");
 
 --加载Proto协议脚本
-require("PB.pb_list")
+--require("PB.pb_list")
 
 --控制器基类
 require("Controller.BaseController");
