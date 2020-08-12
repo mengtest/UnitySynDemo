@@ -4,10 +4,10 @@
 ****/
 public class ObjBase : PoolObj
 {
-    private string _name="ObjBase";
+    protected string _name="ObjBase";
      //类型.
 
-    protected IData  objData=null;
+    public IData  objData{get; protected set;}
     public GameEnum.ObjType charType=GameEnum.ObjType.Obj;
     protected MovePart _move=null;
      //事件派发器;
@@ -16,7 +16,12 @@ public class ObjBase : PoolObj
     public ObjBase Target=null;
     //半径 如果是点 半径可以是0
     public float radius=0f;
-
+    //移动速度1秒. 
+     public float moveSpeed=6;
+    //  //最大速度;
+    // public  float maxMoveSpeed = -1;
+      //重量....体重...
+    public float weight = 1;
     //根节点.
     protected GameObject node=null;
     /***
@@ -159,7 +164,6 @@ public class ObjBase : PoolObj
         if(this.node!=null){
              this.node.SetActive(false);
         }
-
     }
     /*********
       销毁

@@ -18,12 +18,7 @@ public class MovePart
     public bool faceToRotation=false;
       //扭矩 旋转速度 速度为0时立刻旋转 不计算转角速度; 7
      public float rotateSpeed=7;
-    //移动速度1秒. 
-     public float moveSpeed;
-    //  //最大速度;
-    // public  float maxMoveSpeed = -1;
-      //重量....体重...
-    public float weight = 1;
+
     //移动点数  改变这个只可以加速(buff 增加速度等)或减速(中毒,被重击慢速移动等) 只对使用移动点数有效...;
     public float movePoint = 10000;
 
@@ -136,7 +131,7 @@ public class MovePart
     */
     public void InitSpeed() {
         if ( this.speed > 0 && this.AcceleratedSpeed == 0) {
-            this.speed = this.moveSpeed;
+            this.speed = this.obj.moveSpeed;
         }
     }
     /**
@@ -357,7 +352,7 @@ public class MovePart
             this._currentSpeed *= (this.movePoint / 10000);
         }
         if (this.useWeightPower) {
-            this._currentSpeed = this._currentSpeed / this.weight;
+            this._currentSpeed = this._currentSpeed / this.obj.weight;
         }
       this._moveSpeed =  this.forwardDirection* this._currentSpeed * dt;
     //    MyMath.floor2Vet(this._moveSpeed);

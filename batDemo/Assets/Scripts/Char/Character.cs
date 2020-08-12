@@ -1,20 +1,40 @@
 ﻿using UnityEngine;
+using GameEnum;
 /****
 角色基类
 ****/
 [AutoRegistLua]
 public class Character : ObjBase
 {
-    private GameEnum.CtrlType _ctrlType=GameEnum.CtrlType.Null;
+    private CtrlType _ctrlType=CtrlType.Null;
     protected Controller ctrl=null;
-    
+    //baseLayer  整体动作.
+    protected StateMachine<Character> m_FSM = null;
     public Character()
     {
-        this.charType=GameEnum.ObjType.Character;
+        this.charType=ObjType.Character;
         this.needUpdate=false;
+        initStateMachine();
     }
-    
-    public GameEnum.CtrlType ctrlType   { 
+    //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
+    protected virtual void initStateMachine(){
+        m_FSM = new StateMachine<Character>(this);
+        m_FSM.RegisterState(new Char_Idle(m_FSM));
+        this.changeState(CharState.Char_Idle,null,false);
+    }
+    protected void changeState(CharState charState, object param=null,bool checkDic=true)
+    {
+        m_FSM.ChangeState((int)charState, param,checkDic);
+    }
+    public CharState GetCurStateID()
+    {
+        if (m_FSM != null)
+        {
+            return  (CharState)m_FSM.GetCurStateID();
+        }
+        return CharState.Char_Dead;
+    }
+    public CtrlType ctrlType{ 
         get{ 
             return _ctrlType;
         }
@@ -50,13 +70,24 @@ public class Character : ObjBase
         return this.ctrl;
     }
 
+    public bool doActionSkillByLabel(string actionLabel ,int frame=0,bool chkCancelLv=true,object[] param=null,int skillID=0){
+           if(m_FSM==null) return false;
+           if(!m_FSM.GetCurState().CanDoAction(actionLabel))return false;
+           //技能部件 判断动作 skillPart.doActionSkillByLabel();
+           return true;
+    }
+
     //回收.
      public override void onRecycle(){
-         _ctrlType=GameEnum.CtrlType.Null;
+         _ctrlType=CtrlType.Null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;
          }
+        if (m_FSM != null)
+        {
+            this.changeState(CharState.Char_Idle);
+        }
         base.onRecycle();
      }
     public override void Release(){
@@ -64,6 +95,11 @@ public class Character : ObjBase
              ctrl.recycleSelf();
              ctrl=null;
          }
+        if (m_FSM != null)
+        {
+            m_FSM.UnRegisterAllState();
+            m_FSM = null;
+        }
         base.Release();
     }
 }

@@ -26,6 +26,20 @@ namespace GameEnum
         //玩家
         Player=3,
     }
+    public enum CharState{
+        Char_Idle = 0,  //正常状态
+        Char_Squat = 1, //蹲下
+        Char_Prone = 2, //趴下
+        Char_Dead=3,  //死亡
+        Char_Skill=4,   // 攻击 技能 位移 有攻击硬直 条件的等.
+        Char_Swimming = 5, //游泳
+        Char_Hurt = 6, //被打断 受击状态. 不能攻击
+        Char_HurtLie = 7,  //受击躺下 躺地   不能攻击
+        Char_HurtLinkBone = 8, //绑定受击 链接状态. 绑到身上甩甩甩 不能攻击
+        Char_Polymorph = 9, //变成小动物 变羊 不能攻击 被攻击会破羊
+      //  Char_Freeze=5,//冰冻  
+     //   Char_Swoon=6,//眩晕  不能攻击
+    }
     public class EventType_Entity
     {
         public static string Jump_To_Ground = "JumpToGround";
@@ -55,21 +69,6 @@ namespace GameEnum
         JumpRise=1,
         JumpFall=2,
     
-    }
-    // 实体状态
-    public enum CharState
-    {
-        Char_Normal = 0, //正常
-        Char_Attack=1,   // 攻击
-        Char_Hurt=2, // 受伤
-        Char_Dead=3, //死亡
-        Char_Freeze=4, //冰冻;
- //       Char_HurtBingBone=5, //受击跟地方骨骼走...
-        Char_HurtLie=6,    //受击躺下..躺地..
-        Char_DropItem=7,      //物品掉落状态.
-        Char_Swoon=8,     //眩晕;
-        Char_Polymorph = 9,       //变羊;
-        Char_Link=10           //链接状态.
     }
     public enum HurtState
     {

@@ -9,6 +9,25 @@ public class CharData : MonoBehaviour,IData
 
     public Character _char=null;
     private Action _onFixUpdate; 
+    
+    //状态属性.......................
+    public bool isLie = false;
+    public bool isStandUp = false;
+    public bool lowFLy=false;
+    public bool isNumb = false;
+    public bool isFly = false;
+    public bool isSwoon = false;
+    public bool isLink = false;
+    //是否在诱捕状态;
+    public bool isEnsnared =false;    
+    //是否在变羊状态;
+    public bool isPolymorph =false;   
+    //隐身
+    public bool isHideBody = false;
+
+    
+
+    //状态属性.........................
 
     // Start is called before the first frame update
     void Start()
