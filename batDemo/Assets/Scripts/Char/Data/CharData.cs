@@ -10,6 +10,8 @@ public class CharData : MonoBehaviour,IData
     public Character _char=null;
     private Action _onFixUpdate; 
     
+    public int pvpId;
+
     //状态属性.......................
     public bool isLie = false;
     public bool isStandUp = false;
@@ -25,7 +27,7 @@ public class CharData : MonoBehaviour,IData
     //隐身
     public bool isHideBody = false;
 
-    
+
 
     //状态属性.........................
 

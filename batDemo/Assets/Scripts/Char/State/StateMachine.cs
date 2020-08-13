@@ -20,6 +20,8 @@ using System.Text;
         {
             m_Statemachine = machine;
         }
+        //改变状态检测.是否能改变该状态.
+        public abstract bool EnterStateChk(int nStateID);
         // 进入状态
         public abstract void Enter(object param);
         
@@ -40,8 +42,6 @@ using System.Text;
     {
         // 状态列表 不允许重复状态
         private Dictionary<int, State<T>> m_dicState = new Dictionary<int,State<T>>();
-        //可切换状态数组;
-        private Dictionary<int,Dictionary<int,bool>> m_dicCanCgState =new Dictionary<int,Dictionary<int,bool>> ();
 
         private T m_Owner = default(T);  // 状态所有者
 
@@ -59,17 +59,6 @@ using System.Text;
             {
                 m_dicState.Add(s.GetStateID(), s);
             }
-            if (!m_dicCanCgState.ContainsKey(s.GetStateID()))
-            {
-                if(nextStateIds!=null){
-                    Dictionary<int, bool> dic=new Dictionary<int, bool>();
-                    m_dicCanCgState.Add(s.GetStateID(), dic);
-                    for (int i = 0; i < nextStateIds.Length; i++)
-                    {
-                        dic[(int)nextStateIds[i]]=true;
-                    }
-                }
-            }
         }
 
         public void UnRegisterState(int nStateID)
@@ -78,16 +67,11 @@ using System.Text;
             {
                 m_dicState.Remove(nStateID);
             }
-            if (m_dicCanCgState.ContainsKey(nStateID))
-            {
-                m_dicCanCgState.Remove(nStateID);
-            }
         }
 
         public void UnRegisterAllState()
         {
             m_dicState.Clear();
-            m_dicCanCgState.Clear();
         }
 
         public T GetOwner() { return m_Owner; }
@@ -106,59 +90,45 @@ using System.Text;
 
             return -1;
         }
-
-        // 添加状态
-        public bool ChangeState(int nStateID, object param=null,bool checkDic=true)
+        //外部接口
+         public void ChangeState(int nStateID, object param=null,bool EnterCheck=true){
+             if(EnterCheck){
+                 if(EnterStateChk(nStateID)){
+                      this.onChangeState(nStateID,param);
+                 }
+             }else{
+                 this.onChangeState(nStateID,param);
+             }
+         }
+         
+        //状态机内部用.
+        private void onChangeState(int nStateID, object param=null)
         {
             State<T> tarState = null;
             if (m_dicState.TryGetValue(nStateID, out tarState))
             {
-                bool canChange=false;
-                if( m_curState != null )
-                {
-                    if(m_curState.GetStateID()==nStateID){
-                        //相同状态.
-                        m_curState.Leave();
-                        m_curState.Enter(param);
-                       return true;
-                    }
-                    Dictionary<int,bool> changeStateDic=null;   
-                    //当前状态 获取 可切换状态列表
-                    if (m_dicCanCgState.TryGetValue(m_curState.GetStateID(), out changeStateDic))
-                    {
-                        if(changeStateDic!=null&&checkDic){
-                          //条件切换
-                            changeStateDic.TryGetValue(nStateID, out canChange);
-                        }else{
-                           //可任意切换.
-                           canChange=true;
-                        }
-                    }else{
-                        canChange=true;
-                    }
-                    if(canChange){
-                        m_curState.Leave();
-                        BeforeStateId = m_curState.GetStateID();
-                    }else{
-                        //不能转换.
-                        return canChange;
-                    }    
-                }else{
-                    canChange=true;
-                }
 
-                //State s;
-                //m_dicState.TryGetValue(nStateID, out s);
-                if(canChange&&tarState != null){
+                if(tarState != null){
+                    if( m_curState != null )
+                    {
+                        if(m_curState.GetStateID()==nStateID){
+                            //相同状态.
+                            m_curState.Leave();
+                            m_curState.Enter(param);
+                            return ;
+                        }
+                        m_curState.Leave();
+                        BeforeStateId = m_curState.GetStateID();   
+                    }
+                    //State s;
+                    //m_dicState.TryGetValue(nStateID, out s);
                     m_curState = tarState;
                     m_curState.Enter(param);
                 }
-                return canChange;
             }
             else
             {
                 // 状态不支持
-                return false;
             }
         }
         public void Update(float dt)
@@ -176,6 +146,14 @@ using System.Text;
                 m_curState.OnEvent(nEventID, param);
             }
         }
-
+        public bool EnterStateChk(int nStateID)
+        {
+            State<T> tarState = null;
+            if (m_dicState.TryGetValue(nStateID, out tarState))
+            {
+                  return tarState.EnterStateChk(nStateID);
+            }
+            return false;
+        }
     }
 

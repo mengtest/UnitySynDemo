@@ -34,14 +34,15 @@ public class Player : Character
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
-        m_FSM.RegisterState(new Char_Hurt(m_FSM),new object[]{CharState.Char_Idle,CharState.Char_HurtLie,CharState.Char_Dead,CharState.Char_Polymorph,CharState.Char_Prone,CharState.Char_Squat});
-        m_FSM.RegisterState(new Char_Idle(m_FSM),new object[]{CharState.Char_Idle});
-        m_FSM.RegisterState(new Char_Idle(m_FSM),new object[]{CharState.Char_Idle});
-        m_FSM.RegisterState(new Char_Idle(m_FSM),new object[]{CharState.Char_Idle});
-        m_FSM.RegisterState(new Char_Idle(m_FSM),new object[]{CharState.Char_Idle});
-        m_FSM.RegisterState(new Char_Idle(m_FSM),new object[]{CharState.Char_Idle});
-        m_FSM.RegisterState(new Char_Dead(m_FSM),new object[]{});
-        this.changeState(CharState.Char_Idle,null,false);
+        m_FSM.RegisterState(new Char_Squat(m_FSM));
+        m_FSM.RegisterState(new Char_Prone(m_FSM));
+        m_FSM.RegisterState(new Char_Skill(m_FSM));
+        m_FSM.RegisterState(new Char_Hurt(m_FSM));
+        m_FSM.RegisterState(new Char_HurtLie(m_FSM));
+        m_FSM.RegisterState(new Char_HurtLinkBone(m_FSM)); //挂点中不可变羊.
+        m_FSM.RegisterState(new Char_Polymorph(m_FSM));
+        m_FSM.RegisterState(new Char_Dead(m_FSM));
+        this.ChangeState(CharState.Char_Idle,null,false);
     }
 
     //回收.

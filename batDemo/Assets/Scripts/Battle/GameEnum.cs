@@ -26,19 +26,21 @@ namespace GameEnum
         //玩家
         Player=3,
     }
-    public enum CharState{
-        Char_Idle = 0,  //正常状态
-        Char_Squat = 1, //蹲下
-        Char_Prone = 2, //趴下
-        Char_Dead=3,  //死亡
-        Char_Skill=4,   // 攻击 技能 位移 有攻击硬直 条件的等.
-        Char_Swimming = 5, //游泳
-        Char_Hurt = 6, //被打断 受击状态. 不能攻击
-        Char_HurtLie = 7,  //受击躺下 躺地   不能攻击
-        Char_HurtLinkBone = 8, //绑定受击 链接状态. 绑到身上甩甩甩 不能攻击
-        Char_Polymorph = 9, //变成小动物 变羊 不能攻击 被攻击会破羊
-      //  Char_Freeze=5,//冰冻  
-     //   Char_Swoon=6,//眩晕  不能攻击
+    public class CharState{
+       public static int  Char_Idle = 0;  //正常状态
+       public static int Char_Squat = 1; //蹲下
+       public static int Char_Prone = 2; //趴下
+       public static int Char_Weak =4; //虚弱 组队中
+       public static int Char_Dead=5; //死亡
+      public static int  Char_Skill=6; // 攻击 技能 位移 有攻击硬直 条件的等.
+       public static int Char_Swimming = 7; //游泳
+       public static int Char_Hurt = 8; //被打断 受击状态. 不能攻击
+       public static int Char_HurtLie = 9;  //受击躺下 躺地   不能攻击
+      public static int  Char_HurtLinkBone = 10; //绑定受击 链接状态. 绑到身上甩甩甩 不能攻击
+       public static int Char_Polymorph = 11; //变成小动物 变羊 不能攻击 被攻击会破羊
+       public static int Char_Freeze=12; //冰冻  
+      public static int  Char_Swoon=13;  //眩晕  不能攻击
+       public static int Char_Strobe =14; //滑索动作.
     }
     public class EventType_Entity
     {

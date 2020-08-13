@@ -3,14 +3,14 @@
 
 using System.Collections.Generic;
 
-public class Char_Squat : State<Character>
+public class Char_Swoon : State<Character>
 {
     private Dictionary<string,bool> canActionDic=new Dictionary<string,bool>();
     private Character m_Owner = null;
-    public Char_Squat(StateMachine<Character> machine)
+    public Char_Swoon(StateMachine<Character> machine)
         : base(machine)
     {
-        m_nStateID = GameEnum.CharState.Char_Squat;
+        m_nStateID = GameEnum.CharState.Char_Swoon;
     }
 
     // 进入状态
@@ -18,7 +18,7 @@ public class Char_Squat : State<Character>
     {
         m_Owner = m_Statemachine.GetOwner();
         CharData charData=m_Owner.objData as CharData;
-
+        
     }
 
     // 退出状态

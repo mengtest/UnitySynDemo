@@ -16,5 +16,7 @@
     {
        /**移动完毕*/
        public static string MOVE_END = "MOVE_END";
+        /****改成正常状态*******/
+        public static string Syn_NormalState="Syn_NormalState";
 
     }

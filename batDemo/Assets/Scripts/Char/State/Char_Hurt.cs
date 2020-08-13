@@ -10,7 +10,7 @@ public class Char_Hurt : State<Character>
     public Char_Hurt(StateMachine<Character> machine)
         : base(machine)
     {
-        m_nStateID = (int)GameEnum.CharState.Char_Hurt;
+        m_nStateID = GameEnum.CharState.Char_Hurt;
     }
 
     // 进入状态
@@ -18,7 +18,7 @@ public class Char_Hurt : State<Character>
     {
         m_Owner = m_Statemachine.GetOwner();
         CharData charData=m_Owner.objData as CharData;
-        
+
     }
 
     // 退出状态
@@ -38,6 +38,14 @@ public class Char_Hurt : State<Character>
 
     public override bool CanDoAction(string ActionLabel)
     {
+        return true;
+    }
+     public override bool EnterStateChk(int nStateID)
+    {
+        if(this.m_Statemachine.GetCurStateID() == m_nStateID ) return true;
+
+        if (this.m_Statemachine.GetCurStateID() == GameEnum.CharState.Char_Dead) return false;
+
         return true;
     }
 }

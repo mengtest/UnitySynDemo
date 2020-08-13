@@ -10,7 +10,7 @@ public class Char_Polymorph : State<Character>
     public Char_Polymorph(StateMachine<Character> machine)
         : base(machine)
     {
-        m_nStateID = (int)GameEnum.CharState.Char_Polymorph;
+        m_nStateID = GameEnum.CharState.Char_Polymorph;
     }
 
     // 进入状态
@@ -38,6 +38,14 @@ public class Char_Polymorph : State<Character>
 
     public override bool CanDoAction(string ActionLabel)
     {
+        return true;
+    }
+    public override bool EnterStateChk(int nStateID)
+    {
+        if(this.m_Statemachine.GetCurStateID()== m_nStateID ) return true;
+
+        if (this.m_Statemachine.GetCurStateID() == GameEnum.CharState.Char_Dead) return false;
+        
         return true;
     }
 }

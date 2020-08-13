@@ -3,14 +3,14 @@
 
 using System.Collections.Generic;
 
-public class Char_Squat : State<Character>
+public class Char_Freeze : State<Character>
 {
     private Dictionary<string,bool> canActionDic=new Dictionary<string,bool>();
     private Character m_Owner = null;
-    public Char_Squat(StateMachine<Character> machine)
+    public Char_Freeze(StateMachine<Character> machine)
         : base(machine)
     {
-        m_nStateID = GameEnum.CharState.Char_Squat;
+        m_nStateID = GameEnum.CharState.Char_Freeze;
     }
 
     // 进入状态
@@ -18,7 +18,7 @@ public class Char_Squat : State<Character>
     {
         m_Owner = m_Statemachine.GetOwner();
         CharData charData=m_Owner.objData as CharData;
-
+        
     }
 
     // 退出状态
@@ -42,7 +42,7 @@ public class Char_Squat : State<Character>
     }
     public override bool EnterStateChk(int nStateID)
     {
-        if(this.m_Statemachine.GetCurStateID()== m_nStateID ) return true;
+        if(this.m_Statemachine.GetCurStateID() == m_nStateID ) return true;
 
         if (this.m_Statemachine.GetCurStateID() == GameEnum.CharState.Char_Dead) return false;
         

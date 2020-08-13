@@ -20,17 +20,17 @@ public class Character : ObjBase
     protected virtual void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
-        this.changeState(CharState.Char_Idle,null,false);
+        this.ChangeState(CharState.Char_Idle,null,false);
     }
-    protected void changeState(CharState charState, object param=null,bool checkDic=true)
+    protected void ChangeState(int charState, object param=null,bool checkDic=true)
     {
-        m_FSM.ChangeState((int)charState, param,checkDic);
+        m_FSM.ChangeState(charState, param,checkDic);
     }
-    public CharState GetCurStateID()
+    public int GetCurStateID()
     {
         if (m_FSM != null)
         {
-            return  (CharState)m_FSM.GetCurStateID();
+            return  m_FSM.GetCurStateID();
         }
         return CharState.Char_Dead;
     }
@@ -86,7 +86,7 @@ public class Character : ObjBase
          }
         if (m_FSM != null)
         {
-            this.changeState(CharState.Char_Idle);
+            this.ChangeState(CharState.Char_Idle,null,false);
         }
         base.onRecycle();
      }

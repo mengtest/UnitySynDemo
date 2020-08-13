@@ -10,7 +10,7 @@ public class Char_Dead : State<Character>
     public Char_Dead(StateMachine<Character> machine)
         : base(machine)
     {
-        m_nStateID = (int)GameEnum.CharState.Char_Dead;
+        m_nStateID = GameEnum.CharState.Char_Dead;
     }
 
     // 进入状态
@@ -38,6 +38,13 @@ public class Char_Dead : State<Character>
 
     public override bool CanDoAction(string ActionLabel)
     {
+        return true;
+    }
+
+    public override bool EnterStateChk(int nStateID)
+    {
+        //死亡不能进入多次.
+        if(this.m_Statemachine.GetCurStateID() == m_nStateID ) return false;
         return true;
     }
 }
