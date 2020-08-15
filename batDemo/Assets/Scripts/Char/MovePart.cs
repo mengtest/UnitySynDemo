@@ -426,6 +426,7 @@ public class MovePart
 
     public void Dispose(){
          obj=null;
+         target = null;
     }
     public void reset(bool clearSpeed = true) {
         this._isMoving = false;

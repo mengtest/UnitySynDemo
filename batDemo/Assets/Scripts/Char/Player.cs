@@ -10,7 +10,6 @@ public class Player : Character
     public Player()
     {
          charType=GameEnum.ObjType.Player;
-
     }
 
     //重写显示.

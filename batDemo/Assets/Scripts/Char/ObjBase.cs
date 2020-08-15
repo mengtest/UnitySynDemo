@@ -38,7 +38,7 @@ public class ObjBase : PoolObj
     public bool isDestory=false;
     public bool isDead=false;
     
-    public bool needUpdate = false;
+    //public bool needUpdate = false;
 
     public ObjBase()
     {
@@ -129,13 +129,13 @@ public class ObjBase : PoolObj
     public MovePart GetMovePart(){
         if(this._move==null){
             this._move=new MovePart(this);
-            this.needUpdate=true;
+        //    this.needUpdate=true;
         }
         return this._move;
     }
      
     protected virtual void fixUpdate() {
-        if(!this.needUpdate)return;
+      //  if(!this.needUpdate)return;
         if(this._move!=null){
             this._move.fixUpdate();
         }
