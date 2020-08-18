@@ -8,6 +8,7 @@ public class ObjBase : PoolObj
      //类型.
 
     public IData  objData{get; protected set;}
+    
     public GameEnum.ObjType charType=GameEnum.ObjType.Obj;
     protected MovePart _move=null;
      //事件派发器;

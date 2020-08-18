@@ -48,10 +48,6 @@ public class AFC_Base_Data
         {
             
         }
-       
-      public void init(object jsonT) {
-
-      }
 
        public void initXml(object xml) {
 
