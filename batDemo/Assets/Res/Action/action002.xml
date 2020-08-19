@@ -1,0 +1,31 @@
+<Project>
+	<TemplateObjectList/>
+	<Action actionName="DefaultAction" length="0.100" loop="false">
+		<Track trackName="Shock" eventType="Shock" enabled="true">
+			<Event eventName="Shock" time="0.000" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<float name="power" value="300.000"/>
+				<float name="angle" value="45.000"/>
+				<float name="time" value="0.200"/>
+				<int name="frequency" value="1"/>
+				<float name="decay" value="0.998"/>
+				<bool name="randomAngle" value="false"/>
+				<Enum name="shockTarget" value="0">
+					<uint name="camera"/>
+					<uint name="myself"/>
+					<uint name="target"/>
+				</Enum>
+			</Event>
+		</Track>
+		<Track trackName="Action" eventType="ToAction" enabled="true">
+			<Event eventName="ToAction" time="0.100" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="actionName" value="Stand"/>
+				<int name="startFrame" value="0"/>
+				<int name="previousFrame" value="0"/>
+				<bool name="chkCancelLv" value="true"/>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

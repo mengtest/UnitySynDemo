@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,13 +34,16 @@ public class AvatarChar : MonoBehaviour
     private GameAssetRequest _weaponL_Reqs;
     private GameObject _weaponL;
     private bool inited = false;
-    public void Init(string aniUrl, string[] modelpaths)
+
+    private Action _bodyFinedFun;
+    public void Init(string aniUrl, string[] modelpaths,Action bodyFinedFun=null)
     {
         if (string.IsNullOrEmpty(aniUrl))
         {
             DebugLog.LogError("aniUrl null");
             return;
         }
+        this._bodyFinedFun=bodyFinedFun;
         this._modelDic.Clear();
         this._modelReqs.Clear();
         for (int i = 0; i < modelpaths.Length; i++)
@@ -65,6 +69,10 @@ public class AvatarChar : MonoBehaviour
         this.mainObj.name = this._charName;
         this.mainObj.transform.parent = this.gameObject.transform;
         this.mainObj.transform.localPosition = new Vector3(0, 0, 0);
+        if(this._bodyFinedFun!=null){
+            this._bodyFinedFun();
+            this._bodyFinedFun=null;
+        }
 
         Dictionary<string, string>.Enumerator iter = this._modelDic.GetEnumerator();
         while (iter.MoveNext())

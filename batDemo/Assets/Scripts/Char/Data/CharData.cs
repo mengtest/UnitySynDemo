@@ -27,6 +27,8 @@ public class CharData : MonoBehaviour,IData
     //隐身
     public bool isHideBody = false;
 
+    public float PlaySpeed { get ; set ; }
+
 
 
     //状态属性.........................

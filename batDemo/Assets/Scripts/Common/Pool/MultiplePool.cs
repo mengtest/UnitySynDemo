@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 /***
 * 多对象通用池;
@@ -48,6 +50,30 @@ public class MultiplePool : IPool
             tempList.RemoveAt(tempList.Count-1);
 		}else{
             item = new T();
+            item.pool = this;
+            item.poolname = poolname;
+            item.isRecycled = false;
+            item.id = this.CreateID();
+            item.init();
+        }
+        this.onGet(item);
+        item.pool = this;
+        item.isRecycled = false;
+        item.onGet();
+        return item;
+    }
+    public T get<T>(string poolname,Type type) where T:PoolObj,new() {
+        if(!this.map.ContainsKey(poolname)){
+             DebugLog.Log("creat: "+poolname);
+           this.map[poolname]=new List<IPoolObj>();
+        }
+        List<IPoolObj> tempList = this.map[poolname];
+        T item;
+        if (tempList.Count > 0) {
+            item  =(T)tempList[tempList.Count-1];
+            tempList.RemoveAt(tempList.Count-1);
+		}else{
+            item = (T) Activator.CreateInstance(type);
             item.pool = this;
             item.poolname = poolname;
             item.isRecycled = false;

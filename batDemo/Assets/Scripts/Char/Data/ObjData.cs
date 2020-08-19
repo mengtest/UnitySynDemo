@@ -9,6 +9,8 @@ public class ObjData : MonoBehaviour,IData
     private ObjBase _obj;
     private Action _onFixUpdate; 
 
+    public float PlaySpeed { get ; set ; }
+
     // Start is called before the first frame update
     void Start()
     {

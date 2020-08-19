@@ -40,7 +40,7 @@ public class JoyController : Controller
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE,OnJoyUp);
         EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
     }
-    public override void OnRelease(){
+    public override void OnRelease_Fun(){
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,OnJoyMove);
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE,OnJoyUp);
         EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);

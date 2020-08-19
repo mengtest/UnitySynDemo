@@ -11,16 +11,15 @@ public class Monster : Character
 
     }
     //重写显示.
-    public override void initView(string prefabPath=""){
-          base.initView(prefabPath);
-        //this.poolname=prefabPath;
+    public override void onViewLoadFin(){
+          base.onViewLoadFin();
     }
 
     //回收.
      public override void onRecycle(){
         base.onRecycle();
      }
-    public override void Release(){
-        base.Release();
+    public override void onRelease(){
+        base.onRelease();
     }
 }

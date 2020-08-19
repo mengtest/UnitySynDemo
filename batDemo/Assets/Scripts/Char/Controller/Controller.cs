@@ -25,16 +25,13 @@ public class Controller :PoolObj, IController
     {
         this.OnRecycle_Fun();
         this._char=null;
-        base.onRecycle();
     }
-    public  override void Release(){
-        this.OnRelease();
+    public  override void onRelease(){
+        this.OnRelease_Fun();
         this._char=null;
-        base.Release();
     }
     public override void onGet(){
         this.OnGet_Fun();
-        base.onGet();
     }
 
     #region 继承 可重写..................
@@ -47,7 +44,7 @@ public class Controller :PoolObj, IController
     {
 
     }
-    public  virtual void OnRelease()
+    public  virtual void OnRelease_Fun()
     {
       
     }

@@ -74,6 +74,9 @@ public class GameSettings : ScriptableObject
         }
     }
 
+    public int frameRate=30;
+     public float deltaTime = 1f / 30f;
+
     public bool isDebug()
     {
         return isDebugModel;

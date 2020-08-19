@@ -37,7 +37,7 @@ using UnityEngine;
         }
         //初始化控制器
         private void initCtrl(){
-            if(this.ctrl==null&&this._obj.objData!=null){
+            if(this.ctrl==null&&this._obj.initViewFin){
                 if(this._obj.gameObject.GetComponent<Animator>()){
                     this.ctrl=new AnimatorCtrl(this._obj,this.Layer);
                 }else{

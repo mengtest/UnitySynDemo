@@ -20,14 +20,19 @@
         this.onRecycle();
         this.pool.recycle(this);
     }
+    public void Release()
+    {
+       onRelease();
+       this.pool=null;
+    }
 
     #region 继承 可重写..................
     /**
      * 释放
      **/
-    public virtual void Release()
+    public virtual void onRelease()
     {
-       this.pool=null;
+       
     }
         /**
      * 获取
@@ -39,7 +44,7 @@
     /**
      回收.
     **/
-     public virtual void onRecycle()
+    public virtual void onRecycle()
     {
 
     }

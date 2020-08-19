@@ -1,0 +1,1096 @@
+<Project>
+	<TemplateObjectList/>
+	<Action actionName="DefaultAction" length="0.600" loop="false">
+		<Track trackName="defaultTrack" eventType="ActionData" enabled="true">
+			<Event eventName="ActionData" time="0.000" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<int name="skillId" value="0"/>
+				<float name="speed" value="1.000"/>
+				<float name="fadeLength" value="0.150"/>
+				<int name="cancelPriority" value="0"/>
+				<bool name="notAction" value="true"/>
+				<Enum name="actionType" value="1">
+					<uint name="normalType"/>
+					<uint name="attackType"/>
+					<uint name="SkillType"/>
+				</Enum>
+			</Event>
+		</Track>
+		<Track trackName="defaultTrack" eventType="AddProjectile" enabled="true">
+			<Event eventName="AddProjectile" time="0.100" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="0.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.150" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="36.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.200" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="72.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.250" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="108.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.300" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="144.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.350" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="180.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.400" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-144.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.450" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-108.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.500" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-72.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.550" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-36.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="0.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+		</Track>
+		<Track trackName="defaultTrack" eventType="AddProjectile" enabled="true">
+			<Event eventName="AddProjectile" time="0.125" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-36.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.179" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-72.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.225" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-108.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.275" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-144.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.325" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="-180.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.375" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="144.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.425" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="108.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.475" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="72.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.525" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="36.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+			<Event eventName="AddProjectile" time="0.575" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="url" value="effect/7001/ef_7003"/>
+				<String name="modelName" value="ef_7003"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<Vector3 name="offset" x="0.000" y="0.000" z="0.000"/>
+				<Vector3 name="randomOffset" x="0.000" y="0.000" z="0.000"/>
+				<bool name="isBindPosition" value="false"/>
+				<float name="lifeTime" value="1.000"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<bool name="deadOnTargetDead" value="false"/>
+				<bool name="deadOnParentDead" value="false"/>
+				<int name="getTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<Enum name="moveType" value="0">
+					<uint name="dirMove"/>
+					<uint name="follow"/>
+					<uint name="nomove"/>
+					<uint name="pointMove"/>
+				</Enum>
+				<float name="bornDir" value="0.000"/>
+				<uint name="randomDirRange" value="0"/>
+				<float name="speed" value="100.000"/>
+				<float name="MaxSpeed" value="300.000"/>
+				<float name="acceleratedSpeed" value="300.000"/>
+				<float name="rotateSpeed" value="3.000"/>
+				<bool name="zeroSpeedStop" value="false"/>
+				<bool name="useMovePoint" value="false"/>
+				<float name="extraDic" value="-1.000"/>
+				<int name="extraAcSpeed" value="-2000"/>
+				<int name="extraSpeed" value="500"/>
+				<int name="extraDir" value="-1"/>
+				<float name="scaleMoveMaxDic" value="0.000"/>
+				<int name="delayBeginMove" value="0"/>
+				<String name="needFlyAni" value=""/>
+				<String name="needCloseAni" value="ef_7003"/>
+				<int name="hitTestTime" value="0"/>
+				<int name="hitDataId" value="20701"/>
+				<float name="width" value="20.000"/>
+				<float name="height" value="20.000"/>
+				<float name="size" value="1.000"/>
+				<bool name="canHitMapObj" value="true"/>
+			</Event>
+		</Track>
+		<Track trackName="defaultTrack" eventType="SoundEvent" enabled="true">
+			<Event eventName="SoundEvent" time="0.000" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="soundUrl" value="se_skill_7001"/>
+				<float name="vol" value="1.000"/>
+				<Enum name="soundRange" value="1">
+					<uint name="world"/>
+					<uint name="screen"/>
+				</Enum>
+			</Event>
+		</Track>
+		<Track trackName="defaultTrack" eventType="Effect" enabled="true">
+			<Event eventName="Effect" time="0.000" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<String name="effectName" value="ef_7001_gun"/>
+				<float name="radiusCameraCut" value="300.000"/>
+				<Vector3 name="position" x="0.000" y="0.000" z="0.000"/>
+				<Enum name="bronPos" value="0">
+					<uint name="self"/>
+					<uint name="target"/>
+					<uint name="atkTarget"/>
+					<uint name="world"/>
+					<uint name="selfBone"/>
+					<uint name="targetBone"/>
+					<uint name="atkTargetBone"/>
+					<uint name="skillPoint"/>
+				</Enum>
+				<String name="bindName" value=""/>
+				<bool name="isBindPosAngel" value="false"/>
+				<bool name="isBindPosition" value="false"/>
+				<bool name="deadOnActionCancel" value="false"/>
+				<int name="GetTargetListIdx" value="-1"/>
+				<bool name="noTargetUseFirstTarget" value="false"/>
+				<int name="loop" value="1"/>
+				<Enum name="WrapMode" value="0">
+					<uint name="Normal"/>
+					<uint name="Reverse"/>
+					<uint name="Loop"/>
+					<uint name="LoopReverse"/>
+					<uint name="PingPong"/>
+					<uint name="PingPongReverse"/>
+				</Enum>
+				<float name="duration" value="1.000"/>
+				<bool name="autoDead" value="true"/>
+				<float name="speed" value="1.000"/>
+				<Enum name="effectIndex" value="1">
+					<uint name="back"/>
+					<uint name="front"/>
+					<uint name="top"/>
+				</Enum>
+				<float name="size" value="1.500"/>
+				<bool name="parentScale" value="true"/>
+			</Event>
+		</Track>
+		<Track trackName="defaultTrack" eventType="Shock" enabled="true">
+			<Event eventName="Shock" time="0.000" isDuration="false">
+				<bool name="onceEvent" value="false"/>
+				<float name="power" value="120.000"/>
+				<float name="angle" value="45.000"/>
+				<float name="time" value="0.200"/>
+				<int name="frequency" value="1"/>
+				<float name="decay" value="0.000"/>
+				<bool name="randomAngle" value="false"/>
+				<Enum name="shockTarget" value="3">
+					<uint name="camera"/>
+					<uint name="myself"/>
+					<uint name="target"/>
+					<uint name="OnlyMyPlayerCamera"/>
+				</Enum>
+			</Event>
+		</Track>
+	</Action>
+</Project>
+

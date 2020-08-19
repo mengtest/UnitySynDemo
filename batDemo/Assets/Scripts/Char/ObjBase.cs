@@ -8,9 +8,14 @@ public class ObjBase : PoolObj
      //类型.
 
     public IData  objData{get; protected set;}
+     protected GameObject dataNode=null;
     
     public GameEnum.ObjType charType=GameEnum.ObjType.Obj;
     protected MovePart _move=null;
+
+    //0  layer层 动画控件 整体全身动作层
+    protected AniPart aniBasePart=null;
+
      //事件派发器;
     private GEventDispatcher _event=null;
     //目标对象.
@@ -38,14 +43,19 @@ public class ObjBase : PoolObj
     //销毁
     public bool isDestory=false;
     public bool isDead=false;
+    public  bool initViewFin=false;
     
     //public bool needUpdate = false;
 
     public ObjBase()
     {
         this.node =new GameObject(this._name);
+        this.dataNode=new GameObject("Data");
+        this.dataNode.transform.parent=this.node.gameObject.transform;
+        this.dataNode.transform.localPosition=Vector3.zero;
         this.isDestory=false;
         this.isDead=false;
+        this.initViewFin=false;
     }
     public override void init(){
         string[] split = poolname.Split('/');
@@ -55,7 +65,17 @@ public class ObjBase : PoolObj
             this._name=poolname+this.id;
         }
         this.node.name=this._name;
+
         this.initView(poolname);
+    }
+    public virtual void initData(){
+        //每次初始化 应该重置data.防止 数据 没清空.
+         ObjData oldData=this.dataNode.GetComponent<ObjData>();
+         if(oldData!=null){
+             GameObject.Destroy(oldData);
+         }
+        this.objData = this.dataNode.AddComponent<ObjData>();
+        this.objData.init(this,fixUpdate);
     }
     //显示类可重写.
     public virtual void initView(string prefabPath=""){
@@ -94,16 +114,12 @@ public class ObjBase : PoolObj
             if(this.isRecycled){
                  this.node.SetActive(false);
             }
+            this.initViewFin=true;
             onViewLoadFin();
         }
     }
     public virtual void onViewLoadFin(){
-         objData = this.node.GetComponent<ObjData>();
-        if(objData==null){
-            DebugLog.LogError("no charData mono ->",this.poolname);
-        }else{
-            objData.init(this,fixUpdate);
-        }
+        
     }
     /**
     * 计算目标距离;
@@ -135,19 +151,41 @@ public class ObjBase : PoolObj
         return this._move;
     }
      
+    public virtual bool hasAni(int layer=0){
+       return this.aniBasePart ==null ? false:true;
+    }
+   
+    public virtual void pauseAni(int layer=0){
+          this.GetAniBasePart().pause();
+    }
+    public virtual void resumeAni(int layer=0){
+          this.GetAniBasePart().resume();
+    }
+
+    public AniPart GetAniBasePart(){
+        if(this.aniBasePart==null){
+            this.aniBasePart=new AniPart();
+            this.aniBasePart.Init(this,0);
+        }
+        return this.aniBasePart;
+    }
     protected virtual void fixUpdate() {
       //  if(!this.needUpdate)return;
         if(this._move!=null){
             this._move.fixUpdate();
         }
+        if(this.aniBasePart!=null){
+             this.aniBasePart.fixUpdate();
+        }
     }
 
     public override void onGet()
     {
-         this.isDead=false;
-          if(this.node!=null){
+        this.isDead=false;
+        if(this.node!=null){
              this.node.SetActive(true);
         }
+        this.initData();
     }
     /**
      回收..
@@ -156,6 +194,9 @@ public class ObjBase : PoolObj
     {
         this.Target=null;
         this.isDead=true;
+        if(this.aniBasePart!=null){
+             this.aniBasePart.stop();
+        }
         if(this._move!=null){
             this._move.Init();
         }
@@ -169,10 +210,15 @@ public class ObjBase : PoolObj
     /*********
       销毁
     *******/
-    public override void Release(){
+    public override void onRelease(){
        this.Target=null;
        this.isDead=true;
        this.objData=null;
+       this.dataNode=null;
+       if(this.aniBasePart!=null){
+           this.aniBasePart.Release();
+           this.aniBasePart=null;
+       }
        if(this._move !=null){
            this._move.Dispose();
            this._move=null;
@@ -190,6 +236,5 @@ public class ObjBase : PoolObj
             this._event=null;
        } 
        this.isDestory=true;
-       base.Release();
     }
 }

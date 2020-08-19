@@ -26,6 +26,19 @@ namespace GameEnum
         //玩家
         Player=3,
     }
+     /**
+     * 取消优先级 高的可以断底的 技能 技能取消用;
+     */
+    public class CancelPriority{
+        //什么动作都不能切换;
+       public static int CantDoAnyAction=-1;
+      public static int  Stand_Move=0;
+        //roll attack
+       public static int NormalAction=3;
+        //skill
+      public static int  SkillAction=4;
+     //   Can 
+    }
     public class CharState{
        public static int  Char_Idle = 0;  //正常状态
        public static int Char_Squat = 1; //蹲下
@@ -42,6 +55,19 @@ namespace GameEnum
       public static int  Char_Swoon=13;  //眩晕  不能攻击
        public static int Char_Strobe =14; //滑索动作.
     }
+    public class  ActionLabel
+    {
+        //动作标签 
+        public static string Stand = "Stand";        
+        public static string Reborn = "Reborn";  
+        public static string Run = "Run";  
+        public static string BackOff = "BackOff";  
+        public static string CmdAction = "CmdAction";  
+        public static string Dead = "Dead";  
+        public static string Action = "Action";  
+    }
+
+
     public class EventType_Entity
     {
         public static string Jump_To_Ground = "JumpToGround";

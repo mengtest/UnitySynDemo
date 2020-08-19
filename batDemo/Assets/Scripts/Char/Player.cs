@@ -22,14 +22,21 @@ public class Player : Character
         }
         this.node.name=this._name;
         this.avatar = this.node.AddComponent<AvatarChar>();
-        this.onViewLoadFin();
     }
 
     //eg: initAvatar("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
     public void initAvatar(string aniUrl, string[] modelpaths){
         if(this.avatar=null)return; 
-        this.avatar.Init(aniUrl,modelpaths);
+        this.avatar.Init(aniUrl,modelpaths,onBodyFin);
     }
+    //换装.
+    public void ChangePart(string partPath){
+        if(this.avatar=null)return; 
+        this.avatar.ChangePart(partPath);
+    }
+    protected virtual void onBodyFin(){
+        this.initViewFin=true;
+    } 
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
@@ -48,8 +55,8 @@ public class Player : Character
      public override void onRecycle(){
         base.onRecycle();
      }
-    public override void Release(){
+    public override void onRelease(){
         this.avatar=null;
-        base.Release();
+        base.onRelease();
     }
 }
