@@ -168,6 +168,22 @@ using UnityEngine;
         * @param linkAction 
         */
         public bool chkCancelLvActionSkill(string actionLabel) {
+            int layer= ActionManager.instance.GetActionLayer(actionLabel);
+            ActionBase currentAction=null;
+            switch(layer){
+                case GameEnum.ActionLayer.BaseLayer:
+                     currentAction=this.currentBaseAction;
+                   break;
+                case GameEnum.ActionLayer.UpLayer:
+                     currentAction=this.currentUpAction;
+                   break;
+                case GameEnum.ActionLayer.AddLayer:
+                     currentAction=this.currentAddAction;
+                   break;
+                default:
+                    return true;
+            }
+
             return true;
             // if (this.currentAction == null) {
             //     return true;
