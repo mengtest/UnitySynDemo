@@ -5,7 +5,7 @@
 public interface IController {
     int id { get;}
     
-    void sendMessage(int code,object[] param);
+    void SendMessage(int cmd,object[] param=null);
     //回收;
     void Release();
     //更新;

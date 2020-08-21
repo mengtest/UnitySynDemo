@@ -8,8 +8,6 @@ using UnityEngine;
 
 public class CmdAction: ActionBase
 {
-    //动作在SkillActionPool 中 存储的名称.. nan1@Skill_01 之类.
-    public string name;
     private ActionData actData;
     private string lastActionName;
 
@@ -50,7 +48,7 @@ public class CmdAction: ActionBase
 
     //是否是刚跳转到Action
     protected bool _justJumpAction = false;
-
+    //创建默认.
     public override void init(){
         this.name=this.poolname;
         this.actData = ActionManager.instance.GetActionData(this.poolname);
@@ -85,9 +83,9 @@ public class CmdAction: ActionBase
     public void AddActionFunction(AFC_Base_Cmd afc) {
         this.frameFunctionList.Add(afc);
     }
-    public override void Init(ObjBase obj) {
-            base.Init(obj);
-            this.Reset();
+    public override void InitAction(ObjBase obj) {
+        base.InitAction(obj);
+        this.Reset();
     }
      public void Reset() {
          int len = this.frameFunctionList.Count;

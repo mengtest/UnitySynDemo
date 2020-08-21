@@ -10,6 +10,8 @@ using System.Xml;
 
     public class ActionData
     {
+        public int actionLayer=GameEnum.ActionLayer.BaseLayer;
+        public int cancelPriority=GameEnum.CancelPriority.Stand_Move_Null;
        public string actionName;
        public float length;
        public bool loop;
@@ -54,6 +56,10 @@ using System.Xml;
                           XmlNode eventNode = eventlist[j];
                           AFC_Base_Data cmdData= new AFC_Base_Data();
                           cmdData.initXml(eventNode);
+                          if(cmdData.eventName=="ActionData"){
+                               this.actionLayer=cmdData.IntAbb["actionLayer"];
+                               this.cancelPriority=cmdData.IntAbb["cancelPriority"];
+                          }
                           this.cmdDataList.Add(cmdData);
                        }
                    }

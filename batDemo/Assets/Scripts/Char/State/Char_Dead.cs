@@ -32,7 +32,7 @@ public class Char_Dead : State<Character>
         
     }
 
-    public override void OnEvent(int nEventID, object param)
+    public override void OnEvent(int nEventID, object[] param=null)
     {
     }
 
@@ -45,6 +45,7 @@ public class Char_Dead : State<Character>
     {
         //死亡不能进入多次.
         if(this.m_Statemachine.GetCurStateID() == m_nStateID ) return false;
+        //其他所有状态都可以切死亡.
         return true;
     }
 }

@@ -9,7 +9,7 @@ using System.Xml;
 
     public class AFC_Base_Data
     {
-        public int idx;
+        //public int idx;
         //类型 名称;
         public string eventName;
         //当前帧 时间 秒.
@@ -52,6 +52,7 @@ using System.Xml;
        public void initXml(XmlNode eventNode) {
            //目前只做常用类解析  后续要用到再加.
             this.time = float.Parse(eventNode.Attributes["time"].Value);
+            this.eventName = eventNode.Attributes["eventName"].Value;
             this.isDuration = bool.Parse(eventNode.Attributes["isDuration"].Value);
             if(this.isDuration){
                 this.length=float.Parse(eventNode.Attributes["length"].Value);

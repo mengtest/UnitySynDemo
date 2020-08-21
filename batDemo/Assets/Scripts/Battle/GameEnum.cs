@@ -6,6 +6,36 @@ using UnityEngine;
 
 namespace GameEnum
 {
+     public class ControllerCmd
+     {
+         //遥感移动;
+         public const int OnJoy_Move=1;
+         //遥感抬起;
+         public const int OnJoy_Up=2;
+
+
+         public const int Char_Move=3;
+        public const int  Char_StopMove=4;
+         public const int Start_AI =5;
+         public const int Stop_AI=6;
+         public const int Paused_AI=7;
+         public const int Continue_AI=8;
+         public const int Char_FollowTarget=9;
+         public const int Char_MoveToPos=10;
+        //本游戏，特殊做，跟随带偏移
+         public const int Char_UseSkill=11;
+         public const int Char_MoveToPosList=12;
+         public const int Char_MoveToPosWithoutPathFinder=13;
+     }
+    public class PlayMode {
+        ///< 单机重播模式
+       public const string ReplayMode="ReplayMode";
+        ///< 单机模式
+       public const string SingleMode="SingleMode";
+        ///< 多人模式
+        public const string MultiplayerMode="MultiplayerMode";
+    }
+
      //控制类型...
     public enum CtrlType
     {
@@ -32,7 +62,9 @@ namespace GameEnum
     public class CancelPriority{
         //什么动作都不能切换;
        public static int CantDoAnyAction=-1;
-      public static int  Stand_Move=0;
+       //stand move null Action.
+      public static int  Stand_Move_Null=0;
+      public static int  BaseAction=2;
         //roll attack
        public static int NormalAction=3;
         //skill
@@ -58,16 +90,30 @@ namespace GameEnum
     public class  ActionLabel
     {
         //动作标签 
+         public static string Null = "Null";        
         public static string Stand = "Stand";        
+        public static string StandUp = "StandUp";        
         public static string Reborn = "Reborn";  
         public static string Run = "Run";  
         public static string BackOff = "BackOff";  
         public static string CmdAction = "CmdAction";  
         public static string Dead = "Dead";  
         public static string Action = "Action";  
+
+
+         //Ani Name.
+        public static string run_fwd = "run_fwd";      
+        public static string sprint_fwd = "sprint_fwd";      
+
+
     }
-
-
+    //动作层级 
+    public class  ActionLayer
+    {
+        public const int BaseLayer = 0;        
+        public const int UpLayer = 1;  
+        public const int AddLayer = 2;  
+    }
     public class EventType_Entity
     {
         public static string Jump_To_Ground = "JumpToGround";

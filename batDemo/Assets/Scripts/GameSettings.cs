@@ -39,7 +39,7 @@ public class GameSettings : ScriptableObject
         "CustomShadow", //自定义投影
     };
 
-
+     public string playMode = GameEnum.PlayMode.MultiplayerMode;
 
     //是否不加载assetBundle. 编辑可以不加载. 不加载AB 就是load prefab
     public  bool useAssetBundle = true;
@@ -75,7 +75,7 @@ public class GameSettings : ScriptableObject
     }
 
     public int frameRate=30;
-     public float deltaTime = 1f / 30f;
+    public float deltaTime = 1f / 30f;
 
     public bool isDebug()
     {
@@ -95,8 +95,10 @@ public class GameSettings : ScriptableObject
        this.isDebugModel = UnityEditor.EditorPrefs.GetBool("isDebugModel", false);
        this.currentLanguage = UnityEditor.EditorPrefs.GetString("currentLanguage", SupportedLanguages.Chinese);
        this.isLoadRemoteAsset = UnityEditor.EditorPrefs.GetBool("isLoadRemoteAsset", false);
-        this._gameConfigUrl = UnityEditor.EditorPrefs.GetString("gameConfigUrl", "http://192.168.0.3:8080/gameconfig.xml");
-        this.localLua = UnityEditor.EditorPrefs.GetBool("isReadLocalLua", true);
+       this._gameConfigUrl = UnityEditor.EditorPrefs.GetString("gameConfigUrl", "http://192.168.0.3:8080/gameconfig.xml");
+       this.localLua = UnityEditor.EditorPrefs.GetBool("isReadLocalLua", true);
+       this.playMode=UnityEditor.EditorPrefs.GetString("playMode", GameEnum.PlayMode.SingleMode);
+
 #else
        this.currentLanguage = SupportedLanguages.GetCurrentLanguage();
        //非编辑器加载AssetBundle

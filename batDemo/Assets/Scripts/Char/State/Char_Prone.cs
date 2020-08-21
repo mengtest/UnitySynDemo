@@ -32,7 +32,7 @@ public class Char_Prone : State<Character>
         
     }
 
-    public override void OnEvent(int nEventID, object param)
+    public override void OnEvent(int nEventID, object[] param=null)
     {
     }
 

@@ -30,6 +30,20 @@ public class CharData : MonoBehaviour,IData
     public float PlaySpeed { get ; set ; }
 
 
+    //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
+    public int currentBaseActionType = 0;
+    public string currentBaseAction = GameEnum.ActionLabel.Stand;
+
+
+    //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
+    public int currentUpLayerActionType = 0;
+    public string currentUpLayerAction = GameEnum.ActionLabel.Null;
+
+
+    //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
+    public int currentAddLayerActionType = 0;
+    public string currentAddLayerAction =  GameEnum.ActionLabel.Null;
+
 
     //状态属性.........................
 

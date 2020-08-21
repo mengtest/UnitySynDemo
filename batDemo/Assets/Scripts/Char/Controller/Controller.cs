@@ -5,21 +5,21 @@
 public class Controller :PoolObj, IController
 {
     protected Character _char= null;
-
+    
     public Controller()
     {
         
     }
-    public  void  init(Character character){
+    public  virtual void  init(Character character){
         this._char=character;
     }
 
-    public  void sendMessage(int code, object[] param)
+    public  void SendMessage(int cmd, object[] param=null)
     {
-        if (this._char.isDead ||this._char.Target.isRecycled ) {
+        if (this._char==null||this._char.isRecycled) {
             return;
         }
-        this.OnMessage(code,param);
+        this._char.OnEvent(cmd,param);
     }
     public override void onRecycle()
     {
@@ -40,21 +40,17 @@ public class Controller :PoolObj, IController
     {
         
     }
-    public  virtual void OnMessage(int code, object[] param)
-    {
-
-    }
-    public  virtual void OnRelease_Fun()
+    protected  virtual void OnRelease_Fun()
     {
       
     }
     //回收.
-    public  virtual void OnRecycle_Fun()
+    protected  virtual void OnRecycle_Fun()
     {
       
     }
     //获取
-    public  virtual void OnGet_Fun()
+    protected  virtual void OnGet_Fun()
     {
       
     }

@@ -72,7 +72,7 @@ public class ObjBase : PoolObj
         //每次初始化 应该重置data.防止 数据 没清空.
          ObjData oldData=this.dataNode.GetComponent<ObjData>();
          if(oldData!=null){
-             GameObject.Destroy(oldData);
+             GameObject.DestroyImmediate(oldData);
          }
         this.objData = this.dataNode.AddComponent<ObjData>();
         this.objData.init(this,fixUpdate);
@@ -165,7 +165,7 @@ public class ObjBase : PoolObj
     public AniPart GetAniBasePart(){
         if(this.aniBasePart==null){
             this.aniBasePart=new AniPart();
-            this.aniBasePart.Init(this,0);
+            this.aniBasePart.Init(this,GameEnum.ActionLayer.BaseLayer);
         }
         return this.aniBasePart;
     }

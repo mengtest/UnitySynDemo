@@ -141,8 +141,7 @@ public class MovePart
         this.hasTarget = false;
         this._targetDirection=dir;
         this._targetDirection.Normalize();
-        this.targetPos.x = 0;
-        this.targetPos.y = 0;
+        this.targetPos.Set(0,0,0);
         this.target = null;
         this.moveStartTime = 0;
         this.extraMoveStartTime = 0;

@@ -74,7 +74,36 @@ public  class MenuItems
         GameSettings.Instance.currentLanguage = SupportedLanguages.English;
         UnityEditor.EditorPrefs.SetString("currentLanguage",  GameSettings.Instance.currentLanguage);
     }  
+//********************************PlayeMode************
 
+    [MenuItem("PlayeMode/"+GameEnum.PlayMode.SingleMode,true,200)]  
+    public static bool set_PlayeMode()  
+    {    
+         //设置模块
+        Menu.SetChecked("PlayeMode/"+GameEnum.PlayMode.SingleMode, GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode);
+        Menu.SetChecked("PlayeMode/"+GameEnum.PlayMode.MultiplayerMode, GameSettings.Instance.playMode == GameEnum.PlayMode.MultiplayerMode);
+        Menu.SetChecked("PlayeMode/"+GameEnum.PlayMode.ReplayMode, GameSettings.Instance.playMode ==GameEnum.PlayMode.ReplayMode);
+        return true;  
+    }
+
+    [MenuItem("PlayeMode/"+GameEnum.PlayMode.SingleMode)]  
+    public static void SwitchToSingleMode()  
+    { 
+        GameSettings.Instance.playMode = GameEnum.PlayMode.SingleMode;
+        UnityEditor.EditorPrefs.SetString("playMode",  GameSettings.Instance.playMode);
+    }  
+    [MenuItem("PlayeMode/"+GameEnum.PlayMode.MultiplayerMode)]  
+    public static void SwitchToMultiplayerMode()  
+    { 
+        GameSettings.Instance.playMode = GameEnum.PlayMode.MultiplayerMode;
+        UnityEditor.EditorPrefs.SetString("playMode",  GameSettings.Instance.playMode);
+    }  
+     [MenuItem("PlayeMode/"+GameEnum.PlayMode.ReplayMode)]  
+    public static void SwitchToReplayMode()  
+    { 
+        GameSettings.Instance.playMode = GameEnum.PlayMode.ReplayMode;
+        UnityEditor.EditorPrefs.SetString("playMode",  GameSettings.Instance.playMode);
+    }  
 
 //***********************************************character*****************************************************************************//
 

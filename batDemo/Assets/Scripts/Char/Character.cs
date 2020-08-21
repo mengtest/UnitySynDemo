@@ -14,6 +14,8 @@ public class Character : ObjBase
     protected AniPart aniAddPart=null;
     //baseLayer  整体动作.
     protected StateMachine<Character> m_FSM = null;
+    protected SkillPart skillPart=null;
+    public CharData charData=null;
     public Character()
     {
        // this.charType=ObjType.Character;
@@ -24,9 +26,10 @@ public class Character : ObjBase
         //每次初始化 应该重置data.防止 数据 没清空.
          CharData oldData=this.dataNode.GetComponent<CharData>();
          if(oldData!=null){
-             GameObject.Destroy(oldData);
+             GameObject.DestroyImmediate(oldData);
          }
         this.objData = this.dataNode.AddComponent<CharData>();
+        this.charData=this.objData as CharData;
         this.objData.init(this,fixUpdate);
     }
     //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
@@ -35,9 +38,12 @@ public class Character : ObjBase
         m_FSM.RegisterState(new Char_Idle(m_FSM));
         this.ChangeState(CharState.Char_Idle,null,false);
     }
-    protected void ChangeState(int charState, object param=null,bool checkDic=true)
+    public void ChangeState(int charState, object param=null,bool checkDic=true)
     {
         m_FSM.ChangeState(charState, param,checkDic);
+    }
+    public void OnEvent(int cmd, object[] param=null){
+        m_FSM.OnEvent(cmd,param);
     }
     public int GetCurStateID()
     {
@@ -84,27 +90,27 @@ public class Character : ObjBase
     public Controller GetCtrl(){
         return this.ctrl;
     }
-      public AniPart GetAniUpPart(){
+    public AniPart GetAniUpPart(){
         if(this.aniUpPart==null){
             this.aniUpPart=new AniPart();
-            this.aniUpPart.Init(this,1);
+            this.aniUpPart.Init(this,GameEnum.ActionLayer.UpLayer);
         }
         return this.aniUpPart;
     }
       public AniPart GetAniAddPart(){
         if(this.aniAddPart==null){
             this.aniAddPart=new AniPart();
-            this.aniAddPart.Init(this,2);
+            this.aniAddPart.Init(this,GameEnum.ActionLayer.AddLayer);
         }
         return this.aniAddPart;
     }
     public override bool hasAni(int layer=0){
        switch(layer){
-            case 0:
+            case GameEnum.ActionLayer.BaseLayer:
               return this.aniBasePart ==null ? false:true;
-            case 1:
+            case GameEnum.ActionLayer.UpLayer:
               return this.aniUpPart ==null ? false:true;
-            case 2:
+            case GameEnum.ActionLayer.AddLayer:
               return this.aniAddPart ==null ? false:true;
             default:
               return false;
@@ -112,37 +118,61 @@ public class Character : ObjBase
     }
     public override void pauseAni(int layer=0){
         switch(layer){
-            case 0:
+            case GameEnum.ActionLayer.BaseLayer:
               this.GetAniBasePart().pause();
             break;
-            case 1:
+            case GameEnum.ActionLayer.UpLayer:
               this.GetAniUpPart().pause();
             break;
-            case 2:
+            case GameEnum.ActionLayer.AddLayer:
               this.GetAniAddPart().pause();
             break;
         }
     }
     public override void resumeAni(int layer=0){
         switch(layer){
-            case 0:
+            case GameEnum.ActionLayer.BaseLayer:
               this.GetAniBasePart().resume();
             break;
-            case 1:
+            case  GameEnum.ActionLayer.UpLayer:
               this.GetAniUpPart().resume();
             break;
-            case 2:
+            case GameEnum.ActionLayer.AddLayer:
               this.GetAniAddPart().resume();
             break;
         }
     }
+    public SkillPart GetSkillPart(){
+        if(this.skillPart==null){
+            this.skillPart=new SkillPart();
+            this.skillPart.Init(this);
+        }
+        return this.skillPart;
+    }
+    //................................................................................  
+     #region 角色 所有动作命令..................
+    public void Do_Move(Vector3 dir){
+        //this.char.getSkillPart().targetDir.set(dir).normalizeSelf();
+         if(charData.currentBaseAction!=GameEnum.ActionLabel.Run){
+             this.doActionSkillByLabel(GameEnum.ActionLabel.Run);
+         }else{
+             this.GetMovePart().SetTargetDir(dir);
+         }
+    }
+    public void Do_StopMove(){
+          if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
+               this.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
+          }
+    }
+    #endregion 
+    //...............................................................................  
+   
 
     public bool doActionSkillByLabel(string actionLabel ,int frame=0,bool chkCancelLv=true,object[] param=null,int skillID=0){
            if(m_FSM==null) return false;
            if(!m_FSM.GetCurState().CanDoAction(actionLabel))return false;
-           //技能部件 判断动作 skillPart.doActionSkillByLabel();
           // ActionManager.instance.GetAction(actionLabel);
-           return true;
+           return this.GetSkillPart().doActionSkillByLabel(actionLabel,frame,chkCancelLv,param,skillID);
     }
 
     //回收.
@@ -161,6 +191,9 @@ public class Character : ObjBase
         if(this.aniAddPart!=null){
              this.aniAddPart.stop();
         }
+        if(this.skillPart!=null){
+            this.skillPart.Reset();
+        }
         if (m_FSM != null)
         {
             this.ChangeState(CharState.Char_Idle,null,false);
@@ -168,10 +201,14 @@ public class Character : ObjBase
         base.onRecycle();
      }
     public override void onRelease(){
+        this.charData=null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;
          }
+         if(this.skillPart!=null){
+            this.skillPart.Release();
+        }
         if(this.aniUpPart!=null){
               this.aniUpPart.Release();
              this.aniUpPart=null;

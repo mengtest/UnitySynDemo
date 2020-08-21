@@ -30,7 +30,7 @@ using System.Text;
 
         public abstract void Update(float dt) ;
 
-        public abstract void OnEvent(int nEventID, object param);
+        public abstract void OnEvent(int nEventID, object[] param=null);
 
         public abstract  bool CanDoAction(string ActionLabel);
 
@@ -139,7 +139,7 @@ using System.Text;
             }
         }
 
-        public void OnEvent(int nEventID, object param)
+        public void OnEvent(int nEventID, object[] param=null)
         {
             if (m_curState != null)
             {

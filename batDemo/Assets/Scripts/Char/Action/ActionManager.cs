@@ -6,7 +6,13 @@ using System.Collections;
 
 public class ActionManager 
 {
-    private  Dictionary<string, Type> _typeMap;
+    //代码 里注册的动作
+    private Dictionary<string, Type> _typeMap;
+    //代码 里注册的动作
+    private Dictionary<string,int> _actionLayerMap;
+    //代码 里注册的动作
+    private Dictionary<string,int> _actionCancelLvMap;
+    //XML 动态注册的动作.
     private Dictionary<string, ActionData> _actionDataMap;
     private static ActionManager s_Instance = null;
     public static ActionManager instance
@@ -23,9 +29,11 @@ public class ActionManager
     }
     public  void init()
     {
-        _typeMap = CreatMap();
+        _typeMap = new Dictionary<string, Type>();
+        _actionLayerMap= new Dictionary<string, int>();
         _actionDataMap=new Dictionary<string, ActionData>();
-
+        _actionCancelLvMap=new Dictionary<string, int>();
+        initClass();
     }
      /**
      * 解析 ActData
@@ -41,19 +49,46 @@ public class ActionManager
         }
         return null;
     }
-    private  Dictionary<string, Type> CreatMap()
+    //获得动作层级.
+    public int GetActionLayer(string actionLabel){
+       if(_actionLayerMap.ContainsKey(actionLabel)){
+           //代码已注册的.
+            return  _actionLayerMap[actionLabel];
+       }else{
+          //XML data的
+          if(this._actionDataMap.ContainsKey(actionLabel)){
+             return this._actionDataMap[actionLabel].actionLayer;
+          }else{
+              return 0;
+          }
+       }
+    }
+    //获得取消优先级
+    public int GetCancelPriority(string actionLabel){
+       if(_actionCancelLvMap.ContainsKey(actionLabel)){
+           //代码已注册的.
+            return  _actionCancelLvMap[actionLabel];
+       }else{
+          //XML data的
+          if(this._actionDataMap.ContainsKey(actionLabel)){
+             return this._actionDataMap[actionLabel].cancelPriority;
+          }else{
+              return 0;
+          }
+       }
+    }
+    private  void initClass()
     {
-        Hashtable map = new Hashtable();
-        _typeMap = new Dictionary<string, Type>();
-
-        registerClass(GameEnum.ActionLabel.CmdAction, typeof(CmdAction));
-
-        return _typeMap;
+        registerClass(GameEnum.ActionLabel.Stand, typeof(Stand),0,GameEnum.CancelPriority.Stand_Move_Null);
+        registerClass(GameEnum.ActionLabel.Run, typeof(Run),0,GameEnum.CancelPriority.Stand_Move_Null);
+        registerClass(GameEnum.ActionLabel.CmdAction, typeof(CmdAction),0,GameEnum.CancelPriority.Stand_Move_Null);
     }
 
-    private  void registerClass(string typeName, Type afc)
+    private  void registerClass(string actionLabel, Type afc,int Layer=0,int cancelPriority=0)
     {
-        _typeMap[typeName] = afc;
+        _typeMap[actionLabel] = afc;
+        _actionLayerMap[actionLabel]= Layer;
+        _actionCancelLvMap[actionLabel]=cancelPriority;
     }
 
     public  ActionBase GetAction(string actionLabel)

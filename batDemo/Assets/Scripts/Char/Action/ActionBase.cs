@@ -6,14 +6,14 @@
     public class ActionBase : PoolObj
     {
         //动作在SkillActionPool 中 存储的名称.. nan1@Skill_01 之类.
-       // public string name;
+        public string name;
 
         //当前使用技能对象;
         public  ObjBase obj;
         //技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
         public int actionType=0;
         // BaseLayer 0 UpLayer  1  AddLayer 2
-        public int actionLayer=0;
+        public int actionLayer=GameEnum.ActionLayer.BaseLayer;
 
         public float lengh =0;
         public float totalFrame =0;
@@ -40,14 +40,14 @@
         /*
         * 取消优先级限制 可在动作 不同时间段调整取消优先级; 技能是否能被其他技能取消; -1为不能被打断;
         */
-        public  int cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move;
+        public  int cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
         /**
         * 不变  默认 取消优先级;
         */
-        public int defultPriority=GameEnum.CancelPriority.Stand_Move;
+        public int defultPriority=GameEnum.CancelPriority.Stand_Move_Null;
 
-        // 初始化动画控制器
-        public virtual void Init(ObjBase obj)
+        // 初始化动作.
+        public virtual void InitAction(ObjBase obj)
         {
             this.obj=obj;
             this.speed=this.obj.objData.PlaySpeed;
