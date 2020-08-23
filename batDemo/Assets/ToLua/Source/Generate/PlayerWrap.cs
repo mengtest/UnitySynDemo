@@ -8,10 +8,15 @@ public class PlayerWrap
 	{
 		L.BeginClass(typeof(Player), typeof(Character));
 		L.RegFunction("init", init);
+		L.RegFunction("initAvatar", initAvatar);
+		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
+		L.RegFunction("ChangePart", ChangePart);
+		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
-		L.RegFunction("Release", Release);
+		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreatePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("avatar", get_avatar, set_avatar);
 		L.EndClass();
 	}
 
@@ -56,6 +61,90 @@ public class PlayerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int initAvatar(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			string arg0 = ToLua.CheckString(L, 2);
+			string[] arg1 = ToLua.CheckStringArray(L, 3);
+			obj.initAvatar(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChangeNodeObj(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				obj.ChangeNodeObj(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.ChangeNodeObj(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.ChangeNodeObj");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChangePart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			string arg0 = ToLua.CheckString(L, 2);
+			obj.ChangePart(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onGet(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.onGet();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int onRecycle(IntPtr L)
 	{
 		try
@@ -72,18 +161,56 @@ public class PlayerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Release(IntPtr L)
+	static int onRelease(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
-			obj.Release();
+			obj.onRelease();
 			return 0;
 		}
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_avatar(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			AvatarChar ret = obj.avatar;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index avatar on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_avatar(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			AvatarChar arg0 = (AvatarChar)ToLua.CheckObject<AvatarChar>(L, 2);
+			obj.avatar = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index avatar on a nil value");
 		}
 	}
 }

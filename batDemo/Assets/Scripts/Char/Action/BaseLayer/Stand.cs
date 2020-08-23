@@ -19,7 +19,7 @@
             base.InitAction(obj);
         }
          //动作进入
-        public override void GotoFrame(int frame=0,object param=null){
+        public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
              this.obj.GetMovePart().StopMove();
              //播放 站立动作.

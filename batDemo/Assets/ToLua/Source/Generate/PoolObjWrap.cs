@@ -10,6 +10,7 @@ public class PoolObjWrap
 		L.RegFunction("init", init);
 		L.RegFunction("recycleSelf", recycleSelf);
 		L.RegFunction("Release", Release);
+		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("New", _CreatePoolObj);
@@ -85,6 +86,22 @@ public class PoolObjWrap
 			ToLua.CheckArgsCount(L, 1);
 			PoolObj obj = (PoolObj)ToLua.CheckObject<PoolObj>(L, 1);
 			obj.Release();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onRelease(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			PoolObj obj = (PoolObj)ToLua.CheckObject<PoolObj>(L, 1);
+			obj.onRelease();
 			return 0;
 		}
 		catch (Exception e)

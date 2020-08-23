@@ -2,20 +2,21 @@
 using System;
 using LuaInterface;
 
-public class CharEventWrap
+public class GameEnum_PlayModeWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(CharEvent), typeof(System.Object));
-		L.RegFunction("New", _CreateCharEvent);
+		L.BeginClass(typeof(GameEnum.PlayMode), typeof(System.Object));
+		L.RegFunction("New", _CreateGameEnum_PlayMode);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("MOVE_END", get_MOVE_END, set_MOVE_END);
-		L.RegVar("Syn_NormalState", get_Syn_NormalState, set_Syn_NormalState);
+		L.RegVar("ReplayMode", get_ReplayMode, null);
+		L.RegVar("SingleMode", get_SingleMode, null);
+		L.RegVar("MultiplayerMode", get_MultiplayerMode, null);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int _CreateCharEvent(IntPtr L)
+	static int _CreateGameEnum_PlayMode(IntPtr L)
 	{
 		try
 		{
@@ -23,13 +24,13 @@ public class CharEventWrap
 
 			if (count == 0)
 			{
-				CharEvent obj = new CharEvent();
+				GameEnum.PlayMode obj = new GameEnum.PlayMode();
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: CharEvent.New");
+				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: GameEnum.PlayMode.New");
 			}
 		}
 		catch (Exception e)
@@ -39,11 +40,11 @@ public class CharEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_MOVE_END(IntPtr L)
+	static int get_ReplayMode(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, CharEvent.MOVE_END);
+			LuaDLL.lua_pushstring(L, GameEnum.PlayMode.ReplayMode);
 			return 1;
 		}
 		catch (Exception e)
@@ -53,11 +54,11 @@ public class CharEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_Syn_NormalState(IntPtr L)
+	static int get_SingleMode(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, CharEvent.Syn_NormalState);
+			LuaDLL.lua_pushstring(L, GameEnum.PlayMode.SingleMode);
 			return 1;
 		}
 		catch (Exception e)
@@ -67,28 +68,12 @@ public class CharEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_MOVE_END(IntPtr L)
+	static int get_MultiplayerMode(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			CharEvent.MOVE_END = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Syn_NormalState(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			CharEvent.Syn_NormalState = arg0;
-			return 0;
+			LuaDLL.lua_pushstring(L, GameEnum.PlayMode.MultiplayerMode);
+			return 1;
 		}
 		catch (Exception e)
 		{

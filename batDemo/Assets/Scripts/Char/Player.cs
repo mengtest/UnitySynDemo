@@ -29,6 +29,10 @@ public class Player : Character
         if(this.avatar=null)return; 
         this.avatar.Init(aniUrl,modelpaths,onBodyFin);
     }
+    public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
+        base.ChangeNodeObj(obj,resetPos);
+        this.avatar = this.node.AddComponent<AvatarChar>();
+    }
     //换装.
     public void ChangePart(string partPath){
         if(this.avatar=null)return; 
@@ -48,9 +52,11 @@ public class Player : Character
         m_FSM.RegisterState(new Char_HurtLinkBone(m_FSM)); //挂点中不可变羊.
         m_FSM.RegisterState(new Char_Polymorph(m_FSM));
         m_FSM.RegisterState(new Char_Dead(m_FSM));
-        this.ChangeState(CharState.Char_Idle,null,false);
     }
-
+     public override void onGet(){
+        base.onGet();
+        this.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,false);
+     }
     //回收.
      public override void onRecycle(){
         base.onRecycle();

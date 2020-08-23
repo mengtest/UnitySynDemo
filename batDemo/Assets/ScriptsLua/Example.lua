@@ -1,5 +1,5 @@
 ---@class Example
-local Example = {}
+Example = {}
 ---@return Example
 ---
 local AssetReqs;
@@ -7,9 +7,19 @@ local AssetReqs;
 --lua加载完毕后执行
 function Example.Start()
     --Example:Start()  Example.Start(this) 相同 self
+    Example.CreatPlayer();
     Example.openPanel();
   -- Example.LoadMonster();
   --     Example.testArray();
+end
+function Example.CreatPlayer()
+  Example.player= GameObject.FindGameObjectWithTag("Player");
+  log("player "..Example.player.name);
+ -- log("ObjType "..GameEnum.ObjType.Player);
+ -- log("CtrlType "..GameEnum.CtrlType.JoyCtrl);
+  Example.playerObj = GameLuaManager.CreatCharacter("player",Example.player);
+ -- Example.playerObj.moveSpeed=4;
+ --  Example.playerObj:GetMovePart().rotateSpeed=10;
 end
 function Example.Class()
 

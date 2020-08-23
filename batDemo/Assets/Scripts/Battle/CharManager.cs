@@ -17,17 +17,30 @@ public class CharManager  : MonoSingleton<CharManager>
        this._charOnList= this._characterPool.getOnList();
        
     }
-    public Character CreatCharacter(GameEnum.ObjType objType=GameEnum.ObjType.Character,string path="",GameEnum.CtrlType ctrlType=GameEnum.CtrlType.Null){
+    public Character CreatCharacter(string path="",GameObject obj=null,GameEnum.ObjType objType=GameEnum.ObjType.Player,GameEnum.CtrlType ctrlType=GameEnum.CtrlType.JoyCtrl){
         Character chars=null; 
         switch(objType){
             case GameEnum.ObjType.Character:
                 chars=this._characterPool.get<Character>(path);
+                if(obj!=null){
+                   chars.initView(obj);
+                }else{
+                   chars.initView();
+                }
             break;
             case GameEnum.ObjType.Monster:
-                 chars=this._characterPool.get<Monster>(path);
+                chars=this._characterPool.get<Monster>(path);
+                if(obj!=null){
+                   chars.initView(obj);
+                }else{
+                   chars.initView();
+                }
             break;
             case GameEnum.ObjType.Player:
                 chars=this._characterPool.get<Player>(path);
+                if(obj!=null){
+                   chars.initView(obj);
+                }
             break;
         }
         if(ctrlType!=GameEnum.CtrlType.Null){

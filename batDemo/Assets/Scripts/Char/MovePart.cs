@@ -3,6 +3,7 @@ using UnityEngine;
 /****
 移动基类
 ****/
+[AutoRegistLua]
 public class MovePart 
 {
     //移动的趋向（影响旋转）
@@ -15,9 +16,9 @@ public class MovePart
     public Vector3 forwardDirection= Vector3.zero;
 
     //是否面向移动.
-    public bool faceToRotation=false;
+    public bool faceToRotation=true;
       //扭矩 旋转速度 速度为0时立刻旋转 不计算转角速度; 7
-     public float rotateSpeed=7;
+     public float rotateSpeed=15;
 
     //移动点数  改变这个只可以加速(buff 增加速度等)或减速(中毒,被重击慢速移动等) 只对使用移动点数有效...;
     public float movePoint = 10000;
@@ -36,7 +37,7 @@ public class MovePart
     public Vector3 targetPos = Vector3.zero;
     private List<Vector3> targetPosList = new List<Vector3>(); //< 反序路径
     //当前速度
-    public float speed;
+    public float speed=0;
 
     public bool hasTarget;
     public float AcceleratedSpeed;
@@ -130,7 +131,7 @@ public class MovePart
     * 移动; 
     */
     public void InitSpeed() {
-        if ( this.speed > 0 && this.AcceleratedSpeed == 0) {
+        if ( this.speed == 0 && this.AcceleratedSpeed == 0) {
             this.speed = this.obj.moveSpeed;
         }
     }

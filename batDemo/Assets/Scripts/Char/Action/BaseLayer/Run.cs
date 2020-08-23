@@ -1,9 +1,11 @@
 ﻿//*************************************************************************
 //动作
 //*************************************************************************
- 
-    //动作
-    public class Run : ActionBase
+
+//动作
+using UnityEngine;
+
+public class Run : ActionBase
     {
         //单次创建.
         public override void init(){
@@ -19,13 +21,14 @@
             base.InitAction(obj);
         }
          //动作进入
-        public override void GotoFrame(int frame=0,object param=null){
+        public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
              this.obj.GetMovePart().StopMove();
              //播放 站立动作.
               //跑步 改变 动画属性.
-
-
+            DebugLog.Log("Run.........");
+                this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.run_fwd,frame,0.593f,1,0.25f,0,true);
+                 this.obj.GetMovePart().StartMove((Vector3)param[0]);
         }
 
          //动作更新;

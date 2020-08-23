@@ -14,8 +14,8 @@ public class Char_Idle : State<Character>
 
     private int standFrame=0;
 
-    private Vector2 _lastAngle=Vector2.zero;
-    private Vector3 worldDir=Vector3.zero;
+    private Vector3 _lastAngle=Vector3.zero;
+   // private Vector3 worldDir=Vector3.zero;
     private float _lastSendTime=0;
 
 
@@ -60,9 +60,10 @@ public class Char_Idle : State<Character>
         }
     }
     private void OnJoy_Move(object[] data=null){
-        Vector2 dirPos= (Vector2) data[0];
+        Vector3 dirPos= (Vector3) data[0];
         bool isRun= (bool) data[1];
-        if(dirPos.magnitude<=1){
+        bool canStop= (bool) data[2];
+        if(canStop){
             if(charData.currentBaseAction==GameEnum.ActionLabel.Run){
                 this.standFrame+=1;
                 if(this.standFrame>=4){
@@ -73,29 +74,25 @@ public class Char_Idle : State<Character>
             return;
         }
         if(charData.currentBaseAction==GameEnum.ActionLabel.Stand){
-                this._lastAngle=Vector2.zero;
+                this._lastAngle=Vector3.zero;
         }
-        if(this._lastAngle!= Vector2.zero){
+        if(this._lastAngle!= Vector3.zero){
             //攻击中 重新定位Dir
             // if (charData.isAttacking || charData.currentActionType > 0 || charData.currentNotActionType > 0) {
             //     this._lastAngle=Vector2.zero;
             // }
         }
-        if(charData.currentBaseActionType == 0 && (this._lastAngle == Vector2.zero || dirPos!=this._lastAngle) && Time.time - this._lastSendTime >= 60 ){
+    //          DebugLog.Log(Time.time);
+              //时间 先不要  && Time.time - this._lastSendTime >= 0.033f
+        if(charData.currentBaseActionType == 0 && (this._lastAngle == Vector3.zero || dirPos!=this._lastAngle)){
             this._lastAngle=dirPos;
-        //    console.log("onJoystickMove: " + this._lastAngle);
+       //     DebugLog.Log("onJoystickMove: " + this._lastAngle);
             //派发事件 帧同步;
-            Vector2 dir = dirPos.normalized;
-            Vector3 forward =CameraManager.Instance.mainCamera.transform.TransformDirection(Vector3.forward);
-            forward.y = 0.0f;
-            forward.Normalize();
-            Vector3 right = new Vector3(forward.z, 0, -forward.x);
-            worldDir = forward * dir.y + right * dir.x;
             
             // pos.rotate(CameraCtrl.Instance.cameraRotation/180*Math.PI,this.dirCamera);
             this._lastSendTime =Time.time;
             if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-                this._char.Do_Move(worldDir);
+                this._char.Do_Move(dirPos);
             } else {
                 CharData charD= this._char.objData as CharData;
                 if (charD.currentBaseActionType > 0 || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
@@ -103,7 +100,7 @@ public class Char_Idle : State<Character>
                 //     MGLog.l("move"); 发送移动事件.
                     ///  this.battleHandler.reportFrameCmdMoveMsg(
                 }else{
-                   this._char.Do_Move(worldDir);
+                   this._char.Do_Move(dirPos);
                 }
                 
             }

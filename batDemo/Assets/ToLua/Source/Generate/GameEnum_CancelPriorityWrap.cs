@@ -2,23 +2,23 @@
 using System;
 using LuaInterface;
 
-public class SystemEventWrap
+public class GameEnum_CancelPriorityWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(SystemEvent), typeof(System.Object));
-		L.RegFunction("New", _CreateSystemEvent);
+		L.BeginClass(typeof(GameEnum.CancelPriority), typeof(System.Object));
+		L.RegFunction("New", _CreateGameEnum_CancelPriority);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("LUA_INIT_COMPLETE", get_LUA_INIT_COMPLETE, set_LUA_INIT_COMPLETE);
-		L.RegVar("UI_HUD_ON_TOUCH_MOVE", get_UI_HUD_ON_TOUCH_MOVE, set_UI_HUD_ON_TOUCH_MOVE);
-		L.RegVar("UI_HUD_ON_JOYSTICK_MOVE", get_UI_HUD_ON_JOYSTICK_MOVE, set_UI_HUD_ON_JOYSTICK_MOVE);
-		L.RegVar("UI_HUD_ON_JOYSTICK_STOP_MOVE", get_UI_HUD_ON_JOYSTICK_STOP_MOVE, set_UI_HUD_ON_JOYSTICK_STOP_MOVE);
-		L.RegVar("UI_BAT_ON_SPRINT_STATE", get_UI_BAT_ON_SPRINT_STATE, set_UI_BAT_ON_SPRINT_STATE);
+		L.RegVar("CantDoAnyAction", get_CantDoAnyAction, set_CantDoAnyAction);
+		L.RegVar("Stand_Move_Null", get_Stand_Move_Null, set_Stand_Move_Null);
+		L.RegVar("BaseAction", get_BaseAction, set_BaseAction);
+		L.RegVar("NormalAction", get_NormalAction, set_NormalAction);
+		L.RegVar("SkillAction", get_SkillAction, set_SkillAction);
 		L.EndClass();
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int _CreateSystemEvent(IntPtr L)
+	static int _CreateGameEnum_CancelPriority(IntPtr L)
 	{
 		try
 		{
@@ -26,13 +26,13 @@ public class SystemEventWrap
 
 			if (count == 0)
 			{
-				SystemEvent obj = new SystemEvent();
+				GameEnum.CancelPriority obj = new GameEnum.CancelPriority();
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: SystemEvent.New");
+				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: GameEnum.CancelPriority.New");
 			}
 		}
 		catch (Exception e)
@@ -42,11 +42,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_LUA_INIT_COMPLETE(IntPtr L)
+	static int get_CantDoAnyAction(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.LUA_INIT_COMPLETE);
+			LuaDLL.lua_pushinteger(L, GameEnum.CancelPriority.CantDoAnyAction);
 			return 1;
 		}
 		catch (Exception e)
@@ -56,11 +56,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UI_HUD_ON_TOUCH_MOVE(IntPtr L)
+	static int get_Stand_Move_Null(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.UI_HUD_ON_TOUCH_MOVE);
+			LuaDLL.lua_pushinteger(L, GameEnum.CancelPriority.Stand_Move_Null);
 			return 1;
 		}
 		catch (Exception e)
@@ -70,11 +70,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UI_HUD_ON_JOYSTICK_MOVE(IntPtr L)
+	static int get_BaseAction(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.UI_HUD_ON_JOYSTICK_MOVE);
+			LuaDLL.lua_pushinteger(L, GameEnum.CancelPriority.BaseAction);
 			return 1;
 		}
 		catch (Exception e)
@@ -84,11 +84,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UI_HUD_ON_JOYSTICK_STOP_MOVE(IntPtr L)
+	static int get_NormalAction(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE);
+			LuaDLL.lua_pushinteger(L, GameEnum.CancelPriority.NormalAction);
 			return 1;
 		}
 		catch (Exception e)
@@ -98,11 +98,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UI_BAT_ON_SPRINT_STATE(IntPtr L)
+	static int get_SkillAction(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.UI_BAT_ON_SPRINT_STATE);
+			LuaDLL.lua_pushinteger(L, GameEnum.CancelPriority.SkillAction);
 			return 1;
 		}
 		catch (Exception e)
@@ -112,12 +112,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_LUA_INIT_COMPLETE(IntPtr L)
+	static int set_CantDoAnyAction(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.LUA_INIT_COMPLETE = arg0;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GameEnum.CancelPriority.CantDoAnyAction = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -127,12 +127,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_UI_HUD_ON_TOUCH_MOVE(IntPtr L)
+	static int set_Stand_Move_Null(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.UI_HUD_ON_TOUCH_MOVE = arg0;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GameEnum.CancelPriority.Stand_Move_Null = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -142,12 +142,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_UI_HUD_ON_JOYSTICK_MOVE(IntPtr L)
+	static int set_BaseAction(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.UI_HUD_ON_JOYSTICK_MOVE = arg0;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GameEnum.CancelPriority.BaseAction = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -157,12 +157,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_UI_HUD_ON_JOYSTICK_STOP_MOVE(IntPtr L)
+	static int set_NormalAction(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE = arg0;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GameEnum.CancelPriority.NormalAction = arg0;
 			return 0;
 		}
 		catch (Exception e)
@@ -172,12 +172,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_UI_BAT_ON_SPRINT_STATE(IntPtr L)
+	static int set_SkillAction(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.UI_BAT_ON_SPRINT_STATE = arg0;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			GameEnum.CancelPriority.SkillAction = arg0;
 			return 0;
 		}
 		catch (Exception e)

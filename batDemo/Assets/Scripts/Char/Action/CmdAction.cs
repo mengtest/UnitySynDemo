@@ -185,7 +185,7 @@ public class CmdAction: ActionBase
  * @param frame 
  * @param param param:number previousFrame 从第几帧开始计算帧 
  */
-    public override void Begin(int frame=0,object param=null) {
+    public override void Begin(int frame=0,object[] param=null) {
         //   this. cancelPriorityLimit = -1;
         //帧计数归0
         frame = frame == -1 ? 0 : frame;
@@ -196,12 +196,12 @@ public class CmdAction: ActionBase
     * @param frame 从第几帧开始执行
     * @param param 参数 number previousFrame 从第几帧开始计算帧 
     */
-    public override void GotoFrame(int frame=0,object param=null) {
+    public override void GotoFrame(int frame=0,object[] param=null) {
         this.currentFrame = frame;
         //执行action初始方法
         //  this.executeActionFunctionCommand(this.startActionFunctions);
         if(param!=null){
-            this._previousFrameIndex = (int)param-1;
+            this._previousFrameIndex = (int)param[0]-1;
         }else{
             this._previousFrameIndex = frame-1;
         }

@@ -67,7 +67,7 @@
                 }
             }
         }
-        public virtual void Begin(int frame=0,object param=null){
+        public virtual void Begin(int frame=0,object[] param=null){
 
         //   this. cancelPriorityLimit = -1;
             //帧计数归0
@@ -76,7 +76,7 @@
 
         }
 
-        public virtual void GotoFrame(int frame=0,object param=null){
+        public virtual void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
 
         }

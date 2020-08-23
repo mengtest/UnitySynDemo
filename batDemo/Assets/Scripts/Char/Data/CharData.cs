@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using GameEnum;
 using UnityEngine;
 
 //角色数据..同步数据也写在这
@@ -11,6 +10,7 @@ public class CharData : MonoBehaviour,IData
     private Action _onFixUpdate; 
     
     public int pvpId;
+    public CtrlType ctrlType=CtrlType.Null;
 
     //状态属性.......................
     public bool isLie = false;

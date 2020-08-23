@@ -7,11 +7,25 @@ public class CharacterWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(Character), typeof(ObjBase));
+		L.RegFunction("initData", initData);
+		L.RegFunction("ChangeState", ChangeState);
+		L.RegFunction("OnEvent", OnEvent);
+		L.RegFunction("GetCurStateID", GetCurStateID);
 		L.RegFunction("GetCtrl", GetCtrl);
+		L.RegFunction("GetAniUpPart", GetAniUpPart);
+		L.RegFunction("GetAniAddPart", GetAniAddPart);
+		L.RegFunction("hasAni", hasAni);
+		L.RegFunction("pauseAni", pauseAni);
+		L.RegFunction("resumeAni", resumeAni);
+		L.RegFunction("GetSkillPart", GetSkillPart);
+		L.RegFunction("Do_Move", Do_Move);
+		L.RegFunction("Do_StopMove", Do_StopMove);
+		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
 		L.RegFunction("onRecycle", onRecycle);
-		L.RegFunction("Release", Release);
+		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreateCharacter);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("charData", get_charData, set_charData);
 		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.EndClass();
 	}
@@ -41,6 +55,114 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int initData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.initData();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChangeState(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				obj.ChangeState(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				obj.ChangeState(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				object arg1 = ToLua.ToVarObject(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				obj.ChangeState(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.ChangeState");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnEvent(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				obj.OnEvent(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				object[] arg1 = ToLua.CheckObjectArray(L, 3);
+				obj.OnEvent(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.OnEvent");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetCurStateID(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			int o = obj.GetCurStateID();
+			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetCtrl(IntPtr L)
 	{
 		try
@@ -50,6 +172,253 @@ public class CharacterWrap
 			Controller o = obj.GetCtrl();
 			ToLua.PushObject(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetAniUpPart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			AniPart o = obj.GetAniUpPart();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetAniAddPart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			AniPart o = obj.GetAniAddPart();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int hasAni(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				bool o = obj.hasAni();
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				bool o = obj.hasAni(arg0);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.hasAni");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int pauseAni(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				obj.pauseAni();
+				return 0;
+			}
+			else if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				obj.pauseAni(arg0);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.pauseAni");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int resumeAni(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				obj.resumeAni();
+				return 0;
+			}
+			else if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				obj.resumeAni(arg0);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.resumeAni");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetSkillPart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			SkillPart o = obj.GetSkillPart();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Do_Move(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.Do_Move(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Do_StopMove(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.Do_StopMove();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int doActionSkillByLabel(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				bool o = obj.doActionSkillByLabel(arg0);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool o = obj.doActionSkillByLabel(arg0, arg1);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				object[] arg3 = ToLua.CheckObjectArray(L, 5);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2, arg3);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				object[] arg3 = ToLua.CheckObjectArray(L, 5);
+				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2, arg3, arg4);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.doActionSkillByLabel");
+			}
 		}
 		catch (Exception e)
 		{
@@ -74,18 +443,37 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Release(IntPtr L)
+	static int onRelease(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.Release();
+			obj.onRelease();
 			return 0;
 		}
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_charData(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Character obj = (Character)o;
+			CharData ret = obj.charData;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index charData on a nil value");
 		}
 	}
 
@@ -105,6 +493,25 @@ public class CharacterWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_charData(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Character obj = (Character)o;
+			CharData arg0 = (CharData)ToLua.CheckObject<CharData>(L, 2);
+			obj.charData = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index charData on a nil value");
 		}
 	}
 

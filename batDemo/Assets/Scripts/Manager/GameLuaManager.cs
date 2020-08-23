@@ -32,6 +32,11 @@ public class GameLuaManager
         }
 
     }
+
+     public static Character CreatCharacter(string path="",GameObject obj=null){
+        return CharManager.Instance.CreatCharacter(path,obj);
+     }
+
 #if UNITY_EDITOR
     public static string GetProtoBytesPath()
     {

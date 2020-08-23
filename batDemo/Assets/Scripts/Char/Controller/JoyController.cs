@@ -15,6 +15,7 @@ public class JoyController : Controller
     public void  OnJoyMove(object[] data){
         if(data==null)return;
         this.onJoyTouch=true;
+        
         this.SendMessage(GameEnum.ControllerCmd.OnJoy_Move,data);
     }
     public void  OnJoyUp(object[] data=null){

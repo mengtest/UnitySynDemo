@@ -23,7 +23,7 @@ public class ObjBase : PoolObj
     //半径 如果是点 半径可以是0
     public float radius=0f;
     //移动速度1秒. 
-     public float moveSpeed=6;
+     public float moveSpeed=5;
     //  //最大速度;
     // public  float maxMoveSpeed = -1;
       //重量....体重...
@@ -66,7 +66,7 @@ public class ObjBase : PoolObj
         }
         this.node.name=this._name;
 
-        this.initView(poolname);
+       // this.initView(poolname);
     }
     public virtual void initData(){
         //每次初始化 应该重置data.防止 数据 没清空.
@@ -77,12 +77,16 @@ public class ObjBase : PoolObj
         this.objData = this.dataNode.AddComponent<ObjData>();
         this.objData.init(this,fixUpdate);
     }
-    //显示类可重写.
+    //显示类可重写. 初始化显示对象.
     public virtual void initView(string prefabPath=""){
         if(this.poolname == prefabPath){
             return;
         }
-        this.poolname=prefabPath;
+        if(prefabPath==""){
+            prefabPath=this.poolname;
+        }else{
+            this.poolname=prefabPath;
+        }
         if(_viewReqs!=null){
             _viewReqs.Unload();
             _viewReqs=null;
@@ -94,18 +98,28 @@ public class ObjBase : PoolObj
             _viewReqs=null;
         }
     }
+    //初始化 替换显示对象.
+    public virtual void initView(GameObject obj){
+        if(_viewReqs!=null){
+                _viewReqs.Unload();
+                _viewReqs=null;
+        }
+        this.ChangeNodeObj(obj,false);
+        if(this.isRecycled){
+                 this.node.SetActive(false);
+        }
+        this.initViewFin=true;
+        onViewLoadFin();
+    }
+
     private void onViewloaded(UnityEngine.Object[] objs){
        if(this.isDestory){
            return; 
        }
        if (objs.Length>0){
            //替换node.
-            GameObject cc= this.node;
-            this.node = GameObject.Instantiate(objs[0]) as GameObject;
-            this.node.transform.SetPositionAndRotation(cc.transform.position,cc.transform.rotation);
-            this.node.name=this._name;
-
-            GameObject.Destroy(cc);
+            GameObject newObj= GameObject.Instantiate(objs[0]) as GameObject;
+            this.ChangeNodeObj(newObj);
 
             if (GameSettings.Instance.useAssetBundle)
             {
@@ -117,6 +131,17 @@ public class ObjBase : PoolObj
             this.initViewFin=true;
             onViewLoadFin();
         }
+    }
+    public virtual void ChangeNodeObj(GameObject obj,bool resetPos=true){
+        GameObject cc= this.node;
+        this.node =obj;
+        if(resetPos){
+            this.node.transform.SetPositionAndRotation(cc.transform.position,cc.transform.rotation);
+        }
+        this.node.name=this._name;
+        this.dataNode.transform.parent=this.node.gameObject.transform;
+        this.dataNode.transform.localPosition=Vector3.zero;
+        GameObject.Destroy(cc);
     }
     public virtual void onViewLoadFin(){
         

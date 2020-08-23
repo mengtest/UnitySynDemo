@@ -10,6 +10,7 @@ public class GameLuaManagerWrap
 		L.RegFunction("LoadAsset", LoadAsset);
 		L.RegFunction("SetLogSwitcher", SetLogSwitcher);
 		L.RegFunction("RefreshShader", RefreshShader);
+		L.RegFunction("CreatCharacter", CreatCharacter);
 		L.RegFunction("GetProtoBytesPath", GetProtoBytesPath);
 		L.RegFunction("AddScrollViewOnValueChangeListener", AddScrollViewOnValueChangeListener);
 		L.RegFunction("New", _CreateGameLuaManager);
@@ -105,6 +106,45 @@ public class GameLuaManagerWrap
 			GameLuaManager.RefreshShader(ref arg0);
 			ToLua.PushSealed(L, arg0);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreatCharacter(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 0)
+			{
+				Character o = GameLuaManager.CreatCharacter();
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 1)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				Character o = GameLuaManager.CreatCharacter(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.GameObject arg1 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				Character o = GameLuaManager.CreatCharacter(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: GameLuaManager.CreatCharacter");
+			}
 		}
 		catch (Exception e)
 		{

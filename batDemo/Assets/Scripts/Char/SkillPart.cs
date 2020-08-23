@@ -170,62 +170,44 @@ using UnityEngine;
         public bool chkCancelLvActionSkill(string actionLabel) {
             int layer= ActionManager.instance.GetActionLayer(actionLabel);
             ActionBase currentAction=null;
+           int currentActionType=0;
             switch(layer){
                 case GameEnum.ActionLayer.BaseLayer:
                      currentAction=this.currentBaseAction;
+                     currentActionType=this._char.charData.currentBaseActionType;
                    break;
                 case GameEnum.ActionLayer.UpLayer:
                      currentAction=this.currentUpAction;
+                    currentActionType=this._char.charData.currentUpLayerActionType;
                    break;
                 case GameEnum.ActionLayer.AddLayer:
                      currentAction=this.currentAddAction;
+                    currentActionType=this._char.charData.currentAddLayerActionType;
                    break;
                 default:
-                    return true;
+                   break;
             }
-
-            return true;
-            // if (this.currentAction == null) {
-            //     return true;
-            // }
-            // //各种状态不能切换动作；
-            // if (this._char.charData.noAction) {
-            //     if (actionLabel == ActionLabel.Stand||actionLabel==ActionLabel.Dead||actionLabel==ActionLabel.DeadSummoner||actionLabel == ActionLabel.BackOff||actionLabel==ActionLabel.DeadMonster){
-            //         return true;
-            //     }
-            //     return false
-            // } else if (this._char.charData.isLink) {
-            //     return false;
-            // }
-            // if (this._char.charData.currentActionType == 0) {
-            //     return true;
-            // }
-            // //    console.log("currentAction.cancelPriorityLimit  ",this.currentAction.cancelPriorityLimit,this.currentAction.actionLabel);
-            // if (this.currentAction.cancelPriorityLimit >= 0) {
-            //     if (actionLabel != ActionLabel.Run && this.skillList.chkSkillisCding(actionLabel)) {
-            //         return false;
-            //     }
-            //     let needrecycle: boolean = false;
-            //     if (linkAction == null) {
-            //         linkAction = ActionManager.Get().GetAction(actionLabel);
-            //         needrecycle = true;
-            //     }
-            // //   console.log("linkAction.cancelPriorityLimit  ",linkAction.cancelPriorityLimit,linkAction.actionLabel);
-            //     if (linkAction.cancelPriorityLimit > this.currentAction.cancelPriorityLimit) {
-            //         if (needrecycle) {
-            //             linkAction.recycleSelf();
-            //         } else {
-            //             linkAction = null;
-            //         }
-            //         return true;
-            //     }
-            //     if (needrecycle) {
-            //         linkAction.recycleSelf();
-            //     } else {
-            //         linkAction = null;
-            //     }
-            // }
-            // return false;
+            if (currentAction == null) {
+                return true;
+            }
+            if (currentActionType == 0) {
+                 return true;
+            }
+            if(this._char.charData.isLink){
+                return false;
+            }
+            //    console.log("currentAction.cancelPriorityLimit  ",this.currentAction.cancelPriorityLimit,this.currentAction.actionLabel);
+            if (currentAction.cancelPriorityLimit >= 0) {
+                // if (actionLabel != GameEnum.ActionLabel.Run && this.skillList.chkSkillisCding(actionLabel)) {
+                //     return false;
+                // }
+                int N_cancelPriorityLimit =ActionManager.instance.GetCancelPriority(actionLabel);
+            //   console.log("linkAction.cancelPriorityLimit  ",linkAction.cancelPriorityLimit,linkAction.actionLabel);
+                if (N_cancelPriorityLimit > currentAction.cancelPriorityLimit) {
+                    return true;
+                }
+            }
+            return false;
         }
         public void clearAction(bool switchAction=false) {
            if (this.currentBaseAction != null) {

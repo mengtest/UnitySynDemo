@@ -15,6 +15,7 @@ public static class LuaBinder
 		ThirdPersonCameraCtrlWrap.Register(L);
 		CharacterWrap.Register(L);
 		MonsterWrap.Register(L);
+		MovePartWrap.Register(L);
 		PlayerWrap.Register(L);
 		UtilsWrap.Register(L);
 		DoTweenWrap.Register(L);
@@ -202,6 +203,16 @@ public static class LuaBinder
 		L.EndModule();
 		L.BeginModule("TcpSocket");
 		TcpSocket_TcpSocketClientWrap.Register(L);
+		L.EndModule();
+		L.BeginModule("GameEnum");
+		GameEnum_ControllerCmdWrap.Register(L);
+		GameEnum_PlayModeWrap.Register(L);
+		GameEnum_CtrlTypeWrap.Register(L);
+		GameEnum_ObjTypeWrap.Register(L);
+		GameEnum_CancelPriorityWrap.Register(L);
+		GameEnum_CharStateWrap.Register(L);
+		GameEnum_ActionLabelWrap.Register(L);
+		GameEnum_ActionLayerWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("UIEventListener");
 		L.RegFunction("VoidDelegate", UIEventListener_VoidDelegate);

@@ -30,6 +30,7 @@ Image           = UnityEngine.UI.Image
 PlayerPrefs     = UnityEngine.PlayerPrefs
 CanvasGroup     = UnityEngine.CanvasGroup
 
+
 ---游戏常用
 ---@class GameAssetRequest
 AssetRequest = GameAssetRequest
@@ -49,7 +50,6 @@ require("Common.CallbackSequence");
 
 require("GameSet");
 require("Data.DataInit");
-
 
 --管理者类.
 require("Manager.TweenManager");

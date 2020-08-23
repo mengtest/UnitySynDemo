@@ -184,7 +184,7 @@ public class GameMain : MonoSingleton<GameMain> {
         //TODO: 关闭加载界面.
        //  CanvasGroup canvas= gameObject.GetComponent<CanvasGroup>();
     //     gameObject.SetActive
-      // yield return  GameExample.Instance.testPool();
+   //    yield return  GameExample.Instance.testPool();
         
     }
     #if !UNITY_EDITOR

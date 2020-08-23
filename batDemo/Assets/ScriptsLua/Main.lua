@@ -19,9 +19,10 @@ function Main.Start(str)
   
     Main.initManager();
 
+    
     ---@type Example
-    local exam= require("Example");
-    exam.Start();
+    require("Example");
+    Example.Start();
 end
 
 

@@ -21,6 +21,7 @@ public class GameExample : SingletonT<GameExample> {
        Character char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
         Character  char2 =  CharManager.Instance.CharPool.get<Character>("char_A");
        Monster monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+    //     Player player =   CharManager.Instance.CharPool.get<Player>("player_B");
        yield return new WaitForSeconds(5);
        char1.recycleSelf();
 
@@ -37,6 +38,9 @@ public class GameExample : SingletonT<GameExample> {
             char1.recycleSelf();
              monster1.recycleSelf();
               char2.recycleSelf();
+
+      //       Character player2 =  CharManager.Instance.CreatCharacter("player",null);
+
     }
 
 

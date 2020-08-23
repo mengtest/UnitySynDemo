@@ -12,6 +12,18 @@ Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 --自动生成-------------------------------------------
 ---添加UI引用.
 function Hud_RightBtnArea:OnUIInit()
+    ---@type UnityEngine.UI.Text
+    self.RotateText=self:SubGet("Test/RotateText","Text")
+    ---@type UnityEngine.UI.Button
+    self.subRotate=self:SubGet("Test/subRotate","Button")
+    ---@type UnityEngine.UI.Button
+    self.addRotate=self:SubGet("Test/addRotate","Button")
+    ---@type UnityEngine.UI.Text
+    self.SpeedText=self:SubGet("Test/SpeedText","Text")
+    ---@type UnityEngine.UI.Button
+    self.subSpeed=self:SubGet("Test/subSpeed","Button")
+    ---@type UnityEngine.UI.Button
+    self.addSpeed=self:SubGet("Test/addSpeed","Button")
     ---@type UnityEngine.RectTransform
     self.FreeSeeBtn=self:Find("FreeSeeBtn")
     ---@type UnityEngine.UI.Button
@@ -26,13 +38,18 @@ end
 
 ---移除UI引用.
 function Hud_RightBtnArea:OnUIDestory()
+self.RotateText=nil
+self.subRotate=nil
+self.addRotate=nil
+self.SpeedText=nil
+self.subSpeed=nil
+self.addSpeed=nil
 self.FreeSeeBtn=nil
 self.FireBtn=nil
 self.Image=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
 end
-
 
 
 --自动生成-----------end------------------------------
@@ -48,6 +65,9 @@ end
 -----UI加载完成---------
 function Hud_RightBtnArea:OnInit(param)
     self._isSprinting=false;
+
+    self.RotateText.text= Example.playerObj:GetMovePart().rotateSpeed;
+    self.SpeedText.text= Example.playerObj.moveSpeed;
 end
 
 function Hud_RightBtnArea:OnSprintClick(obj)
@@ -63,6 +83,34 @@ function Hud_RightBtnArea:OnSprintState(isSprinting)
     self.SprintBtn.enabled = not self._isSprinting;
 end
 
+
+function Hud_RightBtnArea:OnSpeedUp(obj)
+    local sp=Example.playerObj.moveSpeed;
+    sp =(math.floor(sp*100)+10)*0.01;
+    log(sp);
+    Example.playerObj.moveSpeed=sp
+    self.SpeedText.text= sp;
+end
+function Hud_RightBtnArea:OnSpeedDown(obj)
+    local sp=Example.playerObj.moveSpeed;
+    sp =(math.floor(sp*100)-10)*0.01;
+    log(sp);
+    Example.playerObj.moveSpeed=sp
+    self.SpeedText.text= sp;
+end
+function Hud_RightBtnArea:OnRotateUp(obj)
+    local sp=Example.playerObj:GetMovePart().rotateSpeed;
+    sp =sp+0.5;
+    Example.playerObj:GetMovePart().rotateSpeed=sp;
+    self.RotateText.text= sp;
+end
+function Hud_RightBtnArea:OnRotateDown(obj)
+    local sp=Example.playerObj:GetMovePart().rotateSpeed;
+    sp =sp-0.5;
+    Example.playerObj:GetMovePart().rotateSpeed=sp;
+    self.RotateText.text=sp;
+end
+
 function Hud_RightBtnArea:OnDestory()
     --记得nil移除变量
 end
@@ -70,10 +118,20 @@ end
 
 function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = function(obj)  self:OnSprintClick(obj) end
+
+    UIEventListener.Get(self.addSpeed.gameObject).onClick = function(obj)  self:OnSpeedUp(obj) end
+    UIEventListener.Get(self.subSpeed.gameObject).onClick = function(obj)  self:OnSpeedDown(obj) end
+    UIEventListener.Get(self.addRotate.gameObject).onClick = function(obj)  self:OnRotateUp(obj) end
+    UIEventListener.Get(self.subRotate.gameObject).onClick = function(obj)  self:OnRotateDown(obj) end
 end
 
 function Hud_RightBtnArea:RemoveListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
+
+    UIEventListener.Get(self.addSpeed.gameObject).onClick = nil
+    UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
+    UIEventListener.Get(self.addRotate.gameObject).onClick = nil
+    UIEventListener.Get(self.subRotate.gameObject).onClick = nil
 end
 
 function Hud_RightBtnArea:Update()

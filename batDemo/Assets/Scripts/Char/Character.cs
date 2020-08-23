@@ -6,7 +6,6 @@ using GameEnum;
 [AutoRegistLua]
 public class Character : ObjBase
 {
-    private CtrlType _ctrlType=CtrlType.Null;
     protected Controller ctrl=null;
     //1  Uplayer层 动画控件 上半身动作层
     protected AniPart aniUpPart=null;
@@ -31,12 +30,12 @@ public class Character : ObjBase
         this.objData = this.dataNode.AddComponent<CharData>();
         this.charData=this.objData as CharData;
         this.objData.init(this,fixUpdate);
+        this.ChangeState(CharState.Char_Idle,null,false);
     }
     //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
     protected virtual void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
-        this.ChangeState(CharState.Char_Idle,null,false);
     }
     public void ChangeState(int charState, object param=null,bool checkDic=true)
     {
@@ -55,15 +54,15 @@ public class Character : ObjBase
     }
     public CtrlType ctrlType{ 
         get{ 
-            return _ctrlType;
+            return charData.ctrlType;
         }
         set {
-           if(_ctrlType!=value){
-               _ctrlType=value;
+           if(charData.ctrlType!=value){
+               charData.ctrlType=value;
                if(ctrl!=null){
                    ctrl.recycleSelf();
                }
-               ctrl=CtrlManager.Instance.getController(this._ctrlType);
+               ctrl=CtrlManager.Instance.getController(charData.ctrlType);
                if(ctrl!=null){
                  ctrl.init(this);
                }
@@ -154,15 +153,18 @@ public class Character : ObjBase
     public void Do_Move(Vector3 dir){
         //this.char.getSkillPart().targetDir.set(dir).normalizeSelf();
          if(charData.currentBaseAction!=GameEnum.ActionLabel.Run){
-             this.doActionSkillByLabel(GameEnum.ActionLabel.Run);
+             this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
          }else{
+     //         DebugLog.Log("SetTargetDir");
              this.GetMovePart().SetTargetDir(dir);
          }
+    //     DebugLog.Log("move");
     }
     public void Do_StopMove(){
           if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
                this.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
           }
+        DebugLog.Log("StopMove");
     }
     #endregion 
     //...............................................................................  
@@ -177,7 +179,7 @@ public class Character : ObjBase
 
     //回收.
      public override void onRecycle(){
-         _ctrlType=CtrlType.Null;
+         charData.ctrlType=CtrlType.Null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;

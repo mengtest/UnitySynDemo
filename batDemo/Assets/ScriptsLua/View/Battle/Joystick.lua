@@ -151,7 +151,16 @@ function Joystick:OnDrag(eventData)
       self.SprintOn.enabled=false;
       self:SetSprint(false);
     end
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{localPosition,isRun});
+
+    local dir= localPosition.normalized;
+    local forward =CameraManager.Instance.mainCamera.transform:TransformDirection(Vector3.forward);
+    forward.y = 0;
+    forward=forward.normalized;
+    local right = Vector3(forward.z, 0, -forward.x);
+    local worldDir = forward * dir.y + right * dir.x;
+    local canStop=false;
+    if radius<=10 then  canStop=true end;
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{worldDir,isRun,canStop});
 end
 
 function Joystick:OnUp(eventData)

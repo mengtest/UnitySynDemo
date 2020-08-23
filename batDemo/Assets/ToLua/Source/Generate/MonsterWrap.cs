@@ -7,9 +7,9 @@ public class MonsterWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(Monster), typeof(Character));
-		L.RegFunction("initView", initView);
+		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("onRecycle", onRecycle);
-		L.RegFunction("Release", Release);
+		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreateMonster);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -40,29 +40,14 @@ public class MonsterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int initView(IntPtr L)
+	static int onViewLoadFin(IntPtr L)
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 1)
-			{
-				Monster obj = (Monster)ToLua.CheckObject<Monster>(L, 1);
-				obj.initView();
-				return 0;
-			}
-			else if (count == 2)
-			{
-				Monster obj = (Monster)ToLua.CheckObject<Monster>(L, 1);
-				string arg0 = ToLua.CheckString(L, 2);
-				obj.initView(arg0);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Monster.initView");
-			}
+			ToLua.CheckArgsCount(L, 1);
+			Monster obj = (Monster)ToLua.CheckObject<Monster>(L, 1);
+			obj.onViewLoadFin();
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -87,13 +72,13 @@ public class MonsterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Release(IntPtr L)
+	static int onRelease(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Monster obj = (Monster)ToLua.CheckObject<Monster>(L, 1);
-			obj.Release();
+			obj.onRelease();
 			return 0;
 		}
 		catch (Exception e)
