@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-08-06 16:55:42
+LastEditTime: 2020-08-24 22:35:36
 --]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
@@ -87,14 +87,14 @@ end
 function Hud_RightBtnArea:OnSpeedUp(obj)
     local sp=Example.playerObj.moveSpeed;
     sp =(math.floor(sp*100)+10)*0.01;
-    log(sp);
+  --  log(sp);
     Example.playerObj.moveSpeed=sp
     self.SpeedText.text= sp;
 end
 function Hud_RightBtnArea:OnSpeedDown(obj)
     local sp=Example.playerObj.moveSpeed;
     sp =(math.floor(sp*100)-10)*0.01;
-    log(sp);
+   --- log(sp);
     Example.playerObj.moveSpeed=sp
     self.SpeedText.text= sp;
 end

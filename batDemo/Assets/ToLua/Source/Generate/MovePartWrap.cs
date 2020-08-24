@@ -26,6 +26,7 @@ public class MovePartWrap
 		L.RegFunction("startFollowTarget", startFollowTarget);
 		L.RegFunction("SetFollowTarget", SetFollowTarget);
 		L.RegFunction("cancelFollowTarget", cancelFollowTarget);
+		L.RegFunction("SetRotationImm", SetRotationImm);
 		L.RegFunction("changeDir", changeDir);
 		L.RegFunction("startMoveToByListWithReverseList", startMoveToByListWithReverseList);
 		L.RegFunction("Dispose", Dispose);
@@ -411,6 +412,23 @@ public class MovePartWrap
 			ToLua.CheckArgsCount(L, 1);
 			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
 			obj.cancelFollowTarget();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetRotationImm(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetRotationImm(arg0);
 			return 0;
 		}
 		catch (Exception e)

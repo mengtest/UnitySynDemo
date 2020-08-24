@@ -14,12 +14,14 @@ function Example.Start()
 end
 function Example.CreatPlayer()
   Example.player= GameObject.FindGameObjectWithTag("Player");
-  log("player "..Example.player.name);
+ -- log("player "..Example.player.name);
  -- log("ObjType "..GameEnum.ObjType.Player);
  -- log("CtrlType "..GameEnum.CtrlType.JoyCtrl);
   Example.playerObj = GameLuaManager.CreatCharacter("player",Example.player);
  -- Example.playerObj.moveSpeed=4;
  --  Example.playerObj:GetMovePart().rotateSpeed=10;
+  CameraManager.Instance.cameraCtrl:init(Example.player.transform);
+
 end
 function Example.Class()
 

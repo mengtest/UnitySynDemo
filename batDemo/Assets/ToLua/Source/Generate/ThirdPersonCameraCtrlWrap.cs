@@ -7,6 +7,8 @@ public class ThirdPersonCameraCtrlWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(ThirdPersonCameraCtrl), typeof(UnityEngine.MonoBehaviour));
+		L.RegFunction("GetH", GetH);
+		L.RegFunction("IsDraging", IsDraging);
 		L.RegFunction("init", init);
 		L.RegFunction("ToggleClampHorizontal", ToggleClampHorizontal);
 		L.RegFunction("BounceVertical", BounceVertical);
@@ -34,8 +36,41 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegVar("minVerticalAngle", get_minVerticalAngle, set_minVerticalAngle);
 		L.RegVar("XAxis", get_XAxis, set_XAxis);
 		L.RegVar("YAxis", get_YAxis, set_YAxis);
-		L.RegVar("GetH", get_GetH, null);
 		L.EndClass();
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetH(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			float o = obj.GetH();
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsDraging(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			bool o = obj.IsDraging();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
@@ -540,25 +575,6 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index YAxis on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_GetH(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
-			float ret = obj.GetH;
-			LuaDLL.lua_pushnumber(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index GetH on a nil value");
 		}
 	}
 

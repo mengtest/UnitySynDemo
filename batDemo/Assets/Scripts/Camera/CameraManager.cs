@@ -12,7 +12,7 @@ public class CameraManager  : MonoSingleton<CameraManager>
        
        mainCamera =  GameObject.FindGameObjectWithTag("MainCamera");
        cameraCtrl = mainCamera.GetComponent<ThirdPersonCameraCtrl>();
-       if(cameraCtrl=null){
+       if(cameraCtrl==null){
            cameraCtrl =  mainCamera.AddComponent<ThirdPersonCameraCtrl>();
        }
 

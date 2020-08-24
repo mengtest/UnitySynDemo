@@ -8,10 +8,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
-	//水平
+	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
-	//垂直
-    public float verticalAimingSpeed = 6f;                             // Vertical turn speed.
+	//垂直 6f
+    public float verticalAimingSpeed = 3f;                             // Vertical turn speed.
 	public float maxVerticalAngle = 30f;                               // Camera max clamp angle. 
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
@@ -37,9 +37,15 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float leftRelHorizontalAngle, rightRelHorizontalAngle;     // The left and right angles to limit rotation relative to the forward reference.
 
 	// Get the camera horizontal angle.
-	public float GetH { get { return angleH; } }
-
+	public float GetH()
+     {
+        return angleH;
+     }
+    public bool IsDraging(){
+       return _IsDraging;
+    }
     private Camera _camera;
+    private bool _IsDraging=false;
 
 	void Awake()
 	{
@@ -49,8 +55,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
          if(this.target!=null){
              this.init();
          }
-         EventCenter.removeListener(SystemEvent.UI_HUD_ON_TOUCH_MOVE,onTouchMove);
-         EventCenter.addListener(SystemEvent.UI_HUD_ON_TOUCH_MOVE,onTouchMove);
+         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
+         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
+         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
+         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
 	}
     public void init(Transform targetP=null){
          if(targetP != null){
@@ -70,25 +78,31 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothCamOffset = camOffset;
 		defaultFOV = _camera.fieldOfView;
 		angleH = this.target.eulerAngles.y;
-
+        this._IsDraging=false;
 		ResetTargetOffsets ();
 		ResetFOV ();
 		ResetMaxVerticalAngle();
     }
     private void OnDestroy() {
-         EventCenter.removeListener(SystemEvent.UI_HUD_ON_TOUCH_MOVE,onTouchMove);
+        EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
+        EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
         target=null;
         _camera=null;
         cam = null;
     }
-    
+    private void onTouchState(object[] data){
+        if(data==null)return;
+         _IsDraging = (bool) data[0];
+    }
     private void  onTouchMove(object[] data){
-    //    DebugLog.Log("onthuch<<<<<<<<<<<<<<<<<<");
         if(data==null)return;
         Vector2 delta= (Vector2) data[0];
+        if(delta.magnitude<=1){
+               return;
+        }
     //      DebugLog.Log("onthuch<<<<<<<<<<<<<<<<<<",delta);
         delta.Normalize();
-	   angleH += Mathf.Clamp(delta.x, -1, 1) * horizontalAimingSpeed;
+	    angleH += Mathf.Clamp(delta.x, -1, 1) * horizontalAimingSpeed;
      	angleV += Mathf.Clamp(delta.y, -1, 1) * verticalAimingSpeed;
       //  angleH += delta.x * horizontalAimingSpeed*0.01f;
      //	angleV += delta.y * verticalAimingSpeed*0.01f;
@@ -123,10 +137,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		}
 
 		// Handle camera horizontal rotation limits if set.
-		if(forwardHorizontalRef != default(Vector3))
-		{
-			ClampHorizontal();
-		}
+		// if(forwardHorizontalRef != default(Vector3))
+		// {
+		// 	ClampHorizontal();
+		// }
 
 		// Set camera orientation.
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);

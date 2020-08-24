@@ -349,7 +349,12 @@ public class AppBuild {
                 FileUtil.ClearDirectory(webPath);
             }
         }
-        FileUtil.ClearDirectory(signedOutputPath);
+         if (!Directory.Exists(signedOutputPath))
+        {
+            FileUtil.CreateDir(signedOutputPath);
+        }else{
+            FileUtil.ClearDirectory(signedOutputPath);
+        }
         AssetDatabase.Refresh();
 
         string timestamp = GameUtils.ConvertUTCDateTimeToSecond(DateTime.Now).ToString();
@@ -450,7 +455,7 @@ public class AppBuild {
     {
         // "Avatar" 
      //   string[] fileArr = new string[1] { "Avatar"}; //"Avatar",
-        string[] fileArr = new string[3] { "Monster", "Building","Character" };
+        string[] fileArr = new string[4] { "Monster", "Building","Character","Avatar" };
         string basePath = "Assets/Res/";
         string assetsPath = "";
         string ffName = "";

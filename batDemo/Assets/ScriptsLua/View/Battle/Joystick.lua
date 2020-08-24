@@ -25,16 +25,16 @@ function Joystick:init(MoveArea,Handle,SprintJoyStick,Sprint,BackGround,SprintOn
     self.SprintOn =SprintOn
     self.huDBatPanel=panelView
     self.SprintRectTrans = self.Sprint.gameObject:GetComponent(typeof(RectTransform));
-    self.SprintOnRadius= self.SprintRectTrans.rect.width/2 ;
-    log(  self.SprintOnRadius..">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+ --   log(  self.screenRate..">>>>>>>>>>>>>self.screenRate>>>>>>>>>>>>>>")
+    self.SprintOnRadius= self.SprintRectTrans.rect.width/2;
+ --   log(  self.SprintOnRadius..">>>>>>>>>>>>>self.SprintOnRadius>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     self.bgOriginLocalPos = self.BackGround.localPosition;
     ---Handle 移动最大半径
-    self.maxRadius = self.BackGround.rect.width / 2;
+    self.maxRadius = self.BackGround.rect.width /2;
+ --   log(  self.maxRadius..">>>>>>>>>>>>>self.maxRadius>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     self.fingerId=nil;
     ---@type  Vector3
     self.pointerDownPos=nil;
-     ---@type  Vector3
-    self.pointerRealPos=nil;
     self.isDown=false;
     self.isPress=false;
     self.isSprinting=false;
@@ -49,9 +49,7 @@ function Joystick:destory()
     self.SprintRectTrans=nil
     self.BackGround=nil
     self.huDBatPanel=nil
-
     self.pointerDownPos=nil;
-    self.pointerRealPos=nil;
     self.name=nil;
     EventObj.destory(self);
 end
@@ -96,24 +94,25 @@ end
 
 ---@param    eventData UnityEngine.EventSystems.PointerEventData
 function Joystick:onDown(eventData)
-  --  log("onDownx "..eventData.position.x)
- --   log("onDowny "..eventData.position.y)
+   -- log("onDownx "..eventData.position.x)
+   -- log("onDowny "..eventData.position.y)
+
     if eventData.pointerId<-1 or self.fingerId~=nil then return end
     self.isDown = true;
     self.fingerId = eventData.pointerId;
+    self.BackGround.position = eventData.pressEventCamera:ScreenToWorldPoint(Vector3(eventData.position.x,eventData.position.y,self.BackGround.position.z));
     self.pointerDownPos = eventData.position;
-    self.pointerRealPos = eventData.position;
-    self.BackGround.localPosition=Vector3(eventData.position.x,eventData.position.y,0);
+    ---eventData.pressEventCamera:WorldToScreenPoint(self.BackGround.position);
 end
 function Joystick:OnDrag(eventData)
-  ---   log("onDrag "..eventData.position)
+    -- log(" Joystick onDrag x"..eventData.delta.x.." y "..eventData.delta.y);
     if self.fingerId ~= eventData.pointerId then  return end;
-    self.isPress = true;
-    self.pointerRealPos = eventData.position;
+    self.isPress = true;              
     ---@ type Vector2 得到BackGround 指向 Handle 的向量
-    local direction = eventData.position - self.pointerDownPos;
+    local direction = (eventData.position - self.pointerDownPos)*Main.ViewManager:scaleScreen();
     ---获取并锁定向量的长度 以控制 Handle 半径
     local radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius);
+    --   log(radius);
     --- Vector2.Normalize(direction);
     ---判断冲刺状态.
   ---  direction=direction.normalized;
@@ -123,33 +122,38 @@ function Joystick:OnDrag(eventData)
     ---   Vector2(direction.x * radius, direction.y * radius);
     ---  log("onDrag "..localPosition.x .. " Y "..localPosition.y)
     local isRun =false;
-    if radius==self.maxRadius then
+    if radius>=self.maxRadius then
         isRun=true;
         ---判断夹角
         local angle = Vector2.Angle(localPosition, Vector2.up);
         if angle<=70 and angle>= -70 then
            ---显示冲锋按钮.
            self.Sprint.enabled=true;
-           local dic=  Vector2.Magnitude(Vector2(self.SprintRectTrans.localPosition.x, self.SprintRectTrans.localPosition.y)-direction)
+           local dic =  Vector2.Magnitude(Vector2(self.SprintRectTrans.localPosition.x, self.SprintRectTrans.localPosition.y)-direction)
+        --   log("dic "..dic);
            if   dic<=self.SprintOnRadius then
                -- 亮起按钮
                self.SprintOn.enabled=true;
                self.Sprint.enabled=false;
                self:SetSprint(true);
-           else
-               self.Sprint.enabled=true;
-               self.SprintOn.enabled=false;
-               self:SetSprint(false);
-           end
+           --    log("亮起按钮 ");
+        --    else
+        --        self.Sprint.enabled=true;
+        --        self.SprintOn.enabled=false;
+        --        self:SetSprint(false);
+        --        log("冲刺 ");
+            end
         else
             self.Sprint.enabled=false;
             self.SprintOn.enabled=false;
             self:SetSprint(false);
+         --   log("70度之外 ");
         end
     else
       self.Sprint.enabled=false;
       self.SprintOn.enabled=false;
       self:SetSprint(false);
+   --   log("小于半径");
     end
 
     local dir= localPosition.normalized;

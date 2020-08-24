@@ -12,6 +12,7 @@ public class ObjBaseWrap
 		L.RegFunction("initView", initView);
 		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
+		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("getDic", getDic);
 		L.RegFunction("GetEvent", GetEvent);
 		L.RegFunction("GetMovePart", GetMovePart);
@@ -172,6 +173,23 @@ public class ObjBaseWrap
 			ToLua.CheckArgsCount(L, 1);
 			ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
 			obj.onViewLoadFin();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnMove(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.OnMove(arg0);
 			return 0;
 		}
 		catch (Exception e)

@@ -10,6 +10,7 @@ public class GameLuaManagerWrap
 		L.RegFunction("LoadAsset", LoadAsset);
 		L.RegFunction("SetLogSwitcher", SetLogSwitcher);
 		L.RegFunction("RefreshShader", RefreshShader);
+		L.RegFunction("ScreenPointToWorldPointInRectangle", ScreenPointToWorldPointInRectangle);
 		L.RegFunction("CreatCharacter", CreatCharacter);
 		L.RegFunction("GetProtoBytesPath", GetProtoBytesPath);
 		L.RegFunction("AddScrollViewOnValueChangeListener", AddScrollViewOnValueChangeListener);
@@ -105,6 +106,24 @@ public class GameLuaManagerWrap
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			GameLuaManager.RefreshShader(ref arg0);
 			ToLua.PushSealed(L, arg0);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ScreenPointToWorldPointInRectangle(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject(L, 1, typeof(UnityEngine.RectTransform));
+			UnityEngine.EventSystems.PointerEventData arg1 = (UnityEngine.EventSystems.PointerEventData)ToLua.CheckObject<UnityEngine.EventSystems.PointerEventData>(L, 2);
+			UnityEngine.Vector3 o = GameLuaManager.ScreenPointToWorldPointInRectangle(arg0, arg1);
+			ToLua.Push(L, o);
 			return 1;
 		}
 		catch (Exception e)

@@ -146,6 +146,11 @@ public class ObjBase : PoolObj
     public virtual void onViewLoadFin(){
         
     }
+    //移动专用方法.
+    public virtual void OnMove(Vector3 dic){
+       this.node.transform.position =  this.node.transform.position + dic;
+    }
+
     /**
     * 计算目标距离;
     * @param Vec2 目標位置

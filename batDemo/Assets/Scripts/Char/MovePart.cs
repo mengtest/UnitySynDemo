@@ -66,7 +66,7 @@ public class MovePart
     public float extraMaxSpeed = 0;
     public float extraMoveStartTime = 0;
      
-    /**单次运动数据***************************************************************************************************
+    /**单次运动数据*end**************************************************************************************************
     */
 
     //暂停
@@ -79,7 +79,7 @@ public class MovePart
     public void PesumeMove() {
         this._pause = false;
     }
-
+    
     private  ObjBase obj;
     public MovePart(ObjBase obj)
     {
@@ -116,13 +116,13 @@ public class MovePart
         //移动速度;
         this.calMoveSpeed(Time.fixedDeltaTime);
         //添加移动
-        this.obj.gameObject.transform.position =  this.obj.gameObject.transform.position+_moveSpeed;
+        this.obj.OnMove(_moveSpeed);
       //  this.obj.position.addSelf(this._moveSpeed);
         //额外移动
         this.extraMove(Time.fixedDeltaTime);
         this.chkMove();
     }
-    //额外移动...todo 改成多个运动力 motion 控制移动.
+    //额外移动...Todo 改成多个运动力 motion 控制移动.
     private void extraMove(float number) {
     
     }
@@ -256,6 +256,18 @@ public class MovePart
     }
     public void cancelFollowTarget() {
         this.StopMove();
+    }
+    public void SetRotationImm(float dir){
+        Quaternion rot = Quaternion.Euler(0, dir, 0);
+        Matrix4x4 mat = new Matrix4x4();
+        mat.SetTRS(Vector3.zero, rot, Vector3.one);
+        Vector3 dirV = mat.GetColumn(2);
+        dirV.Normalize();
+        this._targetDirection = dirV;
+        this.forwardDirection=this._targetDirection;
+        if (this.faceToRotation) {
+                this.obj.gameObject.transform.forward=this.forwardDirection;
+        }
     }
     /***
      * 立刻改变方向;

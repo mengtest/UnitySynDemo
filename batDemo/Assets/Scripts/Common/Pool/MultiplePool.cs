@@ -23,7 +23,7 @@ public class MultiplePool : IPool
     {
          if (!item.isRecycled) {
             item.isRecycled = true;
-            DebugLog.Log("recycle: "+item.poolname);
+    //        DebugLog.Log("recycle: "+item.poolname);
             this.map[item.poolname].Add(item);
             this.onRecycle(item);
         }
@@ -40,7 +40,7 @@ public class MultiplePool : IPool
     //通过url 存成 poolname 默认会初始化对象池.
     public  T get<T>(string poolname) where T:PoolObj,new() {
         if(!this.map.ContainsKey(poolname)){
-             DebugLog.Log("creat: "+poolname);
+         //    DebugLog.Log("creat: "+poolname);
            this.map[poolname]=new List<IPoolObj>();
         }
         List<IPoolObj> tempList = this.map[poolname];
@@ -64,7 +64,7 @@ public class MultiplePool : IPool
     }
     public T get<T>(string poolname,Type type) where T:PoolObj,new() {
         if(!this.map.ContainsKey(poolname)){
-             DebugLog.Log("creat: "+poolname);
+    //         DebugLog.Log("creat: "+poolname);
            this.map[poolname]=new List<IPoolObj>();
         }
         List<IPoolObj> tempList = this.map[poolname];

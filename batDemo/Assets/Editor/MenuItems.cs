@@ -273,7 +273,7 @@ public  class MenuItems
      * @param {type} 1
      * @return: 
      */
-    [MenuItem("打包/一键依赖打包(全包)-copyStreamAssets", false, 102)]
+    [MenuItem("打包/一键依赖打包(全包+lua)-copyStreamAssets", false, 102)]
     static void DependenciesBuildCopy()
     {
           AppBuild.DependenciesBuild(true,false);
@@ -286,7 +286,7 @@ public  class MenuItems
      * @param {type} 1
      * @return: 
      */
-    [MenuItem("打包/一键依赖打包(外网包)-copyWeb", false, 103)]
+    [MenuItem("打包/一键依赖打包(外网包+lua)-copyWeb", false, 103)]
     static void DependenciesBuildCopyWeb()
     {
          AppBuild.DependenciesBuild(false,true);

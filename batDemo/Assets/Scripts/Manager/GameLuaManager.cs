@@ -3,6 +3,7 @@
 using System;
 using LuaInterface;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [AutoRegistLua]
@@ -30,7 +31,14 @@ public class GameLuaManager
          //   DebugLog.Log("use render",obj);
             RenderHelper.RefreshShader(ref obj);
         }
-
+    }
+    public static Vector3 ScreenPointToWorldPointInRectangle(RectTransform rectT,PointerEventData data){
+        Vector3 mousePos;
+         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(rectT, data.position, data.pressEventCamera, out mousePos))
+        {
+           return mousePos;
+        }
+        return mousePos;
     }
 
      public static Character CreatCharacter(string path="",GameObject obj=null){

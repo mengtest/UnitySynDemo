@@ -28,7 +28,12 @@ function ViewManager:initialize()
     self._layerNodes[ViewLayer.info] = UIRoot.Find("info");
     self._layerNodes[ViewLayer.guide] = UIRoot.Find("guide");
     self._layerNodes[ViewLayer.top] = UIRoot.Find("top");
+
     log("ViewManager CreatOver")
+end
+
+function ViewManager:scaleScreen()
+    return 1920/Screen.width;
 end
 
 function ViewManager:Release()

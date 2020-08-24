@@ -15,6 +15,9 @@ public class Character : ObjBase
     protected StateMachine<Character> m_FSM = null;
     protected SkillPart skillPart=null;
     public CharData charData=null;
+    
+    protected CharacterController characterController=null;
+
     public Character()
     {
        // this.charType=ObjType.Character;
@@ -69,10 +72,25 @@ public class Character : ObjBase
            }       
         }
     }
+    public override void onViewLoadFin(){
+        this.characterController=this.node.GetComponent<CharacterController>();
+
+    }
+      //移动专用方法.
+    public override void OnMove(Vector3 dic){
+        if(this.characterController!=null){
+           this.characterController.Move(dic);
+        }else{
+            this.node.transform.position =  this.node.transform.position + dic;
+        }
+    }
 
     //用的是 charData mono fixUpdate ;
     protected override void fixUpdate() {
-       if(this._move!=null){
+        if(this.skillPart!=null){
+            this.skillPart.Update();
+        }
+        if(this._move!=null){
             this._move.fixUpdate();
         }
         if(this.aniBasePart!=null){
@@ -148,6 +166,7 @@ public class Character : ObjBase
         }
         return this.skillPart;
     }
+
     //................................................................................  
      #region 角色 所有动作命令..................
     public void Do_Move(Vector3 dir){
@@ -164,7 +183,7 @@ public class Character : ObjBase
           if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
                this.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
           }
-        DebugLog.Log("StopMove");
+       // DebugLog.Log("StopMove");
     }
     #endregion 
     //...............................................................................  
@@ -204,6 +223,7 @@ public class Character : ObjBase
      }
     public override void onRelease(){
         this.charData=null;
+        this.characterController=null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;

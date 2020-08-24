@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-08-19 17:53:14
+ * @LastEditTime: 2020-08-24 20:15:40
  */
 using System;
 using System.Collections;
@@ -64,6 +64,7 @@ public class GameMain : MonoSingleton<GameMain> {
         Screen.autorotateToLandscapeRight = true;
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
+        Input.multiTouchEnabled=true;
         luainitCom=false;
 
 
@@ -204,6 +205,10 @@ public class GameMain : MonoSingleton<GameMain> {
         {
             GUILayout.Space(100);
 
+            // if (GUILayout.Button("REPOORT", GUILayout.Width(60), GUILayout.Height(60)))
+            // {
+            //     Reporter.Instance.doShow();
+            // }
             GUILayout.Label(LuaMemory);
             // if(CharManager.Instance.CharPool!=null){
             //  GUILayout.Label(CharManager.Instance.CharPool.toString());

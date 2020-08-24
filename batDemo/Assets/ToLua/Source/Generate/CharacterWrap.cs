@@ -11,6 +11,8 @@ public class CharacterWrap
 		L.RegFunction("ChangeState", ChangeState);
 		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("GetCurStateID", GetCurStateID);
+		L.RegFunction("onViewLoadFin", onViewLoadFin);
+		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("GetCtrl", GetCtrl);
 		L.RegFunction("GetAniUpPart", GetAniUpPart);
 		L.RegFunction("GetAniAddPart", GetAniAddPart);
@@ -155,6 +157,39 @@ public class CharacterWrap
 			int o = obj.GetCurStateID();
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onViewLoadFin(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.onViewLoadFin();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnMove(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.OnMove(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
