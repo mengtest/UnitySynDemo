@@ -29,22 +29,11 @@ public class Run : ActionBase
        //     DebugLog.Log("Run.........");
               this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.run_fwd,frame,0.593f,1,0.25f,0,true);
               this.obj.GetMovePart().StartMove((Vector3)param[0]);
-              initCharDir();
         }
 
          //动作更新;
         public override void Update(){
-            initCharDir();
             base.Update();
-        }
-        public void  initCharDir(){
-          //  DebugLog.Log(CameraManager.Instance.cameraCtrl.IsDraging());
-            if(this.lastHorizontalRotate!=CameraManager.Instance.cameraCtrl.GetH()){
-                this.lastHorizontalRotate=CameraManager.Instance.cameraCtrl.GetH();
-                if(CameraManager.Instance.cameraCtrl.IsDraging()){
-                     this.obj.GetMovePart().SetRotationImm(this.lastHorizontalRotate);
-                }
-            }
         }
         /**
         * 切换动作 处理逻辑;

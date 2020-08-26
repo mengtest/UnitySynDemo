@@ -19,6 +19,6 @@
        public static string UI_HUD_ON_ROTATE_TOUCH_MOVE = "UI_HUD_ON_ROTATE_TOUCH_MOVE";
        public static string UI_HUD_ON_ROTATE_TOUCH_STATE = "UI_HUD_ON_ROTATE_TOUCH_STATE";
        public static string UI_HUD_ON_JOYSTICK_MOVE = "UI_HUD_ON_JOYSTICK_MOVE";
-       public static string UI_HUD_ON_JOYSTICK_STOP_MOVE = "UI_HUD_ON_JOYSTICK_STOP_MOVE";
+       public static string UI_HUD_ON_JOYSTICK_UP = "UI_HUD_ON_JOYSTICK_UP";
        public static string UI_BAT_ON_SPRINT_STATE = "UI_BAT_ON_SPRINT_STATE";
     }

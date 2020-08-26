@@ -257,17 +257,27 @@ public class MovePart
     public void cancelFollowTarget() {
         this.StopMove();
     }
-    public void SetRotationImm(float dir){
+    public void SetRotation(float dir,bool Imm=false){
         Quaternion rot = Quaternion.Euler(0, dir, 0);
         Matrix4x4 mat = new Matrix4x4();
         mat.SetTRS(Vector3.zero, rot, Vector3.one);
         Vector3 dirV = mat.GetColumn(2);
         dirV.Normalize();
         this._targetDirection = dirV;
-        this.forwardDirection=this._targetDirection;
-        if (this.faceToRotation) {
-                this.obj.gameObject.transform.forward=this.forwardDirection;
+        if(Imm){
+            this.forwardDirection=this._targetDirection;
+            if (this.faceToRotation) {
+                    this.obj.gameObject.transform.forward=this.forwardDirection;
+            }
         }
+    }
+     public Vector3 getRotation(float dir){
+        Quaternion rot = Quaternion.Euler(0, dir, 0);
+        Matrix4x4 mat = new Matrix4x4();
+        mat.SetTRS(Vector3.zero, rot, Vector3.one);
+        Vector3 dirV = mat.GetColumn(2);
+        dirV.Normalize();
+        return dirV;
     }
     /***
      * 立刻改变方向;
@@ -368,7 +378,7 @@ public class MovePart
         }
       this._moveSpeed =  this.forwardDirection* this._currentSpeed * dt;
     //    MyMath.floor2Vet(this._moveSpeed);
-        // console.log("this._moveSpeed",this._moveSpeed);
+     //  DebugLog.Log("this._moveSpeed",this._moveSpeed);
     }
      private Vector3 chkMpos;
     private void chkMove() {

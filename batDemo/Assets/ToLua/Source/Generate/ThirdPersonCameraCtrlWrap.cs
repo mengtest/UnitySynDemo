@@ -8,8 +8,8 @@ public class ThirdPersonCameraCtrlWrap
 	{
 		L.BeginClass(typeof(ThirdPersonCameraCtrl), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("GetH", GetH);
-		L.RegFunction("IsDraging", IsDraging);
 		L.RegFunction("init", init);
+		L.RegFunction("onTouchMove", onTouchMove);
 		L.RegFunction("ToggleClampHorizontal", ToggleClampHorizontal);
 		L.RegFunction("BounceVertical", BounceVertical);
 		L.RegFunction("LockOnDirection", LockOnDirection);
@@ -36,6 +36,8 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegVar("minVerticalAngle", get_minVerticalAngle, set_minVerticalAngle);
 		L.RegVar("XAxis", get_XAxis, set_XAxis);
 		L.RegVar("YAxis", get_YAxis, set_YAxis);
+		L.RegVar("Horizontal_Acce_Dic", get_Horizontal_Acce_Dic, set_Horizontal_Acce_Dic);
+		L.RegVar("Horizontal_Acce_Speed", get_Horizontal_Acce_Speed, set_Horizontal_Acce_Speed);
 		L.EndClass();
 	}
 
@@ -48,23 +50,6 @@ public class ThirdPersonCameraCtrlWrap
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 			float o = obj.GetH();
 			LuaDLL.lua_pushnumber(L, o);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int IsDraging(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-			bool o = obj.IsDraging();
-			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
 		catch (Exception e)
@@ -97,6 +82,23 @@ public class ThirdPersonCameraCtrlWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: ThirdPersonCameraCtrl.init");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onTouchMove(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
+			obj.onTouchMove(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -579,6 +581,44 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Horizontal_Acce_Dic(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			int ret = obj.Horizontal_Acce_Dic;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Dic on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Horizontal_Acce_Speed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			int ret = obj.Horizontal_Acce_Speed;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Speed on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_target(IntPtr L)
 	{
 		object o = null;
@@ -765,6 +805,44 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index YAxis on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_Horizontal_Acce_Dic(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.Horizontal_Acce_Dic = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Dic on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_Horizontal_Acce_Speed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.Horizontal_Acce_Speed = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Speed on a nil value");
 		}
 	}
 }

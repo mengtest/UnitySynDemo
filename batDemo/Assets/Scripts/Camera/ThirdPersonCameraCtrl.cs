@@ -11,7 +11,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
 	//垂直 6f
-    public float verticalAimingSpeed = 3f;                             // Vertical turn speed.
+    public float verticalAimingSpeed = 6f;                             // Vertical turn speed.
 	public float maxVerticalAngle = 30f;                               // Camera max clamp angle. 
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
@@ -35,17 +35,18 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float recoilAngle = 0f;                                    // The angle to vertically bounce the camera in a recoil movement.
 	private Vector3 forwardHorizontalRef;                              // The forward reference on horizontal plane when clamping camera rotation.
 	private float leftRelHorizontalAngle, rightRelHorizontalAngle;     // The left and right angles to limit rotation relative to the forward reference.
+   
+   //旋转屏幕触发 加速度的 速度
+    public int Horizontal_Acce_Dic =60;
+    //滑屏加速度
+    public int Horizontal_Acce_Speed=140;
 
 	// Get the camera horizontal angle.
 	public float GetH()
      {
         return angleH;
      }
-    public bool IsDraging(){
-       return _IsDraging;
-    }
     private Camera _camera;
-    private bool _IsDraging=false;
 
 	void Awake()
 	{
@@ -55,10 +56,6 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
          if(this.target!=null){
              this.init();
          }
-         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
-         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
-         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
-         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
 	}
     public void init(Transform targetP=null){
          if(targetP != null){
@@ -78,32 +75,28 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothCamOffset = camOffset;
 		defaultFOV = _camera.fieldOfView;
 		angleH = this.target.eulerAngles.y;
-        this._IsDraging=false;
 		ResetTargetOffsets ();
 		ResetFOV ();
 		ResetMaxVerticalAngle();
     }
     private void OnDestroy() {
-        EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
-        EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
         target=null;
         _camera=null;
         cam = null;
     }
-    private void onTouchState(object[] data){
-        if(data==null)return;
-         _IsDraging = (bool) data[0];
-    }
-    private void  onTouchMove(object[] data){
-        if(data==null)return;
-        Vector2 delta= (Vector2) data[0];
-        if(delta.magnitude<=1){
-               return;
+    public void  onTouchMove(Vector2 delta){
+        //水平
+        float dicH;
+      //  DebugLog.Log("delta.x",delta.x); 
+        if(delta.x>=Horizontal_Acce_Dic){
+      //      DebugLog.Log("Add>>>>> delta.x",delta.x); 
+          dicH=delta.x * horizontalAimingSpeed*0.031f *(1+ Horizontal_Acce_Speed/100);
+        }else{
+          dicH =delta.x * horizontalAimingSpeed*0.031f;
         }
-    //      DebugLog.Log("onthuch<<<<<<<<<<<<<<<<<<",delta);
-        delta.Normalize();
-	    angleH += Mathf.Clamp(delta.x, -1, 1) * horizontalAimingSpeed;
-     	angleV += Mathf.Clamp(delta.y, -1, 1) * verticalAimingSpeed;
+	    angleH += dicH;
+     	//垂直
+        angleV += delta.y * verticalAimingSpeed*0.0155f;
       //  angleH += delta.x * horizontalAimingSpeed*0.01f;
      //	angleV += delta.y * verticalAimingSpeed*0.01f;
     }

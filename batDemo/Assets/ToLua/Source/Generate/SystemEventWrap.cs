@@ -13,7 +13,7 @@ public class SystemEventWrap
 		L.RegVar("UI_HUD_ON_ROTATE_TOUCH_MOVE", get_UI_HUD_ON_ROTATE_TOUCH_MOVE, set_UI_HUD_ON_ROTATE_TOUCH_MOVE);
 		L.RegVar("UI_HUD_ON_ROTATE_TOUCH_STATE", get_UI_HUD_ON_ROTATE_TOUCH_STATE, set_UI_HUD_ON_ROTATE_TOUCH_STATE);
 		L.RegVar("UI_HUD_ON_JOYSTICK_MOVE", get_UI_HUD_ON_JOYSTICK_MOVE, set_UI_HUD_ON_JOYSTICK_MOVE);
-		L.RegVar("UI_HUD_ON_JOYSTICK_STOP_MOVE", get_UI_HUD_ON_JOYSTICK_STOP_MOVE, set_UI_HUD_ON_JOYSTICK_STOP_MOVE);
+		L.RegVar("UI_HUD_ON_JOYSTICK_UP", get_UI_HUD_ON_JOYSTICK_UP, set_UI_HUD_ON_JOYSTICK_UP);
 		L.RegVar("UI_BAT_ON_SPRINT_STATE", get_UI_BAT_ON_SPRINT_STATE, set_UI_BAT_ON_SPRINT_STATE);
 		L.EndClass();
 	}
@@ -99,11 +99,11 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_UI_HUD_ON_JOYSTICK_STOP_MOVE(IntPtr L)
+	static int get_UI_HUD_ON_JOYSTICK_UP(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE);
+			LuaDLL.lua_pushstring(L, SystemEvent.UI_HUD_ON_JOYSTICK_UP);
 			return 1;
 		}
 		catch (Exception e)
@@ -187,12 +187,12 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_UI_HUD_ON_JOYSTICK_STOP_MOVE(IntPtr L)
+	static int set_UI_HUD_ON_JOYSTICK_UP(IntPtr L)
 	{
 		try
 		{
 			string arg0 = ToLua.CheckString(L, 2);
-			SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE = arg0;
+			SystemEvent.UI_HUD_ON_JOYSTICK_UP = arg0;
 			return 0;
 		}
 		catch (Exception e)

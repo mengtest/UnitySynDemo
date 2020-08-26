@@ -26,7 +26,8 @@ public class MovePartWrap
 		L.RegFunction("startFollowTarget", startFollowTarget);
 		L.RegFunction("SetFollowTarget", SetFollowTarget);
 		L.RegFunction("cancelFollowTarget", cancelFollowTarget);
-		L.RegFunction("SetRotationImm", SetRotationImm);
+		L.RegFunction("SetRotation", SetRotation);
+		L.RegFunction("getRotation", getRotation);
 		L.RegFunction("changeDir", changeDir);
 		L.RegFunction("startMoveToByListWithReverseList", startMoveToByListWithReverseList);
 		L.RegFunction("Dispose", Dispose);
@@ -421,15 +422,49 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetRotationImm(IntPtr L)
+	static int SetRotation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+				obj.SetRotation(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.SetRotation(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: MovePart.SetRotation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getRotation(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.SetRotationImm(arg0);
-			return 0;
+			UnityEngine.Vector3 o = obj.getRotation(arg0);
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-08-24 22:35:36
+LastEditTime: 2020-08-26 16:57:20
 --]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
@@ -66,8 +66,9 @@ end
 function Hud_RightBtnArea:OnInit(param)
     self._isSprinting=false;
 
-    self.RotateText.text= Example.playerObj:GetMovePart().rotateSpeed;
-    self.SpeedText.text= Example.playerObj.moveSpeed;
+    self.RotateText.text=CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic;
+    --- Example.playerObj:GetMovePart().rotateSpeed;
+    self.SpeedText.text = CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed;
 end
 
 function Hud_RightBtnArea:OnSprintClick(obj)
@@ -85,29 +86,29 @@ end
 
 
 function Hud_RightBtnArea:OnSpeedUp(obj)
-    local sp=Example.playerObj.moveSpeed;
-    sp =(math.floor(sp*100)+10)*0.01;
+    local sp= CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed;
+    sp =sp+1;
   --  log(sp);
-    Example.playerObj.moveSpeed=sp
+  CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed=sp
     self.SpeedText.text= sp;
 end
 function Hud_RightBtnArea:OnSpeedDown(obj)
-    local sp=Example.playerObj.moveSpeed;
-    sp =(math.floor(sp*100)-10)*0.01;
+    local sp= CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed;
+    sp =sp-1;
    --- log(sp);
-    Example.playerObj.moveSpeed=sp
+   CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed=sp
     self.SpeedText.text= sp;
 end
 function Hud_RightBtnArea:OnRotateUp(obj)
-    local sp=Example.playerObj:GetMovePart().rotateSpeed;
-    sp =sp+0.5;
-    Example.playerObj:GetMovePart().rotateSpeed=sp;
+    local sp= CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic;
+    sp =sp+1;
+    CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic = sp;
     self.RotateText.text= sp;
 end
 function Hud_RightBtnArea:OnRotateDown(obj)
-    local sp=Example.playerObj:GetMovePart().rotateSpeed;
-    sp =sp-0.5;
-    Example.playerObj:GetMovePart().rotateSpeed=sp;
+    local sp= CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic;
+    sp =sp-1;
+    CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic = sp;
     self.RotateText.text=sp;
 end
 

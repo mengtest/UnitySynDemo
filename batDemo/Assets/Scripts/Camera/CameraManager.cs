@@ -14,6 +14,7 @@ public class CameraManager  : MonoSingleton<CameraManager>
        cameraCtrl = mainCamera.GetComponent<ThirdPersonCameraCtrl>();
        if(cameraCtrl==null){
            cameraCtrl =  mainCamera.AddComponent<ThirdPersonCameraCtrl>();
+        //   cameraCtrl.maxVerticalAngle
        }
 
     }

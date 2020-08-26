@@ -176,6 +176,7 @@ public class ObjBase : PoolObj
     public MovePart GetMovePart(){
         if(this._move==null){
             this._move=new MovePart(this);
+             this._move.Init();
         //    this.needUpdate=true;
         }
         return this._move;

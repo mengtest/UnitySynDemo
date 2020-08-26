@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-08-25 03:28:48
+LastEditTime: 2020-08-26 19:47:39
 --]]
 ---@class TouchRotation:EventObj
 TouchRotation = Class("TouchRotation",EventObj)
@@ -55,6 +55,7 @@ function TouchRotation:onDown(eventData)
     if eventData.pointerId<-1 or self.fingerId~=nil then return end
     self.fingerId = eventData.pointerId;
     self.IsDraging = true;
+   --- log("OnDown ")
     EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{self.IsDraging });
 end
 function TouchRotation:OnDrag(eventData)
@@ -68,10 +69,10 @@ end
 
 function TouchRotation:OnUp(eventData)
     ---正确的手指抬起时重置摇杆
-  --  log("OnUp ")
+   --- log("OnUp ")
     if self.fingerId ~= eventData.pointerId then  return end;
     self:Reset();
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{self.IsDraging });
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ self.IsDraging });
 end
 
 return TouchRotation

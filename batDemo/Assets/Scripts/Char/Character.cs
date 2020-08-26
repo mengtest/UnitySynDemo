@@ -173,11 +173,11 @@ public class Character : ObjBase
         //this.char.getSkillPart().targetDir.set(dir).normalizeSelf();
          if(charData.currentBaseAction!=GameEnum.ActionLabel.Run){
              this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
+             DebugLog.Log("Run");
          }else{
      //         DebugLog.Log("SetTargetDir");
              this.GetMovePart().SetTargetDir(dir);
          }
-    //     DebugLog.Log("move");
     }
     public void Do_StopMove(){
           if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
