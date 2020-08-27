@@ -67,5 +67,7 @@
         "UIEventListener",
         "SystemEvent",
         "EventCenter"
-    ]
+    ],
+    "Lua.workspace.maxPreload": 1000,
+    "git.ignoreLimitWarning": true
 }
