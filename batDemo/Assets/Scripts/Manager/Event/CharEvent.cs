@@ -16,6 +16,9 @@
     {
        /**移动完毕*/
        public static string MOVE_END = "MOVE_END";
+        public static string Jump_To_Ground = "JumpToGround";
+        public static string Jump_Fall = "JumpFall";
+        public static string Jump_Rise = "JumpRise";
         /****改成正常状态*******/
         public static string Syn_NormalState="Syn_NormalState";
 

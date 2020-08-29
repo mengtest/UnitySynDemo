@@ -58,7 +58,7 @@ public class Footsteps : MonoBehaviour
 					maxDist = dist > maxDist ? dist : maxDist;
 					if (dist <= factor)
 					{
-                    DebugLog.Log("LEFT dist",dist ,"maxDist",maxDist);
+            //        DebugLog.Log("LEFT dist",dist ,"maxDist",maxDist);
 						PlayFootStep();
 						step = Foot.RIGHT;
 					}
@@ -68,7 +68,7 @@ public class Footsteps : MonoBehaviour
 					maxDist = dist > maxDist ? dist : maxDist;
 					if (dist <= factor)
 					{
-                     DebugLog.Log("RIGHT dist",dist ,"maxDist",maxDist);
+              //       DebugLog.Log("RIGHT dist",dist ,"maxDist",maxDist);
 						PlayFootStep();
 						step = Foot.LEFT;
 					}

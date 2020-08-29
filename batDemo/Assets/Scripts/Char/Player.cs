@@ -40,7 +40,7 @@ public class Player : Character
     }
     protected virtual void onBodyFin(){
         this.initViewFin=true;
-        this.characterController=this.node.GetComponent<CharacterController>();
+        this.onViewLoadFin();
     } 
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);

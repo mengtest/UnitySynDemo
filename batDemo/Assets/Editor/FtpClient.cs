@@ -518,7 +518,7 @@ namespace MiniEditor
         /// <param name="destFtpFolderPath">Ftp服务器上存放待上传文件的目录</param>
         private bool FtpDirectoryIsNotExists(string destFolderPath)
         {
-            return false;
+      //      return false;
             try
             {
                 var request = (FtpWebRequest)WebRequest.Create(destFolderPath);

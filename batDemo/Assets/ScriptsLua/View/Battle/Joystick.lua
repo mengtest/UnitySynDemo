@@ -121,11 +121,11 @@ function Joystick:OnDrag(eventData)
     self.handle.localPosition = localPosition;
     ---   Vector2(direction.x * radius, direction.y * radius);
     ---  log("onDrag "..localPosition.x .. " Y "..localPosition.y)
-    local isRun =false;
+    --local isRun =false;
     local angle = Vector2.Angle(localPosition, Vector2.up);
     --log("angle "..angle);
     if self.radius >=self.maxRadius then
-        isRun=true;
+     --   isRun=true;
         ---判断夹角
         if angle<=70 and angle>= -70 then
            ---显示冲锋按钮.
@@ -165,7 +165,7 @@ function Joystick:OnDrag(eventData)
   --  local worldDir = forward * dir.y + right * dir.x;
     local canStop=false;
     if self.radius <=10 then  canStop=true end;
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{dir,isRun,canStop,angle});
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{dir,self.isSprinting,canStop,angle});
 end
 
 function Joystick:OnUp(eventData)

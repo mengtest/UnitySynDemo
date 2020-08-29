@@ -15,7 +15,9 @@ public class Character : ObjBase
     protected StateMachine<Character> m_FSM = null;
     protected SkillPart skillPart=null;
     public CharData charData=null;
-    
+
+ // Collider extents for ground test. 
+    protected Vector3 colExtents=Vector3.zero; 
     protected CharacterController characterController=null;
 
     public Character()
@@ -74,7 +76,8 @@ public class Character : ObjBase
     }
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();
-
+        this.colExtents=this.characterController.bounds.extents;
+        DebugLog.Log(this.colExtents);
     }
       //移动专用方法.
     public override void OnMove(Vector3 dic){
@@ -84,6 +87,16 @@ public class Character : ObjBase
             this.node.transform.position =  this.node.transform.position + dic;
         }
     }
+    public override bool IsGrounded()
+	{
+        if(this.colExtents!=Vector3.zero){
+            //两倍半径高度 向下打射线;
+            Ray ray = new Ray(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x, Vector3.down);
+            return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.1f);
+        }else{
+             return base.IsGrounded();
+        }
+	}
 
     //用的是 charData mono fixUpdate ;
     protected override void fixUpdate() {
@@ -169,15 +182,31 @@ public class Character : ObjBase
 
     //................................................................................  
      #region 角色 所有动作命令..................
-    public void Do_Move(Vector3 dir){
-        //this.char.getSkillPart().targetDir.set(dir).normalizeSelf();
-         if(charData.currentBaseAction!=GameEnum.ActionLabel.Run){
-             this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
-             DebugLog.Log("Run");
-         }else{
-     //         DebugLog.Log("SetTargetDir");
-             this.GetMovePart().SetTargetDir(dir);
-         }
+    public void Do_Move(Vector3 dir,bool isDash=false){
+        switch(charData.currentBaseAction){
+            case GameEnum.ActionLabel.Run:
+                if(isDash){
+                     this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
+                }else{
+                   this.GetMovePart().SetTargetDir(dir);
+                }
+            break;
+            case GameEnum.ActionLabel.Dash:
+                if(isDash){
+                   this.GetMovePart().SetTargetDir(dir);
+                }else{
+                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
+                }
+            break;
+            default:
+                if(isDash){
+                   this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
+                }else{
+                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
+                }
+            break;
+        }
+         //   DebugLog.Log("Run");
     }
     public void Do_StopMove(){
           if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
@@ -185,11 +214,17 @@ public class Character : ObjBase
           }
        // DebugLog.Log("StopMove");
     }
+    public void Do_Jump(){
+        if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
+               this.doActionSkillByLabel(GameEnum.ActionLabel.Jump);
+        }
+    }
+     
     #endregion 
     //...............................................................................  
    
 
-    public bool doActionSkillByLabel(string actionLabel ,int frame=0,bool chkCancelLv=true,object[] param=null,int skillID=0){
+    public override bool doActionSkillByLabel(string actionLabel ,int frame=0,bool chkCancelLv=true,object[] param=null,int skillID=0){
            if(m_FSM==null) return false;
            if(!m_FSM.GetCurState().CanDoAction(actionLabel))return false;
           // ActionManager.instance.GetAction(actionLabel);

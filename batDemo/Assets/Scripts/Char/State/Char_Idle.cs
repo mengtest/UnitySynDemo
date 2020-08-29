@@ -57,11 +57,14 @@ public class Char_Idle : State<Character>
             case GameEnum.ControllerCmd.OnJoy_Up:
                this.OnJoyUp(param);
             break;
+            case GameEnum.ControllerCmd.OnJump:
+               this.OnJoyUp(param);
+            break;
         }
     }
     private void OnJoy_Move(object[] data=null){
         Vector3 dirPos= (Vector3) data[0];
-        bool isRun= (bool) data[1];
+        bool isDash = (bool) data[1];
         bool canStop= (bool) data[2];
         if(canStop){
             if(charData.currentBaseAction==GameEnum.ActionLabel.Run){
@@ -92,7 +95,7 @@ public class Char_Idle : State<Character>
             // pos.rotate(CameraCtrl.Instance.cameraRotation/180*Math.PI,this.dirCamera);
             this._lastSendTime =Time.time;
             if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-                this._char.Do_Move(dirPos);
+                this._char.Do_Move(dirPos,isDash);
             } else {
                 CharData charD= this._char.objData as CharData;
                 if (charD.currentBaseActionType > 0 || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
@@ -100,7 +103,7 @@ public class Char_Idle : State<Character>
                 //     MGLog.l("move"); 发送移动事件.
                     ///  this.battleHandler.reportFrameCmdMoveMsg(
                 }else{
-                   this._char.Do_Move(dirPos);
+                   this._char.Do_Move(dirPos,isDash);
                 }
                 
             }
@@ -135,6 +138,19 @@ public class Char_Idle : State<Character>
             this.standFrame=0;
         }
     }
+     public void  OnJump(object[] data=null){
+        if(charData.currentBaseAction==GameEnum.ActionLabel.Jump){
+            //二段跳.
+            return;
+        }
+        if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
+             this._char.Do_Jump();
+        } else {
+            
+
+        }
+    }
+
 
     public override bool CanDoAction(string ActionLabel)
     {

@@ -12,20 +12,21 @@ namespace GameEnum
          public const int OnJoy_Move=1;
          //遥感抬起;
          public const int OnJoy_Up=2;
+          public const int OnJump=3;
 
 
-         public const int Char_Move=3;
-        public const int  Char_StopMove=4;
-         public const int Start_AI =5;
-         public const int Stop_AI=6;
-         public const int Paused_AI=7;
-         public const int Continue_AI=8;
-         public const int Char_FollowTarget=9;
-         public const int Char_MoveToPos=10;
+         public const int Char_Move=10;
+        public const int  Char_StopMove=11;
+         public const int Start_AI =12;
+         public const int Stop_AI=13;
+         public const int Paused_AI=14;
+         public const int Continue_AI=15;
+         public const int Char_FollowTarget=16;
+         public const int Char_MoveToPos=17;
         //本游戏，特殊做，跟随带偏移
-         public const int Char_UseSkill=11;
-         public const int Char_MoveToPosList=12;
-         public const int Char_MoveToPosWithoutPathFinder=13;
+         public const int Char_UseSkill=18;
+         public const int Char_MoveToPosList=19;
+         public const int Char_MoveToPosWithoutPathFinder=20;
      }
      [AutoRegistLua]
     public class PlayMode {
@@ -95,22 +96,28 @@ namespace GameEnum
     public class  ActionLabel
     {
         //动作标签 
-         public static string Null = "Null";        
-        public static string Stand = "Stand";        
-        public static string StandUp = "StandUp";        
-        public static string Reborn = "Reborn";  
-        public static string Run = "Run";  
-        public static string BackOff = "BackOff";  
-        public static string CmdAction = "CmdAction";  
-        public static string Dead = "Dead";  
-        public static string Action = "Action";  
+         public const string Null = "Null";        
+        public const string Stand = "Stand";        
+        public const string StandUp = "StandUp";        
+        public const string Reborn = "Reborn";  
+        public const string Run = "Run";  
+         public const string Dash = "Dash";  
+        public const string Jump = "Jump";  
+        public const string BackOff = "BackOff";  
+        public const string CmdAction = "CmdAction";  
+        public const string Dead = "Dead";  
+        public const string Action = "Action";  
+
 
 
          //Ani Name.
-        public static string run_fwd = "run_fwd";      
-        public static string sprint_fwd = "sprint_fwd";      
+        public const string Idle_Wait_A="Idle_Wait_A";
+        public const string Idle_Wait_B="Idle_Wait_B";
 
-
+        public const string run_fwd = "run_fwd";      
+        public const string Mvm_Jog = "Mvm_Jog";      
+        
+        public const string Mvm_Dash = "Mvm_Dash";   
     }
     [AutoRegistLua]
     //动作层级 
@@ -120,5 +127,11 @@ namespace GameEnum
         public const int UpLayer = 1;  
         public const int AddLayer = 2;  
     }
+    public enum JumpState
+    { 
+        JumpOnGround=0,
+        JumpRise=1,
+        JumpFall=2,
     
+    }
 }

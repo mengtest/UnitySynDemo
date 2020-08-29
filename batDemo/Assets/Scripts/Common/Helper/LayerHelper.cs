@@ -1,0 +1,149 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// 层级缓存，需要和setting中保持一致
+/// </summary>
+public enum ELayer
+{
+    ////////////////////unity自带////////////////////////
+    Default = 0,
+    TransparentFX = 1,
+    IgonreRaycast = 2,
+    Water = 4,
+    UI = 5,
+    ////////////////////自定义(注释要说明用处)////////////////////////
+    /// <summary>
+    /// 第三人称
+    /// </summary>
+    FPS = 8,
+    /// <summary>
+    /// 可被射线检测攻击层级
+    /// </summary>
+    Damageable = 9,
+    /// <summary>
+    /// 倍镜层级
+    /// </summary>
+    Scope = 11,
+    /// <summary>
+    /// 毒圈
+    /// </summary>
+    PoisonCircle = 12
+}
+
+/// <summary>
+/// layer层级工具类
+/// </summary>
+[AutoRegistLua]
+public class LayerHelper
+{
+    /// <summary>
+    /// 比较目标层级
+    /// </summary>
+    /// <returns></returns>
+    public static bool CompareLayer(GameObject target, ELayer layer)
+    {
+        return target.layer == (int)layer;
+    }
+
+    /// <summary>
+    /// 将节点的子物体设置成UI层级
+    /// </summary>
+    /// <param name="go"></param>
+    public static void ChangeObjLayerToUI(GameObject go)
+    {
+        SetObjRenderLayer(go, ELayer.UI);
+    }
+
+    /// <summary>
+    /// 设置所有渲染节点的层级
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="layer"></param>
+    public static void SetObjRenderLayer(GameObject go, ELayer layer)
+    {
+        if (go == null)
+        {
+            return;
+        }
+        Renderer[] renderers = go.GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].gameObject.layer = (int)layer;
+        }
+    }
+
+    /// <summary>
+    /// 设置所有子节点的层级
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="layer"></param>
+    public static void SetObjLayer(GameObject go, ELayer layer)
+    {
+        if (go == null)
+        {
+            return;
+        }
+        Transform[] trs = go.GetComponentsInChildren<Transform>();
+        for (int i = 0; i < trs.Length; i++)
+        {
+            trs[i].gameObject.layer = (int)layer;
+        }
+    }
+
+    /// <summary>
+    /// 获取射线层级Mask，配合射线用
+    /// </summary>
+    /// <param name="layer"></param>
+    /// <returns></returns>
+    public static int GetLayerMask(params ELayer[] layer)
+    {
+        if (layer == null) return 0;
+
+        int mask = 0;
+        for (int i = 0; i < layer.Length; ++i)
+        {
+            mask |= LayerMask.GetMask(LayerMask.LayerToName((int)layer[i]));
+        }
+        return mask;
+    }
+
+    public static int GetEverythingMask()
+    {
+        return -1;
+    }
+
+    public static int GetNothingMask()
+    {
+        return 0;
+    }
+
+    /// <summary>
+    /// 跳伞地面检测层级
+    /// </summary>
+    /// <returns></returns>
+    public static int GetParachutingLandMask()
+    {
+        return GetLayerMask(ELayer.Default, ELayer.Water);
+    }
+
+
+    /// <summary>
+    /// 获取可被击中的层级Mask
+    /// </summary>
+    /// <returns></returns>
+    public static int GetHitLayerMask()
+    {
+        return GetLayerMask(ELayer.Damageable, ELayer.Default, ELayer.Water);
+    }
+
+    /// <summary>
+    /// 获取环境层级（地面、建筑等不受伤害，但能遮挡攻击的物体 --- 用于判断是否被遮挡）
+    /// </summary>
+    /// <returns></returns>
+    public static int GetEnviromentLayerMask()
+    {
+        return GetLayerMask(ELayer.Default);
+    }
+}

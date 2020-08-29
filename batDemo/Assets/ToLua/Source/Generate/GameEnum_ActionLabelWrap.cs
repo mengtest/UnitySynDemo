@@ -9,17 +9,21 @@ public class GameEnum_ActionLabelWrap
 		L.BeginClass(typeof(GameEnum.ActionLabel), typeof(System.Object));
 		L.RegFunction("New", _CreateGameEnum_ActionLabel);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("Null", get_Null, set_Null);
-		L.RegVar("Stand", get_Stand, set_Stand);
-		L.RegVar("StandUp", get_StandUp, set_StandUp);
-		L.RegVar("Reborn", get_Reborn, set_Reborn);
-		L.RegVar("Run", get_Run, set_Run);
-		L.RegVar("BackOff", get_BackOff, set_BackOff);
-		L.RegVar("CmdAction", get_CmdAction, set_CmdAction);
-		L.RegVar("Dead", get_Dead, set_Dead);
-		L.RegVar("Action", get_Action, set_Action);
-		L.RegVar("run_fwd", get_run_fwd, set_run_fwd);
-		L.RegVar("sprint_fwd", get_sprint_fwd, set_sprint_fwd);
+		L.RegVar("Null", get_Null, null);
+		L.RegVar("Stand", get_Stand, null);
+		L.RegVar("StandUp", get_StandUp, null);
+		L.RegVar("Reborn", get_Reborn, null);
+		L.RegVar("Run", get_Run, null);
+		L.RegVar("Dash", get_Dash, null);
+		L.RegVar("BackOff", get_BackOff, null);
+		L.RegVar("CmdAction", get_CmdAction, null);
+		L.RegVar("Dead", get_Dead, null);
+		L.RegVar("Action", get_Action, null);
+		L.RegVar("Idle_Wait_A", get_Idle_Wait_A, null);
+		L.RegVar("Idle_Wait_B", get_Idle_Wait_B, null);
+		L.RegVar("run_fwd", get_run_fwd, null);
+		L.RegVar("Mvm_Jog", get_Mvm_Jog, null);
+		L.RegVar("Mvm_Dash", get_Mvm_Dash, null);
 		L.EndClass();
 	}
 
@@ -118,6 +122,20 @@ public class GameEnum_ActionLabelWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Dash(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Dash);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_BackOff(IntPtr L)
 	{
 		try
@@ -174,6 +192,34 @@ public class GameEnum_ActionLabelWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Idle_Wait_A(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Idle_Wait_A);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Idle_Wait_B(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Idle_Wait_B);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_run_fwd(IntPtr L)
 	{
 		try
@@ -188,11 +234,11 @@ public class GameEnum_ActionLabelWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_sprint_fwd(IntPtr L)
+	static int get_Mvm_Jog(IntPtr L)
 	{
 		try
 		{
-			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.sprint_fwd);
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_Jog);
 			return 1;
 		}
 		catch (Exception e)
@@ -202,163 +248,12 @@ public class GameEnum_ActionLabelWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Null(IntPtr L)
+	static int get_Mvm_Dash(IntPtr L)
 	{
 		try
 		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Null = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Stand(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Stand = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_StandUp(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.StandUp = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Reborn(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Reborn = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Run(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Run = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_BackOff(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.BackOff = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_CmdAction(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.CmdAction = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Dead(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Dead = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_Action(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.Action = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_run_fwd(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.run_fwd = arg0;
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_sprint_fwd(IntPtr L)
-	{
-		try
-		{
-			string arg0 = ToLua.CheckString(L, 2);
-			GameEnum.ActionLabel.sprint_fwd = arg0;
-			return 0;
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_Dash);
+			return 1;
 		}
 		catch (Exception e)
 		{

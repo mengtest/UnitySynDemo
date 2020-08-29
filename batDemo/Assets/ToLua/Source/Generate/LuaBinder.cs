@@ -17,6 +17,8 @@ public static class LuaBinder
 		MonsterWrap.Register(L);
 		MovePartWrap.Register(L);
 		PlayerWrap.Register(L);
+		LayerHelperWrap.Register(L);
+		ELayerWrap.Register(L);
 		UtilsWrap.Register(L);
 		DoTweenWrap.Register(L);
 		CharEventWrap.Register(L);

@@ -5,11 +5,11 @@
 //动作
 using UnityEngine;
 
-public class Run : ActionBase
+public class Dash : ActionBase
 {
     //单次创建.
     public override void init(){
-        this.name=GameEnum.ActionLabel.Run;
+        this.name=GameEnum.ActionLabel.Dash;
         this.actionLayer=GameEnum.ActionLayer.BaseLayer;
         this.defultPriority=GameEnum.CancelPriority.Stand_Move_Null;
     }
@@ -25,10 +25,12 @@ public class Run : ActionBase
             this.obj.GetMovePart().StopMove();
             //播放 站立动作.
             //跑步 改变 动画属性.
-     //   DebugLog.Log("Run.........");
-            this.obj.moveSpeed=5f;  //0.75f
-            this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+         //   DebugLog.Log("Dash.........");
+            this.obj.moveSpeed=7f;
+            this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Dash,frame,0.533f,1f,0.25f,0,true);
             this.obj.GetMovePart().StartMove((Vector3)param[0]);
+            CameraManager.Instance.cameraCtrl.SetFOV(80);
+            CameraManager.Instance.postLayer.enabled=true;
     }
 
         //动作更新;
@@ -39,7 +41,8 @@ public class Run : ActionBase
     * 切换动作 处理逻辑;
     */
     public override void executeSwichAction(){
-
+         CameraManager.Instance.cameraCtrl.ResetFOV();
+         CameraManager.Instance.postLayer.enabled=false;
     }
 
     //动作 需要改成3种分支 base up add

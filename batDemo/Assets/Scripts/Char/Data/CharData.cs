@@ -7,6 +7,7 @@ public class CharData : MonoBehaviour,IData
 {
 
     public Character _char=null;
+    public bool isMyPlayer=false;
     private Action _onFixUpdate; 
     
     public int pvpId;

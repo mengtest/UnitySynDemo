@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameEnum;
 using UnityEngine;
 /****
 移动基类
@@ -10,7 +11,7 @@ public class MovePart
     private Vector3 _targetDirection=Vector3.zero;
     private bool _isMoving = false;
     //跳跃
-    private bool m_jumping = false;
+    private bool _jumping = false;
 
     //对象移动的正前方; 
     public Vector3 forwardDirection= Vector3.zero;
@@ -22,24 +23,50 @@ public class MovePart
 
     //移动点数  改变这个只可以加速(buff 增加速度等)或减速(中毒,被重击慢速移动等) 只对使用移动点数有效...;
     public float movePoint = 10000;
-
-
+    //是否使用重力
+    public bool useGravityPower=false;
+    //重力
+    public float GravityPower=-15f;
 
     /**单次运动数据*运动完会重置******************************************************************************************
      * 
      */
     private float moveStartTime = 0;
+
     //移动距离.
     private Vector3 _moveSpeed=Vector3.zero;
-    private Vector3 _moveRoate=Vector3.zero;
+    //总移动距离 加上Y轴距离.
+    private Vector3 _vSpeed = Vector3.zero;
+
     //移动速度累计;
     private float _currentSpeed = 0;
     public Vector3 targetPos = Vector3.zero;
     private List<Vector3> targetPosList = new List<Vector3>(); //< 反序路径
+    public bool hasTarget;
     //当前速度
     public float speed=0;
+    private Vector3 _moveRoate=Vector3.zero;
+     
 
-    public bool hasTarget;
+    //只有Y轴角度;
+    public JumpState jumpState;
+    //开始跳跃时间.
+    private float jumpStartTime = 0;
+    //跳跃距离
+    private Vector3 _jumpSpeed = Vector3.zero;
+    //当前Y轴速度
+    private float _jumpUp = 0;
+    //向上方向的力 
+    public float upPow;
+    //向上加速度... 负为重力;
+    public float acceleratedupPow;
+    //向上的力趋向0时取消加速度;
+    public bool ZeroUpStop;
+   
+
+
+
+    public bool useYspeed=false;
     public float AcceleratedSpeed;
 
     //最大速度;
@@ -90,6 +117,8 @@ public class MovePart
         this._pause=false;
 
         this._moveSpeed.Set(0,0,0);
+        this._jumpSpeed.Set(0,0,0);
+         this._vSpeed.Set(0,0,0);
         this._moveRoate.Set(0,0,0);
 
         this.targetOffset.Set(0,0,0);
@@ -102,7 +131,7 @@ public class MovePart
 
     public void fixUpdate() {
         if (this._pause) return;
-        if (!this._isMoving) return;
+        if (!_isMoving && !_jumping) return;
         //float dt=Time.fixedDeltaTime;
         //跟随对象检测;
         if (this.target != null) {
@@ -114,13 +143,30 @@ public class MovePart
         }
         this.changeDir(this.rotateSpeed,Time.fixedDeltaTime);
         //移动速度;
-        this.calMoveSpeed(Time.fixedDeltaTime);
+        if(_isMoving){
+           this.calMoveSpeed();
+        }
+        if (_jumping)
+        {
+            //跳跃;
+            this.calJumpSpeed();
+        }
+        _vSpeed=_jumpSpeed+_moveSpeed;
         //添加移动
-        this.obj.OnMove(_moveSpeed);
+        this.obj.OnMove(_vSpeed);
       //  this.obj.position.addSelf(this._moveSpeed);
         //额外移动
         this.extraMove(Time.fixedDeltaTime);
-        this.chkMove();
+        if(_isMoving){
+             this.chkMove();
+        }
+        if(_jumping){
+             this.chkJump();
+        }else{
+            if(useGravityPower){
+                this.chkFall();
+            }
+        }
     }
     //额外移动...Todo 改成多个运动力 motion 控制移动.
     private void extraMove(float number) {
@@ -168,6 +214,9 @@ public class MovePart
         this._targetDirection=targetPos-this.obj.gameObject.transform.position;
         this._targetDirection.Normalize();
         this.targetPos= targetPos;
+        if(!this.useYspeed){
+           this.targetPos.y=0;
+        }
         this.target = null;
         this.moveStartTime = 0;
         this.extraMoveStartTime = 0;
@@ -179,14 +228,16 @@ public class MovePart
        //     this.targetPosBox.push(ColorBoxManager.Get().showColorPos(this.targetPos, cc.Color.RED, 50));
       //  }
     }
-    public void StopMove(bool needEvent = false,bool resSpeed = true) {
+    public void StopMove(bool needEvent = false,bool resSpeed = true,bool resJumpSpeed=false) {
         //  if((this.pos as CharData).charId_Xls==3001){
         //      console.log("stopMove",(this.pos as CharData).pvpId);
         //  }
-        this.reset(resSpeed);
-        if (needEvent) {
-            this.obj.GetEvent().dispatchEvent(CharEvent.MOVE_END);
-            //         console.log("Move_End");
+        this.reset(resSpeed,resJumpSpeed);
+        if(!_jumping){
+            if (needEvent) {
+                this.obj.GetEvent().dispatchEvent(CharEvent.MOVE_END);
+                //         console.log("Move_End");
+            }
         }
     }
     private void stopMoveChk(bool needEvent = false) {
@@ -200,8 +251,12 @@ public class MovePart
    /**
      * 是否正在移动;
      */
-    public bool IsMove() {
+    public bool IsMove(){
         return this._isMoving;
+    }
+     public bool IsAir()
+    {
+        return _jumping;
     }
     //是否跟随目标;
     public bool IsFollowTarget() {
@@ -209,7 +264,7 @@ public class MovePart
     }
     //获取下一步移动距离.
     public Vector3  GetNextMoveSpeedDic(){
-        return this._moveSpeed;
+        return this._vSpeed;
     }
     //设置移动趋向 改变旋转 
     public void SetTargetRotation(float rotationY) {
@@ -352,8 +407,8 @@ public class MovePart
             }
         }
     }
-    private void calMoveSpeed(float dt) {
-        this.moveStartTime += dt;
+    private void calMoveSpeed() {
+        this.moveStartTime += Time.fixedDeltaTime;
      
         if (this.ZeroSpeedStop) {
             //0衰减没有最大速度限制;
@@ -376,7 +431,10 @@ public class MovePart
         if (this.useWeightPower) {
             this._currentSpeed = this._currentSpeed / this.obj.weight;
         }
-      this._moveSpeed =  this.forwardDirection* this._currentSpeed * dt;
+        if(!this.useYspeed){
+            forwardDirection.y=0;
+        }
+        this._moveSpeed =  this.forwardDirection * this._currentSpeed * Time.fixedDeltaTime;
     //    MyMath.floor2Vet(this._moveSpeed);
      //  DebugLog.Log("this._moveSpeed",this._moveSpeed);
     }
@@ -395,13 +453,21 @@ public class MovePart
                         else if (this._targetDirection.x < 0 && trans.position.x<this.targetPos.x) {
                             chkMpos.x = this.targetPos.x;
                         }
-                        if (this._targetDirection.y> 0 && trans.position.y>this.targetPos.y) {
-                            chkMpos.y = this.targetPos.y;
+                        if (this._targetDirection.z> 0 && trans.position.z>this.targetPos.z) {
+                            chkMpos.z = this.targetPos.z;
                         }
-                        else if (this._targetDirection.y<0 && trans.position.y<this.targetPos.y) {
-                            chkMpos.y = this.targetPos.y;
+                        else if (this._targetDirection.z<0 && trans.position.z<this.targetPos.z) {
+                            chkMpos.z = this.targetPos.z;
                         }
-                         trans.position=chkMpos;
+                        if(this.useYspeed){
+                            if (this._targetDirection.y> 0 && trans.position.y>this.targetPos.y) {
+                            chkMpos.y = this.targetPos.y;
+                            }
+                            else if (this._targetDirection.y<0 && trans.position.y<this.targetPos.y) {
+                                chkMpos.y = this.targetPos.y;
+                            }
+                        }
+                        trans.position=chkMpos;
                         if (this.targetPos == trans.position) {
                             //           console.log("moveCom",this.targetPos);
                             this.stopMoveChk(true);
@@ -418,6 +484,122 @@ public class MovePart
         }
 
     }
+     public void Jump()
+     {
+        _jumping = true;
+        if (_jumpUp > 0)
+        {
+            jumpState = JumpState.JumpRise;
+        }
+        else if (_jumpUp < 0)
+        {
+            jumpState = JumpState.JumpFall;
+
+        }
+        jumpStartTime = 0;
+      //  m_vLastPos = m_Owner.GetPos();
+    }
+
+    //计算跳跃速度.
+    public void calJumpSpeed(){
+        jumpStartTime += Time.deltaTime;
+        float zeroTime;
+        if (ZeroUpStop)
+        {
+            zeroTime = (-upPow / acceleratedupPow);
+            if (jumpStartTime > zeroTime)
+            {
+                _jumpUp = 0;
+            }
+            else
+            {
+                _jumpUp = upPow + acceleratedupPow * jumpStartTime;
+            }
+        }
+        else
+        {
+            _jumpUp = upPow + acceleratedupPow * jumpStartTime;
+        }
+        //      m_vSpeed *= _speed * cos;
+        //   dir*_jumpForward+ Vector3.up*_jumpUp;
+//        DeBugLogger.LogTrace("_jumpUp>>>>>>>: " + _jumpUp);
+
+        if (useWeightPower)
+        {
+            _jumpUp = _jumpUp / this.obj.weight;
+        }
+
+        _jumpSpeed = Vector3.up * _jumpUp ; 
+
+        if (_jumpUp >= 0 && jumpState != JumpState.JumpRise)
+        {
+            jumpState = JumpState.JumpRise;
+            this.obj.GetEvent().dispatchEvent(CharEvent.Jump_Rise);
+        }
+        if (_jumpUp < 0 && jumpState != JumpState.JumpFall)
+        {
+            jumpState = JumpState.JumpFall;
+             this.obj.GetEvent().dispatchEvent(CharEvent.Jump_Fall);
+        }
+    }
+     private void chkFall(){
+         //向下打射线 如果离地面超过 1 检测下落.
+        if (jumpState == JumpState.JumpOnGround&&!this.obj.IsGrounded())
+        {
+            this.acceleratedupPow=this.GravityPower;
+            this.upPow=0;
+            this.ZeroUpStop=false;
+            this.Jump();
+         }
+     }
+     private void chkJump()
+    {
+        if (jumpState == JumpState.JumpFall&&this.obj.IsGrounded())
+        {
+            //判断是否落地.
+            //向下打射线.
+            jumpToGround();
+        }
+        //    pos = info.pos;
+    }
+
+    // private void chkJumpToTarget()
+    // {
+    //     if (hasTarget&&this.targetPos!=Vector3.zero)
+    //     {
+    //         //         DeBugLogger.LogTrace("距离: " +  (pos - m_param.m_target).magnitude );
+    //         // 移动结束
+    //         Transform trans= this.obj.gameObject.transform;
+    //         if (Mathf.Abs(trans.position.y - this.targetPos.y ) < 0.1f)
+    //         {
+    //             //                     if (m_Owner.GetData().camp != 1)
+    //             //                     {
+    //             //                       DeBugLogger.LogTrace("到达终点 距离" + (pos - m_param.m_target).magnitude);
+    //             //                     }
+    //             jumpState = JumpState.JumpOnGround;
+    //             _jumpUp = 0;
+    //             _jumping = false;
+    //             _jumpSpeed = Vector3.zero;
+    //             chkMpos=trans.position;
+    //             chkMpos.y = this.targetPos.y;
+    //             trans.position=chkMpos;
+    //         }
+    //     }
+    // }
+    private void jumpToGround()
+    {
+        jumpState = JumpState.JumpOnGround;
+        _jumpUp = 0;
+        _jumping = false;
+        _jumpSpeed = Vector3.zero;
+        if(!_isMoving){
+            StopMove(true,true,true);
+        }else{
+            this.reset(false,true,false);
+        }
+        this.obj.GetEvent().dispatchEvent(CharEvent.Jump_To_Ground);
+    }
+
     public void startMoveToByListWithReverseList(List<Vector3> targetPosList) {
             if (targetPosList==null || targetPosList.Count < 1) {
                 return;
@@ -450,39 +632,54 @@ public class MovePart
          obj=null;
          target = null;
     }
-    public void reset(bool clearSpeed = true) {
-        this._isMoving = false;
-        this.moveStartTime = 0;
-        this._currentSpeed = 0;
+    private void clearTarget(){
         this.target = null;
-
         this.targetPos.Set(0,0,0);
         this.targetPosList.Clear();
-
+        this.targetOffset.Set(0,0,0);
         this._targetDirection.Set(0,0,0);
+        this.hasTarget = false;
+    }
+    public void reset(bool clearMoveSpeed = true,bool clearJumpSpeed=true,bool clearTarget=true) {
+        if(clearTarget){
+            this.clearTarget();
+        }
 
-        if (clearSpeed) {
+        if (clearMoveSpeed) {
+            this.useWeightPower = false;    
+            this.ImmDir = false;    
+            this._isMoving = false;
+            this._currentSpeed = 0;
+            this.moveStartTime = 0;
             this.speed = 0;
             this.AcceleratedSpeed = 0;
             this.MaxSpeed = -1;
             this.ZeroSpeedStop = false;
             this.useMovePoint = false;
+            this.useYspeed=false;
 
             this.extraAcSpeed = -1;
             this.extraSpeed = 0;
             this.extraDir = 1;
             this.extraMaxSpeed = 0;
+            this.extraCurSpeed = 0;
+            this.extraMoveStartTime = 0;
         }
-        this.hasTarget = false;
-        this.useWeightPower = false;
+        if (clearJumpSpeed) {
+            this.jumpStartTime = 0;
+            this.jumpState=JumpState.JumpOnGround;
+            this._jumpUp = 0;
+            if(this.useGravityPower){
+               this.acceleratedupPow=this.GravityPower;
+            }else{
+                this.acceleratedupPow=0;
+            }
+            this.upPow=0;
+            this.ZeroUpStop=false;
+            this._jumping=false;
+        }
 
-        this.targetOffset.Set(0,0,0);
 
-
-        this.extraCurSpeed = 0;
-        this.extraMoveStartTime = 0;
-
-        this.ImmDir = false;
         //24
     }
 }

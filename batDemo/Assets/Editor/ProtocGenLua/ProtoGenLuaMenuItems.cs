@@ -106,7 +106,7 @@ public class ProtoGenLuaMenuItems
 
         string tempCmdPath = Application.dataPath.Replace("Assets", "") + "Tools/protoc-gen-lua/create_protoc-pb-"+canPath.Replace("/","") + ".cmd";
         string tempProtoSoucePath = "../../GameProto" + canPath;
-        string tempOutPath = "../../GameProto";
+       // string tempOutPath = "../../GameProto";
         ProcessStartInfo info = new ProcessStartInfo();
         info.FileName = tempCmdPath;
         info.WindowStyle = ProcessWindowStyle.Hidden;

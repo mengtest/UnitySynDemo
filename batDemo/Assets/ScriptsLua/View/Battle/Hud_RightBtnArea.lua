@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-08-26 16:57:20
+LastEditTime: 2020-08-29 15:36:16
 --]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
@@ -12,6 +12,8 @@ Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 --自动生成-------------------------------------------
 ---添加UI引用.
 function Hud_RightBtnArea:OnUIInit()
+    ---@type UnityEngine.UI.Button
+    self.JumpBtn=self:SubGet("JumpBtn","Button")
     ---@type UnityEngine.UI.Text
     self.RotateText=self:SubGet("Test/RotateText","Text")
     ---@type UnityEngine.UI.Button
@@ -38,6 +40,7 @@ end
 
 ---移除UI引用.
 function Hud_RightBtnArea:OnUIDestory()
+self.JumpBtn=nil
 self.RotateText=nil
 self.subRotate=nil
 self.addRotate=nil
@@ -50,6 +53,8 @@ self.Image=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
 end
+
+
 
 
 --自动生成-----------end------------------------------
@@ -78,6 +83,10 @@ function Hud_RightBtnArea:OnSprintClick(obj)
     self:OnSprintState(not self._isSprinting);
     joyStick:SetSprint(self._isSprinting);
 end
+function Hud_RightBtnArea:OnJumpClick(obj)
+    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_JUMP);
+end
+
 function Hud_RightBtnArea:OnSprintState(isSprinting)
     self._isSprinting = isSprinting;
     self.Image.enabled =  self._isSprinting;
@@ -119,6 +128,7 @@ end
 
 function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = function(obj)  self:OnSprintClick(obj) end
+    UIEventListener.Get(self.JumpBtn.gameObject).onClick = function(obj)  self:OnJumpClick(obj) end
 
     UIEventListener.Get(self.addSpeed.gameObject).onClick = function(obj)  self:OnSpeedUp(obj) end
     UIEventListener.Get(self.subSpeed.gameObject).onClick = function(obj)  self:OnSpeedDown(obj) end
@@ -128,6 +138,7 @@ end
 
 function Hud_RightBtnArea:RemoveListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
+    UIEventListener.Get(self.JumpBtn.gameObject).onClick = nil
 
     UIEventListener.Get(self.addSpeed.gameObject).onClick = nil
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil

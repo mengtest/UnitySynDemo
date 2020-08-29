@@ -23,8 +23,7 @@
              this.currentFrame = frame;
              this.obj.GetMovePart().StopMove();
              //播放 站立动作.
-             this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Stand,frame,1.067f,1,0.25f,0,true);
-
+             this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Idle_Wait_A,frame,2f,1.5f,0.25f,0,true);
 
         }
 

@@ -17,6 +17,7 @@ public class MovePartWrap
 		L.RegFunction("StartMoveTo", StartMoveTo);
 		L.RegFunction("StopMove", StopMove);
 		L.RegFunction("IsMove", IsMove);
+		L.RegFunction("IsAir", IsAir);
 		L.RegFunction("IsFollowTarget", IsFollowTarget);
 		L.RegFunction("GetNextMoveSpeedDic", GetNextMoveSpeedDic);
 		L.RegFunction("SetTargetRotation", SetTargetRotation);
@@ -29,6 +30,8 @@ public class MovePartWrap
 		L.RegFunction("SetRotation", SetRotation);
 		L.RegFunction("getRotation", getRotation);
 		L.RegFunction("changeDir", changeDir);
+		L.RegFunction("Jump", Jump);
+		L.RegFunction("calJumpSpeed", calJumpSpeed);
 		L.RegFunction("startMoveToByListWithReverseList", startMoveToByListWithReverseList);
 		L.RegFunction("Dispose", Dispose);
 		L.RegFunction("reset", reset);
@@ -38,9 +41,16 @@ public class MovePartWrap
 		L.RegVar("faceToRotation", get_faceToRotation, set_faceToRotation);
 		L.RegVar("rotateSpeed", get_rotateSpeed, set_rotateSpeed);
 		L.RegVar("movePoint", get_movePoint, set_movePoint);
+		L.RegVar("useGravityPower", get_useGravityPower, set_useGravityPower);
+		L.RegVar("GravityPower", get_GravityPower, set_GravityPower);
 		L.RegVar("targetPos", get_targetPos, set_targetPos);
-		L.RegVar("speed", get_speed, set_speed);
 		L.RegVar("hasTarget", get_hasTarget, set_hasTarget);
+		L.RegVar("speed", get_speed, set_speed);
+		L.RegVar("jumpState", get_jumpState, set_jumpState);
+		L.RegVar("upPow", get_upPow, set_upPow);
+		L.RegVar("acceleratedupPow", get_acceleratedupPow, set_acceleratedupPow);
+		L.RegVar("ZeroUpStop", get_ZeroUpStop, set_ZeroUpStop);
+		L.RegVar("useYspeed", get_useYspeed, set_useYspeed);
 		L.RegVar("AcceleratedSpeed", get_AcceleratedSpeed, set_AcceleratedSpeed);
 		L.RegVar("MaxSpeed", get_MaxSpeed, set_MaxSpeed);
 		L.RegVar("ZeroSpeedStop", get_ZeroSpeedStop, set_ZeroSpeedStop);
@@ -242,6 +252,15 @@ public class MovePartWrap
 				obj.StopMove(arg0, arg1);
 				return 0;
 			}
+			else if (count == 4)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				obj.StopMove(arg0, arg1, arg2);
+				return 0;
+			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: MovePart.StopMove");
@@ -261,6 +280,23 @@ public class MovePartWrap
 			ToLua.CheckArgsCount(L, 1);
 			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
 			bool o = obj.IsMove();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsAir(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			bool o = obj.IsAir();
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
@@ -491,6 +527,38 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Jump(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			obj.Jump();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int calJumpSpeed(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			obj.calJumpSpeed();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int startMoveToByListWithReverseList(IntPtr L)
 	{
 		try
@@ -541,6 +609,23 @@ public class MovePartWrap
 				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
 				bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
 				obj.reset(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.reset(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				obj.reset(arg0, arg1, arg2);
 				return 0;
 			}
 			else
@@ -631,6 +716,44 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_useGravityPower(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool ret = obj.useGravityPower;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useGravityPower on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_GravityPower(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float ret = obj.GravityPower;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index GravityPower on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_targetPos(IntPtr L)
 	{
 		object o = null;
@@ -646,6 +769,25 @@ public class MovePartWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index targetPos on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_hasTarget(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool ret = obj.hasTarget;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index hasTarget on a nil value");
 		}
 	}
 
@@ -669,7 +811,7 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_hasTarget(IntPtr L)
+	static int get_jumpState(IntPtr L)
 	{
 		object o = null;
 
@@ -677,13 +819,89 @@ public class MovePartWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			MovePart obj = (MovePart)o;
-			bool ret = obj.hasTarget;
+			GameEnum.JumpState ret = obj.jumpState;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index jumpState on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_upPow(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float ret = obj.upPow;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index upPow on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_acceleratedupPow(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float ret = obj.acceleratedupPow;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index acceleratedupPow on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ZeroUpStop(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool ret = obj.ZeroUpStop;
 			LuaDLL.lua_pushboolean(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index hasTarget on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ZeroUpStop on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_useYspeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool ret = obj.useYspeed;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useYspeed on a nil value");
 		}
 	}
 
@@ -1030,6 +1248,44 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_useGravityPower(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.useGravityPower = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useGravityPower on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_GravityPower(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.GravityPower = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index GravityPower on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_targetPos(IntPtr L)
 	{
 		object o = null;
@@ -1045,6 +1301,25 @@ public class MovePartWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index targetPos on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_hasTarget(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.hasTarget = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index hasTarget on a nil value");
 		}
 	}
 
@@ -1068,7 +1343,64 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_hasTarget(IntPtr L)
+	static int set_jumpState(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			GameEnum.JumpState arg0 = (GameEnum.JumpState)ToLua.CheckObject(L, 2, typeof(GameEnum.JumpState));
+			obj.jumpState = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index jumpState on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_upPow(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.upPow = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index upPow on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_acceleratedupPow(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.acceleratedupPow = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index acceleratedupPow on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ZeroUpStop(IntPtr L)
 	{
 		object o = null;
 
@@ -1077,12 +1409,31 @@ public class MovePartWrap
 			o = ToLua.ToObject(L, 1);
 			MovePart obj = (MovePart)o;
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.hasTarget = arg0;
+			obj.ZeroUpStop = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index hasTarget on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ZeroUpStop on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_useYspeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.useYspeed = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index useYspeed on a nil value");
 		}
 	}
 

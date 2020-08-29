@@ -12,7 +12,7 @@ public class ObjBase : PoolObj
     
     public GameEnum.ObjType charType=GameEnum.ObjType.Obj;
     protected MovePart _move=null;
-
+                    
     //0  layer层 动画控件 整体全身动作层
     protected AniPart aniBasePart=null;
 
@@ -146,6 +146,10 @@ public class ObjBase : PoolObj
     public virtual void onViewLoadFin(){
         
     }
+    public virtual bool IsGrounded()
+	{
+		return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.1f);
+	}
     //移动专用方法.
     public virtual void OnMove(Vector3 dic){
        this.node.transform.position =  this.node.transform.position + dic;
@@ -181,7 +185,11 @@ public class ObjBase : PoolObj
         }
         return this._move;
     }
-     
+    //基类不实现动作 CmdACTION
+    public virtual bool doActionSkillByLabel(string actionLabel ,int frame=0,bool chkCancelLv=true,object[] param=null,int skillID=0){
+         
+          return true;
+    }
     public virtual bool hasAni(int layer=0){
        return this.aniBasePart ==null ? false:true;
     }

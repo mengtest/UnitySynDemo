@@ -1,6 +1,7 @@
 ﻿//*************************************************************************
 //	动画播放部件
 //*************************************************************************
+using System;
 using UnityEngine;
  
     //动画播放部件
@@ -27,6 +28,8 @@ using UnityEngine;
 
         private IAniCtrl ctrl=null;
 
+        public Action endAniAction=null;
+
  //       private int m_nLastStartFrame = -1;
 
         // 初始化动画控制器
@@ -34,6 +37,7 @@ using UnityEngine;
         {
             this._obj=obj;
             this.Layer=Layer;
+            this.endAniAction=null;
         }
         //初始化控制器
         private void initCtrl(){
@@ -44,7 +48,7 @@ using UnityEngine;
                      this.ctrl=new AnimationCtrl(this._obj);
                 }
                 if(this._isPlay){
-                     this.ctrl.play(curAniName,this._time,this.speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
                 }
             }
         }
@@ -129,18 +133,18 @@ using UnityEngine;
                 this._isPause = false;
                 this._isPlay = true;
                  if(this.ctrl!=null&&!this.ctrl.isPlaying(strAcionName)){
-                     this.ctrl.play(curAniName,this._time,this.speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
                  }            
             }else{
                 this.curAniName = strAcionName;
                 this._time = nStartTime;
-                this._speed = speed;
+                this._speed = fSpeed;
                 this._isPlay = true;
                 this._totalTime = nTotalTime;
                 this._loop = nLoop;
                 this._isPause = false;
                  if(this.ctrl!=null){
-                     this.ctrl.play(curAniName,this._time,this.speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
                  }
             }
         }
@@ -160,6 +164,9 @@ using UnityEngine;
                     this._loop--;
                     this._time = 0;
                     if (this._loop <= 0) {
+                        if(this.endAniAction!=null){
+                            this.endAniAction();
+                        }
                         this.stop();
                     }
                 }

@@ -12,6 +12,7 @@ public class CameraManagerWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("mainCamera", get_mainCamera, set_mainCamera);
 		L.RegVar("cameraCtrl", get_cameraCtrl, set_cameraCtrl);
+		L.RegVar("postLayer", get_postLayer, set_postLayer);
 		L.EndClass();
 	}
 
@@ -88,6 +89,25 @@ public class CameraManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_postLayer(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CameraManager obj = (CameraManager)o;
+			UnityEngine.Rendering.PostProcessing.PostProcessLayer ret = obj.postLayer;
+			ToLua.PushSealed(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index postLayer on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_mainCamera(IntPtr L)
 	{
 		object o = null;
@@ -122,6 +142,25 @@ public class CameraManagerWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraCtrl on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_postLayer(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CameraManager obj = (CameraManager)o;
+			UnityEngine.Rendering.PostProcessing.PostProcessLayer arg0 = (UnityEngine.Rendering.PostProcessing.PostProcessLayer)ToLua.CheckObject(L, 2, typeof(UnityEngine.Rendering.PostProcessing.PostProcessLayer));
+			obj.postLayer = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index postLayer on a nil value");
 		}
 	}
 }
