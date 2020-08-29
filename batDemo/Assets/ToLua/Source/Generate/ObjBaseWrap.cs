@@ -17,6 +17,7 @@ public class ObjBaseWrap
 		L.RegFunction("getDic", getDic);
 		L.RegFunction("GetEvent", GetEvent);
 		L.RegFunction("GetMovePart", GetMovePart);
+		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
 		L.RegFunction("hasAni", hasAni);
 		L.RegFunction("pauseAni", pauseAni);
 		L.RegFunction("resumeAni", resumeAni);
@@ -280,6 +281,74 @@ public class ObjBaseWrap
 			MovePart o = obj.GetMovePart();
 			ToLua.PushObject(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int doActionSkillByLabel(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				bool o = obj.doActionSkillByLabel(arg0);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool o = obj.doActionSkillByLabel(arg0, arg1);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				object[] arg3 = ToLua.CheckObjectArray(L, 5);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2, arg3);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 4);
+				object[] arg3 = ToLua.CheckObjectArray(L, 5);
+				int arg4 = (int)LuaDLL.luaL_checknumber(L, 6);
+				bool o = obj.doActionSkillByLabel(arg0, arg1, arg2, arg3, arg4);
+				LuaDLL.lua_pushboolean(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: ObjBase.doActionSkillByLabel");
+			}
 		}
 		catch (Exception e)
 		{

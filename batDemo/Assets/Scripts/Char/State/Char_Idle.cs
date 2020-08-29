@@ -95,7 +95,7 @@ public class Char_Idle : State<Character>
             // pos.rotate(CameraCtrl.Instance.cameraRotation/180*Math.PI,this.dirCamera);
             this._lastSendTime =Time.time;
             if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-                this._char.Do_Move(dirPos,isDash);
+                this._char.Do_JoyMove(dirPos,isDash);
             } else {
                 CharData charD= this._char.objData as CharData;
                 if (charD.currentBaseActionType > 0 || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
@@ -103,7 +103,7 @@ public class Char_Idle : State<Character>
                 //     MGLog.l("move"); 发送移动事件.
                     ///  this.battleHandler.reportFrameCmdMoveMsg(
                 }else{
-                   this._char.Do_Move(dirPos,isDash);
+                   this._char.Do_JoyMove(dirPos,isDash);
                 }
                 
             }
@@ -115,7 +115,7 @@ public class Char_Idle : State<Character>
      public void  OnJoyUp(object[] data=null){
         this._lastAngle=Vector2.zero;
         if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-             this._char.Do_StopMove();
+             this._char.Do_JoyUp();
         } else {
             CharData charD= this._char.objData as CharData;
             if (charD.currentBaseActionType > 0   || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
@@ -124,7 +124,7 @@ public class Char_Idle : State<Character>
                //移动对象。停止
               //  dd.x= (this.char.charData.position.x * 10000) | 0 ;
               //  dd.y= (this.char.charData.position.y * 10000) | 0 ;
-                this._char.Do_StopMove();
+                this._char.Do_JoyUp();
             }
 
             // let charLink = this.char.LinkObj();

@@ -15,6 +15,7 @@ public class GameEnum_ActionLabelWrap
 		L.RegVar("Reborn", get_Reborn, null);
 		L.RegVar("Run", get_Run, null);
 		L.RegVar("Dash", get_Dash, null);
+		L.RegVar("Jump", get_Jump, null);
 		L.RegVar("BackOff", get_BackOff, null);
 		L.RegVar("CmdAction", get_CmdAction, null);
 		L.RegVar("Dead", get_Dead, null);
@@ -127,6 +128,20 @@ public class GameEnum_ActionLabelWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Dash);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Jump(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Jump);
 			return 1;
 		}
 		catch (Exception e)

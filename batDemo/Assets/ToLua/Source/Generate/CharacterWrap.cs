@@ -21,8 +21,9 @@ public class CharacterWrap
 		L.RegFunction("pauseAni", pauseAni);
 		L.RegFunction("resumeAni", resumeAni);
 		L.RegFunction("GetSkillPart", GetSkillPart);
-		L.RegFunction("Do_Move", Do_Move);
-		L.RegFunction("Do_StopMove", Do_StopMove);
+		L.RegFunction("Do_JoyMove", Do_JoyMove);
+		L.RegFunction("Do_JoyUp", Do_JoyUp);
+		L.RegFunction("Do_Jump", Do_Jump);
 		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
@@ -379,7 +380,7 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Do_Move(IntPtr L)
+	static int Do_JoyMove(IntPtr L)
 	{
 		try
 		{
@@ -389,7 +390,7 @@ public class CharacterWrap
 			{
 				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-				obj.Do_Move(arg0);
+				obj.Do_JoyMove(arg0);
 				return 0;
 			}
 			else if (count == 3)
@@ -397,12 +398,12 @@ public class CharacterWrap
 				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
-				obj.Do_Move(arg0, arg1);
+				obj.Do_JoyMove(arg0, arg1);
 				return 0;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.Do_Move");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.Do_JoyMove");
 			}
 		}
 		catch (Exception e)
@@ -412,13 +413,29 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Do_StopMove(IntPtr L)
+	static int Do_JoyUp(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.Do_StopMove();
+			obj.Do_JoyUp();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Do_Jump(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.Do_Jump();
 			return 0;
 		}
 		catch (Exception e)

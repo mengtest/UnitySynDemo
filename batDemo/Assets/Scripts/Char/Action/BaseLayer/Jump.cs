@@ -50,7 +50,7 @@ public class Jump : ActionBase
     private void doStandAction(){
         Character chars=this.obj as Character;
         if(chars!=null){
-            chars.Do_StopMove();
+            chars.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
         }
     }
 

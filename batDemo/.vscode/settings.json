@@ -54,6 +54,7 @@
     },
     "Lua.runtime.version": "LuaJIT",
     "Lua.diagnostics.disable": [
+        "emmy-lua"
     ],
     "Lua.diagnostics.globals": [
         "GameLuaManager",
@@ -66,7 +67,8 @@
         "LoopType",
         "UIEventListener",
         "SystemEvent",
-        "EventCenter"
+        "EventCenter",
+        "CameraManager"
     ],
     "Lua.workspace.maxPreload": 1000,
     "git.ignoreLimitWarning": true

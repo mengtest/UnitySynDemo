@@ -11,17 +11,18 @@ public class GameEnum_ControllerCmdWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegConstant("OnJoy_Move", 1);
 		L.RegConstant("OnJoy_Up", 2);
-		L.RegConstant("Char_Move", 3);
-		L.RegConstant("Char_StopMove", 4);
-		L.RegConstant("Start_AI", 5);
-		L.RegConstant("Stop_AI", 6);
-		L.RegConstant("Paused_AI", 7);
-		L.RegConstant("Continue_AI", 8);
-		L.RegConstant("Char_FollowTarget", 9);
-		L.RegConstant("Char_MoveToPos", 10);
-		L.RegConstant("Char_UseSkill", 11);
-		L.RegConstant("Char_MoveToPosList", 12);
-		L.RegConstant("Char_MoveToPosWithoutPathFinder", 13);
+		L.RegConstant("OnJump", 3);
+		L.RegConstant("Char_Move", 10);
+		L.RegConstant("Char_StopMove", 11);
+		L.RegConstant("Start_AI", 12);
+		L.RegConstant("Stop_AI", 13);
+		L.RegConstant("Paused_AI", 14);
+		L.RegConstant("Continue_AI", 15);
+		L.RegConstant("Char_FollowTarget", 16);
+		L.RegConstant("Char_MoveToPos", 17);
+		L.RegConstant("Char_UseSkill", 18);
+		L.RegConstant("Char_MoveToPosList", 19);
+		L.RegConstant("Char_MoveToPosWithoutPathFinder", 20);
 		L.EndClass();
 	}
 

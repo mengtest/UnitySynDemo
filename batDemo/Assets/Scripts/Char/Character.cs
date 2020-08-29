@@ -182,7 +182,7 @@ public class Character : ObjBase
 
     //................................................................................  
      #region 角色 所有动作命令..................
-    public void Do_Move(Vector3 dir,bool isDash=false){
+    public void Do_JoyMove(Vector3 dir,bool isDash=false){
         switch(charData.currentBaseAction){
             case GameEnum.ActionLabel.Run:
                 if(isDash){
@@ -198,6 +198,16 @@ public class Character : ObjBase
                     this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
                 }
             break;
+            case GameEnum.ActionLabel.Jump:
+
+            break;
+            case GameEnum.ActionLabel.Stand:
+                if(isDash){
+                   this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
+                }else{
+                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
+                }
+            break;
             default:
                 if(isDash){
                    this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
@@ -208,7 +218,7 @@ public class Character : ObjBase
         }
          //   DebugLog.Log("Run");
     }
-    public void Do_StopMove(){
+    public void Do_JoyUp(){
           if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
                this.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
           }
