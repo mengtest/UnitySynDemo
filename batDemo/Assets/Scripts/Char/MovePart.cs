@@ -26,7 +26,7 @@ public class MovePart
     //是否使用重力
     public bool useGravityPower=false;
     //重力
-    public float GravityPower=-15f;
+    public float GravityPower=-1.0f;
 
     /**单次运动数据*运动完会重置******************************************************************************************
      * 
@@ -151,7 +151,12 @@ public class MovePart
             //跳跃;
             this.calJumpSpeed();
         }
+     //   DebugLog.Log("_jumpSpeed",_jumpSpeed);
+    //    DebugLog.Log("_moveSpeed",_moveSpeed);
+        
         _vSpeed=_jumpSpeed+_moveSpeed;
+
+     //   DebugLog.Log("_vSpeed",_vSpeed);
         //添加移动
         this.obj.OnMove(_vSpeed);
       //  this.obj.position.addSelf(this._moveSpeed);
@@ -255,6 +260,10 @@ public class MovePart
         return this._isMoving;
     }
      public bool IsAir()
+    {
+        return _jumping;
+    }
+     public bool IsJumping()
     {
         return _jumping;
     }
@@ -380,6 +389,7 @@ public class MovePart
                 //            this._targetDirection=null;
             }
         } else if (this._targetDirection!=null && this.obj.gameObject.transform.forward!= this._targetDirection ) {
+
              this._moveRoate=this._targetDirection-this.forwardDirection;
           //  this._targetDirection.sub(this.pos.forwardDirection, this._moveRoate);
             if (this._moveRoate.magnitude< 0.01f) {
@@ -388,10 +398,18 @@ public class MovePart
                 //        this._targetDirection=null;
                 //        console.log("rotation End");
             } else {
+                 if(this._moveRoate.magnitude>=2){
+                     //180°不能直接相减
+                   this._targetDirection = Quaternion.AngleAxis(1, Vector3.up) * this._targetDirection;
+                     //this._targetDirection= this._targetDirection;
+                 // DebugLog.Log("180 >>>>>>>>>>>>>>> ",this._targetDirection);
+                 }
                 this._moveRoate=this._targetDirection*(rotateSpeed * dt);
+             //   DebugLog.Log("this._moveRoate",this._moveRoate);
              //   this._targetDirection.mul(rotateSpeed * dt, this._moveRoate);
                 //最新方向;
                  this.forwardDirection= this.forwardDirection+this._moveRoate;
+            //     DebugLog.Log("forwardDirection",this.forwardDirection);
                   this.forwardDirection.Normalize();
                 //this.forwardDirection.addSelf(this._moveRoate).normalizeSelf();//.normalize();
             }
@@ -487,6 +505,9 @@ public class MovePart
      public void Jump()
      {
         _jumping = true;
+        jumpState = JumpState.JumpOnGround;
+        _jumpUp=upPow*Time.deltaTime;
+
         if (_jumpUp > 0)
         {
             jumpState = JumpState.JumpRise;
@@ -494,7 +515,8 @@ public class MovePart
         else if (_jumpUp < 0)
         {
             jumpState = JumpState.JumpFall;
-
+        }else if(_jumpUp == 0 &&  acceleratedupPow <0 ){
+             jumpState = JumpState.JumpFall;
         }
         jumpStartTime = 0;
       //  m_vLastPos = m_Owner.GetPos();
@@ -513,16 +535,16 @@ public class MovePart
             }
             else
             {
-                _jumpUp = upPow + acceleratedupPow * jumpStartTime;
+                _jumpUp = upPow*Time.deltaTime + acceleratedupPow * jumpStartTime;
             }
         }
         else
         {
-            _jumpUp = upPow + acceleratedupPow * jumpStartTime;
+            _jumpUp = upPow*Time.deltaTime + acceleratedupPow * jumpStartTime;
         }
         //      m_vSpeed *= _speed * cos;
         //   dir*_jumpForward+ Vector3.up*_jumpUp;
-//        DeBugLogger.LogTrace("_jumpUp>>>>>>>: " + _jumpUp);
+     //   DebugLog.Log("_jumpUp>>>>>>>: " + _jumpUp);
 
         if (useWeightPower)
         {
@@ -550,15 +572,18 @@ public class MovePart
             this.upPow=0;
             this.ZeroUpStop=false;
             this.Jump();
+            this.obj.GetEvent().dispatchEvent(CharEvent.Begin_Fall);
          }
      }
      private void chkJump()
     {
-        if (jumpState == JumpState.JumpFall&&this.obj.IsGrounded())
+        if (jumpState == JumpState.JumpFall)
         {
-            //判断是否落地.
-            //向下打射线.
-            jumpToGround();
+            if(this.obj.IsGrounded()){
+                //判断是否落地.
+                //向下打射线.
+                jumpToGround();
+            }
         }
         //    pos = info.pos;
     }
@@ -664,6 +689,7 @@ public class MovePart
             this.extraMaxSpeed = 0;
             this.extraCurSpeed = 0;
             this.extraMoveStartTime = 0;
+            this._moveSpeed.Set(0,0,0);
         }
         if (clearJumpSpeed) {
             this.jumpStartTime = 0;
@@ -677,6 +703,7 @@ public class MovePart
             this.upPow=0;
             this.ZeroUpStop=false;
             this._jumping=false;
+            this._jumpSpeed.Set(0,0,0);
         }
 
 

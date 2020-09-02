@@ -45,7 +45,7 @@ public class AnimatorCtrl:IAniCtrl
             m_fSpeed = speed;
             m_fBlendTime =fBlendTime;
             _Animator.speed=speed;
-            _Animator.CrossFade(aniName, m_fBlendTime,this.Layer,startTime);
+            _Animator.CrossFade(aniName, fBlendTime,this.Layer,startTime);
         }
         public void Release()
         {

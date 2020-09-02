@@ -32,7 +32,7 @@ public class Char_Freeze : State<Character>
         
     }
 
-    public override void OnEvent(int nEventID, object[] param=null)
+    public override void OnEvent(string nEventID, object[] param=null)
     {
     }
 

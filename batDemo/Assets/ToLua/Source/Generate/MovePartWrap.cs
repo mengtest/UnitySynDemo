@@ -18,6 +18,7 @@ public class MovePartWrap
 		L.RegFunction("StopMove", StopMove);
 		L.RegFunction("IsMove", IsMove);
 		L.RegFunction("IsAir", IsAir);
+		L.RegFunction("IsJumping", IsJumping);
 		L.RegFunction("IsFollowTarget", IsFollowTarget);
 		L.RegFunction("GetNextMoveSpeedDic", GetNextMoveSpeedDic);
 		L.RegFunction("SetTargetRotation", SetTargetRotation);
@@ -297,6 +298,23 @@ public class MovePartWrap
 			ToLua.CheckArgsCount(L, 1);
 			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
 			bool o = obj.IsAir();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsJumping(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			bool o = obj.IsJumping();
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}

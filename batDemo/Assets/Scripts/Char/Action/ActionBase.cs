@@ -1,9 +1,11 @@
 ﻿//*************************************************************************
 //	技能部件
 //*************************************************************************
- 
-    //技能部件
-    public class ActionBase : PoolObj
+
+//技能部件
+using UnityEngine;
+
+    public  class ActionBase : PoolObj
     {
         //动作在SkillActionPool 中 存储的名称.. nan1@Skill_01 之类.
         public string name;
@@ -103,9 +105,15 @@
                this.obj.resumeAni(this.actionLayer);
             }
         }
+
+
         public bool isFinish(){
         return this.currentFrame >= this.totalFrame ;
         }
+
+        /****
+        获取
+        *****/
         public override void onGet()
         {
             this.cancelPriorityLimit=this.defultPriority;

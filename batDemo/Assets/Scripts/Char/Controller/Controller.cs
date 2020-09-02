@@ -14,12 +14,13 @@ public class Controller :PoolObj, IController
         this._char=character;
     }
 
-    public  void SendMessage(int cmd, object[] param=null)
+    public  void SendMessage(string cmd, object[] param=null)
     {
         if (this._char==null||this._char.isRecycled) {
             return;
         }
         this._char.OnEvent(cmd,param);
+        //this._char.GetEvent().send(cmd,param);
     }
     public override void onRecycle()
     {

@@ -207,7 +207,7 @@ public static class LuaBinder
 		TcpSocket_TcpSocketClientWrap.Register(L);
 		L.EndModule();
 		L.BeginModule("GameEnum");
-		GameEnum_ControllerCmdWrap.Register(L);
+		GameEnum_KeyInputWrap.Register(L);
 		GameEnum_PlayModeWrap.Register(L);
 		GameEnum_CtrlTypeWrap.Register(L);
 		GameEnum_ObjTypeWrap.Register(L);

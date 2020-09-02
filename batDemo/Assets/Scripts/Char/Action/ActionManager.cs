@@ -82,6 +82,7 @@ public class ActionManager
         registerClass(GameEnum.ActionLabel.Stand, typeof(Stand),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Run, typeof(Run),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Dash, typeof(Dash),0,GameEnum.CancelPriority.Stand_Move_Null);
+         registerClass(GameEnum.ActionLabel.Jump, typeof(Jump),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.CmdAction, typeof(CmdAction),0,GameEnum.CancelPriority.Stand_Move_Null);
     }
 

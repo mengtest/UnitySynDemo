@@ -27,7 +27,8 @@ using UnityEngine;
         private bool _isPause = false;
 
         private IAniCtrl ctrl=null;
-
+        //播放完后停止.
+        private bool _playEndStop=false;
         public Action endAniAction=null;
 
  //       private int m_nLastStartFrame = -1;
@@ -88,8 +89,10 @@ using UnityEngine;
         this._isPlay = false;
         this._isPause = false;
         //看看动画时候需要同步到最后一帧.
-         if (this.ctrl!=null) {
-            this.ctrl.stop(this.curAniName);
+        if(this._playEndStop){
+            if (this.ctrl!=null) {
+                this.ctrl.stop(this.curAniName);
+            }
         }
     }
 
@@ -121,8 +124,9 @@ using UnityEngine;
         @param dontRePlaySameAni 不重新播放相同的动画;
          @param layer 新动画系统层级
         */
-        public void Play(string strAcionName, float nStartTime = 0,float nTotalTime=1, float fSpeed = 1.0f, float fBlendTime = 0.25f ,int nLoop = 1, bool dontRePlaySameAni=false)
+        public void Play(string strAcionName, float nStartTime = 0,float nTotalTime=1, float fSpeed = 1.0f, float fBlendTime = 0.25f ,int nLoop = 1, bool dontRePlaySameAni=false,bool finishStop=false)
         {            
+            this._playEndStop=finishStop;
             if( dontRePlaySameAni && curAniName == strAcionName )
             {
                 //继续播放 
@@ -164,10 +168,11 @@ using UnityEngine;
                     this._loop--;
                     this._time = 0;
                     if (this._loop <= 0) {
+                        this.stop();
                         if(this.endAniAction!=null){
                             this.endAniAction();
+                             this.endAniAction=null;
                         }
-                        this.stop();
                     }
                 }
             }

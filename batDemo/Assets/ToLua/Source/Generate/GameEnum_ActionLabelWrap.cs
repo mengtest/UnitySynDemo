@@ -25,6 +25,12 @@ public class GameEnum_ActionLabelWrap
 		L.RegVar("run_fwd", get_run_fwd, null);
 		L.RegVar("Mvm_Jog", get_Mvm_Jog, null);
 		L.RegVar("Mvm_Dash", get_Mvm_Dash, null);
+		L.RegVar("Mvm_DashEnd_C", get_Mvm_DashEnd_C, null);
+		L.RegVar("Mvm_DashEnd_B", get_Mvm_DashEnd_B, null);
+		L.RegVar("Mvm_Stop_Front", get_Mvm_Stop_Front, null);
+		L.RegVar("Jmp_Base_A_Rise", get_Jmp_Base_A_Rise, null);
+		L.RegVar("Jmp_Base_A_OnGround", get_Jmp_Base_A_OnGround, null);
+		L.RegVar("Jmp_Base_A_Fall", get_Jmp_Base_A_Fall, null);
 		L.EndClass();
 	}
 
@@ -268,6 +274,90 @@ public class GameEnum_ActionLabelWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_Dash);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Mvm_DashEnd_C(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_DashEnd_C);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Mvm_DashEnd_B(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_DashEnd_B);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Mvm_Stop_Front(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Mvm_Stop_Front);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Jmp_Base_A_Rise(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Jmp_Base_A_Rise);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Jmp_Base_A_OnGround(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Jmp_Base_A_OnGround);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Jmp_Base_A_Fall(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Jmp_Base_A_Fall);
 			return 1;
 		}
 		catch (Exception e)

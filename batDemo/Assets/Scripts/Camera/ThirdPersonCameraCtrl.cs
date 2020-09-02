@@ -7,6 +7,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
+    //跟随目标速度.
+    public float followTargetSmooth=50f;    
+    public float currentFollowTargetSmooth;    
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
@@ -22,8 +25,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private Transform cam;                                             // This transform.
 	private Vector3 relCameraPos;                                      // Current camera position relative to the player.
 	private float relCameraPosMag;                                     // Current camera distance to the player.
-	private Vector3 smoothPivotOffset;                                 // Camera current pivot offset on interpolation.
-	private Vector3 smoothCamOffset;                                   // Camera current offset on interpolation.
+	public Vector3 smoothPivotOffset;                                 // Camera current pivot offset on interpolation.
+	public Vector3 smoothCamOffset;                                   // Camera current offset on interpolation.
 	private Vector3 targetPivotOffset;                                 // Camera pivot offset target to iterpolate.
 	private Vector3 targetCamOffset;                                   // Camera offset target to interpolate.
 	private float defaultFOV;                                          // Default camera Field of View.
@@ -75,6 +78,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothCamOffset = camOffset;
 		defaultFOV = _camera.fieldOfView;
 		angleH = this.target.eulerAngles.y;
+        this.currentFollowTargetSmooth=this.followTargetSmooth;
 		ResetTargetOffsets ();
 		ResetFOV ();
 		ResetMaxVerticalAngle();
@@ -143,7 +147,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Set FOV.
    //     DebugLog.Log("targetFOV",targetFOV);
     //      DebugLog.Log("fieldOfView",cam.GetComponent<Camera>().fieldOfView);
-		_camera.fieldOfView = Mathf.Lerp (_camera.fieldOfView, targetFOV,  Time.deltaTime);
+		_camera.fieldOfView = Mathf.Lerp (_camera.fieldOfView, targetFOV, 5f* Time.deltaTime);
 
 		// Test for collision with the environment based on current camera position.
 		Vector3 baseTempPosition = target.position + camYRotation * targetPivotOffset;
@@ -160,8 +164,11 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Repostition the camera.
 		smoothPivotOffset = Vector3.Lerp(smoothPivotOffset, targetPivotOffset, smooth * Time.deltaTime);
 		smoothCamOffset = Vector3.Lerp(smoothCamOffset, noCollisionOffset, smooth * Time.deltaTime);
+     
+        this.currentFollowTargetSmooth=Mathf.Lerp (this.currentFollowTargetSmooth,this.followTargetSmooth,7f* Time.deltaTime);
 
-		cam.position =  target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset;
+	    cam.position =   Vector3.Lerp(cam.position,target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset,this.currentFollowTargetSmooth*Time.deltaTime);
+        
 
 		// Amortize Camera vertical bounce.
 		if (recoilAngle > 0)

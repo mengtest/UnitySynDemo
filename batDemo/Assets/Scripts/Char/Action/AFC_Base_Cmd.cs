@@ -60,9 +60,12 @@ using UnityEngine;
         /// <summary>
         /// 命令执行   需要重写。。。。
         /// </summary>
-        public void execute() {
+        public virtual void execute(){
 
         }
+
+
+
         /**
         * 命令更新  需要重写。。。。
         * @param idx 当前帧

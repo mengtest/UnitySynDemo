@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharData : MonoBehaviour,IData
 {
 
-    public Character _char=null;
+    private Character _char=null;
     public bool isMyPlayer=false;
     private Action _onFixUpdate; 
     
@@ -14,6 +14,9 @@ public class CharData : MonoBehaviour,IData
     public CtrlType ctrlType=CtrlType.Null;
 
     //状态属性.......................
+
+    //冲刺
+    public bool isDashing=false;
     public bool isLie = false;
     public bool isStandUp = false;
     public bool lowFLy=false;
@@ -46,12 +49,15 @@ public class CharData : MonoBehaviour,IData
     public string currentAddLayerAction =  GameEnum.ActionLabel.Null;
 
 
+    public float RunSpeed=5;
+    public float DashSpeed=7;
+
     //状态属性.........................
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlaySpeed=1f;
     }
 
     public void init(ObjBase obj,Action onFixUpdate){

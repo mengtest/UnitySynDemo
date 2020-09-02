@@ -35,122 +35,129 @@ public class Char_Idle : State<Character>
         charData.isLie = false;
         charData.lowFLy = false;
         charData.isStandUp = false;
+        _char.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
     }
 
     // 退出状态
     public override void Leave()
     {
+         _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
         _char = null;
     }
 
     public override void Update(float dt)
     {
-        
+
     }
 
-    public override void OnEvent(int cmd, object[] param=null)
+    public override void OnEvent(string cmd, object[] param=null)
     {
          switch(cmd){
-            case GameEnum.ControllerCmd.OnJoy_Move:
-               this.OnJoy_Move(param);
-            break;
-            case GameEnum.ControllerCmd.OnJoy_Up:
-               this.OnJoyUp(param);
-            break;
-            case GameEnum.ControllerCmd.OnJump:
-               this.OnJoyUp(param);
+            // case CharEvent.OnJoy_Move:
+               
+            // break;
+            case CharEvent.On_KeyState:
+               if(param==null){
+                   return;
+               }
+               string keyType =(string)param[0];
+               switch(keyType){
+                   case GameEnum.KeyInput.Jump:
+                       this.OnJump();  
+                   break;
+               }
             break;
         }
     }
-    private void OnJoy_Move(object[] data=null){
-        Vector3 dirPos= (Vector3) data[0];
-        bool isDash = (bool) data[1];
-        bool canStop= (bool) data[2];
-        if(canStop){
-            if(charData.currentBaseAction==GameEnum.ActionLabel.Run){
-                this.standFrame+=1;
-                if(this.standFrame>=4){
-                    //发送站立.
-                    this.OnJoyUp();
-                }
-            }
-            return;
-        }
-        if(charData.currentBaseAction==GameEnum.ActionLabel.Stand){
-                this._lastAngle=Vector3.zero;
-        }
-        if(this._lastAngle!= Vector3.zero){
-            //攻击中 重新定位Dir
-            // if (charData.isAttacking || charData.currentActionType > 0 || charData.currentNotActionType > 0) {
-            //     this._lastAngle=Vector2.zero;
-            // }
-        }
-    //          DebugLog.Log(Time.time);
-              //时间 先不要  && Time.time - this._lastSendTime >= 0.033f
-        if(charData.currentBaseActionType == 0 && (this._lastAngle == Vector3.zero || dirPos!=this._lastAngle)){
-            this._lastAngle=dirPos;
-       //     DebugLog.Log("onJoystickMove: " + this._lastAngle);
-            //派发事件 帧同步;
+    // private void OnJoy_Move(object[] data=null){
+    //     Vector3 dirPos= (Vector3) data[0];
+    //     bool isDash = (bool) data[1];
+    //     bool canStop= (bool) data[2];
+    //     if(canStop){
+    //         if(charData.currentBaseAction==GameEnum.ActionLabel.Run){
+    //             this.standFrame+=1;
+    //             if(this.standFrame>=4){
+    //                 //发送站立.
+    //                 this.OnJoyUp();
+    //             }
+    //         }
+    //         return;
+    //     }
+    //     if(charData.currentBaseAction==GameEnum.ActionLabel.Stand){
+    //             this._lastAngle=Vector3.zero;
+    //     }
+    //     if(this._lastAngle!= Vector3.zero){
+    //         //攻击中 重新定位Dir
+    //         // if (charData.isAttacking || charData.currentActionType > 0 || charData.currentNotActionType > 0) {
+    //         //     this._lastAngle=Vector2.zero;
+    //         // }
+    //     }
+    // //          DebugLog.Log(Time.time);
+    //           //时间 先不要  && Time.time - this._lastSendTime >= 0.033f
+    //     if(charData.currentBaseActionType == 0 && (this._lastAngle == Vector3.zero || dirPos!=this._lastAngle)){
+    //         this._lastAngle=dirPos;
+    //    //     DebugLog.Log("onJoystickMove: " + this._lastAngle);
+    //         //派发事件 帧同步;
             
-            // pos.rotate(CameraCtrl.Instance.cameraRotation/180*Math.PI,this.dirCamera);
-            this._lastSendTime =Time.time;
-            if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-                this._char.Do_JoyMove(dirPos,isDash);
-            } else {
-                CharData charD= this._char.objData as CharData;
-                if (charD.currentBaseActionType > 0 || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
+    //         // pos.rotate(CameraCtrl.Instance.cameraRotation/180*Math.PI,this.dirCamera);
+    //         this._lastSendTime =Time.time;
+    //         if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
+    //             this._char.On_JoyMove(dirPos,isDash);
+    //         } else {
+    //             CharData charD= this._char.objData as CharData;
+    //             if (charD.currentBaseActionType > 0 || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
 
-                //     MGLog.l("move"); 发送移动事件.
-                    ///  this.battleHandler.reportFrameCmdMoveMsg(
-                }else{
-                   this._char.Do_JoyMove(dirPos,isDash);
-                }
+    //             //     MGLog.l("move"); 发送移动事件.
+    //                 ///  this.battleHandler.reportFrameCmdMoveMsg(
+    //             }else{
+    //                this._char.On_JoyMove(dirPos,isDash);
+    //             }
                 
-            }
-            if(this.standFrame>0){
-                this.standFrame=0;
-            }
-        }
+    //         }
+    //         if(this.standFrame>0){
+    //             this.standFrame=0;
+    //         }
+    //     }
+    // }
+    //  public void  OnJoyUp(object[] data=null){
+    //     this._lastAngle=Vector2.zero;
+    //     if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
+    //          this._char.On_JoyUp();
+    //     } else {
+    //         CharData charD= this._char.objData as CharData;
+    //         if (charD.currentBaseActionType > 0   || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
+
+    //         }else{
+    //            //移动对象。停止
+    //           //  dd.x= (this.char.charData.position.x * 10000) | 0 ;
+    //           //  dd.y= (this.char.charData.position.y * 10000) | 0 ;
+    //             this._char.On_JoyUp();
+    //         }
+
+    //         // let charLink = this.char.LinkObj();
+    //         // if(charLink&&!charLink.isRecycled){
+    //      //       console.log("send stop Move===============>",this.char.LinkObj().charData.pvpId );
+    //          //   this.battleHandler.reportFrameCmdStopMoveMsg(charLink.charData.pvpId,dd.x,dd.y);
+    //        // }
+
+    //     }
+    //     if(this.standFrame>0){
+    //         this.standFrame=0;
+    //     }
+    // }
+    
+    private void OnBeginFall(object[] data){
+         if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
+             this._char.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
+         }
     }
-     public void  OnJoyUp(object[] data=null){
-        this._lastAngle=Vector2.zero;
-        if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-             this._char.Do_JoyUp();
-        } else {
-            CharData charD= this._char.objData as CharData;
-            if (charD.currentBaseActionType > 0   || charD.currentBaseAction == GameEnum.ActionLabel.BackOff) {
-
-            }else{
-               //移动对象。停止
-              //  dd.x= (this.char.charData.position.x * 10000) | 0 ;
-              //  dd.y= (this.char.charData.position.y * 10000) | 0 ;
-                this._char.Do_JoyUp();
-            }
-
-            // let charLink = this.char.LinkObj();
-            // if(charLink&&!charLink.isRecycled){
-         //       console.log("send stop Move===============>",this.char.LinkObj().charData.pvpId );
-             //   this.battleHandler.reportFrameCmdStopMoveMsg(charLink.charData.pvpId,dd.x,dd.y);
-           // }
-
-        }
-        if(this.standFrame>0){
-            this.standFrame=0;
-        }
-    }
-     public void  OnJump(object[] data=null){
+    public void  OnJump(){
         if(charData.currentBaseAction==GameEnum.ActionLabel.Jump){
             //二段跳.
             return;
         }
-        if (GameSettings.Instance.playMode == GameEnum.PlayMode.SingleMode ||GameSettings.Instance.playMode == GameEnum.PlayMode.ReplayMode ) {
-             this._char.Do_Jump();
-        } else {
-            
-
-        }
+        this._char.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
     }
-
 
     public override bool CanDoAction(string ActionLabel)
     {

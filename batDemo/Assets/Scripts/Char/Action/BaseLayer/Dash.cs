@@ -18,6 +18,8 @@ public class Dash : ActionBase
     public override void InitAction(ObjBase obj)
     {
         base.InitAction(obj);
+        this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
+        this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Up,onJoyUp);
     }
         //动作进入
     public override void GotoFrame(int frame=0,object[] param=null){
@@ -26,7 +28,8 @@ public class Dash : ActionBase
             //播放 站立动作.
             //跑步 改变 动画属性.
          //   DebugLog.Log("Dash.........");
-            this.obj.moveSpeed=7f;
+            CharData charData=this.obj.objData as CharData;
+            this.obj.moveSpeed=charData.DashSpeed;
             this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Dash,frame,0.533f,1f,0.25f,0,true);
             this.obj.GetMovePart().StartMove((Vector3)param[0]);
             CameraManager.Instance.cameraCtrl.SetFOV(80);
@@ -37,10 +40,28 @@ public class Dash : ActionBase
     public override void Update(){
         base.Update();
     }
+    private  void onJoyMove(object[] data){
+        Vector3 dirPos = (Vector3) data[0];
+        bool isDash = (bool) data[1];
+        if(isDash){
+            this.obj.GetMovePart().SetTargetDir(dirPos);
+        }else{
+            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
+        }
+    }
+    // 回到站立动作.
+    private  void onJoyUp(object[] data=null){
+        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.ActionLabel.Mvm_Stop_Front,0.9f,1f});
+    }
+    
+
+
     /**
     * 切换动作 处理逻辑;
     */
     public override void executeSwichAction(){
+         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
+         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
          CameraManager.Instance.cameraCtrl.ResetFOV();
          CameraManager.Instance.postLayer.enabled=false;
     }

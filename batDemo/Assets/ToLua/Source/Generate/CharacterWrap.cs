@@ -21,15 +21,14 @@ public class CharacterWrap
 		L.RegFunction("pauseAni", pauseAni);
 		L.RegFunction("resumeAni", resumeAni);
 		L.RegFunction("GetSkillPart", GetSkillPart);
-		L.RegFunction("Do_JoyMove", Do_JoyMove);
-		L.RegFunction("Do_JoyUp", Do_JoyUp);
-		L.RegFunction("Do_Jump", Do_Jump);
+		L.RegFunction("On_Jump", On_Jump);
 		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreateCharacter);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("charData", get_charData, set_charData);
+		L.RegVar("dirPos", get_dirPos, null);
 		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.EndClass();
 	}
@@ -126,14 +125,14 @@ public class CharacterWrap
 			if (count == 2)
 			{
 				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				string arg0 = ToLua.CheckString(L, 2);
 				obj.OnEvent(arg0);
 				return 0;
 			}
 			else if (count == 3)
 			{
 				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				string arg0 = ToLua.CheckString(L, 2);
 				object[] arg1 = ToLua.CheckObjectArray(L, 3);
 				obj.OnEvent(arg0, arg1);
 				return 0;
@@ -380,62 +379,13 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Do_JoyMove(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 2)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-				obj.Do_JoyMove(arg0);
-				return 0;
-			}
-			else if (count == 3)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
-				obj.Do_JoyMove(arg0, arg1);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.Do_JoyMove");
-			}
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Do_JoyUp(IntPtr L)
+	static int On_Jump(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.Do_JoyUp();
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Do_Jump(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.Do_Jump();
+			obj.On_Jump();
 			return 0;
 		}
 		catch (Exception e)
@@ -560,6 +510,25 @@ public class CharacterWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index charData on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_dirPos(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Character obj = (Character)o;
+			UnityEngine.Vector3 ret = obj.dirPos;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index dirPos on a nil value");
 		}
 	}
 

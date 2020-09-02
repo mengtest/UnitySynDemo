@@ -14,7 +14,7 @@ public class ObjData : MonoBehaviour,IData
     // Start is called before the first frame update
     void Start()
     {
-        
+         PlaySpeed=1;
     }
     private void FixedUpdate() {
          if(_onFixUpdate!=null){

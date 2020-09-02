@@ -20,6 +20,8 @@ public class Character : ObjBase
     protected Vector3 colExtents=Vector3.zero; 
     protected CharacterController characterController=null;
 
+    public   Vector3 dirPos{  get ; private set ; }
+
     public Character()
     {
        // this.charType=ObjType.Character;
@@ -36,6 +38,7 @@ public class Character : ObjBase
         this.charData=this.objData as CharData;
         this.objData.init(this,fixUpdate);
         this.ChangeState(CharState.Char_Idle,null,false);
+        this.GetMovePart().useGravityPower=true;
     }
     //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
     protected virtual void initStateMachine(){
@@ -46,7 +49,16 @@ public class Character : ObjBase
     {
         m_FSM.ChangeState(charState, param,checkDic);
     }
-    public void OnEvent(int cmd, object[] param=null){
+    public void OnEvent(string cmd, object[] param=null){
+        switch(cmd){
+            case CharEvent.OnJoy_Move:
+                dirPos= (Vector3) param[0];
+            break;
+            case CharEvent.OnJoy_Up:
+                dirPos= Vector3.zero; // this.gameObject.transform.forward;
+            break;
+        }
+        this.GetEvent().dispatchEvent(cmd,param);
         m_FSM.OnEvent(cmd,param);
     }
     public int GetCurStateID()
@@ -77,9 +89,9 @@ public class Character : ObjBase
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();
         this.colExtents=this.characterController.bounds.extents;
-        DebugLog.Log(this.colExtents);
-    }
+     //   DebugLog.Log(this.colExtents);
       //移动专用方法.
+    }
     public override void OnMove(Vector3 dic){
         if(this.characterController!=null){
            this.characterController.Move(dic);
@@ -182,52 +194,10 @@ public class Character : ObjBase
 
     //................................................................................  
      #region 角色 所有动作命令..................
-    public void Do_JoyMove(Vector3 dir,bool isDash=false){
-        switch(charData.currentBaseAction){
-            case GameEnum.ActionLabel.Run:
-                if(isDash){
-                     this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
-                }else{
-                   this.GetMovePart().SetTargetDir(dir);
-                }
-            break;
-            case GameEnum.ActionLabel.Dash:
-                if(isDash){
-                   this.GetMovePart().SetTargetDir(dir);
-                }else{
-                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
-                }
-            break;
-            case GameEnum.ActionLabel.Jump:
-
-            break;
-            case GameEnum.ActionLabel.Stand:
-                if(isDash){
-                   this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
-                }else{
-                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
-                }
-            break;
-            default:
-                if(isDash){
-                   this.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dir});
-                }else{
-                    this.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dir});
-                }
-            break;
-        }
-         //   DebugLog.Log("Run");
-    }
-    public void Do_JoyUp(){
-          if(charData.currentBaseAction!=GameEnum.ActionLabel.Stand){
-               this.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
-          }
-       // DebugLog.Log("StopMove");
-    }
-    public void Do_Jump(){
-        if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
-               this.doActionSkillByLabel(GameEnum.ActionLabel.Jump);
-        }
+    public void On_Jump(){
+        // if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
+        //        this.doActionSkillByLabel(GameEnum.ActionLabel.Jump);
+        // }
     }
      
     #endregion 
@@ -244,6 +214,7 @@ public class Character : ObjBase
     //回收.
      public override void onRecycle(){
          charData.ctrlType=CtrlType.Null;
+         this.dirPos=Vector3.zero;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;

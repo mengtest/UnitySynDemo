@@ -46,7 +46,7 @@ public class GameSettings : ScriptableObject
 
     public bool localLua =false;
 
-    public string WebPath="http://192.168.1.230:8080";
+    public string WebPath="http://192.168.1.200:8080";
     
     public string GetInitWebPath(){
          return WebPath + "/web"; 
@@ -103,7 +103,7 @@ public class GameSettings : ScriptableObject
        this.currentLanguage = SupportedLanguages.GetCurrentLanguage();
        //非编辑器加载AssetBundle
        this.useAssetBundle = true;
-       this.isLoadRemoteAsset=true;
+     //  this.isLoadRemoteAsset=true;
        this.localLua =false;
 #endif
     }

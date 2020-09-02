@@ -13,7 +13,22 @@ public class CharEventWrap
 		L.RegVar("Jump_To_Ground", get_Jump_To_Ground, set_Jump_To_Ground);
 		L.RegVar("Jump_Fall", get_Jump_Fall, set_Jump_Fall);
 		L.RegVar("Jump_Rise", get_Jump_Rise, set_Jump_Rise);
+		L.RegVar("Begin_Fall", get_Begin_Fall, set_Begin_Fall);
 		L.RegVar("Syn_NormalState", get_Syn_NormalState, set_Syn_NormalState);
+		L.RegVar("OnJoy_Move", get_OnJoy_Move, null);
+		L.RegVar("OnJoy_Up", get_OnJoy_Up, null);
+		L.RegVar("On_KeyState", get_On_KeyState, null);
+		L.RegVar("Char_Move", get_Char_Move, null);
+		L.RegVar("Char_StopMove", get_Char_StopMove, null);
+		L.RegVar("Char_FollowTarget", get_Char_FollowTarget, null);
+		L.RegVar("Char_MoveToPos", get_Char_MoveToPos, null);
+		L.RegVar("Char_UseSkill", get_Char_UseSkill, null);
+		L.RegVar("Char_MoveToPosList", get_Char_MoveToPosList, null);
+		L.RegVar("Char_MoveToPosWithoutPathFinder", get_Char_MoveToPosWithoutPathFinder, null);
+		L.RegVar("Start_AI", get_Start_AI, null);
+		L.RegVar("Stop_AI", get_Stop_AI, null);
+		L.RegVar("Paused_AI", get_Paused_AI, null);
+		L.RegVar("Continue_AI", get_Continue_AI, null);
 		L.EndClass();
 	}
 
@@ -98,11 +113,221 @@ public class CharEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Begin_Fall(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Begin_Fall);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_Syn_NormalState(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushstring(L, CharEvent.Syn_NormalState);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_OnJoy_Move(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.OnJoy_Move);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_OnJoy_Up(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.OnJoy_Up);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_On_KeyState(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.On_KeyState);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_Move(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_Move);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_StopMove(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_StopMove);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_FollowTarget(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_FollowTarget);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_MoveToPos(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_MoveToPos);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_UseSkill(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_UseSkill);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_MoveToPosList(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_MoveToPosList);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Char_MoveToPosWithoutPathFinder(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Char_MoveToPosWithoutPathFinder);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Start_AI(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Start_AI);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Stop_AI(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Stop_AI);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Paused_AI(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Paused_AI);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Continue_AI(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, CharEvent.Continue_AI);
 			return 1;
 		}
 		catch (Exception e)
@@ -163,6 +388,21 @@ public class CharEventWrap
 		{
 			string arg0 = ToLua.CheckString(L, 2);
 			CharEvent.Jump_Rise = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_Begin_Fall(IntPtr L)
+	{
+		try
+		{
+			string arg0 = ToLua.CheckString(L, 2);
+			CharEvent.Begin_Fall = arg0;
 			return 0;
 		}
 		catch (Exception e)

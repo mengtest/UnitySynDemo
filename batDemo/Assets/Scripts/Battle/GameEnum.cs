@@ -5,29 +5,32 @@ using UnityEngine;
 
 namespace GameEnum
 {
-    [AutoRegistLua]
-     public class ControllerCmd
-     {
-         //遥感移动;
-         public const int OnJoy_Move=1;
-         //遥感抬起;
-         public const int OnJoy_Up=2;
-          public const int OnJump=3;
+     [AutoRegistLua]
+    ///按钮 输入
+    public class KeyInput {
+        //跳
+       public const string Jump="Jump";
+        //瞄准
+       public const string Aim="Aim";
+        //攻击
+        public const string Attack="Attack";
+        //蹲下
+        public const string Squat="Squat";
+        //换弹 
+         public const string Reload="Reload";
 
+         //闪避 
+         public const string Roll="Roll";
 
-         public const int Char_Move=10;
-        public const int  Char_StopMove=11;
-         public const int Start_AI =12;
-         public const int Stop_AI=13;
-         public const int Paused_AI=14;
-         public const int Continue_AI=15;
-         public const int Char_FollowTarget=16;
-         public const int Char_MoveToPos=17;
-        //本游戏，特殊做，跟随带偏移
-         public const int Char_UseSkill=18;
-         public const int Char_MoveToPosList=19;
-         public const int Char_MoveToPosWithoutPathFinder=20;
-     }
+         //闪现;
+         public const string Blink="Blink";
+
+         //技能 1
+         public const string Skill_1="Skill_1";
+        //技能 2
+         public const string Skill_2="Skill_2";
+         
+    }
      [AutoRegistLua]
     public class PlayMode {
         ///< 单机重播模式
@@ -118,6 +121,15 @@ namespace GameEnum
         public const string Mvm_Jog = "Mvm_Jog";      
         
         public const string Mvm_Dash = "Mvm_Dash";   
+        public const string  Mvm_DashEnd_C="Mvm_DashEnd_C";
+        public const string  Mvm_DashEnd_B="Mvm_DashEnd_B";
+
+        public const string Mvm_Stop_Front="Mvm_Stop_Front";
+
+        public const string Jmp_Base_A_Rise="Jmp_Base_A_Rise";
+        public const string Jmp_Base_A_OnGround="Jmp_Base_A_OnGround";
+        public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
+
     }
     [AutoRegistLua]
     //动作层级 

@@ -107,8 +107,8 @@ end
 function Joystick:OnDrag(eventData)
     -- log(" Joystick onDrag x"..eventData.delta.x.." y "..eventData.delta.y);
     if self.fingerId ~= eventData.pointerId then  return end;
-    self.isPress = true;              
-    ---@ type Vector2 得到BackGround 指向 Handle 的向量
+    self.isPress = true;            
+    ---@type Vector2 得到BackGround 指向 Handle 的向量
     local direction = (eventData.position - self.pointerDownPos)*Main.ViewManager:scaleScreen();
     ---获取并锁定向量的长度 以控制 Handle 半径
     self.radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius);
@@ -157,12 +157,13 @@ function Joystick:OnDrag(eventData)
    --   log("小于半径");
     end
 
-    local dir= localPosition.normalized;
+    local dir = localPosition.normalized;
   --  local forward =CameraManager.Instance.mainCamera.transform:TransformDirection(Vector3.forward);
   --  forward.y = 0;
   --  forward=forward.normalized;
  --   local right = Vector3(forward.z, 0, -forward.x);
   --  local worldDir = forward * dir.y + right * dir.x;
+  --    log(">>>joy_Move> x"..dir.x.." y"..dir.y);
     local canStop=false;
     if self.radius <=10 then  canStop=true end;
     EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,{dir,self.isSprinting,canStop,angle});
@@ -174,12 +175,11 @@ function Joystick:OnUp(eventData)
     if self.fingerId ~= eventData.pointerId then return end
     if self.isSprinting==true then
         self.SprintOn.enabled=false;
-     ---   EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_UP,{self.isSprinting});
-    else
-     --   self:Reset();
-    ---    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_STOP_MOVE);
     end
     self:Reset();
+
+ --   log(">>>joy_Up> ");
+
     EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_JOYSTICK_UP);
     ---判断摇杆抬起时的位置.
 end
