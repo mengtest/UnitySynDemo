@@ -36,8 +36,12 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegVar("minVerticalAngle", get_minVerticalAngle, set_minVerticalAngle);
 		L.RegVar("XAxis", get_XAxis, set_XAxis);
 		L.RegVar("YAxis", get_YAxis, set_YAxis);
+		L.RegVar("smoothPivotOffset", get_smoothPivotOffset, set_smoothPivotOffset);
+		L.RegVar("smoothCamOffset", get_smoothCamOffset, set_smoothCamOffset);
 		L.RegVar("Horizontal_Acce_Dic", get_Horizontal_Acce_Dic, set_Horizontal_Acce_Dic);
 		L.RegVar("Horizontal_Acce_Speed", get_Horizontal_Acce_Speed, set_Horizontal_Acce_Speed);
+		L.RegVar("isMouseMove", get_isMouseMove, set_isMouseMove);
+		L.RegVar("isJoyMove", get_isJoyMove, set_isJoyMove);
 		L.EndClass();
 	}
 
@@ -581,6 +585,44 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_smoothPivotOffset(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.Vector3 ret = obj.smoothPivotOffset;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index smoothPivotOffset on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_smoothCamOffset(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.Vector3 ret = obj.smoothCamOffset;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index smoothCamOffset on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_Horizontal_Acce_Dic(IntPtr L)
 	{
 		object o = null;
@@ -615,6 +657,44 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Speed on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isMouseMove(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			bool ret = obj.isMouseMove;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isMouseMove on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isJoyMove(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			bool ret = obj.isJoyMove;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isJoyMove on a nil value");
 		}
 	}
 
@@ -809,6 +889,44 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_smoothPivotOffset(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.smoothPivotOffset = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index smoothPivotOffset on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_smoothCamOffset(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.smoothCamOffset = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index smoothCamOffset on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_Horizontal_Acce_Dic(IntPtr L)
 	{
 		object o = null;
@@ -843,6 +961,44 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index Horizontal_Acce_Speed on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_isMouseMove(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.isMouseMove = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isMouseMove on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_isJoyMove(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.isJoyMove = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isJoyMove on a nil value");
 		}
 	}
 }

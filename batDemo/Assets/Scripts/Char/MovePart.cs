@@ -19,14 +19,16 @@ public class MovePart
     //是否面向移动.
     public bool faceToRotation=true;
       //扭矩 旋转速度 速度为0时立刻旋转 不计算转角速度; 7
-     public float rotateSpeed=15;
+     public float rotateSpeed=18;
+     //是否转向减速;
+     public bool isRotateLessSpeed=false;
 
     //移动点数  改变这个只可以加速(buff 增加速度等)或减速(中毒,被重击慢速移动等) 只对使用移动点数有效...;
     public float movePoint = 10000;
     //是否使用重力
     public bool useGravityPower=false;
     //重力
-    public float GravityPower=-1.0f;
+    public float GravityPower=-0.5f;
 
     /**单次运动数据*运动完会重置******************************************************************************************
      * 
@@ -376,7 +378,7 @@ public class MovePart
         }
         if (this.ImmDir || rotateSpeed== 0) {
             if (this.obj.gameObject.transform.forward!= this._targetDirection) {
-                this.forwardDirection=(this._targetDirection);
+                this.forwardDirection=this._targetDirection;
                 //旋转;
                 if (this.faceToRotation) {
                     // if (this.mbCharData && (this.pos as CharData).actionCmdCgDir) {
@@ -451,6 +453,15 @@ public class MovePart
         }
         if(!this.useYspeed){
             forwardDirection.y=0;
+        }
+        if(this.isRotateLessSpeed){
+            //转向减速
+            //    this._targetDirection
+            float ang =Vector3.Angle(this.forwardDirection,this._targetDirection);
+            if(ang>90){
+                this._currentSpeed*=0.4f;
+                 //DebugLog.Log("转向减速",this._currentSpeed);
+            }
         }
         this._moveSpeed =  this.forwardDirection * this._currentSpeed * Time.fixedDeltaTime;
     //    MyMath.floor2Vet(this._moveSpeed);
@@ -544,7 +555,7 @@ public class MovePart
         }
         //      m_vSpeed *= _speed * cos;
         //   dir*_jumpForward+ Vector3.up*_jumpUp;
-     //   DebugLog.Log("_jumpUp>>>>>>>: " + _jumpUp);
+       // DebugLog.Log("_jumpUp>>>>>>>: " + _jumpUp);
 
         if (useWeightPower)
         {

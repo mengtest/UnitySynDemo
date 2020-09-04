@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace GameEnum
 {
-     [AutoRegistLua]
     ///按钮 输入
     public class KeyInput {
         //跳
@@ -31,7 +30,6 @@ namespace GameEnum
          public const string Skill_2="Skill_2";
          
     }
-     [AutoRegistLua]
     public class PlayMode {
         ///< 单机重播模式
        public const string ReplayMode="ReplayMode";
@@ -40,7 +38,6 @@ namespace GameEnum
         ///< 多人模式
         public const string MultiplayerMode="MultiplayerMode";
     }
-     [AutoRegistLua]
      //控制类型...
     public enum CtrlType
     {
@@ -50,7 +47,6 @@ namespace GameEnum
         AiCtrl=3,
         NetCtrl=4,
     }
-    [AutoRegistLua]
     public enum ObjType
     {
         //对象.
@@ -62,7 +58,6 @@ namespace GameEnum
         //玩家
         Player=3,
     }
-    [AutoRegistLua]
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
      */
@@ -78,7 +73,6 @@ namespace GameEnum
       public static int  SkillAction=4;
      //   Can 
     }
-    [AutoRegistLua]
     public class CharState{
        public static int  Char_Idle = 0;  //正常状态
        public static int Char_Squat = 1; //蹲下
@@ -95,7 +89,6 @@ namespace GameEnum
       public static int  Char_Swoon=13;  //眩晕  不能攻击
        public static int Char_Strobe =14; //滑索动作.
     }
-    [AutoRegistLua]
     public class  ActionLabel
     {
         //动作标签 
@@ -131,7 +124,6 @@ namespace GameEnum
         public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
 
     }
-    [AutoRegistLua]
     //动作层级 
     public class  ActionLayer
     {
@@ -146,4 +138,126 @@ namespace GameEnum
         JumpFall=2,
     
     }
+    //道具类型  int(id/100000)
+    public class ItemType                                    
+	{
+       //主武器 枪  10101001  
+       public const int Gun=101;
+       //副武器 手枪
+       public const int PistolGun=102;
+       //近战武器
+       public const int Melee=103;
+       //投掷物
+        public const int Grenade=104;
+        //配件
+        public const int Slot=201;
+        //防弹衣 装备.
+        public const int Armor=301;
+        //背包
+        public const int Bag=302;
+         //头盔;
+        public const int Helmet=303;
+        //灌木 隐身衣 
+        public const int Shrup=304;
+        //子弹
+        public const int Bullet=401;
+         //能量 
+        public const int Drug_Boost=402;
+        //治疗
+        public const int Drug_Healing=403;
+        //Fashion 时装
+        public const int  Avatar_Fashion=500;
+        //Fashion 套装
+        public const int  Avatar_Suit=501;
+         //卡牌
+        public const int Cards=601;
+        //卡牌碎片
+        public const int Card_Fragment=602;
+        //万能卡牌碎片
+        public const int Card_General_Fragment=603;
+        //基础货币
+        public const int Currency=701;
+        //特殊货币
+        public const int SpecialCurrency=702;
+        //经验卡
+        public const int ExperienceCard=801;
+        //升级卡
+        public const int UpgradeCard=802;
+        //通行证
+        public const int PassCheck=803;
+        //奖励
+        public const int Reward=804;
+        //改名卡
+        public const int RenamingCard=805;
+        //装饰
+        public const int Decorate=901;
+        //表情动作
+        public const int Expression_Action=902;
+    }
+
+    // 枪武器类型.
+    public enum Weapon_GunType                                    
+	{
+		  NONE=0,
+         //步枪
+		 Assault=101,
+         //精准步枪
+		  DMR=102,
+         //狙击枪
+         Sniper=103,
+         //轻机枪
+          LMG=104,
+         //冲锋枪
+          SMG=105,
+         //散弹枪  喷子
+          ShotGun=106,
+         //特殊武器  爆炸弓 ,榴弹枪
+          Special=107,
+         //手枪.
+          Pistol=201,
+    }
+    //近战武器类型.
+    public class Weapon_MeleeType                                    
+	{
+         //拳击_手套 拳套.
+         public const int Boxing_Glove=301;
+         //匕首
+         public const int Knife = 302;
+         //单手剑
+         public const int Sword = 303;
+         //大剑
+         public const int BroadSword = 303;
+         //双刃.
+         public const int  DualBlades = 304;
+         //镰刀
+         public const int  Sickle = 305;
+          //长矛
+         public const int Lance =306;
+	}
+    public class Weapon_GrenadeType                                    
+	{
+        public const int FragGrenade=401;
+        public const int   SmokeGrenade=402;
+
+    }
+    public enum GunNameLink                                    
+	{
+           M4,
+           AKM,
+           M16A4,
+        
+
+
+    }
+
+    // 开火类型
+	public enum FireType                                    
+	{
+        //1、单发
+		SEMI,
+        //2、连发
+		BURST,
+        //3、全自动
+		AUTO
+	}
 }

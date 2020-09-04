@@ -33,7 +33,7 @@ public class Dash : ActionBase
             this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Dash,frame,0.533f,1f,0.25f,0,true);
             this.obj.GetMovePart().StartMove((Vector3)param[0]);
             CameraManager.Instance.cameraCtrl.SetFOV(80);
-            CameraManager.Instance.postLayer.enabled=true;
+       //     CameraManager.Instance.postLayer.enabled=true;
     }
 
         //动作更新;
@@ -63,7 +63,7 @@ public class Dash : ActionBase
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
          CameraManager.Instance.cameraCtrl.ResetFOV();
-         CameraManager.Instance.postLayer.enabled=false;
+    //     CameraManager.Instance.postLayer.enabled=false;
     }
 
     //动作 需要改成3种分支 base up add

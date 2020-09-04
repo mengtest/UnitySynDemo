@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Jump : ActionBase
 {
+    private Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);
+    private  Vector3 camOffset   = new Vector3(0.4f, 0.1f, -3.5f); 
     private int standFrame=0;
     private MovePart movePart;
     //单次创建.
@@ -51,21 +53,22 @@ public class Jump : ActionBase
     }
     private void onBeginJump(int frame=0){
         CharData charData=this.obj.objData as CharData;
-            CameraManager.Instance.cameraCtrl.followTargetSmooth=10f;
+        CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
+          CameraManager.Instance.cameraCtrl.smooth=2;
         if(charData.isDashing){
              CameraManager.Instance.cameraCtrl.SetFOV(80);
-            CameraManager.Instance.postLayer.enabled=true;
+       //     CameraManager.Instance.postLayer.enabled=true;
             this.obj.moveSpeed=charData.DashSpeed;
-            this.movePart.speed=charData.RunSpeed;
+            this.movePart.speed=charData.DashSpeed;
         }else{
             CameraManager.Instance.cameraCtrl.ResetFOV();
-           CameraManager.Instance.postLayer.enabled=false;
+    ///       CameraManager.Instance.postLayer.enabled=false;
             this.obj.moveSpeed=charData.RunSpeed;
             this.movePart.speed=charData.RunSpeed;
         }
         this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Jmp_Base_A_Rise,frame,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
-        this.movePart.upPow = 15 * this.speed;
+        this.movePart.upPow = 9 * this.speed;
         this.movePart.ZeroUpStop=false;
         this.movePart.useWeightPower = false;
         this.movePart.Jump();
@@ -125,15 +128,15 @@ public class Jump : ActionBase
     */
     public override void executeSwichAction(){
         //移除监听.
-        CameraManager.Instance.cameraCtrl.followTargetSmooth=50f;
         this.obj.GetEvent().removeEventListener(CharEvent.Jump_Fall,onJumpFall);
         this.obj.GetEvent().removeEventListener(CharEvent.Jump_To_Ground,onJumpToGround);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-        if(CameraManager.Instance.postLayer.enabled){
-            CameraManager.Instance.cameraCtrl.ResetFOV();
-            CameraManager.Instance.postLayer.enabled=false;
-        }
+        CameraManager.Instance.cameraCtrl.ResetFOV();
+        CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+        CameraManager.Instance.cameraCtrl.smooth=10;
+   //    CameraManager.Instance.postLayer.enabled=false;
+
     }
 
     //动作 需要改成3种分支 base up add

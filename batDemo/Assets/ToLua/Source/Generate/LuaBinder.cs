@@ -206,16 +206,6 @@ public static class LuaBinder
 		L.BeginModule("TcpSocket");
 		TcpSocket_TcpSocketClientWrap.Register(L);
 		L.EndModule();
-		L.BeginModule("GameEnum");
-		GameEnum_KeyInputWrap.Register(L);
-		GameEnum_PlayModeWrap.Register(L);
-		GameEnum_CtrlTypeWrap.Register(L);
-		GameEnum_ObjTypeWrap.Register(L);
-		GameEnum_CancelPriorityWrap.Register(L);
-		GameEnum_CharStateWrap.Register(L);
-		GameEnum_ActionLabelWrap.Register(L);
-		GameEnum_ActionLayerWrap.Register(L);
-		L.EndModule();
 		L.BeginModule("UIEventListener");
 		L.RegFunction("VoidDelegate", UIEventListener_VoidDelegate);
 		L.RegFunction("VectorDelegate", UIEventListener_VectorDelegate);

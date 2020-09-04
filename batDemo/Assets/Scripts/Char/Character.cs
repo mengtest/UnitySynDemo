@@ -22,6 +22,11 @@ public class Character : ObjBase
 
     public   Vector3 dirPos{  get ; private set ; }
 
+    // public float faceRotateSpeed=7;
+    // public bool faceToRotation=false;
+    // private Vector3 _moveRoate;
+    // private Vector3 _targetDir;
+
     public Character()
     {
        // this.charType=ObjType.Character;
@@ -39,6 +44,13 @@ public class Character : ObjBase
         this.objData.init(this,fixUpdate);
         this.ChangeState(CharState.Char_Idle,null,false);
         this.GetMovePart().useGravityPower=true;
+        //自己转向.
+         this._move.isRotateLessSpeed=true;
+        // this._move.rotateSpeed=18;
+        // this._move.faceToRotation=false;
+        // this._move.rotateSpeed=0;
+        // this._move.Init();
+
     }
     //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
     protected virtual void initStateMachine(){
@@ -98,7 +110,30 @@ public class Character : ObjBase
         }else{
             this.node.transform.position =  this.node.transform.position + dic;
         }
+        // if(this.faceToRotation){
+        //     if(this._move.forwardDirection!=this.gameObject.transform.forward){
+        //         this._moveRoate=this._move.forwardDirection-this.gameObject.transform.forward;
+        //         if (this._moveRoate.magnitude< 0.01f) {
+        //             //最新方向;
+        //             this.gameObject.transform.forward=this._move.forwardDirection;
+        //         } else {
+        //             this._targetDir = this._move.forwardDirection;
+        //             if(this._moveRoate.magnitude>=2){
+        //                 //180°不能直接相减
+        //             this._targetDir = Quaternion.AngleAxis(1, Vector3.up) * this._move.forwardDirection;
+        //             }
+        //             this._moveRoate=this._targetDir*(faceRotateSpeed * Time.deltaTime);
+        //             //最新方向;
+        //             this._targetDir =  this.gameObject.transform.forward+this._moveRoate;
+        //             this._targetDir.Normalize();
+        //             this.gameObject.transform.forward=this._targetDir;
+        //         }
+        //     }
+        // }
     }
+    // public virtual void FaceToDir(Vector3 dir){
+    //      this.gameObject.transform.forward=dir;
+    // }
     public override bool IsGrounded()
 	{
         if(this.colExtents!=Vector3.zero){

@@ -1,6 +1,7 @@
 ﻿//游戏调用加载 其他等主方法口  提供lua调用. 
 
 using System;
+using GameEnum;
 using LuaInterface;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,7 +43,11 @@ public class GameLuaManager
     }
 
      public static Character CreatCharacter(string path="",GameObject obj=null){
-        return CharManager.Instance.CreatCharacter(path,obj);
+         #if UNITY_EDITOR
+        return CharManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);
+        #else
+          return CharManager.Instance.CreatCharacter(path,obj);
+        #endif
      }
 
 #if UNITY_EDITOR

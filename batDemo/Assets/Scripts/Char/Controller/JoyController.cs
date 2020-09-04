@@ -86,7 +86,7 @@ public class JoyController : Controller
         _IsDraging = (bool) data[0];
         if(this.onJoyTouch&&!_IsDraging && (_char.charData.currentBaseAction==GameEnum.ActionLabel.Run || _char.charData.currentBaseAction==GameEnum.ActionLabel.Dash) ){
  //              DebugLog.Log("changeDir");
-                 Vector3 forward =CameraManager.Instance.mainCamera.transform.TransformDirection(Vector3.forward);
+                 Vector3 forward = CameraManager.Instance.mainCamera.transform.TransformDirection(Vector3.forward);
                 forward.y = 0;
                 forward.Normalize();
                 Vector3 right =new  Vector3(forward.z, 0, -forward.x);

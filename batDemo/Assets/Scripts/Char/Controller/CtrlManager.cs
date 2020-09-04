@@ -26,6 +26,7 @@ public class CtrlManager  : MonoSingleton<CtrlManager>
                 case  GameEnum.CtrlType.NetCtrl:
                 break;
                 case  GameEnum.CtrlType.keyBordCtrl:
+                   controller=this._ctrlPool.get<KeyboardMouseController>("KeyboardMouseController");
                 break;
             }
             return controller;

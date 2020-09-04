@@ -50,14 +50,14 @@ public class InteractiveWeapon : MonoBehaviour
 		}
 		player = GameObject.FindGameObjectWithTag("Player");
 		playerInventory = player.GetComponent<ShootBehaviour>();
-		gameController = GameObject.FindGameObjectWithTag("GameController");
-		// Assert that exists a on-screen HUD.
-		if (GameObject.Find("ScreenHUD") == null)
-		{
-			Debug.LogError("No ScreenHUD canvas found. Create ScreenHUD inside the GameController");
-		}
-		weaponHud = GameObject.Find("ScreenHUD").GetComponent<WeaponUIManager>();
-		pickupHUD = gameController.transform.Find("PickupHUD");
+		// gameController = GameObject.FindGameObjectWithTag("GameController");
+		// // Assert that exists a on-screen HUD.
+		// if (GameObject.Find("ScreenHUD") == null)
+		// {
+		// 	Debug.LogError("No ScreenHUD canvas found. Create ScreenHUD inside the GameController");
+		// }
+		// weaponHud = GameObject.Find("ScreenHUD").GetComponent<WeaponUIManager>();
+		// pickupHUD = gameController.transform.Find("PickupHUD");
 
 		// Create physics components and radius of interaction.
 		col = this.transform.GetChild(0).gameObject.AddComponent<BoxCollider>();

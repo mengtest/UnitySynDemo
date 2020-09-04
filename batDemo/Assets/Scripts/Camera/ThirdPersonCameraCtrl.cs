@@ -7,9 +7,6 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
-    //跟随目标速度.
-    public float followTargetSmooth=50f;    
-    public float currentFollowTargetSmooth;    
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
@@ -43,6 +40,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
     public int Horizontal_Acce_Dic =60;
     //滑屏加速度
     public int Horizontal_Acce_Speed=140;
+
+    public bool isMouseMove=false;
+     public bool isJoyMove=false;
 
 	// Get the camera horizontal angle.
 	public float GetH()
@@ -78,7 +78,6 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothCamOffset = camOffset;
 		defaultFOV = _camera.fieldOfView;
 		angleH = this.target.eulerAngles.y;
-        this.currentFollowTargetSmooth=this.followTargetSmooth;
 		ResetTargetOffsets ();
 		ResetFOV ();
 		ResetMaxVerticalAngle();
@@ -104,6 +103,11 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
       //  angleH += delta.x * horizontalAimingSpeed*0.01f;
      //	angleV += delta.y * verticalAimingSpeed*0.01f;
     }
+    public void  onMouseMove(){
+        angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
+        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
+    }
+
 
 	void Update()
 	{
@@ -111,14 +115,14 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
         
 		// Get mouse movement to orbit the camera.
 		// Mouse:
-	//	angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
-	//	angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
 		// Joystick:
-	//	angleH += Mathf.Clamp(Input.GetAxis(XAxis), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
-	//	angleV += Mathf.Clamp(Input.GetAxis(YAxis), -1, 1) * 60 * verticalAimingSpeed * Time.deltaTime;
+        if(this.isJoyMove){
+        	angleH += Mathf.Clamp(Input.GetAxis(XAxis), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
+        	angleV += Mathf.Clamp(Input.GetAxis(YAxis), -1, 1) * 60 * verticalAimingSpeed * Time.deltaTime;
+        }
 
-     //   DebugLog.Log("angleH",angleH);
-      //  DebugLog.Log("angleV",angleV);
+      //  DebugLog.Log("angleH",angleH);
+     //   DebugLog.Log("angleV",angleV);
 		// Set vertical movement limit.
 		angleV = Mathf.Clamp(angleV, minVerticalAngle, targetMaxVerticalAngle);
 
@@ -138,6 +142,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// {
 		// 	ClampHorizontal();
 		// }
+        // if(angleH>1000){
+        //     angleH=angleH%360f;
+        // }
 
 		// Set camera orientation.
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
@@ -165,10 +172,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothPivotOffset = Vector3.Lerp(smoothPivotOffset, targetPivotOffset, smooth * Time.deltaTime);
 		smoothCamOffset = Vector3.Lerp(smoothCamOffset, noCollisionOffset, smooth * Time.deltaTime);
      
-        this.currentFollowTargetSmooth=Mathf.Lerp (this.currentFollowTargetSmooth,this.followTargetSmooth,7f* Time.deltaTime);
+     //   this.currentFollowTargetSmooth=Mathf.Lerp (this.currentFollowTargetSmooth,this.followTargetSmooth,7f* Time.deltaTime);
 
-	    cam.position =   Vector3.Lerp(cam.position,target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset,this.currentFollowTargetSmooth*Time.deltaTime);
-        
+	 //   cam.position =   Vector3.Lerp(cam.position,target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset,this.currentFollowTargetSmooth*Time.deltaTime);
+          cam.position =  target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset ;
 
 		// Amortize Camera vertical bounce.
 		if (recoilAngle > 0)
