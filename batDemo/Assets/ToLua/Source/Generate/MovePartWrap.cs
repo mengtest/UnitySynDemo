@@ -41,6 +41,7 @@ public class MovePartWrap
 		L.RegVar("forwardDirection", get_forwardDirection, set_forwardDirection);
 		L.RegVar("faceToRotation", get_faceToRotation, set_faceToRotation);
 		L.RegVar("rotateSpeed", get_rotateSpeed, set_rotateSpeed);
+		L.RegVar("isRotateLessSpeed", get_isRotateLessSpeed, set_isRotateLessSpeed);
 		L.RegVar("movePoint", get_movePoint, set_movePoint);
 		L.RegVar("useGravityPower", get_useGravityPower, set_useGravityPower);
 		L.RegVar("GravityPower", get_GravityPower, set_GravityPower);
@@ -715,6 +716,25 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isRotateLessSpeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool ret = obj.isRotateLessSpeed;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isRotateLessSpeed on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_movePoint(IntPtr L)
 	{
 		object o = null;
@@ -1243,6 +1263,25 @@ public class MovePartWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index rotateSpeed on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_isRotateLessSpeed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			MovePart obj = (MovePart)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.isRotateLessSpeed = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isRotateLessSpeed on a nil value");
 		}
 	}
 

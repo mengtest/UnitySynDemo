@@ -8,7 +8,7 @@ using UnityEngine;
 public class Jump : ActionBase
 {
     private Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.4f, 0.1f, -3.5f); 
+    private  Vector3 camOffset   = new Vector3(0.4f, -0.4f, -2.8f); 
     private int standFrame=0;
     private MovePart movePart;
     //单次创建.
@@ -54,7 +54,7 @@ public class Jump : ActionBase
     private void onBeginJump(int frame=0){
         CharData charData=this.obj.objData as CharData;
         CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
-          CameraManager.Instance.cameraCtrl.smooth=2;
+          CameraManager.Instance.cameraCtrl.smooth=4;
         if(charData.isDashing){
              CameraManager.Instance.cameraCtrl.SetFOV(80);
        //     CameraManager.Instance.postLayer.enabled=true;

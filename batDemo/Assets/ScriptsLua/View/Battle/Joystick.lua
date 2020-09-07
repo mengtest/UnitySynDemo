@@ -68,6 +68,7 @@ function Joystick:AddListener()
     UIEventListener.Get(self.MoveArea.gameObject).onDown = function(eventData)  self:onDown(eventData) end
     UIEventListener.Get(self.MoveArea.gameObject).onDrag = function(eventData)  self:OnDrag(eventData) end
     UIEventListener.Get(self.MoveArea.gameObject).onUp = function(eventData)  self:OnUp(eventData) end
+    self.KeySprintDownEvtID =  EventManager.addListener(SystemEvent.KEY_INPUT_ONSPRINT_STATE, function(param)  self:onKeySprintDown(param) end);
 end
 
 function Joystick:RemoveListener()
@@ -75,8 +76,17 @@ function Joystick:RemoveListener()
     UIEventListener.Get(self.MoveArea.gameObject).onDown = nil
     UIEventListener.Get(self.MoveArea.gameObject).onDrag = nil
     UIEventListener.Get(self.MoveArea.gameObject).onUp = nil
+    EventManager.removeListener(SystemEvent.KEY_INPUT_ONSPRINT_STATE,self.KeySprintDownEvtID);
 end
 
+--键盘触发
+function Joystick:onKeySprintDown(param)
+    log("<<<<<<<<<<<<<<<<<<<<<<<");
+    if param~=nil then
+        local isSprinting= param[0];
+        self:SetSprint(isSprinting);
+    end
+end
 
 ---冲刺模式C
 ---@param isSprinting boolean 是否冲刺

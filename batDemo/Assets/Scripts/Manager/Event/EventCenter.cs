@@ -120,6 +120,7 @@ public class EventCenter
             _LEventTable.Call("dispatchEvent", type, data);
         }
     }
+    
     #endregion
     public static void ClearAll()
     {

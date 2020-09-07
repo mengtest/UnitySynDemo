@@ -10,6 +10,7 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegFunction("GetH", GetH);
 		L.RegFunction("init", init);
 		L.RegFunction("onTouchMove", onTouchMove);
+		L.RegFunction("onMouseMove", onMouseMove);
 		L.RegFunction("ToggleClampHorizontal", ToggleClampHorizontal);
 		L.RegFunction("BounceVertical", BounceVertical);
 		L.RegFunction("LockOnDirection", LockOnDirection);
@@ -102,6 +103,22 @@ public class ThirdPersonCameraCtrlWrap
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
 			obj.onTouchMove(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onMouseMove(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			obj.onMouseMove();
 			return 0;
 		}
 		catch (Exception e)

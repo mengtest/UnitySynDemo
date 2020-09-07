@@ -5,6 +5,7 @@
 public class ThirdPersonCameraCtrl : MonoBehaviour 
 {
 	public Transform target;                                           // Player's reference.
+   // public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
@@ -115,11 +116,14 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
         
 		// Get mouse movement to orbit the camera.
 		// Mouse:
+    ///    angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
+    //    angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
+
 		// Joystick:
-        if(this.isJoyMove){
-        	angleH += Mathf.Clamp(Input.GetAxis(XAxis), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
-        	angleV += Mathf.Clamp(Input.GetAxis(YAxis), -1, 1) * 60 * verticalAimingSpeed * Time.deltaTime;
-        }
+        // if(this.isJoyMove){
+        // 	angleH += Mathf.Clamp(Input.GetAxis(XAxis), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
+        // 	angleV += Mathf.Clamp(Input.GetAxis(YAxis), -1, 1) * 60 * verticalAimingSpeed * Time.deltaTime;
+        // }
 
       //  DebugLog.Log("angleH",angleH);
      //   DebugLog.Log("angleV",angleV);
