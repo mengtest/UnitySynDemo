@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-08-26 19:47:39
+LastEditTime: 2020-09-07 19:28:05
 --]]
 ---@class TouchRotation:EventObj
 TouchRotation = Class("TouchRotation",EventObj)
@@ -62,7 +62,7 @@ function TouchRotation:OnDrag(eventData)
   ---   log("onDrag "..eventData.position)
      if self.fingerId ~= eventData.pointerId then  return end;
       ---@type Vector2
-     local v2 =Vector2(eventData.delta.x*Main.ViewManager:scaleScreen(),eventData.delta.y*Main.ViewManager:scaleScreen());
+     local v2 =Vector2(eventData.delta.x*Global.ViewManager:scaleScreen(),eventData.delta.y*Global.ViewManager:scaleScreen());
    --    log(" TouchRotation onDrag x"..eventData.delta.x.." y "..eventData.delta.y);
      EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,{v2});
 end

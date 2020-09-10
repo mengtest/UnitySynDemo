@@ -148,8 +148,12 @@ public class ObjBase : PoolObj
     }
     public virtual bool IsGrounded()
 	{
-		return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.1f);
+		return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.1f,LayerHelper.GetGroundLayerMask());
 	}
+    public virtual bool IsNeedFall(){
+
+        return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.5f,LayerHelper.GetGroundLayerMask());
+    }
     //移动专用方法.
     public virtual void OnMove(Vector3 dic){
        this.node.transform.position =  this.node.transform.position + dic;

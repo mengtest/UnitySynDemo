@@ -18,7 +18,7 @@ namespace Lua {
         void Awake () {
 
         }
-        public IEnumerator InitStart () {
+        public IEnumerator InitStart (string mainlua="Main") {
             if (GameSettings.Instance.useAssetBundle && !GameSettings.Instance.localLua) {
                 LuaFileUtils.Instance.beZip = true;
                 yield return GameAssetManager.Instance.LoadLuaBundle ();
@@ -28,7 +28,7 @@ namespace Lua {
             this.OpenCJson ();
             lua.LuaSetTop (0);
             InitLuaPath ();
-            this.StartMain ();
+            this.StartMain (mainlua);
         }
 
         /// <summary>
@@ -72,14 +72,14 @@ namespace Lua {
                 lua.AddSearchPath (LuaConst.toluaDir);
             }
         }
-        void StartMain () {
+        void StartMain (string mainlua) {
             lua.Start (); //启动LUAVM
             loop = gameObject.AddComponent<LuaLooper> ();
             loop.luaState = lua;
             DelegateFactory.Init ();
             LuaBinder.Bind (lua);
             lua.Require ("common/common");
-            mainTable = lua.Require<LuaTable> ("Main");
+            mainTable = lua.Require<LuaTable> (mainlua);
             mainTable.Call ("Start");
         }
         public LuaTable NewTable () {

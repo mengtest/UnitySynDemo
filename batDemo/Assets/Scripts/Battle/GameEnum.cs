@@ -57,6 +57,8 @@ namespace GameEnum
         Monster=2,
         //玩家
         Player=3,
+       //武器
+        Weapon=4,
     }
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
@@ -200,11 +202,11 @@ namespace GameEnum
 	{
 		  NONE=0,
          //步枪
-		 Assault=101,
+		  AR=101,
          //精准步枪
 		  DMR=102,
          //狙击枪
-         Sniper=103,
+          SR=103,
          //轻机枪
           LMG=104,
          //冲锋枪
@@ -213,6 +215,8 @@ namespace GameEnum
           ShotGun=106,
          //特殊武器  爆炸弓 ,榴弹枪
           Special=107,
+          //火箭筒
+          Launchers=108,
          //手枪.
           Pistol=201,
     }
@@ -254,10 +258,10 @@ namespace GameEnum
 	public enum FireType                                    
 	{
         //1、单发
-		SEMI,
+		SEMI=1,
         //2、连发
-		BURST,
+		BURST=2,
         //3、全自动
-		AUTO
+		AUTO=3,
 	}
 }

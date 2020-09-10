@@ -63,7 +63,7 @@ function ChildView: Init(param)
            self.transform:SetAsLastSibling();
        end
    else
-      Main.ViewManager:addToLayer(self);
+     Global.ViewManager:addToLayer(self);
    end
    self:OnUIInit();
    self:OnInit(param);

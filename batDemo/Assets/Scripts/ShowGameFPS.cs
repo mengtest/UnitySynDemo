@@ -13,6 +13,8 @@ public class ShowGameFPS : MonoBehaviour
     private int frames = 0;
     private int currFPS;
     private string fpsLabel;
+     
+     public  Rect m_Rect=new Rect(0,25,100,25);
 
     // Use this for initialization
     void Start()
@@ -67,14 +69,14 @@ public class ShowGameFPS : MonoBehaviour
 
       //  infoLabel.text = str;
     }
-    //private void OnGUI()
-    //{
+    private void OnGUI()
+    {
     //    m_Rect.x = 0;
     //    m_Rect.y = 25;
     //    m_Rect.width = 100;
     //    m_Rect.height = 25;
-    //    GUI.Label(m_Rect, "FPS:" + currFPS, m_style);
-    //}
+       GUI.Label(m_Rect, "FPS:" + currFPS);
+    }
 
     void OnDestroy()
     {

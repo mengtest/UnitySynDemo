@@ -26,7 +26,13 @@ public class WeaponGunData : MonoBehaviour,IData
     public void init(ObjBase obj,Action onFixUpdate){
          _obj=obj;
          _onFixUpdate=onFixUpdate;
+    }
+    public void initGunData(){
          this._Gun=_obj.gameObject.GetComponent<Weapon_Gun>();
+         if(this._Gun==null){
+             DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
+         }
+         
     }
     // Update is called once per frame
     void Update()

@@ -175,7 +175,7 @@ function PanelView: Init(param)
         logError(" self.canvasGroup not found >>> "..self.viewName);
     end
     self.canvasGroup.alpha=1;
-    Main.ViewManager:addToLayer(self);
+    Global.ViewManager:addToLayer(self);
     self.gameObject:SetActive(true);
     self:OnUIInit();
     self:OnInit(param);

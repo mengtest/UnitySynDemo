@@ -119,7 +119,7 @@ function Joystick:OnDrag(eventData)
     if self.fingerId ~= eventData.pointerId then  return end;
     self.isPress = true;            
     ---@type Vector2 得到BackGround 指向 Handle 的向量
-    local direction = (eventData.position - self.pointerDownPos)*Main.ViewManager:scaleScreen();
+    local direction = (eventData.position - self.pointerDownPos)*Global.ViewManager:scaleScreen();
     ---获取并锁定向量的长度 以控制 Handle 半径
     self.radius = Mathf.Clamp(Vector2.Magnitude(direction), 0, self.maxRadius);
     --   log(radius);

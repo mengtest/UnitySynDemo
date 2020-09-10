@@ -19,6 +19,7 @@ public class Character : ObjBase
  // Collider extents for ground test. 
     protected Vector3 colExtents=Vector3.zero; 
     protected CharacterController characterController=null;
+    protected Rigidbody rigidbody=null;
 
     public   Vector3 dirPos{  get ; private set ; }
 
@@ -39,9 +40,9 @@ public class Character : ObjBase
          if(oldData!=null){
              GameObject.DestroyImmediate(oldData);
          }
-        this.objData = this.dataNode.AddComponent<CharData>();
-        this.charData=this.objData as CharData;
-        this.objData.init(this,fixUpdate);
+        this.charData = this.dataNode.AddComponent<CharData>();
+        this.objData=this.charData;
+        this.charData.init(this,fixUpdate);
         this.ChangeState(CharState.Char_Idle,null,false);
         this.GetMovePart().useGravityPower=true;
         //自己转向.
@@ -139,11 +140,22 @@ public class Character : ObjBase
         if(this.colExtents!=Vector3.zero){
             //两倍半径高度 向下打射线;
             Ray ray = new Ray(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x, Vector3.down);
-            return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.1f);
+          //  Debug.DrawRay(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x,Vector3.down,Color.green,colExtents.x + 0.1f);
+            return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.1f,LayerHelper.GetGroundLayerMask());
         }else{
              return base.IsGrounded();
         }
 	}
+     public override bool IsNeedFall(){
+        if(this.colExtents!=Vector3.zero){
+            //两倍半径高度 向下打射线;
+            Ray ray = new Ray(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x, Vector3.down);
+       //       Debug.DrawRay(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x,Vector3.down,Color.red,colExtents.x + 0.5f);
+            return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.5f,LayerHelper.GetGroundLayerMask());
+        }else{
+             return base.IsGrounded();
+        }
+    }
 
     //用的是 charData mono fixUpdate ;
     protected override void fixUpdate() {

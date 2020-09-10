@@ -14,22 +14,31 @@ public enum ELayer
     Water = 4,
     UI = 5,
     ////////////////////自定义(注释要说明用处)////////////////////////
+
+    Cover =8,
+    //射击无视层 钢丝网.
+    IgnoreShot=9,
+    CoverInvisible=10,
+    Player=11,
+    Enemy=12,
+    Bound=13,
+    Trigger=14,
     /// <summary>
     /// 第三人称
     /// </summary>
-    FPS = 8,
+    FPS = 15,
     /// <summary>
     /// 可被射线检测攻击层级
     /// </summary>
-    Damageable = 9,
+    Damageable = 16,
     /// <summary>
     /// 倍镜层级
     /// </summary>
-    Scope = 11,
+    Scope = 17,
     /// <summary>
     /// 毒圈
     /// </summary>
-    PoisonCircle = 12
+    PoisonCircle = 18
 }
 
 /// <summary>
@@ -145,5 +154,13 @@ public class LayerHelper
     public static int GetEnviromentLayerMask()
     {
         return GetLayerMask(ELayer.Default);
+    }
+    /// <summary>
+    /// 获取地面层
+    /// </summary>
+    /// <returns></returns>
+    public static int GetGroundLayerMask()
+    {
+        return GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Water);
     }
 }

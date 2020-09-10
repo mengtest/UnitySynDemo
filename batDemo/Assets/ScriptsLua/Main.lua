@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:45
 LastEditors: xsddxr909
-LastEditTime: 2020-08-05 14:48:48
+LastEditTime: 2020-09-07 19:29:02
 --]]
 Main = {}
 
@@ -15,9 +15,9 @@ function Main.Start(str)
   
     Main.InitLogSwitcher();
     --初始化全局游戏对象
-    log("Game start   hello ~~~~~~~~fatherer~~~~~~~~~~~~~~~~")
+    log("Game start   hello ~~~~~~~~Main~~~~~~~~~~~~~~~~")
   
-    Main.initManager();
+    Global.initManager();
 
     
     ---@type Example
@@ -33,18 +33,6 @@ function Main.InitLogSwitcher()
     GameLuaManager.SetLogSwitcher(openLog,openErrorLog,openWarningLog);
 end
 
-
--- 初始化管理者
-function Main.initManager()
-
-    TweenManager.init();
-    EventManager.init();
-    EventManager.dispatchEventToC(SystemEvent.LUA_INIT_COMPLETE);
-    Main.ViewManager = ViewManager:new();
-    Main.ViewManager:init();
-
-    
-end
 
 
 return Main

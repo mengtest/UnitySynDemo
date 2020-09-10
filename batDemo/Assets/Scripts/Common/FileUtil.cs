@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using System.Text;
 using System.Security.Cryptography;
+using System.Reflection;
 
 /// <summary>
 /// 加解密，文件相关的工具方法
@@ -411,5 +412,32 @@ public class FileUtil
             {
                 throw new Exception("md5 file fail, error:" + ex.Message);
             }
+        }
+
+        //批量对 set get 函数 赋值  target =  source   
+        public static void copyProp(object target,object source){
+                PropertyInfo[] _targetPro = target.GetType().GetProperties();
+                PropertyInfo[] sourcePro = source.GetType().GetProperties();
+
+                if (_targetPro.Length>0&&sourcePro.Length>0)
+                {
+                    DebugLog.Log(_targetPro.Length);
+                    for (int i = 0; i < _targetPro.Length; i++)
+                    {
+                        for (int j = 0; j < sourcePro.Length; j++)
+                        {　　
+                            //判断sourcePro的属性是不是的tar中
+                            if (_targetPro[i].Name == sourcePro[j].Name && _targetPro[i].PropertyType == sourcePro[j].PropertyType)
+                            {              
+                                DebugLog.Log(_targetPro[i].Name);
+                                object value=sourcePro[j].GetValue(source, null);
+                            //   targetPro[i].GetType().GetField(targetPro[j].Name).GetValue(tar);  
+                                //targetPro[j].GetValue(tar as object, null);
+                            　　//将tar中属性的值赋值给sourcePro<br>　　　　　　　　　　　　　　　  
+                                _targetPro[i].SetValue(target,value , null);
+                            }
+                        }
+                    }
+                }
         }
 }

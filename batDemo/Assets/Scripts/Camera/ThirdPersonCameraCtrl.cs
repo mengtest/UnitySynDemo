@@ -5,7 +5,7 @@
 public class ThirdPersonCameraCtrl : MonoBehaviour 
 {
 	public Transform target;                                           // Player's reference.
-   // public float targetFocusHeight=1.8f;
+    public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
 	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
@@ -318,7 +318,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	// Double check for collisions: concave objects doesn't detect hit from outside, so cast in both directions.
 	bool DoubleViewingPosCheck(Vector3 checkPos, float offset)
 	{
-		float playerFocusHeight = target.GetComponent<CharacterController> ().height * 0.75f;
+		float playerFocusHeight = targetFocusHeight * 0.75f;
+       //  target.GetComponent<CharacterController> ().height * 0.75f;
 		return ViewingPosCheck (checkPos, playerFocusHeight) && ReverseViewingPosCheck (checkPos, playerFocusHeight, offset);
 	}
 

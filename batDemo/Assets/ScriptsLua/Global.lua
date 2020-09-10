@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:45
 LastEditors: xsddxr909
-LastEditTime: 2020-08-06 16:48:44
+LastEditTime: 2020-09-07 19:26:06
 --]]
 --全局变量和函数统一在此添加和require
 
@@ -94,3 +94,14 @@ utf8		= require "misc.utf8"
 --]]
 
 
+Global = {}
+
+function Global.initManager()
+    TweenManager.init();
+    EventManager.init();
+    EventManager.dispatchEventToC(SystemEvent.LUA_INIT_COMPLETE);
+    Global.ViewManager = ViewManager:new();
+    Global.ViewManager:init();
+end
+
+return Global
