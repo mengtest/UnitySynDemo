@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class CharManager  : MonoSingleton<CharManager>
+public class ObjManager  : MonoSingleton<ObjManager>
 {
     public string str="";
     private  List<Character> _charOnList;
@@ -11,10 +11,19 @@ public class CharManager  : MonoSingleton<CharManager>
              return this._characterPool;
          }
     }
+     private MultipleOnListPool<Weapon> _weaponPool;
+    public MultipleOnListPool<Weapon> WeaponPool {
+         get{
+             return this._weaponPool;
+         }
+    }
+    private  List<Weapon> _weaponOnList;
     public void Init()
     {
        this._characterPool =new MultipleOnListPool<Character>("CharacterPool");
        this._charOnList= this._characterPool.getOnList();
+        this._weaponPool =new MultipleOnListPool<Weapon>("WeaponPool");
+       this._weaponOnList= this._weaponPool.getOnList();
        
     }
     public Character CreatCharacter(string path="",GameObject obj=null,GameEnum.ObjType objType=GameEnum.ObjType.Player,GameEnum.CtrlType ctrlType=GameEnum.CtrlType.JoyCtrl){
@@ -48,6 +57,16 @@ public class CharManager  : MonoSingleton<CharManager>
         }
         return chars;
     }
+    //path=Data/GunData/M4A1
+    public Weapon CreatWeapon(string path="",GameObject obj=null){
+        Weapon weapon=this._weaponPool.get<Weapon>(path);
+        if(obj!=null){
+            weapon.initView(obj);
+        }else{
+            weapon.initView();
+        }
+        return weapon;
+    }
     private void FixedUpdate() {
         //  for (int i = 0; i < _charOnList.Count; i++)
         //  {
@@ -61,9 +80,11 @@ public class CharManager  : MonoSingleton<CharManager>
     }
     public void RecycleAll(){
         this._characterPool.recycleAll();
+        this._weaponPool.recycleAll();
     }
     public void ClearAll(){
         this._characterPool.clearAll();
+        this._weaponPool.recycleAll();
     }
    
 }

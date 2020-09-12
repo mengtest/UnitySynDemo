@@ -172,14 +172,14 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             string path = paths[i];
             string bundleName = GetBundleNameByPath(path);
         //    string bundleName = RemapVariantName(GetBundleNameByPath(path));
-            if(GameSettings.Instance.useAssetBundle){
-                //把res path 变成 打包后的 ab名字/prefab名字
-               GetUseABloadPath(ref path);
-            }
+            // if(GameSettings.Instance.useAssetBundle){
+            //     //把res path 变成 打包后的 ab名字/prefab名字
+            //    GetUseABloadPath(ref path);
+            // }
             LoadAssetRequest loadReqeust;
             if (!_loadReqeustDict.TryGetValue(path, out loadReqeust))
             {
-                //获得 prefab名字
+                //获得 prefab名字 资源名字
                 string assetName = GetAssetNameByPath(path);
                 loadReqeust = new LoadAssetRequest(path, bundleName, assetName, assetType);
                 _loadReqeustDict[path] = loadReqeust;
@@ -464,43 +464,47 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
             }
         }
     }
-    //ab包 的 ab名字/资源名字  abName/assetName
-    public static void GetUseABloadPath(ref string path)
-    {
-        string bundleName;
-        //"Monster", "Avatar","Building","Character"
-         if (path.StartsWith("Monster")||path.StartsWith("Building")||path.StartsWith("Character"))
-         {
-                // "Monster/mst_xg01/mst_xg01_01"
-             string[] split = path.Split('/');
-             bundleName = split[1];
-             path = split[0]+"_"+split[1]+"/"+split[2];
-         }else if(path.StartsWith("Effect")){
-             //"Effect/Monster/mst_xg20/mst_xg20@Skill_01"
-              string[] split = path.Split('/');
-             path = split[0]+"_"+split[2]+"/"+split[3];
-         }else if(path.StartsWith("Avatar")){
-            // Avatar/infility/Model/infility_body_01      
-            //  获得 Avatar_infility/infility_body_01       
-              string[] split = path.Split('/');
-              path = split[0]+"_"+split[1]+"/"+split[3];
-         }else if (path.StartsWith("View")){
-             string[] split = path.Split('/');
-            bundleName = split[0]+"_"+split[1]+"/"+split[2];;
-            //"View/Login/LoginPanel"  获得   view_login/LoginPanel
-        }
-   }
-   //获取 资源AB包名称
+//     //ab包 的 ab名字/资源名字  abName/assetName ..................
+//     public static void GetUseABloadPath(ref string path)
+//     {
+//       //  string bundleNameAssetName;
+//         //"Monster", "Avatar","Building","Character"
+//          if (path.StartsWith("Monster")||path.StartsWith("Building")||path.StartsWith("Character"))
+//          {
+//                 // "Monster/mst_xg01/mst_xg01_01"
+//              string[] split = path.Split('/');
+//          //    bundleNameAssetName = split[1];
+//              path = split[0]+"_"+split[1]+"/"+split[2];
+//                //path  monster_mst_xg01/mst_xg01_01
+//          }else if(path.StartsWith("Effect")){
+//              //"Effect/Monster/mst_xg20/mst_xg20@Skill_01"
+//               string[] split = path.Split('/');
+//              path = split[0]+"_"+split[2]+"/"+split[3];
+//          }else if(path.StartsWith("Avatar")){
+//             // Avatar/infility/Model/infility_body_01      
+//             //  获得 Avatar_infility/infility_body_01       
+//               string[] split = path.Split('/');
+//               path = split[0]+"_"+split[1]+"/"+split[3];
+//          }else if (path.StartsWith("View")){
+//              string[] split = path.Split('/');
+//             path = split[0]+"_"+split[1]+"/"+split[2];;
+//             //"View/Login/LoginPanel"  获得   view_login/LoginPanel
+//         }else{
+//             //Item
+//         }
+//    }
+   //获取 资源AB包名称  有特殊 需求的ab名称拼接需要走这里.
     public static string GetBundleNameByPath(string path)
     {
         string bundleName;
         //"Monster", "Avatar","Building","Character"
-         if (path.StartsWith("Monster")||path.StartsWith("Building")||path.StartsWith("Character"))
-         {
-                // "Monster/mst_xg01/mst_xg01_01"
-             string[] split = path.Split('/');
-             bundleName = split[0]+"_"+split[1];
-         }else if(path.StartsWith("Effect")){
+        //  if (path.StartsWith("Monster")||path.StartsWith("Building")||path.StartsWith("Character"))
+        //  {
+        //         // "Monster/mst_xg01/mst_xg01_01"
+        //      string[] split = path.Split('/');
+        //      bundleName = split[0]+"_"+split[1];
+        //  }else
+         if(path.StartsWith("Effect")){
               string[] split = path.Split('/');
              bundleName = split[0]+"_"+split[2];
              //"Effect/Monster/mst_xg20/mst_xg20@Skill_01"
@@ -509,12 +513,11 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
              bundleName = split[0]+"_"+split[3];
             // Avatar/infility/Model/infility_body_01   avatar_infility_body_01.model
          }
-        else if (path.StartsWith("View")){
-             string[] split = path.Split('/');
-            bundleName = split[0]+"_"+split[1];
-            //"View/Login/LoginPanel"     view_login
-        }
-
+        // else if (path.StartsWith("View")){
+        //      string[] split = path.Split('/');
+        //     bundleName = split[0]+"_"+split[1];
+        //     //"View/Login/LoginPanel"     view_login
+        // }
         else
         {
             bundleName = Path.GetDirectoryName(path).Replace("/", "_");

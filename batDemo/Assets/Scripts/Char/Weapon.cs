@@ -3,9 +3,8 @@ using UnityEngine;
 /****
 武器基类
 ****/
-public class Weapon : ObjBase
+public class Weapon : Item
 {
-    public WeaponGunData weaponData=null;
     public Weapon()
     {
          charType=GameEnum.ObjType.Weapon;
@@ -13,16 +12,11 @@ public class Weapon : ObjBase
 
     //重写Data.
     public override void initData(){
-        WeaponGunData oldData=this.dataNode.GetComponent<WeaponGunData>();
-        if(oldData!=null){
-            GameObject.DestroyImmediate(oldData);
-        }
-        this.weaponData = this.dataNode.AddComponent<WeaponGunData>();
-        this.objData=this.weaponData;
-        this.weaponData.init(this,fixUpdate);
+      base.initData();
+
     }
     public override void onViewLoadFin(){
-        this.weaponData.initGunData();
+        base.onViewLoadFin();
     }
 
     public override void onGet(){
@@ -33,7 +27,6 @@ public class Weapon : ObjBase
         base.onRecycle();
      }
     public override void onRelease(){
-        this.weaponData=null;
         base.onRelease();
     }
 }

@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-08-24 20:15:40
+ * @LastEditTime: 2020-09-11 14:55:50
  */
 using System;
 using System.Collections;
@@ -110,12 +110,12 @@ public class GameMain : MonoSingleton<GameMain> {
       this.AddBehaviour<PatchManager>();
       this.AddBehaviour<GameAssetManager>();
       this.AddBehaviour<CtrlManager>();
-      this.AddBehaviour<CharManager>();
+      this.AddBehaviour<ObjManager>();
       this.AddBehaviour<CameraManager>();
       EventCenter.init();
       CtrlManager.Instance.Init();
       AFC_Manager.init();
-      CharManager.Instance.Init();
+      ObjManager.Instance.Init();
       CameraManager.Instance.Init();
       GameAssetManager.Instance.setLocalUrlFun(PatchManager.Instance.GetSignedFileLocalURL);
       GameAssetManager.ABManifest=AssetBundleConst.AssetBundleFolder;
@@ -124,7 +124,7 @@ public class GameMain : MonoSingleton<GameMain> {
 	void ResetManager(){
 		//重置游戏管理者 OnRestartGame()
         //顺序 必须由大到小.char ctrl ai 等
-         CharManager.Instance.ClearAll();
+         ObjManager.Instance.ClearAll();
          CtrlManager.Instance.ClearAll();
 	     GameAssetManager.Instance.OnRestartGame();
          //  FontManager.Instance.OnRestartGame();

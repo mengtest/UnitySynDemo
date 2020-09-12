@@ -5,12 +5,13 @@ using GameEnum;
 using UnityEngine;
 //目前逻辑是 通过这里配置 常用影响手感的配置 导出可以粘贴到表中
 //枪_武器数据..同步数据也写在这
-public class Weapon_Gun : MonoBehaviour
+public class Weapon_Gun : MonoBehaviour,IItemData
 {
     public WeaponGun_Serializable data ;     
 
     [Tooltip("枪名称")]
      public string Name ;
+     public ItemType itemType = ItemType.Gun;
 
     [Tooltip("枪型号")]
     public GunNameLink GunLinkType = GunNameLink.M4;
@@ -84,6 +85,26 @@ public class Weapon_Gun : MonoBehaviour
     public Transform muzzleTrans;    
     // Start is called before the first frame update
 
+
+       //通用_显示对象加载reqs.
+    private  GameAssetRequest _Reqs=null;
+    private string dataUrl;
+    private bool isDestory=false;
+     //U3D加载数据.
+     public void U3d_LoadData(string name){
+         this.Name=name;
+          _Reqs = GameAssetManager.Instance.LoadAsset<WeaponGun_Serializable>(dataUrl,onLoaded);
+     }
+    private void onLoaded(UnityEngine.Object[] objs){
+       if(this.isDestory){
+           return; 
+       }
+        if (objs.Length>0){
+           //替换node.
+            data= objs[0] as WeaponGun_Serializable;
+            LoadData();
+        }
+    }
      public void LoadData(){
         WeaponGun_Serializable source=data;
         Weapon_Gun tar=this;
@@ -144,6 +165,15 @@ public class Weapon_Gun : MonoBehaviour
 
 
     public void OnDestroy() {
-       
+        isDestory=true;
+        if(this._Reqs!=null){
+            this._Reqs.Unload();
+            this._Reqs = null;
+       }
+    }
+
+    public ItemType getItemType()
+    {
+       return itemType;
     }
 }

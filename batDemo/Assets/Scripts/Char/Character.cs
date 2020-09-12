@@ -45,7 +45,7 @@ public class Character : ObjBase
         this.charData.init(this,fixUpdate);
         this.ChangeState(CharState.Char_Idle,null,false);
         this.GetMovePart().useGravityPower=true;
-        //自己转向.
+        //自己转向. 转向减速
          this._move.isRotateLessSpeed=true;
         // this._move.rotateSpeed=18;
         // this._move.faceToRotation=false;

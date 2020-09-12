@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //武器数据..同步数据也写在这
-public class WeaponGunData : MonoBehaviour,IData
+public class WeaponData : MonoBehaviour,IData
 {
     private ObjBase _obj;
     private Action _onFixUpdate; 
 
     public float PlaySpeed { get ; set ; }
 
-    private Weapon_Gun _Gun;
+    private IItemData _Data;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +26,20 @@ public class WeaponGunData : MonoBehaviour,IData
     public void init(ObjBase obj,Action onFixUpdate){
          _obj=obj;
          _onFixUpdate=onFixUpdate;
+         initGunData();
     }
     public void initGunData(){
-         this._Gun=_obj.gameObject.GetComponent<Weapon_Gun>();
-         if(this._Gun==null){
-             DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
+         this._Data=_obj.gameObject.GetComponent<Weapon_Gun>();
+         if(this._Data==null){
+              this._Data=_obj.gameObject.AddComponent<Weapon_Gun>();
+            // DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
          }
          
     }
+    public Weapon_Gun getGunData(){
+      return this._Data as Weapon_Gun;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,5 +48,6 @@ public class WeaponGunData : MonoBehaviour,IData
     public void OnDestroy() {
         _obj=null;
         _onFixUpdate=null;
+        _Data=null;
     }
 }

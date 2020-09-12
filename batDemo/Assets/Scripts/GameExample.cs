@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-08-25 00:35:37
+ * @LastEditTime: 2020-09-11 14:54:50
  */
 using System.Collections;
 using UnityEngine;
@@ -18,9 +18,9 @@ public class GameExample : SingletonT<GameExample> {
     }
 
     public IEnumerator testPool(){
-       Character char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
-        Character  char2 =  CharManager.Instance.CharPool.get<Character>("char_A");
-       Monster monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+       Character char1 =  ObjManager.Instance.CharPool.get<Character>("char_A");
+        Character  char2 =  ObjManager.Instance.CharPool.get<Character>("char_A");
+       Monster monster1 =   ObjManager.Instance.CharPool.get<Monster>("char_B");
     //     Player player =   CharManager.Instance.CharPool.get<Player>("player_B");
        yield return new WaitForSeconds(5);
        char1.recycleSelf();
@@ -30,9 +30,9 @@ public class GameExample : SingletonT<GameExample> {
         char2.recycleSelf();
 
           yield return new WaitForSeconds(5);
-          char1 =  CharManager.Instance.CharPool.get<Character>("char_A");
-          char2=CharManager.Instance.CharPool.get<Character>("char_A");
-          monster1 =   CharManager.Instance.CharPool.get<Monster>("char_B");
+          char1 =  ObjManager.Instance.CharPool.get<Character>("char_A");
+          char2=ObjManager.Instance.CharPool.get<Character>("char_A");
+          monster1 =   ObjManager.Instance.CharPool.get<Monster>("char_B");
 
            yield return new WaitForSeconds(5);
             char1.recycleSelf();

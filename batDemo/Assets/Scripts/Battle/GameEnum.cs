@@ -49,7 +49,7 @@ namespace GameEnum
     }
     public enum ObjType
     {
-        //对象.
+        //显示对象----基类.
         Obj=0,
         //角色
         Character=1,
@@ -57,8 +57,10 @@ namespace GameEnum
         Monster=2,
         //玩家
         Player=3,
-       //武器
-        Weapon=4,
+        //道具-----基类
+        Item=4,
+        //武器
+         Weapon=5,
     }
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
@@ -141,60 +143,60 @@ namespace GameEnum
     
     }
     //道具类型  int(id/100000)
-    public class ItemType                                    
+    public enum ItemType                                    
 	{
        //主武器 枪  10101001  
-       public const int Gun=101;
+        Gun=101,
        //副武器 手枪
-       public const int PistolGun=102;
+        PistolGun=102,
        //近战武器
-       public const int Melee=103;
+        Melee=103,
        //投掷物
-        public const int Grenade=104;
+         Grenade=104,
         //配件
-        public const int Slot=201;
+         Slot=201,
         //防弹衣 装备.
-        public const int Armor=301;
+         Armor=301,
         //背包
-        public const int Bag=302;
-         //头盔;
-        public const int Helmet=303;
+         Bag=302,
+         //头盔,
+         Helmet=303,
         //灌木 隐身衣 
-        public const int Shrup=304;
+         Shrup=304,
         //子弹
-        public const int Bullet=401;
+         Bullet=401,
          //能量 
-        public const int Drug_Boost=402;
+         Drug_Boost=402,
         //治疗
-        public const int Drug_Healing=403;
+         Drug_Healing=403,
         //Fashion 时装
-        public const int  Avatar_Fashion=500;
+          Avatar_Fashion=500,
         //Fashion 套装
-        public const int  Avatar_Suit=501;
+          Avatar_Suit=501,
          //卡牌
-        public const int Cards=601;
+         Cards=601,
         //卡牌碎片
-        public const int Card_Fragment=602;
+         Card_Fragment=602,
         //万能卡牌碎片
-        public const int Card_General_Fragment=603;
+         Card_General_Fragment=603,
         //基础货币
-        public const int Currency=701;
+         Currency=701,
         //特殊货币
-        public const int SpecialCurrency=702;
+         SpecialCurrency=702,
         //经验卡
-        public const int ExperienceCard=801;
+         ExperienceCard=801,
         //升级卡
-        public const int UpgradeCard=802;
+         UpgradeCard=802,
         //通行证
-        public const int PassCheck=803;
+         PassCheck=803,
         //奖励
-        public const int Reward=804;
+         Reward=804,
         //改名卡
-        public const int RenamingCard=805;
+         RenamingCard=805,
         //装饰
-        public const int Decorate=901;
+         Decorate=901,
         //表情动作
-        public const int Expression_Action=902;
+         Expression_Action=902,
     }
 
     // 枪武器类型.
@@ -221,27 +223,27 @@ namespace GameEnum
           Pistol=201,
     }
     //近战武器类型.
-    public class Weapon_MeleeType                                    
+    public enum Weapon_MeleeType                                    
 	{
          //拳击_手套 拳套.
-         public const int Boxing_Glove=301;
+          Boxing_Glove=301,
          //匕首
-         public const int Knife = 302;
+          Knife = 302,
          //单手剑
-         public const int Sword = 303;
+          Sword = 303,
          //大剑
-         public const int BroadSword = 303;
+          BroadSword = 303,
          //双刃.
-         public const int  DualBlades = 304;
+           DualBlades = 304,
          //镰刀
-         public const int  Sickle = 305;
+           Sickle = 305,
           //长矛
-         public const int Lance =306;
+          Lance =306,
 	}
-    public class Weapon_GrenadeType                                    
+    public enum Weapon_GrenadeType                                    
 	{
-        public const int FragGrenade=401;
-        public const int   SmokeGrenade=402;
+         FragGrenade=401,
+           SmokeGrenade=402,
 
     }
     public enum GunNameLink                                    

@@ -44,9 +44,23 @@ public class GameLuaManager
 
      public static Character CreatCharacter(string path="",GameObject obj=null){
          #if UNITY_EDITOR
-        return CharManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);
+        return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);
         #else
-          return CharManager.Instance.CreatCharacter(path,obj);
+          return ObjManager.Instance.CreatCharacter(path,obj);
+        #endif
+     }
+     public static Character CreatPlayer(string path="",GameObject obj=null){
+         #if UNITY_EDITOR
+        return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);
+        #else
+          return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player);
+        #endif
+     }
+     public static Character CreatMonster(string path="",GameObject obj=null){
+         #if UNITY_EDITOR
+        return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Monster,CtrlType.keyBordCtrl);
+        #else
+          return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Monster);
         #endif
      }
 

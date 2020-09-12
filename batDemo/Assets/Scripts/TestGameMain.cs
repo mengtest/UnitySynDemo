@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-07 19:30:25
+ * @LastEditTime: 2020-09-11 14:55:38
  */
 using System;
 using System.Collections;
@@ -112,12 +112,12 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
       this.AddBehaviour<PatchManager>();
       this.AddBehaviour<GameAssetManager>();
       this.AddBehaviour<CtrlManager>();
-      this.AddBehaviour<CharManager>();
+      this.AddBehaviour<ObjManager>();
       this.AddBehaviour<CameraManager>();
       EventCenter.init();
       CtrlManager.Instance.Init();
       AFC_Manager.init();
-      CharManager.Instance.Init();
+      ObjManager.Instance.Init();
       CameraManager.Instance.Init();
       GameAssetManager.Instance.setLocalUrlFun(PatchManager.Instance.GetSignedFileLocalURL);
       GameAssetManager.ABManifest=AssetBundleConst.AssetBundleFolder;
@@ -126,7 +126,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
 	void ResetManager(){
 		//重置游戏管理者 OnRestartGame()
         //顺序 必须由大到小.char ctrl ai 等
-         CharManager.Instance.ClearAll();
+         ObjManager.Instance.ClearAll();
          CtrlManager.Instance.ClearAll();
 	     GameAssetManager.Instance.OnRestartGame();
          //  FontManager.Instance.OnRestartGame();
@@ -192,7 +192,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
     }
     private void  initScenes(){
        GameObject player= GameObject.FindGameObjectWithTag("Player");
-       this.playerObj = GameLuaManager.CreatCharacter("player",player) as Player;
+       this.playerObj = ObjManager.Instance.CreatCharacter("player",player) as Player;
        CameraManager.Instance.cameraCtrl.init(player.transform);
 
         //查找 全部武器 创建

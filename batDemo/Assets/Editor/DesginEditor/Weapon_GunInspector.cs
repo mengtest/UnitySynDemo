@@ -4,7 +4,7 @@
  * @Autor: xsddxr909
  * @Date: 2020-05-15 11:13:21
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-10 20:18:20
+ * @LastEditTime: 2020-09-10 21:17:04
  */ 
 using UnityEngine;
 using UnityEditor;
@@ -98,7 +98,7 @@ public class Weapon_GunInspector : Editor {
         {
             string path = Path.Combine("Assets", "Res", savePath, mono.name + ".asset");
             _data = AssetDatabase.LoadAssetAtPath<WeaponGun_Serializable>(path);
-            this.LoadData();
+        //    this.LoadData();
         }
         if (!_data)
         {
