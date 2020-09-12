@@ -142,7 +142,7 @@ public class MovePart
                 _StopMoveGravityChkTime=0;
                 this.chkFall();
             }
-            _StopMoveGravityChkTime+=Time.deltaTime;
+            _StopMoveGravityChkTime+=Time.fixedDeltaTime;
         }
         if (!_isMoving && !_jumping) return;
         //float dt=Time.fixedDeltaTime;

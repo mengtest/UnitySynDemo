@@ -30,8 +30,8 @@ public class ItemData : MonoBehaviour,IData
     }
     /*****
     **
-       Gun类型  obj.poolname=Weapon/Gun/AR/M4A1   path=Data/GunData/M4A1
-       Melee类型  obj.poolname=Weapon/Melee/Knife/Knife01   path=Data/MeleeData/Knife01
+       Gun类型  obj.poolname=Gun/AR/M4A1    path=Data/GunData/M4A1
+       Melee类型  obj.poolname=Melee/Knife/Knife01   path=Data/MeleeData/Knife01
 
     **
     *****/

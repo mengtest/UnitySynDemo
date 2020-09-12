@@ -98,10 +98,13 @@ public class AppBuild {
          allEffect();
          allChar();
          allUI();
-        allOther("Assets/Res/Data/","data_",false,".asset");
+         allAvatar("Assets/Res/Avatar","avatar_",false);
+         allOther("Assets/Res/ActionXml/","actionxml_",false,".xml");
+         allOther("Assets/Res/Data/","data_",false,".asset");
          allOther("Assets/Res/Item/","item_",true);
          allOther("Assets/Res/Gun/","gun_",true);
          allOther("Assets/Res/Melee/","melee_",true);
+         
          BuildTarget platform;
          switch (AssetBundleConst.platformID)
          {
@@ -453,13 +456,60 @@ public class AppBuild {
             ab.assetNames = uList.ToArray();
             abAllList.Add(ab);
         }
-        
     }
-    public static void allChar()
+    public static void allAvatar(string basePath="Assets/Res/Avatar",string outPutAbName="avatar_",bool needABTexture=false){
+      //  string basePath = "Assets/Res/Avatar";
+      //  string assetsPath = "";
+        string ffName = "";
+      //  string prefabStr = "";
+        List<string> uList = null;
+        DirectoryInfo[] di = new DirectoryInfo(basePath).GetDirectories();
+        for (int k = 0; k < di.Length; k++)
+        {
+            ffName = di[k].Name;
+            FileInfo[] iArr = di[k].GetFiles("*.prefab", SearchOption.TopDirectoryOnly);
+            if (iArr.Length == 0) continue;
+                //带时装
+                //   prefabStr = iArr[0].Name.Replace(".prefab", "");
+            string pp = basePath +"/"+ffName + "/Model/";
+            FileInfo[] fileList = new DirectoryInfo(pp).GetFiles();
+            for (int c = 0; c < fileList.Length; c++)
+            {
+                FileInfo fi = fileList[c];
+                if (fi.Extension != ".prefab") continue;
+                string re = pp + fi.Name;
+                string reName = fi.Name.Replace(".prefab", "");
+                if(reName==ffName){
+                    uList = new List<string>();
+                    uList.Add(re);
+                    //带动画文件 rm为带动画骨骼文件 //可以加上特效
+                    AssetBundleBuild asb = new AssetBundleBuild();
+                    asb.assetBundleName = outPutAbName + ffName ;
+                    asb.assetNames = uList.ToArray();
+                    abAllList.Add(asb);
+                }else{
+                    uList = new List<string>();
+                    if(needABTexture){
+                        addTextureAB(re);
+                    }
+    
+                    uList.Add(re);
+                    uList.Add("Assets/Res/TXTBonesInfo/" + reName+".txt");
+                    AssetBundleBuild ab = new AssetBundleBuild();
+                 //   string outP = "avatar_";
+                    ab.assetBundleName = outPutAbName + reName ;
+                    ab.assetBundleName=  ab.assetBundleName.ToLower();
+                    ab.assetNames = uList.ToArray();
+                    abAllList.Add(ab);
+                }
+            }
+        }
+    }
+    public static void allChar(bool needABTexture=false)
     {
         // "Avatar" 
      //   string[] fileArr = new string[1] { "Avatar"}; //"Avatar",
-        string[] fileArr = new string[4] { "Monster", "Building","Character","Avatar" };
+        string[] fileArr = new string[3] { "Monster", "Building","Character"};
         string basePath = "Assets/Res/";
         string assetsPath = "";
         string ffName = "";
@@ -475,103 +525,30 @@ public class AppBuild {
                 ffName = di[k].Name;
                 FileInfo[] iArr = di[k].GetFiles("*.prefab", SearchOption.TopDirectoryOnly);
                 if (iArr.Length == 0) continue;
-                if(fileArr[i]=="Avatar"){
-                   //带时装
-                 //   prefabStr = iArr[0].Name.Replace(".prefab", "");
-
-                    string pp = sourcePath +"/"+ffName + "/Model/";
-                    FileInfo[] fileList = new DirectoryInfo(pp).GetFiles();
-                    for (int c = 0; c < fileList.Length; c++)
-                    {
-                        FileInfo fi = fileList[c];
-                        if (fi.Extension != ".prefab") continue;
-                        string re = pp + fi.Name;
-                        string reName = fi.Name.Replace(".prefab", "");
-                        if(reName==ffName){
-                            uList = new List<string>();
-                            uList.Add(re);
-                            //带动画文件 rm为带动画骨骼文件 //可以加上特效
-                            AssetBundleBuild asb = new AssetBundleBuild();
-                            asb.assetBundleName = fileArr[i] + "_" + ffName ;
-                            asb.assetNames = uList.ToArray();
-                            abAllList.Add(asb);
-                       }else{
-                            uList = new List<string>();
-                            // string[] depArr = AssetDatabase.GetDependencies(re);
-                            //     //获取依赖.
-                            // for (int t = 0; t < depArr.Length; t++)
-                            // {
-                            //     string dStr = depArr[t];
-                            //     if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
-                            //     {
-                            //         string[] uArr = dStr.Split('/');
-                            //         string cName = uArr[uArr.Length - 1];
-                            //         cName = cName.Split('.')[0];
-                            //         if (_imageAllList.IndexOf(cName) != -1) continue;
-                            //         _imageAllList.Add(cName);
-                            //         AssetBundleBuild abc = new AssetBundleBuild();
-                            //         abc.assetBundleName = "tx_" + cName ;
-                            //         abc.assetNames = new string[1] { dStr };
-                            //         abAllList.Add(abc);
-                            //     }
-                                
-                            // }
-
-                            uList.Add(re);
-                            uList.Add("Assets/Res/TXTBonesInfo/" + reName+".txt");
-                            AssetBundleBuild ab = new AssetBundleBuild();
-                            string outP = fileArr[i] + "_";
-                            ab.assetBundleName = outP + reName ;
-                            ab.assetBundleName=  ab.assetBundleName.ToLower();
-                            ab.assetNames = uList.ToArray();
-                            abAllList.Add(ab);
-                       }
-
-
-
+                //没有时装
+                uList = new List<string>();
+                for (int o = 0; o < iArr.Length; o++)
+                {
+                    prefabStr = iArr[o].Name.Replace(".prefab", "");
+                    if(prefabStr==ffName){
+                        continue;
                     }
-                }else{
-                    //没有时装
-                    uList = new List<string>();
-                    for (int o = 0; o < iArr.Length; o++)
-                    {
-                        prefabStr = iArr[o].Name.Replace(".prefab", "");
-                        if(prefabStr==ffName){
-                            continue;
-                        }
-                        assetsPath = sourcePath +"/" + ffName + "/"  + iArr[o].Name;
-                    //     string[] depArr = AssetDatabase.GetDependencies(assetsPath);
-                    //     for (int t = 0; t < depArr.Length; t++)
-                    //     {
-                    //         string dStr = depArr[t];
-                    // //        DebugLog.Log(dStr);
-                    //         if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
-                    //         {
-                    //             string[] uArr = dStr.Split('/');
-                    //             string cName = uArr[uArr.Length - 1];
-                    //             cName = cName.Split('.')[0];
-                    //             if (_imageAllList.IndexOf(cName) != -1) continue;
-                    //             _imageAllList.Add(cName);
-                    //             AssetBundleBuild abc = new AssetBundleBuild();
-                    //             abc.assetBundleName = "tx_" + cName;
-                    //             abc.assetNames = new string[1] { dStr };
-                    //             abAllList.Add(abc);
-                    //         }
-                    //     }
-                       uList.Add(assetsPath);
+                    assetsPath = sourcePath +"/" + ffName + "/"  + iArr[o].Name;
+                    if(needABTexture){
+                        addTextureAB(assetsPath);
                     }
-                    AssetBundleBuild ab = new AssetBundleBuild();
-                    ab.assetBundleName = fileArr[i] + "_" + ffName ;
-                    ab.assetBundleName=  ab.assetBundleName.ToLower();
-                    ab.assetNames = uList.ToArray();
-                    abAllList.Add(ab);
+                    uList.Add(assetsPath);
                 }
-
+                AssetBundleBuild ab = new AssetBundleBuild();
+                ab.assetBundleName = fileArr[i] + "_" + ffName ;
+                ab.assetBundleName=  ab.assetBundleName.ToLower();
+                ab.assetNames = uList.ToArray();
+                abAllList.Add(ab);
             }
 
         }
     }
-   public static void allEffect()
+   public static void allEffect(bool needABTexture=false)
     {
        // string[] fileArr = new string[7] { "Character", "hit", "Monster", "Qita", "UIEffect","Boss","Common" };
         string[] fileArr = new string[1] { "hit" };
@@ -595,23 +572,9 @@ public class AppBuild {
                     prefabStr = iArr[h].Name.Replace(".prefab", "");
                     assetsPath = sourcePath + "/" + ffName + "/" + iArr[h].Name;
                     uList.Add(assetsPath);
-                    // string[] depArrs = AssetDatabase.GetDependencies(assetsPath);
-                    // for (int t = 0; t < depArrs.Length; t++)
-                    // {
-                    //     string dStr = depArrs[t];
-                    //     if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
-                    //     {
-                    //         string[] uArr = dStr.Split('/');
-                    //         string cName = uArr[uArr.Length - 1];
-                    //         cName = cName.Split('.')[0];
-                    //         if (_imageAllList.IndexOf(cName) != -1) continue;
-                    //         _imageAllList.Add(cName);
-                    //         AssetBundleBuild abc = new AssetBundleBuild();
-                    //         abc.assetBundleName = "tx_" + cName ;
-                    //         abc.assetNames = new string[1] { dStr };
-                    //         abAllList.Add(abc);
-                    //     }
-                    // }
+                    if(needABTexture){
+                        addTextureAB(assetsPath);
+                    }
                 }
                
                 AssetBundleBuild ab = new AssetBundleBuild();
@@ -623,6 +586,26 @@ public class AppBuild {
             }
         }
     }
+    //需要剥离贴图的时候 就调用.
+     public static void addTextureAB(string assetsPath){
+        string[] depArrs = AssetDatabase.GetDependencies(assetsPath);
+        for (int t = 0; t < depArrs.Length; t++)
+        {
+            string dStr = depArrs[t];
+            if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
+            {
+                string[] uArr = dStr.Split('/');
+                string cName = uArr[uArr.Length - 1];
+                cName = cName.Split('.')[0];
+            if (_imageAllList.IndexOf(cName) != -1) continue;
+                _imageAllList.Add(cName);
+                AssetBundleBuild abc = new AssetBundleBuild();
+                abc.assetBundleName = "tx_" + cName ;
+                abc.assetNames = new string[1] { dStr };
+                abAllList.Add(abc);
+            }
+        }
+     }
      public static void allOther(string basePath,string outPutAbName,bool needABTexture=false,string fileExtensions=".prefab"){
         //string basePath = "Assets/Res/Item/";
         string ffName = "";
@@ -643,24 +626,7 @@ public class AppBuild {
                 assetsPath = sourcePath + "/" + ffName + "/" + iArr[h].Name;
                 uList.Add(assetsPath);
                 if(needABTexture){
-                    //需要剥离贴图的话.
-                    string[] depArrs = AssetDatabase.GetDependencies(assetsPath);
-                    for (int t = 0; t < depArrs.Length; t++)
-                    {
-                        string dStr = depArrs[t];
-                        if (dStr.IndexOf(".jpg") != -1 || dStr.IndexOf(".jpeg") != -1 || dStr.IndexOf(".png") != -1 || dStr.IndexOf(".psd") != -1 || dStr.IndexOf(".tga") != -1 || dStr.IndexOf(".bmp") != -1)
-                        {
-                            string[] uArr = dStr.Split('/');
-                            string cName = uArr[uArr.Length - 1];
-                            cName = cName.Split('.')[0];
-                            if (_imageAllList.IndexOf(cName) != -1) continue;
-                            _imageAllList.Add(cName);
-                            AssetBundleBuild abc = new AssetBundleBuild();
-                            abc.assetBundleName = "tx_" + cName ;
-                            abc.assetNames = new string[1] { dStr };
-                            abAllList.Add(abc);
-                        }
-                    }
+                    addTextureAB(assetsPath);
                 }
             }
             

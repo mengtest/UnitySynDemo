@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-11 14:55:38
+ * @LastEditTime: 2020-09-12 15:43:12
  */
 using System;
 using System.Collections;
@@ -192,7 +192,13 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
     }
     private void  initScenes(){
        GameObject player= GameObject.FindGameObjectWithTag("Player");
-       this.playerObj = ObjManager.Instance.CreatCharacter("player",player) as Player;
+#if UNITY_EDITOR
+        this.playerObj = ObjManager.Instance.CreatCharacter("player",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+ #else
+          
+        this.playerObj = ObjManager.Instance.CreatCharacter("player",player) as Player;
+ #endif
+              
        CameraManager.Instance.cameraCtrl.init(player.transform);
 
         //查找 全部武器 创建

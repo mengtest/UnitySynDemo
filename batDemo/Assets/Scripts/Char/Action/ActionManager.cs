@@ -40,7 +40,7 @@ public class ActionManager
      * 因为帧同步 需要实例化的数据不能等待，所以需要提前加载完成 
      */
     public void initActData(Action callback){
-
+          // 创建. this._actionDataMap 未完成.
 
     }
     public ActionData GetActionData(string actionLabel){

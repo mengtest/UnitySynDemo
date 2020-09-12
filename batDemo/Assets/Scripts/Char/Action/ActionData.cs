@@ -23,7 +23,7 @@ using System.Xml;
        private bool isDead=false;
 
         public ActionData(string actionName){
-            this.url = "Action/" + actionName;
+            this.url = "ActionXml/Action/" + actionName;
             this.actionName = actionName;
             this.cmdDataList = new List<AFC_Base_Data>();
             isDead=false;

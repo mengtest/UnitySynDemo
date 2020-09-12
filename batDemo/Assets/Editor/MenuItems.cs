@@ -236,7 +236,7 @@ public  class MenuItems
      * @param {type} 
      * @return: 
      */
-    [MenuItem("打包/一键清除依赖和打包资源", false, 100)]
+    [MenuItem("打包/一键清除依赖和打包资源--Clear", false, 100)]
     static void ClearAssetBunldTag()
     {
         AppBuild.removeDependencies();
