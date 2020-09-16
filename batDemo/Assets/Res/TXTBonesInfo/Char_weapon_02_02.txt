@@ -1,0 +1,9 @@
+{
+  "materials":[
+    "Char_weapon_02_02"
+  ],
+  "bones":[
+    "Bone014"
+  ],
+  "rootbones":"Bone014"
+}

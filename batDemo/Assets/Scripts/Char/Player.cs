@@ -6,7 +6,8 @@ using UnityEngine;
 [AutoRegistLua]
 public class Player : Character
 {
-    public AvatarChar avatar;
+    public AvatarSystem avatar;
+    public WeaponSystem weaponSystem;
     public Player()
     {
          charType=GameEnum.ObjType.Player;
@@ -16,22 +17,25 @@ public class Player : Character
     public override void init(){
          string[] split = poolname.Split('/');
         if(split.Length>0){
-            this._name=split[split.Length-1]+this.id;
+            this._name=split[split.Length-1];
+            //+this.id;
         }else{
-            this._name=poolname+this.id;
+            this._name=poolname;
+            //+"_"+this.id;
         }
         this.node.name=this._name;
-        this.avatar = this.node.AddComponent<AvatarChar>();
+        this.avatar = this.dataNode.AddComponent<AvatarSystem>();
+        this.weaponSystem =this.dataNode.AddComponent<WeaponSystem>();
+        this.weaponSystem.Init(this);
     }
 
     //eg: initAvatar("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
     public void initAvatar(string aniUrl, string[] modelpaths){
-        if(this.avatar=null)return; 
-        this.avatar.Init(aniUrl,modelpaths,onBodyFin);
+        if(this.avatar==null)return; 
+        this.avatar.Init(aniUrl,modelpaths,onBodyFin,this);
     }
     public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
         base.ChangeNodeObj(obj,resetPos);
-        this.avatar = this.node.AddComponent<AvatarChar>();
     }
     //换装.
     public void ChangePart(string partPath){
@@ -41,6 +45,8 @@ public class Player : Character
     protected virtual void onBodyFin(){
         this.initViewFin=true;
         this.onViewLoadFin();
+        //如果是观察者.
+        CameraManager.Instance.cameraCtrl.init(gameObject.transform);
     } 
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
@@ -64,6 +70,7 @@ public class Player : Character
      }
     public override void onRelease(){
         this.avatar=null;
+        this.weaponSystem=null;
         base.onRelease();
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 /****
 武器基类
 ****/
+[AutoRegistLua]
 public class Item : ObjBase
 {
     public ItemData itemData=null;
@@ -10,7 +11,6 @@ public class Item : ObjBase
     {
          charType=GameEnum.ObjType.Item;
     }
-
     //重写Data.
     public override void initData(){
         ItemData oldData=this.dataNode.GetComponent<ItemData>();

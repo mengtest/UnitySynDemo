@@ -17,6 +17,7 @@ public class PlayerWrap
 		L.RegFunction("New", _CreatePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("avatar", get_avatar, set_avatar);
+		L.RegVar("weaponSystem", get_weaponSystem, set_weaponSystem);
 		L.EndClass();
 	}
 
@@ -185,13 +186,32 @@ public class PlayerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			Player obj = (Player)o;
-			AvatarChar ret = obj.avatar;
+			AvatarSystem ret = obj.avatar;
 			ToLua.Push(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index avatar on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_weaponSystem(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			WeaponSystem ret = obj.weaponSystem;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index weaponSystem on a nil value");
 		}
 	}
 
@@ -204,13 +224,32 @@ public class PlayerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			Player obj = (Player)o;
-			AvatarChar arg0 = (AvatarChar)ToLua.CheckObject<AvatarChar>(L, 2);
+			AvatarSystem arg0 = (AvatarSystem)ToLua.CheckObject<AvatarSystem>(L, 2);
 			obj.avatar = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index avatar on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_weaponSystem(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			WeaponSystem arg0 = (WeaponSystem)ToLua.CheckObject<WeaponSystem>(L, 2);
+			obj.weaponSystem = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index weaponSystem on a nil value");
 		}
 	}
 }

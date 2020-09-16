@@ -57,6 +57,10 @@ public class ObjManager  : MonoSingleton<ObjManager>
         }
         return chars;
     }
+    //方便新枪 测试 丢地图 加脚本就可以跑了.
+    public Weapon CreatWeapon(Weapon_Gun gunMono){
+       return CreatWeapon(gunMono.getGunPath(),gunMono.gameObject);
+    }
     //path=Data/GunData/M4A1
     public Weapon CreatWeapon(string path="",GameObject obj=null){
         Weapon weapon=this._weaponPool.get<Weapon>(path);

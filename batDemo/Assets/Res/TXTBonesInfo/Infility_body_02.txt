@@ -31,5 +31,6 @@
     "Bip001 R Calf",
     "Bone002",
     "Bip001 Head"
-  ]
+  ],
+  "rootbones":"Bip001 Pelvis"
 }

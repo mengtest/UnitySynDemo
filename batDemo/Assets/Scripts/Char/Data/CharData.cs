@@ -13,6 +13,8 @@ public class CharData : MonoBehaviour,IData
     public int pvpId;
     public CtrlType ctrlType=CtrlType.Null;
 
+
+
     //状态属性.......................
 
     //冲刺
@@ -63,6 +65,9 @@ public class CharData : MonoBehaviour,IData
     public void init(ObjBase obj,Action onFixUpdate){
           _char=obj  as Character;
            _onFixUpdate=onFixUpdate;
+    }
+    public Character getChar(){
+        return _char;
     }
     private void FixedUpdate() {
          if(_onFixUpdate!=null){

@@ -99,12 +99,13 @@ public class AppBuild {
          allChar();
          allUI();
          allAvatar("Assets/Res/Avatar","avatar_",false);
+         allAvatar("Assets/Res/NAvatar","navatar_",false);
          allOther("Assets/Res/ActionXml/","actionxml_",false,".xml");
          allOther("Assets/Res/Data/","data_",false,".asset");
          allOther("Assets/Res/Item/","item_",true);
          allOther("Assets/Res/Gun/","gun_",true);
          allOther("Assets/Res/Melee/","melee_",true);
-         
+
          BuildTarget platform;
          switch (AssetBundleConst.platformID)
          {
@@ -472,6 +473,10 @@ public class AppBuild {
                 //带时装
                 //   prefabStr = iArr[0].Name.Replace(".prefab", "");
             string pp = basePath +"/"+ffName + "/Model/";
+            if (!Directory.Exists(pp))
+            {
+              continue;
+            }
             FileInfo[] fileList = new DirectoryInfo(pp).GetFiles();
             for (int c = 0; c < fileList.Length; c++)
             {

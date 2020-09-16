@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-11 14:54:50
+ * @LastEditTime: 2020-09-15 17:25:44
  */
 using System.Collections;
 using UnityEngine;
@@ -73,8 +73,8 @@ public class GameExample : SingletonT<GameExample> {
          }
     }
     IEnumerator startLogicCoroutine(){
-        AvatarChar avatar= GameExample.Instance.CreatAvatar();	  
-        AvatarChar avatar2= GameExample.Instance.CreatAvatar();	  
+        AvatarSystem avatar= GameExample.Instance.CreatAvatar();	  
+        AvatarSystem avatar2= GameExample.Instance.CreatAvatar();	  
         avatar.gameObject.transform.Translate(new Vector3(-50,0,0));
         avatar2.gameObject.transform.Translate(new Vector3(50,0,0));
         yield return 0;
@@ -87,21 +87,22 @@ public class GameExample : SingletonT<GameExample> {
         avatar.ChangePart("Infility_head_02");
         avatar2.ChangePart("Infility_head_02");
         yield return new WaitForSeconds(2);
-        avatar.ChangeWeapon("Infility_weapon_01");
-        avatar2.ChangeWeapon("Infility_weapon_03");
-        yield return new WaitForSeconds(10);
-        avatar.ChangeWeapon("Infility_weapon_02_01");
-        avatar.ChangeWeapon("Infility_weapon_02_02",true);
-        yield return new WaitForSeconds(10);
-        avatar.ChangeWeapon("Infility_weapon_03");
-        avatar.ChangeWeapon("",true);
-        avatar2.ChangeWeapon("Infility_weapon_01");
-        avatar2.ChangeWeapon("",true);
+        // avatar.ChangeWeapon("Infility_weapon_01");
+        // avatar2.ChangeWeapon("Infility_weapon_03");
+        // yield return new WaitForSeconds(10);
+        // avatar.ChangeWeapon("Infility_weapon_02_01");
+        // avatar.ChangeWeapon("Infility_weapon_02_02",true);
+        // yield return new WaitForSeconds(10);
+        // avatar.ChangeWeapon("Infility_weapon_03");
+        // avatar.ChangeWeapon("",true);
+        // avatar2.ChangeWeapon("Infility_weapon_01");
+        // avatar2.ChangeWeapon("",true);
     }
-    public AvatarChar CreatAvatar(){       
+    public AvatarSystem CreatAvatar(){       
          GameObject obj1=new GameObject();
          obj1.transform.parent=null;
-         AvatarChar avatar= obj1.AddComponent<AvatarChar>();
+         AvatarSystem avatar= obj1.AddComponent<AvatarSystem>();
+         avatar.isNewAnimatorSystem=false;
          avatar.Init("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
          return avatar;
     }

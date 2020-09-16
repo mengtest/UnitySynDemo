@@ -1,3 +1,11 @@
+--[[
+Description: 
+Version: 1.0
+Autor: xsddxr909
+Date: 2020-08-03 17:41:45
+LastEditors: xsddxr909
+LastEditTime: 2020-09-16 16:49:03
+--]]
 CallbackSequence = Class("CallbackSequence")
 
 function CallbackSequence:initialize()
@@ -11,7 +19,7 @@ end
 -- isSync: �Ƿ�Ϊͬ���ص���ͬ���ص�����ִ�к�����ִ����һ���ص�
 function CallbackSequence:append(callback, isSync)
     if type(callback) ~= "function" then
-        Debugger.LogError("Only can append function.")
+        logError("Only can append function.")
         return
     end
     self._callbackList[#self._callbackList + 1] = {

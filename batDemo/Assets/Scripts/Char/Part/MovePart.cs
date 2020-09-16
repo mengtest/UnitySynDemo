@@ -591,7 +591,7 @@ public class MovePart
          //向下打射线 如果离地面超过 1 检测下落.
         if (jumpState == JumpState.JumpOnGround)
         {
-            if(!this.obj.IsNeedFall()){
+            if(this.obj.IsNeedFall()){
                 this.acceleratedupPow=this.GravityPower;
                 this.upPow=0;
                 this.ZeroUpStop=false;

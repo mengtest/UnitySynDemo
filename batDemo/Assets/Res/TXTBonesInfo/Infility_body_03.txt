@@ -21,5 +21,6 @@
     "Bip001 RUpArmTwist",
     "Bip001 RUpArmTwist1",
     "Bip001 R ForeTwist"
-  ]
+  ],
+  "rootbones":"Bip001 Pelvis"
 }

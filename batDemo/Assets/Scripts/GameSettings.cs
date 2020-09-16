@@ -61,18 +61,18 @@ public class GameSettings : ScriptableObject
     public bool isLoadRemoteAsset = true;
 
      //游戏更新配置 服务器列表Url mainfest md5 Remotofest md5  ver  
-    public string _gameConfigUrl = "";
+    public string gameConfigUrl = "http://192.168.0.3:8080/gameconfig.xml";
 
-    public  string gameConfigUrl
-    {
-        get { return _gameConfigUrl ; }
-        set {   
-            _gameConfigUrl=value ;  
-#if UNITY_EDITOR
-          UnityEditor.EditorPrefs.SetString("gameConfigUrl", value);
-#endif
-        }
-    }
+//     public  string gameConfigUrl
+//     {
+//         get { return _gameConfigUrl ; }
+//         set {   
+//             _gameConfigUrl=value ;  
+// #if UNITY_EDITOR
+//           UnityEditor.EditorPrefs.SetString("gameConfigUrl", value);
+// #endif
+//         }
+//    }
 
     public int frameRate=30;
     public float deltaTime = 1f / 30f;
@@ -81,6 +81,19 @@ public class GameSettings : ScriptableObject
     {
         return isDebugModel;
     }
+    //角色是否合并贴图
+    public bool combineTexture=false;
+    
+//     public bool combineTexture
+//     {
+//         get { return _combineTexture ; }
+//         set {   
+//             _combineTexture=value ;  
+// #if UNITY_EDITOR
+//           UnityEditor.EditorPrefs.SetBool("combineTexture", value);
+// #endif
+//         }
+//     }
 
     /**
      * @name: xsddxr909
@@ -95,9 +108,10 @@ public class GameSettings : ScriptableObject
        this.isDebugModel = UnityEditor.EditorPrefs.GetBool("isDebugModel", false);
        this.currentLanguage = UnityEditor.EditorPrefs.GetString("currentLanguage", SupportedLanguages.Chinese);
        this.isLoadRemoteAsset = UnityEditor.EditorPrefs.GetBool("isLoadRemoteAsset", false);
-       this._gameConfigUrl = UnityEditor.EditorPrefs.GetString("gameConfigUrl", "http://192.168.0.3:8080/gameconfig.xml");
+    //   this._gameConfigUrl = UnityEditor.EditorPrefs.GetString("gameConfigUrl", "http://192.168.0.3:8080/gameconfig.xml");
        this.localLua = UnityEditor.EditorPrefs.GetBool("isReadLocalLua", true);
        this.playMode=UnityEditor.EditorPrefs.GetString("playMode", GameEnum.PlayMode.SingleMode);
+  //     this._combineTexture=UnityEditor.EditorPrefs.GetBool("combineTexture", true);
 
 #else
        this.currentLanguage = SupportedLanguages.GetCurrentLanguage();
@@ -105,6 +119,7 @@ public class GameSettings : ScriptableObject
        this.useAssetBundle = true;
      //  this.isLoadRemoteAsset=true;
        this.localLua =false;
+    //   this.combineTexture=true;
 #endif
     }
 }

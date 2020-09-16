@@ -4,7 +4,7 @@
  * @Autor: xsddxr909
  * @Date: 2020-05-15 11:13:21
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-10 21:17:04
+ * @LastEditTime: 2020-09-16 16:28:32
  */ 
 using UnityEngine;
 using UnityEditor;
@@ -130,9 +130,11 @@ public class Weapon_GunInspector : Editor {
     }
     public void LoadData(){
         mono.LoadData();
+        mono.getGunPath();
     }
     public void SaveData(){
          mono.SaveData();
+         mono.getGunPath();
          EditorUtility.SetDirty(_data);
          AssetDatabase.SaveAssets();
          AssetDatabase.Refresh();
@@ -150,7 +152,31 @@ public class Weapon_GunInspector : Editor {
         }else{
             mono.muzzlePos=mono.muzzleTrans.localPosition;
         }
+        CreateInteractiveRadius();
     }
+    private void CreateInteractiveRadius()
+	{
+        if(mono.col==null){
+              mono.col=mono.gameObject.GetComponent<BoxCollider>();
+          if(mono.col==null){
+               mono.col = mono.gameObject.AddComponent<BoxCollider>();
+           }
+           mono.col.enabled=false;
+        }
+        if(mono.interactiveRadius==null){
+           mono.interactiveRadius=mono.gameObject.GetComponent<SphereCollider>();
+           if(mono.interactiveRadius==null){
+		      mono.interactiveRadius = mono.gameObject.AddComponent<SphereCollider>();
+              mono.interactiveRadius.center = mono.col.center;
+              mono.interactiveRadius.radius = 1f;
+              mono.interactiveRadius.isTrigger = true;
+           }
+        }
+        mono.BoxSize=mono.col.size;
+        mono.BoxCenter=mono.col.center;
+        mono.SphereColRadius=mono.interactiveRadius.radius;
+        mono.SphereColCenter=mono.interactiveRadius.center;
+	}
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~后坐力~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      private void ClearRecoilData()
     {

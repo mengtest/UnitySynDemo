@@ -49,7 +49,7 @@ public class ShowGameFPS : MonoBehaviour
         if (n < 30) return;
         n = 0;
 
-         string str = "";
+       //  string str = "";
 //         long num = Profiler.GetMonoUsedSizeLong() / 1048576;
 //         if (num < mixNum) mixNum = num;
 //         else if (num > maxNum)

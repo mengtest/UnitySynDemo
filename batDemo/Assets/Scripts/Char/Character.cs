@@ -74,6 +74,12 @@ public class Character : ObjBase
         this.GetEvent().dispatchEvent(cmd,param);
         m_FSM.OnEvent(cmd,param);
     }
+    public void OnItemTrigger(Item item,bool isEnter=true){
+        if(charData.isMyPlayer){
+            //派时间给Lua UI层
+             EventCenter.send(SystemEvent.ITEM_ON_PLAYER_TRIGGER,new object[]{isEnter,item},true);
+        }
+    }
     public int GetCurStateID()
     {
         if (m_FSM != null)
@@ -151,9 +157,9 @@ public class Character : ObjBase
             //两倍半径高度 向下打射线;
             Ray ray = new Ray(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x, Vector3.down);
        //       Debug.DrawRay(this.gameObject.transform.position + Vector3.up * 2 * colExtents.x,Vector3.down,Color.red,colExtents.x + 0.5f);
-            return Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.5f,LayerHelper.GetGroundLayerMask());
+            return !Physics.SphereCast(ray, colExtents.x, colExtents.x + 0.5f,LayerHelper.GetGroundLayerMask());
         }else{
-             return base.IsGrounded();
+             return base.IsNeedFall();
         }
     }
 
@@ -241,11 +247,7 @@ public class Character : ObjBase
 
     //................................................................................  
      #region 角色 所有动作命令..................
-    public void On_Jump(){
-        // if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
-        //        this.doActionSkillByLabel(GameEnum.ActionLabel.Jump);
-        // }
-    }
+
      
     #endregion 
     //...............................................................................  

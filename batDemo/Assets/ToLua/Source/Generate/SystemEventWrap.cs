@@ -17,6 +17,7 @@ public class SystemEventWrap
 		L.RegVar("UI_BAT_ON_SPRINT_STATE", get_UI_BAT_ON_SPRINT_STATE, set_UI_BAT_ON_SPRINT_STATE);
 		L.RegVar("KEY_INPUT_ONSPRINT_STATE", get_KEY_INPUT_ONSPRINT_STATE, set_KEY_INPUT_ONSPRINT_STATE);
 		L.RegVar("UI_BAT_ON_JUMP", get_UI_BAT_ON_JUMP, set_UI_BAT_ON_JUMP);
+		L.RegVar("ITEM_ON_PLAYER_TRIGGER", get_ITEM_ON_PLAYER_TRIGGER, set_ITEM_ON_PLAYER_TRIGGER);
 		L.EndClass();
 	}
 
@@ -157,6 +158,20 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ITEM_ON_PLAYER_TRIGGER(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, SystemEvent.ITEM_ON_PLAYER_TRIGGER);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_LUA_INIT_COMPLETE(IntPtr L)
 	{
 		try
@@ -268,6 +283,21 @@ public class SystemEventWrap
 		{
 			string arg0 = ToLua.CheckString(L, 2);
 			SystemEvent.UI_BAT_ON_JUMP = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ITEM_ON_PLAYER_TRIGGER(IntPtr L)
+	{
+		try
+		{
+			string arg0 = ToLua.CheckString(L, 2);
+			SystemEvent.ITEM_ON_PLAYER_TRIGGER = arg0;
 			return 0;
 		}
 		catch (Exception e)

@@ -10,10 +10,12 @@ public class CharacterWrap
 		L.RegFunction("initData", initData);
 		L.RegFunction("ChangeState", ChangeState);
 		L.RegFunction("OnEvent", OnEvent);
+		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("GetCurStateID", GetCurStateID);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("IsGrounded", IsGrounded);
+		L.RegFunction("IsNeedFall", IsNeedFall);
 		L.RegFunction("GetCtrl", GetCtrl);
 		L.RegFunction("GetAniUpPart", GetAniUpPart);
 		L.RegFunction("GetAniAddPart", GetAniAddPart);
@@ -21,7 +23,6 @@ public class CharacterWrap
 		L.RegFunction("pauseAni", pauseAni);
 		L.RegFunction("resumeAni", resumeAni);
 		L.RegFunction("GetSkillPart", GetSkillPart);
-		L.RegFunction("On_Jump", On_Jump);
 		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
@@ -149,6 +150,39 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnItemTrigger(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+				obj.OnItemTrigger(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.OnItemTrigger(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.OnItemTrigger");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int GetCurStateID(IntPtr L)
 	{
 		try
@@ -206,6 +240,23 @@ public class CharacterWrap
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 			bool o = obj.IsGrounded();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsNeedFall(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			bool o = obj.IsNeedFall();
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
@@ -371,22 +422,6 @@ public class CharacterWrap
 			SkillPart o = obj.GetSkillPart();
 			ToLua.PushObject(L, o);
 			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int On_Jump(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.On_Jump();
-			return 0;
 		}
 		catch (Exception e)
 		{

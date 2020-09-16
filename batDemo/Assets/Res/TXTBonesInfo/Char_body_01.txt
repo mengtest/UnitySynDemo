@@ -1,0 +1,32 @@
+{
+  "materials":[
+    "Char_body_01"
+  ],
+  "bones":[
+    "Bip001 L Calf",
+    "Bip001 L Thigh",
+    "Bip001 R Calf",
+    "Bip001 R Thigh",
+    "Bone003(mirrored)",
+    "Bone003",
+    "Bip001 Spine1",
+    "Bip001 Spine2",
+    "Bip001 Spine",
+    "Bip001 R UpperArm",
+    "Bip001 L UpperArm",
+    "Bip001 R Clavicle",
+    "Bip001 Head",
+    "Bip001 L Clavicle",
+    "Bone001",
+    "Bip001 Neck",
+    "Bone001(mirrored)",
+    "Bip001 Pelvis",
+    "Bone005",
+    "Bone002(mirrored)",
+    "Bone006",
+    "Bone002",
+    "Bone007",
+    "Bone008"
+  ],
+  "rootbones":"Bip001 Pelvis"
+}

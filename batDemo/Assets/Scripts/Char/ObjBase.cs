@@ -60,9 +60,11 @@ public class ObjBase : PoolObj
     public override void init(){
         string[] split = poolname.Split('/');
         if(split.Length>0){
-            this._name=split[split.Length-1]+this.id;
+            this._name=split[split.Length-1];
+            //+this.id;
         }else{
-            this._name=poolname+this.id;
+            this._name=poolname;
+            //+this.id;
         }
         this.node.name=this._name;
 
@@ -135,6 +137,7 @@ public class ObjBase : PoolObj
     public virtual void ChangeNodeObj(GameObject obj,bool resetPos=true){
         GameObject cc= this.node;
         this.node =obj;
+       this.node.transform.transform.parent = cc.transform.parent;
         if(resetPos){
             this.node.transform.SetPositionAndRotation(cc.transform.position,cc.transform.rotation);
         }
@@ -148,11 +151,10 @@ public class ObjBase : PoolObj
     }
     public virtual bool IsGrounded()
 	{
-		return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.1f,LayerHelper.GetGroundLayerMask());
+		return Physics.Raycast(this.gameObject.transform.position+Vector3.up*0.1f, Vector3.down, 0.2f,LayerHelper.GetGroundLayerMask());
 	}
     public virtual bool IsNeedFall(){
-
-        return Physics.Raycast(this.gameObject.transform.position, Vector3.down, 0.5f,LayerHelper.GetGroundLayerMask());
+        return !Physics.Raycast(this.gameObject.transform.position+Vector3.up*0.1f, Vector3.down, 0.6f,LayerHelper.GetGroundLayerMask());
     }
     //移动专用方法.
     public virtual void OnMove(Vector3 dic){

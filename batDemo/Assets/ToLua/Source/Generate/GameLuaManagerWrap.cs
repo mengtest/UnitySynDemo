@@ -12,6 +12,8 @@ public class GameLuaManagerWrap
 		L.RegFunction("RefreshShader", RefreshShader);
 		L.RegFunction("ScreenPointToWorldPointInRectangle", ScreenPointToWorldPointInRectangle);
 		L.RegFunction("CreatCharacter", CreatCharacter);
+		L.RegFunction("CreatPlayer", CreatPlayer);
+		L.RegFunction("CreatMonster", CreatMonster);
 		L.RegFunction("GetProtoBytesPath", GetProtoBytesPath);
 		L.RegFunction("AddScrollViewOnValueChangeListener", AddScrollViewOnValueChangeListener);
 		L.RegFunction("New", _CreateGameLuaManager);
@@ -163,6 +165,84 @@ public class GameLuaManagerWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: GameLuaManager.CreatCharacter");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreatPlayer(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 0)
+			{
+				Character o = GameLuaManager.CreatPlayer();
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 1)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				Character o = GameLuaManager.CreatPlayer(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.GameObject arg1 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				Character o = GameLuaManager.CreatPlayer(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: GameLuaManager.CreatPlayer");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreatMonster(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 0)
+			{
+				Character o = GameLuaManager.CreatMonster();
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 1)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				Character o = GameLuaManager.CreatMonster(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				UnityEngine.GameObject arg1 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				Character o = GameLuaManager.CreatMonster(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: GameLuaManager.CreatMonster");
 			}
 		}
 		catch (Exception e)

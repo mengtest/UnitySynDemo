@@ -179,7 +179,7 @@ public class PatchManager : MonoSingleton<PatchManager>
             {
                 signedFileName = fileInfo.signedFileName;
             }else{
-               DebugLog.LogError("GetSignedFileLocalURL LogError"+fileName+" manifest"+manifest.fileInfoDict.Count);
+               DebugLog.LogError("GetSignedFileLocalURL LogError --> "+fileName+" manifest count: "+manifest.fileInfoDict.Count);
                return "";
             }
         }

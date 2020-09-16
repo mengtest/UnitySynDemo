@@ -1,0 +1,9 @@
+{
+  "materials":[
+    "Char_head_01"
+  ],
+  "bones":[
+    "Bip001 Head"
+  ],
+  "rootbones":"Bip001 Head"
+}

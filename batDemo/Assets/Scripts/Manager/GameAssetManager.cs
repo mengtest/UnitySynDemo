@@ -229,6 +229,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
                 {
                     loadType = BundleLoadType.Manifeset;
                 }
+                DebugLog.Log("star Load  bundleName: "+bundleName,"loadReqeust.path: ",loadReqeust.path,"loadReqeust.assetType: ",loadReqeust.assetType);
                 yield return LoadBundleInCoroutine(bundleName, loadType);
                 bundleInfo = GetLoadedAssetBundle(bundleName);
                 if (bundleInfo == null)
@@ -480,7 +481,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
 //              //"Effect/Monster/mst_xg20/mst_xg20@Skill_01"
 //               string[] split = path.Split('/');
 //              path = split[0]+"_"+split[2]+"/"+split[3];
-//          }else if(path.StartsWith("Avatar")){
+//          }else if(path.StartsWith("Avatar")||path.StartsWith("NAvatar")){
 //             // Avatar/infility/Model/infility_body_01      
 //             //  获得 Avatar_infility/infility_body_01       
 //               string[] split = path.Split('/');
@@ -508,7 +509,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
               string[] split = path.Split('/');
              bundleName = split[0]+"_"+split[2];
              //"Effect/Monster/mst_xg20/mst_xg20@Skill_01"
-         }else if(path.StartsWith("Avatar")){
+         }else if(path.StartsWith("Avatar")||path.StartsWith("NAvatar")){
               string[] split = path.Split('/');
              bundleName = split[0]+"_"+split[3];
             // Avatar/infility/Model/infility_body_01   avatar_infility_body_01.model
@@ -520,7 +521,7 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
         // }
         else
         {
-            bundleName = Path.GetDirectoryName(path).Replace("/", "_");
+            bundleName = Path.GetDirectoryName(path).Replace("\\", "_");
         }
         bundleName = bundleName.ToLower();
         return bundleName;

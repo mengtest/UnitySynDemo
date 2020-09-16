@@ -39,5 +39,6 @@
     "Bip001 R Finger21",
     "Bip001 R Finger31",
     "Bip001 R Finger41"
-  ]
+  ],
+  "rootbones":"Bip001 R Hand"
 }

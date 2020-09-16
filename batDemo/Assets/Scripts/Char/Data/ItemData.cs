@@ -6,7 +6,7 @@ using UnityEngine;
 //武器数据..同步数据也写在这
 public class ItemData : MonoBehaviour,IData
 {
-    private ObjBase _obj;
+    private Item _obj;
     private Action _onFixUpdate; 
 
     public float PlaySpeed { get ; set ; }
@@ -24,7 +24,7 @@ public class ItemData : MonoBehaviour,IData
          }
     }
     public void init(ObjBase obj,Action onFixUpdate){
-         _obj=obj;
+         _obj=obj as Item;
          _onFixUpdate=onFixUpdate;
          initGunData();
     }
@@ -37,12 +37,21 @@ public class ItemData : MonoBehaviour,IData
     *****/
     public void initGunData(){
          
-         this._Data=_obj.gameObject.GetComponent<Weapon_Gun>();
-         if(this._Data==null){
-              this._Data=_obj.gameObject.AddComponent<Weapon_Gun>();
-            // DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
+         string[] split = _obj.poolname.Split('/');
+         if(_obj.poolname.StartsWith("Gun")){
+            this._Data=_obj.gameObject.GetComponent<Weapon_Gun>();
+            if(this._Data==null){
+                Weapon_Gun weapon_Gun=_obj.gameObject.AddComponent<Weapon_Gun>();
+                this._Data=weapon_Gun;
+                weapon_Gun.U3d_LoadData(_obj.poolname);
+                // DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
+            }
+            this._Data.init(_obj);
+         }else if(_obj.poolname.StartsWith("Item")){
+          //Item
+         }else if(_obj.poolname.StartsWith("Melee")){
+           //近战武器.
          }
-         
     }
     public Weapon_Gun getGunData(){
       return this._Data as Weapon_Gun;

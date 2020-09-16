@@ -17,6 +17,7 @@ public class LayerHelperWrap
 		L.RegFunction("GetParachutingLandMask", GetParachutingLandMask);
 		L.RegFunction("GetHitLayerMask", GetHitLayerMask);
 		L.RegFunction("GetEnviromentLayerMask", GetEnviromentLayerMask);
+		L.RegFunction("GetGroundLayerMask", GetGroundLayerMask);
 		L.RegFunction("New", _CreateLayerHelper);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.EndClass();
@@ -202,6 +203,22 @@ public class LayerHelperWrap
 		{
 			ToLua.CheckArgsCount(L, 0);
 			int o = LayerHelper.GetEnviromentLayerMask();
+			LuaDLL.lua_pushinteger(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetGroundLayerMask(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			int o = LayerHelper.GetGroundLayerMask();
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
 		}

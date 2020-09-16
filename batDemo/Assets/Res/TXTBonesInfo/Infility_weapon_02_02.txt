@@ -4,5 +4,6 @@
   ],
   "bones":[
     "Bip001 Prop3"
-  ]
+  ],
+  "rootbones":"Bip001 Prop3"
 }

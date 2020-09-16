@@ -13,6 +13,7 @@ public class ObjBaseWrap
 		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("IsGrounded", IsGrounded);
+		L.RegFunction("IsNeedFall", IsNeedFall);
 		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("getDic", getDic);
 		L.RegFunction("GetEvent", GetEvent);
@@ -191,6 +192,23 @@ public class ObjBaseWrap
 			ToLua.CheckArgsCount(L, 1);
 			ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
 			bool o = obj.IsGrounded();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsNeedFall(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ObjBase obj = (ObjBase)ToLua.CheckObject<ObjBase>(L, 1);
+			bool o = obj.IsNeedFall();
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}

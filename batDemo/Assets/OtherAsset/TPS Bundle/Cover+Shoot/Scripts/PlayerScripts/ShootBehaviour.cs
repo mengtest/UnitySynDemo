@@ -41,7 +41,7 @@ public class ShootBehaviour : GenericBehaviour
 	private float distToHand;                                      // Distance from neck to hand.
 	private Vector3 castRelativeOrigin;                            // Position of neck to cast for blocked aim test.
 	private Dictionary<InteractiveWeapon.WeaponType, int> slotMap; // Map to designate weapon types to inventory slots.
-	private Transform hips, spine, chest, rightHand, leftArm;      // Avatar bone transforms.
+	public Transform hips, spine, chest, rightHand, leftArm;      // Avatar bone transforms.
 	private Vector3 initialRootRotation;                           // Initial root bone local rotation.
 	private Vector3 initialHipsRotation;                           // Initial hips rotation related to the root bone.
 	private Vector3 initialSpineRotation;                          // Initial spine rotation related to the hips bone.
@@ -404,7 +404,7 @@ public class ShootBehaviour : GenericBehaviour
 			aimBehaviour.crosshair = originalCrosshair;
 	}
 
-	// Check if aim is blocked by obstacles.
+	// Check if aim is blocked by obstacles. 检查瞄准是否被障碍物阻挡。
 	private bool CheckforBlockedAim()
 	{
 		isAimBlocked = Physics.SphereCast(this.transform.position + castRelativeOrigin, 0.1f, behaviourManager.GetCamScript.transform.forward, out RaycastHit hit, distToHand - 0.1f);

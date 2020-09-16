@@ -18,7 +18,7 @@ public class CameraManager  : MonoSingleton<CameraManager>
         //   cameraCtrl.maxVerticalAngle
        }
        postLayer = mainCamera.GetComponent<PostProcessLayer>();
-   //    postLayer.enabled=true;
+       postLayer.enabled=true;
 
     }
     private void Update() {

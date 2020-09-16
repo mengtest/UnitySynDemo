@@ -41,5 +41,6 @@
     "Bip001 R Foot",
     "Bip001 R Toe0",
     "Bip001 R Thigh"
-  ]
+  ],
+  "rootbones":"Bip001 R Hand"
 }

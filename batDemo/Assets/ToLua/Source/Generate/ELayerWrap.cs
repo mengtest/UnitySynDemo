@@ -12,6 +12,13 @@ public class ELayerWrap
 		L.RegVar("IgonreRaycast", get_IgonreRaycast, null);
 		L.RegVar("Water", get_Water, null);
 		L.RegVar("UI", get_UI, null);
+		L.RegVar("Cover", get_Cover, null);
+		L.RegVar("IgnoreShot", get_IgnoreShot, null);
+		L.RegVar("CoverInvisible", get_CoverInvisible, null);
+		L.RegVar("Player", get_Player, null);
+		L.RegVar("Enemy", get_Enemy, null);
+		L.RegVar("Bound", get_Bound, null);
+		L.RegVar("Trigger", get_Trigger, null);
 		L.RegVar("FPS", get_FPS, null);
 		L.RegVar("Damageable", get_Damageable, null);
 		L.RegVar("Scope", get_Scope, null);
@@ -64,6 +71,55 @@ public class ELayerWrap
 	static int get_UI(IntPtr L)
 	{
 		ToLua.Push(L, ELayer.UI);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Cover(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Cover);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_IgnoreShot(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.IgnoreShot);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_CoverInvisible(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.CoverInvisible);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Player(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Player);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Enemy(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Enemy);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Bound(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Bound);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Trigger(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Trigger);
 		return 1;
 	}
 

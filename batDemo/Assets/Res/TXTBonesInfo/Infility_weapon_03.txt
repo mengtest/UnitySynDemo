@@ -4,5 +4,6 @@
   ],
   "bones":[
     "Bone013"
-  ]
+  ],
+  "rootbones":"Bone013"
 }

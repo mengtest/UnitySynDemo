@@ -14,9 +14,11 @@ public static class LuaBinder
 		CameraManagerWrap.Register(L);
 		ThirdPersonCameraCtrlWrap.Register(L);
 		CharacterWrap.Register(L);
+		ItemWrap.Register(L);
 		MonsterWrap.Register(L);
 		MovePartWrap.Register(L);
 		PlayerWrap.Register(L);
+		WeaponWrap.Register(L);
 		LayerHelperWrap.Register(L);
 		ELayerWrap.Register(L);
 		UtilsWrap.Register(L);

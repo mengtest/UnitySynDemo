@@ -478,6 +478,8 @@ public static void CreateMaterials(string allPath,string DirName){
             AssetDatabase.Refresh();
         // Collect materials.
      //   List<Material> materials = EditorHelper.CollectAll<Material>(CharacterMaterialsPath(characterFBX));
+        GameObject cloneFBX= (GameObject) PrefabUtility.InstantiatePrefab(characterFBX);
+          PrefabUtility.UnpackPrefabInstance(cloneFBX, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 
         // Create assetbundles for each SkinnedMeshRenderer.
         foreach (SkinnedMeshRenderer smr in characterFBX.GetComponentsInChildren<SkinnedMeshRenderer>(true))
@@ -488,10 +490,9 @@ public static void CreateMaterials(string allPath,string DirName){
             // in the assetbundle. As instantiating part of an fbx results in the
             // entire fbx being instantiated, we have to dispose of the entire instance
             // after we detach the SkinnedMeshRenderer in question.
-            GameObject rendererClone = (GameObject)PrefabUtility.InstantiatePrefab(smr.gameObject);
-            GameObject rendererParent = rendererClone.transform.parent.gameObject;
-            rendererClone.transform.parent = null;
-            Object.DestroyImmediate(rendererParent);
+            GameObject rendererClone = (GameObject)Object.Instantiate(smr.gameObject);
+             rendererClone.name = rendererClone.name.Replace("(Clone)", "");
+
             AssetDatabase.DeleteAsset(pOut + rendererClone.name + ".prefab");
                 AssetDatabase.Refresh();
             Object rendererPrefab = PrefabUtils.GetPrefab(rendererClone, rendererClone.name);
@@ -524,6 +525,7 @@ public static void CreateMaterials(string allPath,string DirName){
                 bones.Add(t.name);
             }
             root["bones"] = bones;
+            root["rootbones"] = smr.rootBone.name;
 
             // Save the assetbundle.
             //string stringholderpath = "Assets/bonenames.asset";
@@ -560,7 +562,7 @@ public static void CreateMaterials(string allPath,string DirName){
             AssetDatabase.MoveAsset(outEndPath, ppS);
             AssetDatabase.Refresh();
         }
-
+        GameObject.DestroyImmediate(cloneFBX);
     }
 	private static void CreatPartPrefab(GameObject characterFBX, string allPath, string DirName,bool onePakage){
 		 string pOut = allPath +"/"+DirName + "/";

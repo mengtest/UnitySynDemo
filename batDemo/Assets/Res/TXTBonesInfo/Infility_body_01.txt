@@ -31,5 +31,6 @@
     "Bip001 R ForeTwist",
     "Bone007",
     "Bone008"
-  ]
+  ],
+  "rootbones":"Bip001 Pelvis"
 }

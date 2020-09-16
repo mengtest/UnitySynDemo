@@ -28,6 +28,7 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("target", get_target, set_target);
+		L.RegVar("targetFocusHeight", get_targetFocusHeight, set_targetFocusHeight);
 		L.RegVar("pivotOffset", get_pivotOffset, set_pivotOffset);
 		L.RegVar("camOffset", get_camOffset, set_camOffset);
 		L.RegVar("smooth", get_smooth, set_smooth);
@@ -431,6 +432,25 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_targetFocusHeight(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			float ret = obj.targetFocusHeight;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index targetFocusHeight on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_pivotOffset(IntPtr L)
 	{
 		object o = null;
@@ -731,6 +751,25 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index target on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_targetFocusHeight(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.targetFocusHeight = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index targetFocusHeight on a nil value");
 		}
 	}
 

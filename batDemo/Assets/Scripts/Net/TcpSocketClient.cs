@@ -133,7 +133,7 @@ namespace TcpSocket
                 while (true)
                 {
                     // read the next message (blocking) or stop if stream closed
-                    byte[] content;
+                  //  byte[] content;
                     if (!ReadMessageBlocking(stream, MaxMessageSize, out mBasePackage))
                     {
                         // break instead of return so stream close still happens!

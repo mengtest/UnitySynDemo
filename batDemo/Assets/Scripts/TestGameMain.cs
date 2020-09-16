@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-12 15:43:12
+ * @LastEditTime: 2020-09-16 17:50:52
  */
 using System;
 using System.Collections;
@@ -188,20 +188,45 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
        //  CanvasGroup canvas= gameObject.GetComponent<CanvasGroup>();
     //     gameObject.SetActive
    //    yield return  GameExample.Instance.testPool();
+   //      GameExample.Instance.CreatAvatar();
         initScenes();
     }
     private void  initScenes(){
-       GameObject player= GameObject.FindGameObjectWithTag("Player");
-#if UNITY_EDITOR
-        this.playerObj = ObjManager.Instance.CreatCharacter("player",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
- #else
-          
-        this.playerObj = ObjManager.Instance.CreatCharacter("player",player) as Player;
- #endif
-              
-       CameraManager.Instance.cameraCtrl.init(player.transform);
-
+        creatPlayer();
         //查找 全部武器 创建
+        creatAllWeaponInScene();
+       // this.playerObj.weaponSystem.EquipWeapon("",null);
+    }
+    //创建所有在场景上的武器;
+    private void creatAllWeaponInScene(){
+       Weapon_Gun[] guns= FindObjectsOfType<Weapon_Gun>();
+       for (int i = 0; i < guns.Length; i++)
+       {
+           ObjManager.Instance.CreatWeapon(guns[i]);
+       }
+    }
+
+    private  void creatPlayerBySricpt(){
+        this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+        this.playerObj.avatar.isNewAnimatorSystem=true;
+        this.playerObj.charData.isMyPlayer=true;
+        this.playerObj.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
+        this.playerObj.gameObject.transform.position=new Vector3(0,0,-5);
+        CameraManager.Instance.cameraCtrl.init(playerObj.gameObject.transform);
+    }
+    
+    private void creatPlayer(){
+        
+        GameObject player= GameObject.FindGameObjectWithTag("Player");
+        
+        #if UNITY_EDITOR
+                this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+        #else
+                
+                this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player;
+        #endif
+        this.playerObj.charData.isMyPlayer=true;
+        CameraManager.Instance.cameraCtrl.init(player.transform);
     }
     #if !UNITY_EDITOR
         private void OnGUI()

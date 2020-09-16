@@ -26,4 +26,7 @@
        public static string KEY_INPUT_ONSPRINT_STATE ="KEY_INPUT_ONSPRINT_STATE";
 
        public static string UI_BAT_ON_JUMP = "UI_BAT_ON_JUMP";
+
+       //角色 碰到道具.
+       public static string ITEM_ON_PLAYER_TRIGGER ="ITEM_ON_PLAYER_TRIGGER";
     }

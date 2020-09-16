@@ -106,7 +106,6 @@ public  class MenuItems
     }  
 
 //***********************************************character*****************************************************************************//
-
     /**
      * @name: xsddxr909
      * @test: 
@@ -115,7 +114,49 @@ public  class MenuItems
      * @param {type} 
      * @return: 
      */
-     [MenuItem("Avatar/时装avatar分离-重命名", false, 100)]
+     [MenuItem("Avatar/新动画--时装avatar分离-重命名", false, 100)]
+    static void PackageNAvatarPartReName()
+    {
+        string allPath = "";
+        string DirName = "";
+        foreach (Object o in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
+        {
+            DirName = o.name;
+            allPath = AssetDatabase.GetAssetPath(o);
+            break;
+        }
+        NewCharacterBuild.CreateMaterials(allPath,DirName);
+    }
+    /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 各个部件做分离打包 带动作的rm 文件  (时装部件)模型和贴图和骨骼数据的 rs文件 
+             单独掉落的装备 武器 就是这样打包 角色全分离.                    用于主角
+     * @param {type} 
+     * @return: 
+     */
+     [MenuItem("Avatar/新动画--时装avatar分离-每个部件独立分离", false, 101)]
+    static void PackageNAvatarPart()
+    {
+        string allPath = "";
+        string DirName = "";
+        foreach (Object o in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
+        {
+            DirName = o.name;
+            allPath = AssetDatabase.GetAssetPath(o);
+            break;
+        }
+        NewCharacterBuild.PackageCharReName(allPath,DirName,packCharType.partType);
+    }
+    /**
+     * @name: xsddxr909
+     * @test: 
+     * @msg: 各个部件做分离打包 带动作的rm 文件  (时装部件)模型和贴图和骨骼数据的 rs文件 
+             单独掉落的装备 武器 就是这样打包 角色全分离.                    用于主角
+     * @param {type} 
+     * @return: 
+     */
+     [MenuItem("Avatar/旧动画-时装avatar分离-重命名", false, 200)]
     static void PackageAvatarPartReName()
     {
         string allPath = "";
@@ -136,7 +177,7 @@ public  class MenuItems
      * @param {type} 
      * @return: 
      */
-     [MenuItem("Avatar/时装avatar分离-每个部件独立分离", false, 101)]
+     [MenuItem("Avatar/旧动画-时装avatar分离-每个部件独立分离", false, 201)]
     static void PackageAvatarPart()
     {
         string allPath = "";
@@ -157,7 +198,7 @@ public  class MenuItems
      * @param {type} 
      * @return: 
      */
-    [MenuItem("Avatar/单个文件-重命名", false, 200)]
+    [MenuItem("Avatar/单个文件-重命名", false, 300)]
     static void PackageAvatarOneSetRename()
     {
          string allPath = "";
@@ -180,7 +221,7 @@ public  class MenuItems
      * @param {type} 
      * @return: 
      */
-    [MenuItem("Avatar/单个文件-多套时装一个包", false, 201)]
+    [MenuItem("Avatar/单个文件-多套时装一个包", false, 301)]
     static void PackageAvatarOneSet()
     {
          string allPath = "";
