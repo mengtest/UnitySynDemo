@@ -61,6 +61,7 @@ namespace GameEnum
         Item=4,
         //武器
          Weapon=5,
+         
     }
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
@@ -106,6 +107,9 @@ namespace GameEnum
         public const string BackOff = "BackOff";  
         public const string CmdAction = "CmdAction";  
         public const string Dead = "Dead";  
+        public const string ItemDrop = "ItemDrop";  
+        public const string ItemDefault = "ItemDefault"; 
+        
         public const string Action = "Action";  
 
 

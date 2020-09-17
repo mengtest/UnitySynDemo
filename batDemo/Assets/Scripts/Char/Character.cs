@@ -32,7 +32,6 @@ public class Character : ObjBase
     {
        // this.charType=ObjType.Character;
        /// this.needUpdate=false;
-        initStateMachine();
     }
     public override void initData(){
         //每次初始化 应该重置data.防止 数据 没清空.
@@ -43,7 +42,7 @@ public class Character : ObjBase
         this.charData = this.dataNode.AddComponent<CharData>();
         this.objData=this.charData;
         this.charData.init(this,fixUpdate);
-        this.ChangeState(CharState.Char_Idle,null,false);
+        initStateMachine();
         this.GetMovePart().useGravityPower=true;
         //自己转向. 转向减速
          this._move.isRotateLessSpeed=true;
@@ -52,6 +51,7 @@ public class Character : ObjBase
         // this._move.rotateSpeed=0;
         // this._move.Init();
 
+        this.ChangeState(CharState.Char_Idle,null,false);
     }
     //状态机初始化  不同状态怪物 可以初始化 不同的状态机.
     protected virtual void initStateMachine(){
@@ -62,7 +62,7 @@ public class Character : ObjBase
     {
         m_FSM.ChangeState(charState, param,checkDic);
     }
-    public void OnEvent(string cmd, object[] param=null){
+    public virtual void OnEvent(string cmd, object[] param=null){
         switch(cmd){
             case CharEvent.OnJoy_Move:
                 dirPos= (Vector3) param[0];

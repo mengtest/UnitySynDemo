@@ -22,6 +22,7 @@ public class WeaponSystem : MonoBehaviour
     public void Init(Player objBase=null)
     {
         this._objBase=objBase;
+        this.UseActiveSide=1;
     }
     void Update()
     {
@@ -41,6 +42,7 @@ public class WeaponSystem : MonoBehaviour
             inited = true;
         }
     }
+    //切换武器;
     public void UseWeaponSide(int side = 1){
          if(UseActiveSide!=side){
              switch(UseActiveSide){
@@ -64,6 +66,24 @@ public class WeaponSystem : MonoBehaviour
             UseActiveSide=side;
          }
     }
+    //是否有手持武器;
+    public bool hasActiveWeapon(){
+        switch(UseActiveSide){
+            case 1:
+                return weaponMain_1!=null?true:false;
+            case 2:
+                return weaponMain_2!=null?true:false;
+        }
+        return false;
+    }
+    //丢弃当前手持武器
+    public void DropWeapon(int side=0){
+        if(side==0){
+            ChangeWeapon("", UseActiveSide,null);
+        }else{
+            ChangeWeapon("", side,null);
+        }
+    }
     public void EquipWeapon(Weapon weapon)
     {
         EquipWeapon(weapon.poolname,weapon);
@@ -72,12 +92,31 @@ public class WeaponSystem : MonoBehaviour
     public void EquipWeapon(string weaponUrl,Weapon weapon=null)
     {
         //默认装备 武器1;
-        if(weaponMain_1==null){
-           ChangeWeapon(weaponUrl,1,weapon);
-        }else if(weaponMain_2==null){
-           ChangeWeapon(weaponUrl,2,weapon);
-        }else{
-           ChangeWeapon(weaponUrl,UseActiveSide,weapon);
+        switch(UseActiveSide){
+            case 1:
+                if(weaponMain_1==null){
+                    ChangeWeapon(weaponUrl,1,weapon);
+                }else if(weaponMain_2==null){
+                    ChangeWeapon(weaponUrl,2,weapon);
+                    if(weaponMain_2!=null){
+                            weaponMain_2.EquipWeaponBackChest(_objBase);
+                    }
+                }else{
+                   ChangeWeapon(weaponUrl,UseActiveSide,weapon);
+                }
+            break;
+            case 2:
+              if(weaponMain_2==null){
+                    ChangeWeapon(weaponUrl,2,weapon);
+              }if(weaponMain_1==null){
+                    ChangeWeapon(weaponUrl,1,weapon);
+                    if(weaponMain_1!=null){
+                            weaponMain_1.EquipWeaponBackChest(_objBase);
+                    }
+              }else{
+                 ChangeWeapon(weaponUrl,UseActiveSide,weapon);
+              }
+            break;
         }
     }
 
@@ -92,14 +131,16 @@ public class WeaponSystem : MonoBehaviour
         {
             if (weaponMain_1 != null)
             {
-                weaponMain_1.DropWeapon();
+                weaponMain_1.DropItem();
+                weaponMain_1=null;
             }
         }
         else
         {
             if (weaponMain_2 != null)
             {
-                weaponMain_2.DropWeapon();
+                weaponMain_2.DropItem();
+                weaponMain_2=null;
             }
         }
     }
@@ -142,11 +183,15 @@ public class WeaponSystem : MonoBehaviour
         //卸载武器.
         RemoveWeapon(side);
         inited=false;
-        if(weapon==null){
+        if(weapon==null&&weaponUrl!=""){
           weapon =  ObjManager.Instance.CreatWeapon(weaponUrl);
         }
-        //加载武器.
-        yield return AddWeapon(side,weapon);
+        if(weapon!=null){
+           //加载武器.
+            yield return AddWeapon(side,weapon);   
+        }else{
+            inited=true;
+        }
     }
 
  

@@ -230,7 +230,6 @@ public class ObjBase : PoolObj
         if(this.node!=null){
              this.node.SetActive(true);
         }
-        this.initData();
     }
     /**
      回收..

@@ -52,29 +52,29 @@ using UnityEngine;
         * @param chkCencelLV  是否检测取消优先级
         * @param param  其他action中代表参数    CMAction 中 param:number previousFrame 代表 跳转到制定帧 连同开始帧一起计算，计算到当前帧逻辑。
         */
-        public bool doActionSkillByLabel(string actionLabel,int frame = 0, bool chkCencelLV = true, object[] param = null, int skillID=0) {
+        public bool doActionSkillByLabel(string actionLabel,int frame = 0, bool chkCancelLV = true, object[] param = null, int skillID=0) {
             if (this._char.isRecycled || this._char.charData==null ) {
                 return false;
             }
             int layer= ActionManager.instance.GetActionLayer(actionLabel);
             switch(layer){
                 case GameEnum.ActionLayer.BaseLayer:
-                    return this.doBaseLayerActionSkillByLabel(actionLabel,frame,chkCencelLV,param,skillID);
+                    return this.doBaseLayerActionSkillByLabel(actionLabel,frame,chkCancelLV,param,skillID);
                 case GameEnum.ActionLayer.UpLayer:
-                    return  this.doUpLayerActionSkillByLabel(actionLabel,frame,chkCencelLV,param,skillID);
+                    return  this.doUpLayerActionSkillByLabel(actionLabel,frame,chkCancelLV,param,skillID);
                 case GameEnum.ActionLayer.AddLayer:
-                    return this.doAddLayerActionSkillByLabel(actionLabel,frame,chkCencelLV,param,skillID);
+                    return this.doAddLayerActionSkillByLabel(actionLabel,frame,chkCancelLV,param,skillID);
                 default:
                     return true;
             }
         }
         //基础动作.
-        private bool doBaseLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCencelLV = true, object[] param = null, int skillID=0) {
+        private bool doBaseLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCancelLV = true, object[] param = null, int skillID=0) {
             if (this.currentBaseAction != null && this.currentBaseAction.poolname == actionLabel) {
                   this.currentBaseAction.Begin(frame, param);
                 return true;
             }
-            if (chkCencelLV && !this.chkCancelLvActionSkill(actionLabel)) {
+            if (chkCancelLV && !this.chkCancelLvActionSkill(actionLabel)) {
                 return false;
             }
             // if (skillID > 0 && this.currentBaseAction.skillActionId != this._char.charData.normalAttackId) {
@@ -104,13 +104,13 @@ using UnityEngine;
 
             return true;
         }
-        private bool doUpLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCencelLV = true, object[] param = null, int skillID=0) {
+        private bool doUpLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCancelLV = true, object[] param = null, int skillID=0) {
               
              if (this.currentUpAction != null && this.currentUpAction.poolname == actionLabel) {
                   this.currentUpAction.Begin(frame, param);
                 return true;
             }
-            if (chkCencelLV && !this.chkCancelLvActionSkill(actionLabel)) {
+            if (chkCancelLV && !this.chkCancelLvActionSkill(actionLabel)) {
                 return false;
             }
 
@@ -133,13 +133,13 @@ using UnityEngine;
 
             return true;
         }
-         private bool doAddLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCencelLV = true, object[] param = null, int skillID=0) {
+         private bool doAddLayerActionSkillByLabel(string actionLabel,int frame = 0, bool chkCancelLV = true, object[] param = null, int skillID=0) {
               
              if (this.currentAddAction != null && this.currentAddAction.poolname == actionLabel) {
                   this.currentAddAction.Begin(frame, param);
                 return true;
             }
-            if (chkCencelLV && !this.chkCancelLvActionSkill(actionLabel)) {
+            if (chkCancelLV && !this.chkCancelLvActionSkill(actionLabel)) {
                 return false;
             }
 

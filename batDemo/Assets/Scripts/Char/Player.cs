@@ -28,7 +28,10 @@ public class Player : Character
         this.weaponSystem =this.dataNode.AddComponent<WeaponSystem>();
         this.weaponSystem.Init(this);
     }
-
+     public override void initData(){
+         base.initData();
+         this.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,false);
+     }
     //eg: initAvatar("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
     public void initAvatar(string aniUrl, string[] modelpaths){
         if(this.avatar==null)return; 
@@ -48,6 +51,9 @@ public class Player : Character
         //如果是观察者.
         CameraManager.Instance.cameraCtrl.init(gameObject.transform);
     } 
+     public override void OnEvent(string cmd, object[] param=null){
+         base.OnEvent(cmd,param);
+     }
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
@@ -62,7 +68,6 @@ public class Player : Character
     }
      public override void onGet(){
         base.onGet();
-        this.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,false);
      }
     //回收.
      public override void onRecycle(){

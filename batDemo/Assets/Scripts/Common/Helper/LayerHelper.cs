@@ -155,12 +155,17 @@ public class LayerHelper
     {
         return GetLayerMask(ELayer.Default);
     }
+    private static int _GroundLayerMask=-1;
     /// <summary>
     /// 获取地面层
     /// </summary>
     /// <returns></returns>
     public static int GetGroundLayerMask()
     {
-        return GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Water);
+       if(_GroundLayerMask!=-1){
+           return _GroundLayerMask;
+       }
+       _GroundLayerMask=GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Water);
+       return _GroundLayerMask;
     }
 }

@@ -57,16 +57,16 @@ public class WeaponGun_Serializable : ScriptableObject
     // Position offsets relative to the player's right hand.
     // 右手偏移;
      [Tooltip("右手偏移")]
-    public Vector3 rightHandPosition=Vector3.zero;                         
+     public Vector3 rightHandPosition=new Vector3(-0.2f,0.029f,0.01f);                        
     // Rotation Offsets relative to the player's right hand.
     // 旋转;
     [Tooltip("握手旋转")]
-	public Vector3 relativeRotation=Vector3.zero;      
+	public Vector3 relativeRotation=new Vector3(0,90,90);        
 
     [Tooltip("背饰偏移")]
-    public Vector3  backChestPosition=Vector3.zero;
+    public Vector3  backChestPosition=new Vector3(-0.041f,-0.205f,-0.055f);   
      [Tooltip("背饰旋转")]
-    public Vector3  backChestRotation=Vector3.zero;      
+    public Vector3  backChestRotation=new Vector3(356.53f,317.77f,86.14f);      
 
 
      [Tooltip("后坐力")]

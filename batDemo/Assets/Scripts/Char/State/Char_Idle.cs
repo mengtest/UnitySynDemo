@@ -36,12 +36,17 @@ public class Char_Idle : State<Character>
         charData.lowFLy = false;
         charData.isStandUp = false;
         _char.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
+        _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
+        _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
+        
     }
 
     // 退出状态
     public override void Leave()
     {
-         _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
+        _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
+        _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
+        _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
         _char = null;
     }
 
@@ -146,6 +151,14 @@ public class Char_Idle : State<Character>
     //     }
     // }
     
+    private void OnDropWeapon(object[] data){
+        int select =(int)data[0];
+       (this._char as Player).weaponSystem.DropWeapon(select);
+    }
+    private void OnSelectWeapon(object[] data){
+        int select =(int)data[0];
+       (this._char as Player).weaponSystem.UseWeaponSide(select);
+    }
     private void OnBeginFall(object[] data){
          if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
              this._char.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);

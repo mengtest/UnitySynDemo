@@ -8,6 +8,8 @@ public class ObjData : MonoBehaviour,IData
 {
     private ObjBase _obj;
     private Action _onFixUpdate; 
+    
+    public string currentAction;
 
     public float PlaySpeed { get ; set ; }
 

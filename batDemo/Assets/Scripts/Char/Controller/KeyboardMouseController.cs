@@ -122,8 +122,17 @@ public class KeyboardMouseController : Controller
      //         DebugLog.Log("Down");
              stopMouse=!stopMouse;
              CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
-         }
-
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            this.SendMessage(CharEvent.On_Select_Weapon,new object[]{1});
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
+             this.SendMessage(CharEvent.On_Select_Weapon,new object[]{2});
+        }
+        if(Input.GetKeyDown(KeyCode.G)){
+         //丢武器;
+           this.SendMessage(CharEvent.On_Drop_Weapon,new object[]{0});
+        }
         // if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
         //      //奔跑中
         //      initCharDir();

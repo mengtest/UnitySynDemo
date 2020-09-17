@@ -36,7 +36,6 @@ public class ItemData : MonoBehaviour,IData
     **
     *****/
     public void initGunData(){
-         
          string[] split = _obj.poolname.Split('/');
          if(_obj.poolname.StartsWith("Gun")){
             this._Data=_obj.gameObject.GetComponent<Weapon_Gun>();
@@ -56,7 +55,19 @@ public class ItemData : MonoBehaviour,IData
     public Weapon_Gun getGunData(){
       return this._Data as Weapon_Gun;
     }
-
+    public void OnPickUp(){
+      this._Data.OnPickUp();
+    }
+    public void OnDrop(){
+       this._Data.OnDrop();
+    }
+    public void OnGround(){
+       this._Data.OnGround();
+    }
+    //物品高度.
+    public float getHeight(){
+        return _Data.getHeight();
+    }
     // Update is called once per frame
     void Update()
     {

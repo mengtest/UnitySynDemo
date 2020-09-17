@@ -9,6 +9,10 @@ public class ItemWrap
 		L.BeginClass(typeof(Item), typeof(ObjBase));
 		L.RegFunction("initData", initData);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
+		L.RegFunction("OnPickUp", OnPickUp);
+		L.RegFunction("DropItem", DropItem);
+		L.RegFunction("OnGround", OnGround);
+		L.RegFunction("IsGrounded", IsGrounded);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
@@ -67,6 +71,72 @@ public class ItemWrap
 			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
 			obj.onViewLoadFin();
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnPickUp(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			Player arg0 = (Player)ToLua.CheckObject<Player>(L, 2);
+			obj.OnPickUp(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DropItem(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			obj.DropItem();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnGround(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			obj.OnGround();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int IsGrounded(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			bool o = obj.IsGrounded();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

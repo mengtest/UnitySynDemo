@@ -33,7 +33,10 @@
          public const string OnJoy_Up="OnJoy_Up";
          //各种按键 点击弹起;
          public const string On_KeyState="On_KeyState";
-         
+         //各种按键  选择武器
+         public const string On_Select_Weapon="On_Key_Select_Weapon";
+         // 丢出 武器 0当前使用 1武器栏 2武器栏
+         public const string On_Drop_Weapon="On_Drop_Weapon";
 
 
          public const string Char_Move="Char_Move";

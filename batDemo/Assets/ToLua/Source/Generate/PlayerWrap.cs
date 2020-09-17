@@ -8,9 +8,11 @@ public class PlayerWrap
 	{
 		L.BeginClass(typeof(Player), typeof(Character));
 		L.RegFunction("init", init);
+		L.RegFunction("initData", initData);
 		L.RegFunction("initAvatar", initAvatar);
 		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("ChangePart", ChangePart);
+		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
@@ -53,6 +55,22 @@ public class PlayerWrap
 			ToLua.CheckArgsCount(L, 1);
 			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
 			obj.init();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int initData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.initData();
 			return 0;
 		}
 		catch (Exception e)
@@ -122,6 +140,39 @@ public class PlayerWrap
 			string arg0 = ToLua.CheckString(L, 2);
 			obj.ChangePart(arg0);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnEvent(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				obj.OnEvent(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				object[] arg1 = ToLua.CheckObjectArray(L, 3);
+				obj.OnEvent(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.OnEvent");
+			}
 		}
 		catch (Exception e)
 		{

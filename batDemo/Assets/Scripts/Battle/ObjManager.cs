@@ -52,6 +52,7 @@ public class ObjManager  : MonoSingleton<ObjManager>
                 }
             break;
         }
+        chars.initData();
         if(ctrlType!=GameEnum.CtrlType.Null){
             chars.ctrlType=ctrlType;
         }
@@ -69,6 +70,7 @@ public class ObjManager  : MonoSingleton<ObjManager>
         }else{
             weapon.initView();
         }
+        weapon.initData();
         return weapon;
     }
     private void FixedUpdate() {

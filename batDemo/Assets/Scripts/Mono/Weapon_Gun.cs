@@ -63,16 +63,16 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     // Position offsets relative to the player's right hand.
     // 右手偏移;
      [Tooltip("右手偏移")]
-    public Vector3 rightHandPosition=Vector3.zero;                         
+    public Vector3 rightHandPosition=new Vector3(-0.2f,0.029f,0.01f);                   
     // Rotation Offsets relative to the player's right hand.
     // 旋转;
     [Tooltip("握手旋转")]
-	public Vector3 relativeRotation=Vector3.zero;        
+	public Vector3 relativeRotation=new Vector3(0,90,90);        
 
      [Tooltip("背饰偏移")]
-    public Vector3  backChestPosition=Vector3.zero;
+    public Vector3  backChestPosition=new Vector3(-0.041f,-0.205f,-0.055f); 
      [Tooltip("背饰旋转")]
-    public Vector3  backChestRotation=Vector3.zero;                                  
+     public Vector3  backChestRotation=new Vector3(356.53f,317.77f,86.14f);                             
 
      [Tooltip("后坐力")]
     public float recoilAngle=3; 
@@ -98,7 +98,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     public float SphereColRadius=1; 
 	public BoxCollider col;                                  
     public Vector3 BoxCenter =Vector3.zero;
-    public Vector3 BoxSize =Vector3.zero;
+    public Vector3 BoxSize =new Vector3(0.2f,0.2f,0.2f);
 
     // Weapon collider.
 
@@ -106,12 +106,14 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     private  GameAssetRequest _Reqs=null;
     private string dataUrl;
     private bool isDestory=false;
+    private bool pickable = false;
     private Weapon item;
 
     private void Start() {
     }
     public void init(Item items){
        item=items as Weapon;
+       DebugLog.Log("item>>>>>>>>>>",item);
     }
      //U3D加载数据.
      public void U3d_LoadData(string wpUrl){
@@ -131,23 +133,24 @@ public class Weapon_Gun : MonoBehaviour,IItemData
             LoadData();
         }
     }
-    private void CreateInteractiveRadius()
+    IEnumerator CreateActiveRadius()
 	{
-        if(col==null){
-              col=gameObject.GetComponent<BoxCollider>();
-          if(col==null){
-               col = gameObject.AddComponent<BoxCollider>();
-           }
-        }
+         yield return new WaitForSeconds(1f);
+        // if(col==null){
+        //       col=gameObject.GetComponent<BoxCollider>();
+        //   if(col==null){
+        //        col = gameObject.AddComponent<BoxCollider>();
+        //    }
+        // }
         if(interactiveRadius==null){
            interactiveRadius=gameObject.GetComponent<SphereCollider>();
            if(interactiveRadius==null){
 		      interactiveRadius = gameObject.AddComponent<SphereCollider>();
            }
         }
-        col.enabled=false;
-        col.center=this.BoxCenter;
-        col.size=this.BoxSize;
+        // col.enabled=false;
+        // col.center=this.BoxCenter;
+        // col.size=this.BoxSize;
         interactiveRadius.center = this.SphereColCenter;
         interactiveRadius.radius = this.SphereColRadius;
         interactiveRadius.isTrigger = true;
@@ -219,7 +222,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.BoxCenter=source.BoxCenter;
         tar.BoxSize=source.BoxSize;
 
-        CreateInteractiveRadius();
+        OnGround();
     }
     public void SaveData(){
 #if UNITY_EDITOR   
@@ -257,6 +260,24 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 
 #endif
     }
+    public void OnPickUp(){
+        if(this.interactiveRadius!=null){
+          GameObject.Destroy(this.interactiveRadius);
+        }
+        this.interactiveRadius=null;
+      //  this.col.enabled=false;
+    }
+    public void OnDrop(){
+     //   this.col.enabled=false;
+    }
+    public void OnGround(){
+        StartCoroutine(CreateActiveRadius());
+     //   this.col.enabled=false;
+    }
+    public float getHeight()
+    {
+        return BoxSize.y;
+    }
     // Handle player exiting radius of interaction.
 	private void OnTriggerExit(Collider other)
 	{
@@ -275,7 +296,6 @@ public class Weapon_Gun : MonoBehaviour,IItemData
            charData.getChar().OnItemTrigger(item);
            (charData.getChar() as Player).weaponSystem.EquipWeapon(item);
 		}
-        
     }
 
     public void OnDestroy() {

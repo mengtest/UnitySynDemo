@@ -8,7 +8,6 @@ public class WeaponWrap
 	{
 		L.BeginClass(typeof(Weapon), typeof(Item));
 		L.RegFunction("initData", initData);
-		L.RegFunction("DropWeapon", DropWeapon);
 		L.RegFunction("EquipWeaponRightHand", EquipWeaponRightHand);
 		L.RegFunction("EquipWeaponBackChest", EquipWeaponBackChest);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
@@ -52,22 +51,6 @@ public class WeaponWrap
 			ToLua.CheckArgsCount(L, 1);
 			Weapon obj = (Weapon)ToLua.CheckObject<Weapon>(L, 1);
 			obj.initData();
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int DropWeapon(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Weapon obj = (Weapon)ToLua.CheckObject<Weapon>(L, 1);
-			obj.DropWeapon();
 			return 0;
 		}
 		catch (Exception e)
