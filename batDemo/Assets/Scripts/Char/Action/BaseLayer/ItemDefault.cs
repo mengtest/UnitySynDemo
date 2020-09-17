@@ -18,7 +18,7 @@ public class ItemDefault : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
-             this.obj.GetMovePart().StopMove();
+              this.obj.GetMovePart().StopMove(false,true,true);
               this.obj.gameObject.transform.localRotation= Quaternion.Euler(Vector3.zero);
              //旋转到正面.
         }

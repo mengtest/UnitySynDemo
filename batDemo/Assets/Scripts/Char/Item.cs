@@ -6,6 +6,7 @@ using UnityEngine;
 [AutoRegistLua]
 public class Item : ActionObj
 {
+    protected  Player ownerPlayer;
     public ItemData itemData=null;
     private float _height;
     public Item()
@@ -29,11 +30,14 @@ public class Item : ActionObj
     }
     public virtual void OnPickUp(Player player){
         //带在身上;
+        ownerPlayer=player;
+    //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
          gameObject.transform.parent=player.gameObject.transform;
          gameObject.SetActive(false);
         itemData.OnPickUp();
     }
     public virtual void DropItem(){
+        ownerPlayer=null;
        gameObject.transform.parent=null;
        gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
        gameObject.SetActive(true);

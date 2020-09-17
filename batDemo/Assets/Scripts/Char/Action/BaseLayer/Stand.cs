@@ -24,7 +24,7 @@ public class Stand : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
-             this.obj.GetMovePart().StopMove();
+             this.obj.GetMovePart().StopMove(false,true,true);
              if(param!=null){
                 string actionLabel=(string)param[0];
                 float lenth =(float)param[1];

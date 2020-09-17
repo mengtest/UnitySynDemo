@@ -98,9 +98,6 @@ public class WeaponSystem : MonoBehaviour
                     ChangeWeapon(weaponUrl,1,weapon);
                 }else if(weaponMain_2==null){
                     ChangeWeapon(weaponUrl,2,weapon);
-                    if(weaponMain_2!=null){
-                            weaponMain_2.EquipWeaponBackChest(_objBase);
-                    }
                 }else{
                    ChangeWeapon(weaponUrl,UseActiveSide,weapon);
                 }
@@ -108,11 +105,8 @@ public class WeaponSystem : MonoBehaviour
             case 2:
               if(weaponMain_2==null){
                     ChangeWeapon(weaponUrl,2,weapon);
-              }if(weaponMain_1==null){
+              }else if(weaponMain_1==null){
                     ChangeWeapon(weaponUrl,1,weapon);
-                    if(weaponMain_1!=null){
-                            weaponMain_1.EquipWeaponBackChest(_objBase);
-                    }
               }else{
                  ChangeWeapon(weaponUrl,UseActiveSide,weapon);
               }
@@ -133,6 +127,7 @@ public class WeaponSystem : MonoBehaviour
             {
                 weaponMain_1.DropItem();
                 weaponMain_1=null;
+                 this._objBase.charData.mainWeapon_1="";
             }
         }
         else
@@ -141,6 +136,7 @@ public class WeaponSystem : MonoBehaviour
             {
                 weaponMain_2.DropItem();
                 weaponMain_2=null;
+                  this._objBase.charData.mainWeapon_2="";
             }
         }
     }
@@ -150,17 +146,23 @@ public class WeaponSystem : MonoBehaviour
         if (side==1)
         {
             weaponMain_1 = weapon;
+              this._objBase.charData.mainWeapon_1=weapon.poolname;
         }
         else
         {
             weaponMain_2 = weapon;
+            this._objBase.charData.mainWeapon_2=weapon.poolname;
         }
         while (!weapon.initViewFin)
         {
             yield return 0;
         }
 
-        weapon.EquipWeaponRightHand(this._objBase);
+        if(UseActiveSide!=side){
+           weapon.EquipWeaponBackChest(this._objBase);
+        }else{
+          weapon.EquipWeaponRightHand(this._objBase);
+        }
 
         // if (GameSettings.Instance.useAssetBundle)
         // {

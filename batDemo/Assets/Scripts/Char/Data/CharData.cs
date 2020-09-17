@@ -13,8 +13,6 @@ public class CharData : MonoBehaviour,IData
     public int pvpId;
     public CtrlType ctrlType=CtrlType.Null;
 
-
-
     //状态属性.......................
 
     //冲刺
@@ -35,6 +33,9 @@ public class CharData : MonoBehaviour,IData
 
     public float PlaySpeed { get ; set ; }
 
+    public string mainWeapon_1;
+    public string mainWeapon_2;
+    
 
     //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
     public int currentBaseActionType = 0;

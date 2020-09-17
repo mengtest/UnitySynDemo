@@ -6,7 +6,6 @@ using UnityEngine;
 [AutoRegistLua]
 public class Weapon : Item
 {
-    private Player ownerPlayer;
     public Weapon()
     {
          charType=GameEnum.ObjType.Weapon;
@@ -22,6 +21,7 @@ public class Weapon : Item
     public void EquipWeaponRightHand(Player player){
         itemData.OnPickUp();
         ownerPlayer = player;
+    //    this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
         gameObject.transform.SetParent(player.weaponSystem.rightHand);
         Weapon_Gun gunD=this.itemData.getGunData();
         gameObject.transform.localPosition =gunD.rightHandPosition;
@@ -31,6 +31,7 @@ public class Weapon : Item
     public void EquipWeaponBackChest(Player player){
         itemData.OnPickUp();
         ownerPlayer = player;
+   //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
         gameObject.transform.SetParent(player.weaponSystem.chest);
         Weapon_Gun gunD=this.itemData.getGunData();
         gameObject.transform.localPosition =gunD.backChestPosition;
