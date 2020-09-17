@@ -48,7 +48,7 @@ public class ItemDrop : ActionBase
     private void onBeginJump(int frame=0){
       //  this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Jmp_Base_A_Rise,frame,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
-        this.movePart.upPow = 5 * this.speed;
+        this.movePart.upPow = 8 * this.speed;
         this.movePart.ZeroUpStop=false;
         this.movePart.useWeightPower = false;
         this.movePart.Jump();
@@ -68,6 +68,7 @@ public class ItemDrop : ActionBase
 
     //动作更新;
     public override void Update(){
+        this.obj.gameObject.transform.Rotate(Vector3.right, 720 * Time.deltaTime);
         base.Update();
     }
     /**

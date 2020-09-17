@@ -22,6 +22,7 @@ public class Item : ActionObj
         this.objData=this.itemData;
         this.itemData.init(this,fixUpdate);
         _height=itemData.getHeight()+0.3f;
+          this.GetMovePart().faceToRotation=false;
          this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
     }
     public override void onViewLoadFin(){
@@ -34,6 +35,7 @@ public class Item : ActionObj
     }
     public virtual void DropItem(){
        gameObject.transform.parent=null;
+       gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
        gameObject.SetActive(true);
        itemData.OnDrop();
        //给它向上力 让它掉出来;
