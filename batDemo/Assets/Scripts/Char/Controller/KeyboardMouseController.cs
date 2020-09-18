@@ -24,7 +24,9 @@ public class KeyboardMouseController : Controller
     // Vertical Axis.
 	private float v;
     public string sprintButton = "Sprint";        
-    public string jumpButton = "Jump";                                  
+    public string jumpButton = "Jump";  
+    public string aimButton = "Aim"; 
+    public string shootButton = "Fire1";                                
     private bool jumpEvt=false;
 
     public bool stopMouse=false;
@@ -133,6 +135,18 @@ public class KeyboardMouseController : Controller
          //丢武器;
            this.SendMessage(CharEvent.On_Drop_Weapon,new object[]{0});
         }
+        if(Input.GetKeyDown(KeyCode.E)){
+         //丢武器;
+           this.SendMessage(CharEvent.On_PickUp_Item);
+        }
+        // if ((Input.GetAxisRaw(aimButton) != 0||Input.GetAxisRaw(shootButton) != 0) && !aim)
+		// {
+		// 	StartCoroutine(ToggleAimOn());
+		// }
+		// else if (aim && Input.GetAxisRaw(aimButton) == 0 && Input.GetAxisRaw(shootButton) == 0)
+		// {
+		// 	StartCoroutine(ToggleAimOff());
+		// }
         // if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
         //      //奔跑中
         //      initCharDir();

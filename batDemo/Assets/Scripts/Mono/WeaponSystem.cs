@@ -66,6 +66,14 @@ public class WeaponSystem : MonoBehaviour
             UseActiveSide=side;
          }
     }
+    //是否可以自动拾取武器
+    public bool checkCanAutoPickUpWeapon(){
+        if(weaponMain_1==null||weaponMain_2==null){
+            return true;
+        }
+        return false;
+    }
+
     //是否有手持武器;
     public bool hasActiveWeapon(){
         switch(UseActiveSide){

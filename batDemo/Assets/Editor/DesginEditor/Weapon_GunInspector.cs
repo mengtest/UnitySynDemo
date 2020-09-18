@@ -4,7 +4,7 @@
  * @Autor: xsddxr909
  * @Date: 2020-05-15 11:13:21
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-16 16:28:32
+ * @LastEditTime: 2020-09-18 17:25:00
  */ 
 using UnityEngine;
 using UnityEditor;
@@ -51,7 +51,13 @@ public class Weapon_GunInspector : Editor {
     public override void OnInspectorGUI()
     {
         mono = target as Weapon_Gun;
-        this.chkCreatData();
+        chkData();
+        if (!_data){
+            if(GUILayout.Button("创建数据--CreatData", GUILayout.Height(30))){
+              this.chkCreatData();
+            }
+            return;
+        }
         base.OnInspectorGUI();
         Init();
         
@@ -93,13 +99,20 @@ public class Weapon_GunInspector : Editor {
         if (opCopyPitchData) CopyRecoilData(false);
 
     }
-    private void chkCreatData(){
-         if (!_data)
+    private void chkData(){
+        if (!_data)
         {
             string path = Path.Combine("Assets", "Res", savePath, mono.name + ".asset");
             _data = AssetDatabase.LoadAssetAtPath<WeaponGun_Serializable>(path);
         //    this.LoadData();
+        }else{
+            if (!mono.data)
+            {
+                mono.data = _data;
+            }
         }
+    }
+    private void chkCreatData(){
         if (!_data)
         {
             string path = Path.Combine("Assets", "Res", savePath, mono.name + ".asset");

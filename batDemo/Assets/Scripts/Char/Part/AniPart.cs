@@ -111,7 +111,10 @@ using UnityEngine;
             this.ctrl.resume(this.curAniName);
         }
     }
+        //TODO 写个新DATA  存储播放数据 等播放完后 直接回调.
+        public void copyAniData(){
 
+        }
 
         // 播放动画
         /**

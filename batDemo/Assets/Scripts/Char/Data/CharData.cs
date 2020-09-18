@@ -13,8 +13,12 @@ public class CharData : MonoBehaviour,IData
     public int pvpId;
     public CtrlType ctrlType=CtrlType.Null;
 
-    //状态属性.......................
-
+    //状态属性..........................................................................................................................
+    
+    //是否可以射击;
+    public bool isCanShotting=false;
+    //开镜中
+    public bool isAimming=false;
     //冲刺
     public bool isDashing=false;
     public bool isLie = false;
@@ -55,7 +59,7 @@ public class CharData : MonoBehaviour,IData
     public float RunSpeed=5;
     public float DashSpeed=7;
 
-    //状态属性.........................
+    //状态属性.............................................................................................................................................
 
     // Start is called before the first frame update
     void Start()

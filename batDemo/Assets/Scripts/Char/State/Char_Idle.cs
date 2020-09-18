@@ -38,7 +38,7 @@ public class Char_Idle : State<Character>
         _char.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
         _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
-        
+        _char.GetEvent().addEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
     }
 
     // 退出状态
@@ -47,6 +47,7 @@ public class Char_Idle : State<Character>
         _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
         _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
+         _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
         _char = null;
     }
 
@@ -150,7 +151,9 @@ public class Char_Idle : State<Character>
     //         this.standFrame=0;
     //     }
     // }
-    
+     private void OnPickUpItem(object[] data){
+       (this._char as Player).PickUpNearItem();
+    }
     private void OnDropWeapon(object[] data){
         int select =(int)data[0];
        (this._char as Player).weaponSystem.DropWeapon(select);

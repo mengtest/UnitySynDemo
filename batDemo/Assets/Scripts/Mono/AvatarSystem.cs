@@ -45,6 +45,7 @@ public class AvatarSystem : MonoBehaviour
         this._modelReqs.Clear();
         for (int i = 0; i < modelpaths.Length; i++)
         {
+            //分离部件位置. Char_body_01
             string part = modelpaths[i].Split('_')[1];
             this._modelDic[part] = (modelpaths[i]);
         }

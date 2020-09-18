@@ -8,6 +8,8 @@ public class Item : ActionObj
 {
     protected  Player ownerPlayer;
     public ItemData itemData=null;
+
+    public bool isWeapon=false;
     private float _height;
     public Item()
     {
@@ -52,6 +54,9 @@ public class Item : ActionObj
 	{
 		return Physics.Raycast(this.gameObject.transform.position+Vector3.up*0.1f, Vector3.down, _height,LayerHelper.GetGroundLayerMask());
 	}
+    public GameEnum.ItemType  getItemType(){
+        return itemData.getItemType();
+    }
     public override void onGet(){
         base.onGet();
      }

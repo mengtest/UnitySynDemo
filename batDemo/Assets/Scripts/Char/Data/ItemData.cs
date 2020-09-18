@@ -46,10 +46,13 @@ public class ItemData : MonoBehaviour,IData
                 // DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
             }
             this._Data.init(_obj);
+            _obj.isWeapon=true;
          }else if(_obj.poolname.StartsWith("Item")){
           //Item
+          _obj.isWeapon=false;
          }else if(_obj.poolname.StartsWith("Melee")){
            //近战武器.
+              _obj.isWeapon=true;
          }
     }
     public Weapon_Gun getGunData(){
@@ -63,6 +66,9 @@ public class ItemData : MonoBehaviour,IData
     }
     public void OnGround(){
        this._Data.OnGround();
+    }
+    public GameEnum.ItemType getItemType(){
+        return this._Data.getItemType();
     }
     //物品高度.
     public float getHeight(){

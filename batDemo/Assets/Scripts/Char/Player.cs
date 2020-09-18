@@ -1,4 +1,5 @@
-﻿using GameEnum;
+﻿using System.Collections.Generic;
+using GameEnum;
 using UnityEngine;
 /****
 角色基类
@@ -8,8 +9,11 @@ public class Player : Character
 {
     public AvatarSystem avatar;
     public WeaponSystem weaponSystem;
+
+    private List<Item> canPickUpList;
     public Player()
     {
+        canPickUpList=new List<Item>();
          charType=GameEnum.ObjType.Player;
     }
 
@@ -45,15 +49,60 @@ public class Player : Character
         if(this.avatar=null)return; 
         this.avatar.ChangePart(partPath);
     }
+    public override void OnItemTrigger(Item item,bool isEnter=true){
+        base.OnItemTrigger(item,isEnter);
+        bool hasEquip=false;
+        if(isEnter){
+            if(item.isWeapon){
+                if(weaponSystem.checkCanAutoPickUpWeapon()){
+                    EquipWeapon(item);
+                    hasEquip=true;
+                }
+            }
+            if(!hasEquip){
+                canPickUpList.Add(item);
+            }
+        }else{
+            if(canPickUpList.Contains(item)){
+               canPickUpList.Remove(item);
+            }
+        }
+    }
+    public void EquipWeapon(Item item){
+     //   this.doActionSkillByLabel()
+        if(canPickUpList.Contains(item)){
+            canPickUpList.Remove(item);
+        }
+        weaponSystem.EquipWeapon(item as Weapon);
+    }
+    public void EquipNearWeapon(){
+        for (int i = 0; i < canPickUpList.Count; i++)
+        {
+            if(canPickUpList[i].isWeapon){
+                this.EquipWeapon(canPickUpList[i]);
+                break;
+            }
+        }
+    }
+    public void PickUpNearItem(){
+        if(canPickUpList.Count>0){
+            if(canPickUpList[0].isWeapon){
+                this.EquipWeapon(canPickUpList[0]);
+            }else{
+                //装入背包;
+            }
+        }
+    }
     protected virtual void onBodyFin(){
         this.initViewFin=true;
         this.onViewLoadFin();
         //如果是观察者.
         CameraManager.Instance.cameraCtrl.init(gameObject.transform);
     } 
-     public override void OnEvent(string cmd, object[] param=null){
+    public override void OnEvent(string cmd, object[] param=null){
          base.OnEvent(cmd,param);
-     }
+    }
+    
     protected override void initStateMachine(){
         m_FSM = new StateMachine<Character>(this);
         m_FSM.RegisterState(new Char_Idle(m_FSM));
@@ -71,9 +120,12 @@ public class Player : Character
      }
     //回收.
      public override void onRecycle(){
+         canPickUpList.Clear();
         base.onRecycle();
      }
     public override void onRelease(){
+        canPickUpList.Clear();
+        this.canPickUpList=null;
         this.avatar=null;
         this.weaponSystem=null;
         base.onRelease();

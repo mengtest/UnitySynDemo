@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-16 17:50:52
+ * @LastEditTime: 2020-09-18 14:51:13
  */
 using System;
 using System.Collections;
@@ -192,6 +192,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         initScenes();
     }
     private void  initScenes(){
+       // creatPlayerBySricpt();
         creatPlayer();
         //查找 全部武器 创建
         creatAllWeaponInScene();
@@ -207,6 +208,15 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
     }
 
     private  void creatPlayerBySricpt(){
+
+        // this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/MiniChar1-97/MiniChar1-97",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+        // this.playerObj.avatar.isNewAnimatorSystem=true;
+        // this.playerObj.charData.isMyPlayer=true;
+        // this.playerObj.initAvatar("MiniChar1-97",new string[]{"MiniChar1-97_81","MiniChar1-97_54","MiniChar1-97_81"});
+        // this.playerObj.gameObject.transform.position=new Vector3(0,0,-5);
+        // CameraManager.Instance.cameraCtrl.init(playerObj.gameObject.transform);
+
+          //Infility
         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
         this.playerObj.avatar.isNewAnimatorSystem=true;
         this.playerObj.charData.isMyPlayer=true;
@@ -225,6 +235,15 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
                 
                 this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player;
         #endif
+
+        // #if UNITY_EDITOR
+        // //1 7 11 54 57 81 
+        //         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/MiniChar1-97/MiniChar1-97",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+        // #else
+                
+        //         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/MiniChar1-97/MiniChar1-97",player) as Player;
+        // #endif
+
         this.playerObj.charData.isMyPlayer=true;
         CameraManager.Instance.cameraCtrl.init(player.transform);
     }

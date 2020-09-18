@@ -294,7 +294,6 @@ public class Weapon_Gun : MonoBehaviour,IItemData
       //     DebugLog.Log("Stay");
 	       CharData charData= other.gameObject.GetComponentInChildren<CharData>();
            charData.getChar().OnItemTrigger(item);
-           (charData.getChar() as Player).weaponSystem.EquipWeapon(item);
 		}
     }
 

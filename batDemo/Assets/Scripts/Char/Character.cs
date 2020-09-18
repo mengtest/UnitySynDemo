@@ -74,7 +74,7 @@ public class Character : ObjBase
         this.GetEvent().dispatchEvent(cmd,param);
         m_FSM.OnEvent(cmd,param);
     }
-    public void OnItemTrigger(Item item,bool isEnter=true){
+    public virtual void OnItemTrigger(Item item,bool isEnter=true){
         if(charData.isMyPlayer){
             //派时间给Lua UI层
              EventCenter.send(SystemEvent.ITEM_ON_PLAYER_TRIGGER,new object[]{isEnter,item},true);

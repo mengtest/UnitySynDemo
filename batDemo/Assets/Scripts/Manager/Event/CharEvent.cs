@@ -37,6 +37,8 @@
          public const string On_Select_Weapon="On_Key_Select_Weapon";
          // 丢出 武器 0当前使用 1武器栏 2武器栏
          public const string On_Drop_Weapon="On_Drop_Weapon";
+         // pickup 
+         public const string On_PickUp_Item="On_PickUp_Item";
 
 
          public const string Char_Move="Char_Move";
