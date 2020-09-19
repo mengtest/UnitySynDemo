@@ -3,7 +3,14 @@
 //*************************************************************************
 using System;
 using UnityEngine;
- 
+    public class AniData{
+       public string curAniName;
+       public float nTotalTime=1; 
+       public float fSpeed = 1.0f; 
+       public float fBlendTime = 0.25f;
+       public int nLoop = 1;
+
+    }
     //动画播放部件
     public class AniPart
     {
@@ -30,6 +37,7 @@ using UnityEngine;
         //播放完后停止.
         private bool _playEndStop=false;
         public Action endAniAction=null;
+        private AniData endAniData=null;
 
  //       private int m_nLastStartFrame = -1;
 
@@ -111,10 +119,20 @@ using UnityEngine;
             this.ctrl.resume(this.curAniName);
         }
     }
-        //TODO 写个新DATA  存储播放数据 等播放完后 直接回调.
-        public void copyAniData(){
-
-        }
+    //TODO 写个新DATA  存储播放数据 等播放完后 直接回调.
+    public AniData copyAniData(){
+            AniData data=new AniData();
+            data.curAniName= curAniName;
+            data.nTotalTime=_totalTime;
+            data.fSpeed=_speed;
+            data.fBlendTime =_fBlendTime;
+            data.nLoop=_loop;
+            return data;
+    }
+    public void endToplay(AniData aniData){
+            this.endAniData=aniData;
+    }
+        
 
         // 播放动画
         /**
@@ -144,6 +162,7 @@ using UnityEngine;
                  }            
             }else{
                 this.curAniName = strAcionName;
+                this._fBlendTime = fBlendTime;
                 this._time = nStartTime;
                 this._speed = fSpeed;
                 this._isPlay = true;
@@ -175,6 +194,10 @@ using UnityEngine;
                         if(this.endAniAction!=null){
                             this.endAniAction();
                              this.endAniAction=null;
+                        }
+                        if(this.endAniData!=null){
+                            this.Play(endAniData.curAniName,0,endAniData.nTotalTime,endAniData.fSpeed,endAniData.fBlendTime,endAniData.nLoop);
+                            this.endAniData=null;
                         }
                     }
                 }

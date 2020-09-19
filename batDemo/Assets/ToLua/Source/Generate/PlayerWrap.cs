@@ -12,6 +12,10 @@ public class PlayerWrap
 		L.RegFunction("initAvatar", initAvatar);
 		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("ChangePart", ChangePart);
+		L.RegFunction("OnItemTrigger", OnItemTrigger);
+		L.RegFunction("EquipWeapon", EquipWeapon);
+		L.RegFunction("EquipNearWeapon", EquipNearWeapon);
+		L.RegFunction("PickUpNearItem", PickUpNearItem);
 		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
@@ -139,6 +143,88 @@ public class PlayerWrap
 			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
 			string arg0 = ToLua.CheckString(L, 2);
 			obj.ChangePart(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnItemTrigger(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+				obj.OnItemTrigger(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.OnItemTrigger(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.OnItemTrigger");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int EquipWeapon(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+			obj.EquipWeapon(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int EquipNearWeapon(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.EquipNearWeapon();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PickUpNearItem(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.PickUpNearItem();
 			return 0;
 		}
 		catch (Exception e)

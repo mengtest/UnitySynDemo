@@ -166,7 +166,7 @@ public class KeyboardMouseController : Controller
            this.lastDirPos=worldDir;
            this.dashCg=false;
             this.SendMessage(CharEvent.OnJoy_Move,new object[]{worldDir,this.isDashing,false,0 });
-    //    DebugLog.Log("move ");
+       DebugLog.Log("move ");
         }
       //dir,self.isSprinting,canStop,angle
     }

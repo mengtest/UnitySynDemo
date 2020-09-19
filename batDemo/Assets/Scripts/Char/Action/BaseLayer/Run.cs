@@ -32,7 +32,7 @@ public class Run : ActionBase
             CharData charData=this.obj.objData as CharData;
             this.obj.moveSpeed=charData.RunSpeed;
             //*this.speed;  //0.75f
-            this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.45f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.15f,0,true);
             Vector3 dir=(Vector3)param[0];
         //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
             this.obj.GetMovePart().StartMove(dir);
@@ -74,7 +74,7 @@ public class Run : ActionBase
     }
     private  void onJoyUp(object[] data=null){
         this.standFrame=0;
-        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.ActionLabel.Mvm_Stop_Front,0.9f,1.7f});
+        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1.7f});
     }
 
 

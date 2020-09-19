@@ -107,13 +107,19 @@ namespace GameEnum
         public const string BackOff = "BackOff";  
         public const string CmdAction = "CmdAction";  
         public const string Dead = "Dead";  
+        public const string PickUp = "PickUp"; 
+
+
         public const string ItemDrop = "ItemDrop";  
         public const string ItemDefault = "ItemDefault"; 
-        
+
+
         public const string Action = "Action";  
 
 
 
+    }
+    public class AniLabel{
          //Ani Name.
         public const string Idle_Wait_A="Idle_Wait_A";
         public const string Idle_Wait_B="Idle_Wait_B";
@@ -131,6 +137,7 @@ namespace GameEnum
         public const string Jmp_Base_A_OnGround="Jmp_Base_A_OnGround";
         public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
 
+         public const string PickUp = "PickUp"; 
     }
     //动作层级 
     public class  ActionLayer

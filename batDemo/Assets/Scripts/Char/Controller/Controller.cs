@@ -41,6 +41,10 @@ public class Controller :PoolObj, IController
     {
         
     }
+    //角色动作改变需要重置数据.
+    protected virtual void OnActionChange(){
+
+    }
     protected  virtual void OnRelease_Fun()
     {
       

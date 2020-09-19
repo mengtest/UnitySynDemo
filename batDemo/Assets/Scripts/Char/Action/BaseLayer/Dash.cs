@@ -30,7 +30,7 @@ public class Dash : ActionBase
          //   DebugLog.Log("Dash.........");
             CharData charData=this.obj.objData as CharData;
             this.obj.moveSpeed=charData.DashSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.ActionLabel.Mvm_Dash,frame,0.533f,1f,0.25f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame,0.533f,1f,0.15f,0,true);
             this.obj.GetMovePart().StartMove((Vector3)param[0]);
             CameraManager.Instance.cameraCtrl.SetFOV(80);
        //     CameraManager.Instance.postLayer.enabled=true;
@@ -51,7 +51,7 @@ public class Dash : ActionBase
     }
     // 回到站立动作.
     private  void onJoyUp(object[] data=null){
-        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.ActionLabel.Mvm_Stop_Front,0.9f,1f});
+        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1f});
     }
     
 

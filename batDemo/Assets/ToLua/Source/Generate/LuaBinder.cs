@@ -13,6 +13,7 @@ public static class LuaBinder
 		LuaProfilerWrap.Register(L);
 		CameraManagerWrap.Register(L);
 		ThirdPersonCameraCtrlWrap.Register(L);
+		ActionObjWrap.Register(L);
 		CharacterWrap.Register(L);
 		ItemWrap.Register(L);
 		MonsterWrap.Register(L);
@@ -24,7 +25,6 @@ public static class LuaBinder
 		UtilsWrap.Register(L);
 		DoTweenWrap.Register(L);
 		CharEventWrap.Register(L);
-		Event_CallbackWrap.Register(L);
 		EventCenterWrap.Register(L);
 		GEventDispatcherWrap.Register(L);
 		SystemEventWrap.Register(L);

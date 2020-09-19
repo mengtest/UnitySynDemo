@@ -6,11 +6,15 @@ using System.Linq;
 [AutoRegistLua]
 public class GEventDispatcher 
 {
-    private Dictionary<string, List<Event_Callback>> dict;
+    private Dictionary<string, List<Action<object[]>>> dict;
+    private string DispatchingType="";
+    private List<Action<object[]>> DelList;
 
     public GEventDispatcher()
     {
-        dict = new Dictionary<string, List<Event_Callback>>();
+        dict = new Dictionary<string, List<Action<object[]>>>();
+        DelList=new List<Action<object[]>>();
+        DispatchingType="";
     }
 
     public void addEventListener(string type,  Action<object[]> fn)
@@ -19,19 +23,24 @@ public class GEventDispatcher
         if (!dict.ContainsKey(type))
         {
 //            StarEngine.Debuger.LogTrace("加入了侦听:" + type);
-            dict.Add(type, new List<Event_Callback>());
+            dict.Add(type, new List<Action<object[]>>());
         }
-
-        List<Event_Callback> list = dict[type] as List<Event_Callback>;
-        if (list.Find(x => x.cb == fn) != null)
+        if(type==DispatchingType){
+            if(DelList.Contains(fn)){
+                DelList.Remove(fn);
+                return;
+            }
+        }
+        List<Action<object[]>> list = dict[type];
+        if (list.Contains(fn))
         {
             DebugLog.Log("重复加入了侦听");
             return;
         }
 
-        Event_Callback ecb = new Event_Callback();
-        ecb.cb = fn;
-        dict[type].Add(ecb);
+     //   Event_Callback ecb = new Event_Callback();
+       // ecb.cb = fn;
+        dict[type].Add(fn);
 
         //List<callback> c = dict[type];
     }
@@ -41,13 +50,19 @@ public class GEventDispatcher
     {
         if (dict.ContainsKey(type))
         {
-            List<Event_Callback> list = dict[type] as List<Event_Callback>;
-            //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
-            list.RemoveAll(x => x.cb == fn);
-            if (list.Count <= 0)
-            {
-                dict.Remove(type);
+            if(DispatchingType==type){
+                DelList.Add(fn);
+                return;
             }
+            List<Action<object[]>> list = dict[type];
+            //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
+            if(list.Contains(fn)){
+               list.Remove(fn);
+            }
+            // if (list.Count <= 0)
+            // {
+            //     dict.Remove(type);
+            // }
         }
 
     }
@@ -77,27 +92,45 @@ public class GEventDispatcher
         if (dict != null && dict.ContainsKey(type))
         {
            // e.eventTarget = this;
-            List<Event_Callback> list = (dict[type] as List<Event_Callback>).ToList();
+           this.DispatchingType=type;
+            List<Action<object[]>> list = dict[type];
+            //).ToList();
              Action<object[]> fn = null;
             for (int i = 0; i < list.Count; i++)
             {
-                fn = list[i].cb;
+                fn = list[i];
                 if (fn != null)
                 {
                     fn(data);
                 }
             }
-            list.Clear();
-            list = null;
+         //   list.Clear();
+            if(DelList.Count>0){
+                for (int i = 0; i < DelList.Count; i++)
+                {
+                    fn=DelList[i];
+                   if(list.Contains(fn)){
+                        list.Remove(fn);
+                   }
+                }
+                DelList.Clear();
+            }
+            // fn=null;
+            // list = null;
+            this.DispatchingType="";
         }
     }
     public virtual void ClearAllEvent() {
         if (dict == null) return;
         dict.Clear();
+        DelList.Clear();
+        DispatchingType="";
     }
     public virtual void Dispose()
     {
         ClearAllEvent();
+        DispatchingType="";
         dict = null;
+        DelList =null;
     }
 }

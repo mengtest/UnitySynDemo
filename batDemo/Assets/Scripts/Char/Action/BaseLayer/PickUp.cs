@@ -5,11 +5,13 @@
 //动作
 using UnityEngine;
 
-public class Stand : ActionBase
+public class PickUp : ActionBase
 {
+        private bool pickUpEnd=false;
+        private float pickTime=0f;
         //单次创建.
         public override void init(){
-            this.name=GameEnum.ActionLabel.Stand;
+            this.name=GameEnum.ActionLabel.PickUp;
             this.actionLayer=GameEnum.ActionLayer.BaseLayer;
             this.defultPriority=GameEnum.CancelPriority.Stand_Move_Null;
             
@@ -20,36 +22,36 @@ public class Stand : ActionBase
         {
             base.InitAction(obj);
             this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
+            this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Up,onJoyUp);
         }
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
-             this.currentFrame = frame;
-             this.obj.GetMovePart().StopMove(false,true,true);
-             if(param!=null){
-                string actionLabel=(string)param[0];
-                float lenth =(float)param[1];
-                float speed =(float)param[2];
-                this.obj.GetAniBasePart().Play(actionLabel,0,lenth,speed,0.15f,1,true,true);
-                this.obj.GetAniBasePart().endAniAction=doStandAction;
-             }else{
-                //播放 站立动作.
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,frame,2f,1.5f,0.15f,0,true);
-             }
-        }
-    
-         // 回到站立动作.
-        private void doStandAction(){
-    //       DebugLog.Log("this.obj",this.obj);
-            if(this.isRecycled)return;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,0,2f,1.5f,0.8f,0,true);
+            this.currentFrame = frame;
+            pickUpEnd=false;
+            pickTime=0;
+            this.cancelPriorityLimit=GameEnum.CancelPriority.BaseAction;
+        //    this.obj.GetMovePart().StopMove(false,true,true);
+            //播放 站立动作.
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.PickUp,0,0.667f,1,0);
+            (this.obj as Player).EquipNearWeapon();
         }
 
          //动作更新;
         public override void Update(){
             base.Update();
+            pickTime+=Time.fixedDeltaTime;
+            if(pickTime>=0.297f){
+                 pickUpEnd=true;
+                 this.cancelPriorityLimit=this.defultPriority;
+                 (this.obj as Player).checkPickUpNearItem();
+            }
+            if(pickTime>=0.667f){
+              this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
+            }
         }
            //new object[]{worldDir,isSprint,false,this.JoyAngle}
         private  void onJoyMove(object[] data){
+            if(!pickUpEnd)return;
             Vector3 dirPos = (Vector3) data[0];
          //  DebugLog.Log("stand Move>>>",dirPos);
             bool isDash = (bool) data[1];
@@ -63,13 +65,16 @@ public class Stand : ActionBase
                 this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
             }
         }
-
+        private  void onJoyUp(object[] data=null){
+             this.obj.GetMovePart().StopMove(false,true,false);
+        }
 
         /**
         * 切换动作 处理逻辑;
         */
         public override void executeSwichAction(){
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
+             this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
         }
 
         //动作 需要改成3种分支 base up add

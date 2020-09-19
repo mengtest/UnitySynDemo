@@ -6,12 +6,12 @@ using Lua;
 using LuaInterface;
 
 // 
-[AutoRegistLua]
-public class Event_Callback
-{
-    public Action<object[]> cb = null;
-    public object data = null;
-}
+// [AutoRegistLua]
+// public class Event_Callback
+// {
+//     public Action<object[]> cb = null;
+//     public object data = null;
+// }
 
 [AutoRegistLua]
 public class EventCenter
@@ -21,7 +21,10 @@ public class EventCenter
     /// </summary>
     private static LuaTable _LEventTable = null;
     
-    private static Dictionary<string, List<Event_Callback>> dict = new Dictionary<string, List<Event_Callback>>();
+    private static Dictionary<string, List<Action<object[]>>> dict = new Dictionary<string, List<Action<object[]>>>();
+
+    private static string DispatchingType="";
+    private static List<Action<object[]>> DelList=new List<Action<object[]>>();
 
     public static void init(){
 
@@ -47,34 +50,46 @@ public class EventCenter
         if (!dict.ContainsKey(type))
         {
             //            StarEngine.Debuger.LogTrace("````````````````````````````加入了侦听:    " + type);
-            dict.Add(type, new List<Event_Callback>());
+            dict.Add(type, new List<Action<object[]>>());
         }
-
-        List<Event_Callback> list = dict[type] as List<Event_Callback>;
-        if (list.Find(x => x.cb == fn) != null)
+        if(type==DispatchingType){
+            if(DelList.Contains(fn)){
+                DelList.Remove(fn);
+                return;
+            }
+        }
+        List<Action<object[]>> list = dict[type];
+        if (list.Contains(fn))
         {
-            //           StarEngine.Debuger.LogTrace("````````````````````````````重复加入了侦听    " + type);
+            DebugLog.Log("重复加入了侦听");
             return;
         }
 
-        Event_Callback ecb = new Event_Callback();
-        ecb.cb = fn;
-        dict[type].Add(ecb);
+        // Event_Callback ecb = new Event_Callback();
+        // ecb.cb = fn;
+        dict[type].Add(fn);
     }
 
     //删除一个类型的，一个指定回调
     public static void removeListener(string type,  Action<object[]> fn)
     {
-        if (dict.ContainsKey(type))
+         if (dict.ContainsKey(type))
         {
-            List<Event_Callback> list = dict[type] as List<Event_Callback>;
-            //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
-            list.RemoveAll(x => x.cb == fn);
-            if (list.Count <= 0)
-            {
-                dict.Remove(type);
+            if(DispatchingType==type){
+                DelList.Add(fn);
+                return;
             }
+            List<Action<object[]>> list = dict[type];
+            //StarEngine.Debuger.LogTrace("````````````````````````````删除了侦听:" + type);
+            if(list.Contains(fn)){
+               list.Remove(fn);
+            }
+            // if (list.Count <= 0)
+            // {
+            //     dict.Remove(type);
+            // }
         }
+
     }
     //将一个类型的事件都删除
     public static void removeListenerByType(string type)
@@ -93,16 +108,29 @@ public class EventCenter
         //如果存在这个事件
         if (dict.ContainsKey(type))
         {
-            List<Event_Callback> list = (dict[type] as List<Event_Callback>).ToList();
+             DispatchingType=type;
+             List<Action<object[]>> list = dict[type];
              Action<object[]> fn = null;
             for (int i = 0; i < list.Count; i++)
             {
-                fn = list[i].cb;
+                fn = list[i];
                 if (fn != null)
                 {
                     fn(data);
                 }
             }
+            if(DelList.Count>0){
+                for (int i = 0; i < DelList.Count; i++)
+                {
+                    fn=DelList[i];
+                   if(list.Contains(fn)){
+                        list.Remove(fn);
+                   }
+                }
+                DelList.Clear();
+            }
+            DispatchingType="";
+
         }
         if(sendLua){
            fireForLua(type,data);       

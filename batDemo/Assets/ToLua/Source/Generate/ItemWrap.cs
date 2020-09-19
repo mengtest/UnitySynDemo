@@ -6,19 +6,21 @@ public class ItemWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(Item), typeof(ObjBase));
+		L.BeginClass(typeof(Item), typeof(ActionObj));
 		L.RegFunction("initData", initData);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnPickUp", OnPickUp);
 		L.RegFunction("DropItem", DropItem);
 		L.RegFunction("OnGround", OnGround);
 		L.RegFunction("IsGrounded", IsGrounded);
+		L.RegFunction("getItemType", getItemType);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreateItem);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("itemData", get_itemData, set_itemData);
+		L.RegVar("isWeapon", get_isWeapon, set_isWeapon);
 		L.EndClass();
 	}
 
@@ -145,6 +147,23 @@ public class ItemWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getItemType(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			GameEnum.ItemType o = obj.getItemType();
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int onGet(IntPtr L)
 	{
 		try
@@ -212,6 +231,25 @@ public class ItemWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isWeapon(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Item obj = (Item)o;
+			bool ret = obj.isWeapon;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isWeapon on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_itemData(IntPtr L)
 	{
 		object o = null;
@@ -227,6 +265,25 @@ public class ItemWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index itemData on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_isWeapon(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Item obj = (Item)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.isWeapon = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isWeapon on a nil value");
 		}
 	}
 }

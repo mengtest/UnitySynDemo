@@ -11,6 +11,8 @@ public class Player : Character
     public WeaponSystem weaponSystem;
 
     private List<Item> canPickUpList;
+
+    private float chekTime=0;
     public Player()
     {
         canPickUpList=new List<Item>();
@@ -51,16 +53,12 @@ public class Player : Character
     }
     public override void OnItemTrigger(Item item,bool isEnter=true){
         base.OnItemTrigger(item,isEnter);
-        bool hasEquip=false;
         if(isEnter){
-            if(item.isWeapon){
-                if(weaponSystem.checkCanAutoPickUpWeapon()){
-                    EquipWeapon(item);
-                    hasEquip=true;
+            canPickUpList.Add(item);
+            if(canPickAction()){   
+                if(checkPickUpItem(item)){
+                    this.doActionSkillByLabel(ActionLabel.PickUp);
                 }
-            }
-            if(!hasEquip){
-                canPickUpList.Add(item);
             }
         }else{
             if(canPickUpList.Contains(item)){
@@ -68,8 +66,40 @@ public class Player : Character
             }
         }
     }
+    public bool checkPickUpItem(Item item){
+        if(item.isWeapon){
+                if(weaponSystem.checkCanAutoPickUpWeapon()){
+                    return true;
+                }
+            }
+        //若果是可以自动拾取的道具
+        return false;
+    }
+    public bool canPickAction(){
+         if(this.charData.currentBaseAction==ActionLabel.Dash)return false;
+        if(this.charData.currentBaseAction==ActionLabel.PickUp)return false;
+        return true;
+    }
+    public void checkPickUpNearItem(){
+        if(!canPickAction())return;
+        //每1秒检测一次就够了
+        for (int i = 0; i < canPickUpList.Count; i++)
+        {
+            if(canPickUpList[i].isWeapon&&weaponSystem.checkCanAutoPickUpWeapon()){
+                 this.doActionSkillByLabel(ActionLabel.PickUp);
+            }
+            //若果是可以自动拾取的道具
+        }
+    }
+    protected override void fixUpdate() {
+       base.fixUpdate();
+       chekTime+=Time.fixedDeltaTime;
+       if(chekTime>=1){
+           chekTime=0;
+           this.checkPickUpNearItem();
+       }
+    }
     public void EquipWeapon(Item item){
-     //   this.doActionSkillByLabel()
         if(canPickUpList.Contains(item)){
             canPickUpList.Remove(item);
         }
@@ -86,11 +116,7 @@ public class Player : Character
     }
     public void PickUpNearItem(){
         if(canPickUpList.Count>0){
-            if(canPickUpList[0].isWeapon){
-                this.EquipWeapon(canPickUpList[0]);
-            }else{
-                //装入背包;
-            }
+             this.doActionSkillByLabel(ActionLabel.PickUp);
         }
     }
     protected virtual void onBodyFin(){
