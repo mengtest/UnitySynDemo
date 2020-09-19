@@ -29,11 +29,11 @@ public class Stand : ActionBase
                 string actionLabel=(string)param[0];
                 float lenth =(float)param[1];
                 float speed =(float)param[2];
-                this.obj.GetAniBasePart().Play(actionLabel,0,lenth,speed,0.15f,1,true,true);
+                this.obj.GetAniBasePart().Play(actionLabel,0,lenth,speed,0.35f,1,true,true);
                 this.obj.GetAniBasePart().endAniAction=doStandAction;
              }else{
                 //播放 站立动作.
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,frame,2f,1.5f,0.15f,0,true);
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,frame,2f,1.5f,0.35f,0,true);
              }
         }
     
