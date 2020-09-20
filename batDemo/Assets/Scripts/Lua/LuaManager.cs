@@ -35,18 +35,20 @@ namespace Lua {
         /// 初始化加载第三方库
         /// </summary>
         private void OpenLibs () {
-            lua.OpenLibs (LuaDLL.luaopen_pb);
-            lua.OpenLibs (LuaDLL.luaopen_struct);
-            lua.OpenLibs (LuaDLL.luaopen_lpeg);
-            //===========
-            lua.OpenLibs (LuaDLL.luaopen_pb_io);
-            lua.OpenLibs (LuaDLL.luaopen_pb_conv);
-            lua.OpenLibs (LuaDLL.luaopen_pb_buffer);
-            lua.OpenLibs (LuaDLL.luaopen_pb_slice);
-            lua.OpenLibs (LuaDLL.luaopen_pb);
-            //===========
+            //pb ios 还没修正完 先临时解决。
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
             lua.OpenLibs (LuaDLL.luaopen_bit);
+#else
+           lua.OpenLibs (LuaDLL.luaopen_pb);
+           lua.OpenLibs (LuaDLL.luaopen_struct);
+           lua.OpenLibs (LuaDLL.luaopen_lpeg);
+        //    ===========
+           lua.OpenLibs (LuaDLL.luaopen_pb_io);
+           lua.OpenLibs (LuaDLL.luaopen_pb_conv);
+           lua.OpenLibs (LuaDLL.luaopen_pb_buffer);
+           lua.OpenLibs (LuaDLL.luaopen_pb_slice);
+           lua.OpenLibs (LuaDLL.luaopen_pb);
+            //===========
 #endif
         }
 
