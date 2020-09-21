@@ -9,6 +9,8 @@ public class PickUp : ActionBase
 {
         private bool pickUpEnd=false;
         private float pickTime=0f;
+        private int standFrame=0;
+        private Player player;
         //单次创建.
         public override void init(){
             this.name=GameEnum.ActionLabel.PickUp;
@@ -21,6 +23,7 @@ public class PickUp : ActionBase
         public override void InitAction(ObjBase obj)
         {
             base.InitAction(obj);
+             player= this.obj as Player;
             this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
             this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Up,onJoyUp);
         }
@@ -33,7 +36,8 @@ public class PickUp : ActionBase
         //    this.obj.GetMovePart().StopMove(false,true,true);
             //播放 站立动作.
             this.obj.GetAniBasePart().Play(GameEnum.AniLabel.PickUp,0,0.667f,1,0);
-            (this.obj as Player).EquipNearWeapon();
+            player.EquipNearWeapon();
+            player.GetMovePart().movePoint=4000;
         }
 
          //动作更新;
@@ -43,26 +47,47 @@ public class PickUp : ActionBase
             if(pickTime>=0.297f){
                  pickUpEnd=true;
                  this.cancelPriorityLimit=this.defultPriority;
-                 (this.obj as Player).checkPickUpNearItem();
+                 player.checkPickUpNearItem();
             }
             if(pickTime>=0.667f){
-              this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
+                 this.onPickUpEnd();
+            }
+        }
+        private void onPickUpEnd(){
+            player.GetMovePart().movePoint=10000;
+             Vector3 dirp=player.charData.getChar().dirPos;
+            if(dirp!=Vector3.zero){
+                //还在移动需要继续移动.
+                // if(player.charData.isDashing){
+                //     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
+                // }else{
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
+           //     }
+            }else{
+                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
             }
         }
            //new object[]{worldDir,isSprint,false,this.JoyAngle}
         private  void onJoyMove(object[] data){
             if(!pickUpEnd)return;
             Vector3 dirPos = (Vector3) data[0];
-         //  DebugLog.Log("stand Move>>>",dirPos);
             bool isDash = (bool) data[1];
             bool canStop= (bool) data[2];
             if(canStop){
+                this.standFrame+=1;
+                if(this.standFrame>=4){
+                    //发送站立.
+                    this.onJoyUp();
+                }
                 return;
             }
-            if(isDash){
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirPos});
+            if( player.GetMovePart().IsMove()){
+                player.GetMovePart().SetTargetDir(dirPos);
             }else{
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
+                player.GetMovePart().StartMove(dirPos);
+            }
+            if(this.standFrame>0){
+            this.standFrame=0;
             }
         }
         private  void onJoyUp(object[] data=null){
@@ -73,6 +98,7 @@ public class PickUp : ActionBase
         * 切换动作 处理逻辑;
         */
         public override void executeSwichAction(){
+              player.GetMovePart().movePoint=10000;
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
         }
@@ -80,6 +106,7 @@ public class PickUp : ActionBase
         //动作 需要改成3种分支 base up add
         public override void onGet()
         {
+              this.standFrame=0;
              base.onGet();
         }
         /**
@@ -87,6 +114,7 @@ public class PickUp : ActionBase
         **/
         public override void onRecycle()
         {
+            player=null;
             base.onRecycle();
         }
         /*********
@@ -94,6 +122,7 @@ public class PickUp : ActionBase
         *******/
         public override void onRelease()
         {
+             player=null;
              base.onRelease();
         }
 }

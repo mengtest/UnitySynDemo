@@ -39,7 +39,10 @@
          public const string On_Drop_Weapon="On_Drop_Weapon";
          // pickup 
          public const string On_PickUp_Item="On_PickUp_Item";
-
+         // 开镜 按钮 鼠标 右键
+         public const string On_Aim_Button="On_Aim_Button";
+        // 开火 按钮 鼠标 左键
+         public const string On_Fire_Button="On_Fire_Button";
 
          public const string Char_Move="Char_Move";
          public const string  Char_StopMove="Char_StopMove";

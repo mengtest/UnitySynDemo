@@ -32,10 +32,10 @@ public class CtrlManager  : MonoSingleton<CtrlManager>
             return controller;
     }
     private void Update() {
-         for (int i = 0; i < this._ctrlsOnList.Count; i++)
-         {
-             _ctrlsOnList[i].Update();
-         }
+        //  for (int i = 0; i < this._ctrlsOnList.Count; i++)
+        //  {
+        //      _ctrlsOnList[i].Update();
+        //  }
     }
     public void RecycleAll(){
         this._ctrlPool.recycleAll();

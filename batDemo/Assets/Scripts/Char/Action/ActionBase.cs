@@ -27,6 +27,8 @@ using UnityEngine;
 
         //暂停;
         protected bool _pause=false;
+       //IK控制.
+        public  bool activeIK = false;
         //技能ID
         public int skillActionId=0;
         /*
@@ -80,6 +82,9 @@ using UnityEngine;
 
         public virtual void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
+
+        }
+        public virtual void onAnimatorIK(int layerIndex){
 
         }
         /**

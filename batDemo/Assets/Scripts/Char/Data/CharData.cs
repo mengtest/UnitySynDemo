@@ -14,7 +14,7 @@ public class CharData : MonoBehaviour,IData
     public CtrlType ctrlType=CtrlType.Null;
 
     //状态属性..........................................................................................................................
-    
+
     //是否可以射击;
     public bool isCanShotting=false;
     //开镜中
@@ -55,11 +55,23 @@ public class CharData : MonoBehaviour,IData
     public int currentAddLayerActionType = 0;
     public string currentAddLayerAction =  GameEnum.ActionLabel.Null;
 
-
+    public float AimSpeed=4;
     public float RunSpeed=5;
     public float DashSpeed=7;
 
     //状态属性.............................................................................................................................................
+        
+     //操作状态.........................................................................................
+     public bool Btn_Aim=false;
+     public bool Btn_Fire=false;
+     public bool joyTouch=false;
+     public Vector3 worldDir=Vector3.zero;
+     //摄像机位置.
+     public float cam_angleH;
+     public float cam_angleV;
+
+     //操作状态............................................................................................
+
 
     // Start is called before the first frame update
     void Start()

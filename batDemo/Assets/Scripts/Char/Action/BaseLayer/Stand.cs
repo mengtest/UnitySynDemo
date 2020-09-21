@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Stand : ActionBase
 {
+
         //单次创建.
         public override void init(){
             this.name=GameEnum.ActionLabel.Stand;
@@ -24,8 +25,12 @@ public class Stand : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
+            
              this.obj.GetMovePart().StopMove(false,true,true);
-             if(param!=null){
+             if((this.obj as Character).charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame,2f,1.5f,0.35f,0,true);
+             }
+             else if(param!=null){
                 string actionLabel=(string)param[0];
                 float lenth =(float)param[1];
                 float speed =(float)param[2];
@@ -33,7 +38,7 @@ public class Stand : ActionBase
                 this.obj.GetAniBasePart().endAniAction=doStandAction;
              }else{
                 //播放 站立动作.
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,frame,2f,1.5f,0.35f,0,true);
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame,2f,1.5f,0.35f,0,true);
              }
         }
     
@@ -41,7 +46,7 @@ public class Stand : ActionBase
         private void doStandAction(){
     //       DebugLog.Log("this.obj",this.obj);
             if(this.isRecycled)return;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle_Wait_A,0,2f,1.5f,0.8f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.8f,0,true);
         }
 
          //动作更新;

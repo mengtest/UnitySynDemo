@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameEnum;
 using UnityEngine;
 
 //武器系统  我想弱化远程  武器栏只
@@ -19,6 +20,15 @@ public class WeaponSystem : MonoBehaviour
     private Animator ani;
     // 盘骨 , 脊柱 , 胸部 , 右手 , 左臂
     public Transform hips, spine, chest, rightHand, leftArm;   
+    public float armsRotation = 8f;                                // Rotation of arms to align with aim, according player heigh.
+	public Vector3 initialRootRotation;                                  // Initial root bone local rotation.
+	public Vector3 initialHipsRotation;                                  // Initial hips rotation related to the root bone.
+	public Vector3 initialSpineRotation;                                 // Initial spine rotation related to the root bone.
+    private Vector3 initialChestRotation;                          // Initial chest rotation related to the spine bone.
+	private float distToHand;                                      // Distance from neck to hand.
+	private Vector3 castRelativeOrigin;                            // Position of neck to cast for blocked aim test.
+    private bool isAimBlocked;                                       
+
     public void Init(Player objBase=null)
     {
         this._objBase=objBase;
@@ -34,14 +44,57 @@ public class WeaponSystem : MonoBehaviour
     private void initAni(){
         if(!inited&&this._objBase.initViewFin){
             ani = _objBase.gameObject.GetComponent<Animator>();
+            Transform neck = ani.GetBoneTransform(HumanBodyBones.Neck);
+            if (!neck)
+            {
+                neck = ani.GetBoneTransform(HumanBodyBones.Head).parent;
+            }
             hips =ani.GetBoneTransform(HumanBodyBones.Hips);
             spine = ani.GetBoneTransform(HumanBodyBones.Spine);
             chest = ani.GetBoneTransform(HumanBodyBones.Chest);
             rightHand = ani.GetBoneTransform(HumanBodyBones.RightHand);
             leftArm = ani.GetBoneTransform(HumanBodyBones.LeftUpperArm);
+            initialRootRotation = (hips.parent == _objBase.gameObject.transform) ? Vector3.zero : hips.parent.localEulerAngles;
+            initialHipsRotation = hips.localEulerAngles;
+            initialSpineRotation = spine.localEulerAngles;
+            initialChestRotation = chest.localEulerAngles;
+            castRelativeOrigin = neck.position - _objBase.gameObject.transform.position;
+            distToHand = (rightHand.position - neck.position).magnitude * 1.5f;
             inited = true;
         }
     }
+    // Check if aim is blocked by obstacles. 检查瞄准是否被障碍物阻挡。
+	public bool CheckforBlockedAim()
+	{
+		isAimBlocked = Physics.SphereCast(_objBase.gameObject.transform.position + castRelativeOrigin, 0.1f,CameraManager.Instance.mainCamera.transform.forward, out RaycastHit hit, distToHand - 0.1f);
+		isAimBlocked = isAimBlocked && hit.collider.transform != this.transform;
+		//Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
+		return isAimBlocked;
+	}
+    public void OnAniGunIK(ItemType itemType){
+        //  Orientate upper body where camera  is targeting.
+        Quaternion targetRot = Quaternion.Euler(0, _objBase.gameObject.transform.eulerAngles.y, 0);
+        targetRot *= Quaternion.Euler(initialRootRotation);
+        targetRot *= Quaternion.Euler(initialHipsRotation);
+        targetRot *= Quaternion.Euler(initialSpineRotation);
+        // Set upper body horizontal orientation.
+       ani.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
+
+        // Keep upper body orientation regardless strafe direction.
+        float xCamRot = Quaternion.LookRotation(CameraManager.Instance.mainCamera.transform.forward).eulerAngles.x;
+        targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, _objBase.gameObject.transform.right);
+        // if(itemType==ItemType.Gun){
+        // //     // Correction for long weapons.
+        //     targetRot *= Quaternion.AngleAxis(9f, _objBase.gameObject.transform.right);
+        //      targetRot *= Quaternion.AngleAxis(20f, _objBase.gameObject.transform.up);
+
+        // }
+        targetRot *= spine.rotation;
+        targetRot *= Quaternion.Euler(initialChestRotation);
+        // Set upper body vertical orientation.
+        ani.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
+    }
+
     //切换武器;
     public void UseWeaponSide(int side = 1){
          if(UseActiveSide!=side){
@@ -83,6 +136,17 @@ public class WeaponSystem : MonoBehaviour
                 return weaponMain_2!=null?true:false;
         }
         return false;
+    }
+    public Weapon getActiveWeapon()
+    {
+        if (UseActiveSide==1)
+        {
+           return    weaponMain_1 ;
+        }
+        else
+        {
+           return    weaponMain_2 ;
+        }
     }
     //丢弃当前手持武器
     public void DropWeapon(int side=0){

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Dash : ActionBase
 {
+    private  CharData charData;
     //单次创建.
     public override void init(){
         this.name=GameEnum.ActionLabel.Dash;
@@ -18,6 +19,7 @@ public class Dash : ActionBase
     public override void InitAction(ObjBase obj)
     {
         base.InitAction(obj);
+        charData=this.obj.objData as CharData;
         this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Up,onJoyUp);
     }
@@ -25,14 +27,18 @@ public class Dash : ActionBase
     public override void GotoFrame(int frame=0,object[] param=null){
             this.currentFrame = frame;
             this.obj.GetMovePart().StopMove();
+             if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
+             }
             //播放 站立动作.
             //跑步 改变 动画属性.
          //   DebugLog.Log("Dash.........");
-            CharData charData=this.obj.objData as CharData;
             this.obj.moveSpeed=charData.DashSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame,0.533f,1f,0.15f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame,0.533f,1f,0.25f,0,true);
             this.obj.GetMovePart().StartMove((Vector3)param[0]);
-            CameraManager.Instance.cameraCtrl.SetFOV(80);
+            if(charData.isMyPlayer){
+                 CameraManager.Instance.cameraCtrl.SetFOV(80);
+            }
        //     CameraManager.Instance.postLayer.enabled=true;
     }
 
@@ -76,14 +82,16 @@ public class Dash : ActionBase
     **/
     public override void onRecycle()
     {
+        charData=null;
         base.onRecycle();
     }
     /*********
     销毁
     *******/
     public override void onRelease()
-    {
-            base.onRelease();
+    {        
+        charData=null;
+        base.onRelease();
     }
 }
 

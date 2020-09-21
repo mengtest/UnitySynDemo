@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Run : ActionBase
 {
+    private CharData charData;
      private int standFrame=0;
     //单次创建.
     public override void init(){
@@ -19,6 +20,7 @@ public class Run : ActionBase
     public override void InitAction(ObjBase obj)
     {
         base.InitAction(obj);
+        charData=this.obj.objData as CharData;
         this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Up,onJoyUp);
     }
@@ -29,10 +31,14 @@ public class Run : ActionBase
             //播放 站立动作.
             //跑步 改变 动画属性.
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
-            CharData charData=this.obj.objData as CharData;
-            this.obj.moveSpeed=charData.RunSpeed;
             //*this.speed;  //0.75f
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.15f,0,true);
+            if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+                this.obj.moveSpeed=charData.AimSpeed;
+              this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,frame,0.99f/this.speed,1f * this.speed,0.25f,0,true);
+            }else{
+               this.obj.moveSpeed=charData.RunSpeed;
+               this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+            }
             Vector3 dir=(Vector3)param[0];
         //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
             this.obj.GetMovePart().StartMove(dir);
@@ -41,6 +47,17 @@ public class Run : ActionBase
         //动作更新;
     public override void Update(){
         base.Update();
+          if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+              if(this.obj.moveSpeed!=charData.AimSpeed){
+                this.obj.moveSpeed=charData.AimSpeed;
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,0,0.99f/this.speed,1f * this.speed,0.25f,0,true);
+              }
+        }else {
+            if(this.obj.moveSpeed!=charData.RunSpeed){
+                this.obj.moveSpeed=charData.RunSpeed;
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,0,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+            }
+        }
     }
     /**
     * 切换动作 处理逻辑;

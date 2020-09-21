@@ -7,17 +7,19 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
     public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
-	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.0f);       // Offset to relocate the camera related to the player position.
+	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.2f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
+
+    public float smoothVerAngle=10f;
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
 	//垂直 6f
     public float verticalAimingSpeed = 6f;                             // Vertical turn speed.
-	public float maxVerticalAngle = 30f;                               // Camera max clamp angle. 
+	public float maxVerticalAngle = 60f;                               // Camera max clamp angle. 
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
 	public string YAxis = "Analog Y";                                  // The default vertical axis input name.
-
+     //横向
 	private float angleH = 0;                                          // Float to store camera horizontal angle related to mouse movement.
 	private float angleV = 0;                                          // Float to store camera vertical angle related to mouse movement.
 	private Transform cam;                                             // This transform.
@@ -25,8 +27,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float relCameraPosMag;                                     // Current camera distance to the player.
 	public Vector3 smoothPivotOffset;                                 // Camera current pivot offset on interpolation.
 	public Vector3 smoothCamOffset;                                   // Camera current offset on interpolation.
-	private Vector3 targetPivotOffset;                                 // Camera pivot offset target to iterpolate.
-	private Vector3 targetCamOffset;                                   // Camera offset target to interpolate.
+	public Vector3 targetPivotOffset;                                 // Camera pivot offset target to iterpolate.
+	public Vector3 targetCamOffset;                                   // Camera offset target to interpolate.
 	private float defaultFOV;                                          // Default camera Field of View.
 	private float targetFOV;                                           // Target camera Field of View.
 	private float targetMaxVerticalAngle;                              // Custom camera max vertical clamp angle.
@@ -49,6 +51,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public float GetH()
      {
         return angleH;
+     }
+    public float GetV()
+     {
+        return angleV;
      }
     private Camera _camera;
 
@@ -131,7 +137,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		angleV = Mathf.Clamp(angleV, minVerticalAngle, targetMaxVerticalAngle);
 
 		// Set vertical camera bounce.
-		angleV = Mathf.LerpAngle(angleV, angleV + recoilAngle, 10f*Time.deltaTime);
+		angleV = Mathf.LerpAngle(angleV, angleV + recoilAngle, smoothVerAngle*Time.deltaTime);
 
 		// Handle camera orientation lock.
 		if (firstDirection != Vector3.zero)

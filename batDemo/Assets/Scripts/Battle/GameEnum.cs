@@ -109,6 +109,8 @@ namespace GameEnum
         public const string Dead = "Dead";  
         public const string PickUp = "PickUp"; 
 
+        public const string Aiming = "Aiming"; 
+        public const string UpIdle="UpIdle";
 
         public const string ItemDrop = "ItemDrop";  
         public const string ItemDefault = "ItemDefault"; 
@@ -121,10 +123,12 @@ namespace GameEnum
     }
     public class AniLabel{
          //Ani Name.
+        public const string Idle="Idle";
         public const string Idle_Wait_A="Idle_Wait_A";
         public const string Idle_Wait_B="Idle_Wait_B";
 
-        public const string run_fwd = "run_fwd";      
+        public const string run_fwd = "run_fwd";  
+          public const string walk_fwd    = "walk_fwd";  
         public const string Mvm_Jog = "Mvm_Jog";      
         
         public const string Mvm_Dash = "Mvm_Dash";   
@@ -137,7 +141,18 @@ namespace GameEnum
         public const string Jmp_Base_A_OnGround="Jmp_Base_A_OnGround";
         public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
 
-         public const string PickUp = "PickUp"; 
+        public const string PickUp = "PickUp"; 
+
+        public const string UpIdle="UpIdle";
+
+        public const string pistol_aim="pistol_aim";
+        public const string pistol_reload="pistol_reload";
+        public const string pistol_shot="pistol_shot";
+
+
+        public const string rifle_aim="rifle_aim";
+        public const string rifle_reload="rifle_reload";
+        public const string rifle_shot="rifle_shot";
     }
     //动作层级 
     public class  ActionLayer

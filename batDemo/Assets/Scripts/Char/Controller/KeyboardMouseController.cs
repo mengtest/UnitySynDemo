@@ -28,11 +28,14 @@ public class KeyboardMouseController : Controller
     public string aimButton = "Aim"; 
     public string shootButton = "Fire1";                                
     private bool jumpEvt=false;
-
     public bool stopMouse=false;
+
     public KeyboardMouseController()
     {
        
+    }
+    public override void OnActionChange(){
+         this.lastDirPos=Vector3.zero;
     }
      //FixedUpdate
     public override void Update()
@@ -96,8 +99,10 @@ public class KeyboardMouseController : Controller
     //     }
         if(this.onJoyTouch){
             if(this.KeyDir==Vector2.zero){
+                 this._char.charData.joyTouch=false;
                 this.OnJoyUp();
             }else{
+                this._char.charData.joyTouch=true;
                 this.OnJoyMove(this.KeyDir);
             }  
         }else{
@@ -136,21 +141,25 @@ public class KeyboardMouseController : Controller
            this.SendMessage(CharEvent.On_Drop_Weapon,new object[]{0});
         }
         if(Input.GetKeyDown(KeyCode.E)){
-         //丢武器;
+         //捡武器;
            this.SendMessage(CharEvent.On_PickUp_Item);
         }
-        // if ((Input.GetAxisRaw(aimButton) != 0||Input.GetAxisRaw(shootButton) != 0) && !aim)
-		// {
-		// 	StartCoroutine(ToggleAimOn());
-		// }
-		// else if (aim && Input.GetAxisRaw(aimButton) == 0 && Input.GetAxisRaw(shootButton) == 0)
-		// {
-		// 	StartCoroutine(ToggleAimOff());
-		// }
-        // if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
-        //      //奔跑中
-        //      initCharDir();
-        // }
+        if (!this._char.charData.Btn_Aim && Input.GetAxisRaw(aimButton) != 0)
+		{
+            this.SendMessage(CharEvent.On_Aim_Button,new object[]{true});
+		}
+		else if (this._char.charData.Btn_Aim &&Input.GetAxisRaw(aimButton) == 0)
+		{
+			this.SendMessage(CharEvent.On_Aim_Button,new object[]{false});
+		}
+         if (!this._char.charData.Btn_Fire &&Input.GetAxisRaw(shootButton) != 0)
+		{
+		  this.SendMessage(CharEvent.On_Fire_Button,new object[]{true});
+		}
+		else if (this._char.charData.Btn_Fire&&Input.GetAxisRaw(shootButton) == 0)
+		{
+			this.SendMessage(CharEvent.On_Fire_Button,new object[]{false});
+		}
         
     }
     private void  OnJoyMove(Vector2 dir){
@@ -166,7 +175,7 @@ public class KeyboardMouseController : Controller
            this.lastDirPos=worldDir;
            this.dashCg=false;
             this.SendMessage(CharEvent.OnJoy_Move,new object[]{worldDir,this.isDashing,false,0 });
-       DebugLog.Log("move ");
+     //  DebugLog.Log("move ");
         }
       //dir,self.isSprinting,canStop,angle
     }
@@ -185,6 +194,7 @@ public class KeyboardMouseController : Controller
            this.isDashing= (bool) data[0];
         }
         if( _char.charData.isDashing!=this.isDashing){
+            //改变角色属性.
           _char.charData.isDashing=this.isDashing;
         }
         this.dashCg=false;

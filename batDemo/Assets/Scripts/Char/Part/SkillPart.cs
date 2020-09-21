@@ -45,6 +45,17 @@ using UnityEngine;
             //其他后续补...
 
         }
+        public void onAnimatorIK(int layerIndex){
+             if (this.currentBaseAction != null&&this.currentBaseAction.activeIK) {
+                this.currentBaseAction.onAnimatorIK(layerIndex);
+            }
+            if (this.currentUpAction != null&&this.currentUpAction.activeIK) {
+                this.currentUpAction.onAnimatorIK(layerIndex);
+            }
+            if (this.currentAddAction != null&&this.currentAddAction.activeIK) {
+                this.currentAddAction.onAnimatorIK(layerIndex);
+            }
+        }
        /**
         * 
         * @param actionLabel 动作名称;

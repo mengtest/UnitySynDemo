@@ -38,6 +38,9 @@ public class JoyController : Controller
              this.SendMessage(CharEvent.OnJoy_Move,new object[]{worldDir,isDashing,false,this.JoyAngle});
         }
     }
+    public override void OnActionChange(){
+         this.lastDirPos=Vector3.zero;
+    }
     public override void Update()
     {
         if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
@@ -60,12 +63,14 @@ public class JoyController : Controller
         Vector3 worldDir = forward *  this.lastDirPos.y + right *  this.lastDirPos.x;
         //重新赋值.
         data[0]=worldDir;
-      //  DebugLog.Log("worldDir ",worldDir);
+         this._char.charData.joyTouch=true;
+     //   DebugLog.Log("worldDir ",worldDir);
         this.SendMessage(CharEvent.OnJoy_Move,data);
     }
     private void  OnJoyUp(object[] data=null){
        //停止移动.
         this.onJoyTouch=false;
+         this._char.charData.joyTouch=false;
         if(!isDashing){
             this.SendMessage(CharEvent.OnJoy_Up);
         }

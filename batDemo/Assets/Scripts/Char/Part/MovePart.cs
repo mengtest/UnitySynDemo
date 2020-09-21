@@ -28,7 +28,7 @@ public class MovePart
     //是否使用重力
     public bool useGravityPower=false;
     //重力
-    public float GravityPower=-0.5f;
+    public float GravityPower=-0.75f;
     //重力 贴地位移
     private Vector3 _GravityMove =new Vector3(0,-0.1f,0);
 
@@ -203,13 +203,14 @@ public class MovePart
     /**
      * 向某个方向一直移动;
      */
-    public void StartMove(Vector3 dir) {
+    public void StartMove(Vector3 dir,bool useMovePoint=true) {
         this.hasTarget = false;
         this._targetDirection=dir;
         this._targetDirection.Normalize();
         this.targetPos.Set(0,0,0);
         this.target = null;
         this.moveStartTime = 0;
+        this.useMovePoint=useMovePoint;
         this.extraMoveStartTime = 0;
         this.extraMaxSpeed = this.extraSpeed;
         this.InitSpeed();
@@ -228,7 +229,7 @@ public class MovePart
     /**
      * 移动到某个点上;
      */
-    public void StartMoveTo(Vector3 targetPos) {
+    public void StartMoveTo(Vector3 targetPos,bool useMovePoint=true) {
         this.hasTarget = true;
         this._targetDirection=targetPos-this.obj.gameObject.transform.position;
         this._targetDirection.Normalize();
@@ -238,6 +239,7 @@ public class MovePart
         }
         this.target = null;
         this.moveStartTime = 0;
+         this.useMovePoint=useMovePoint;
         this.extraMoveStartTime = 0;
         this.extraMaxSpeed = this.extraSpeed;
         this.InitSpeed();
@@ -292,8 +294,10 @@ public class MovePart
     //设置移动趋向 改变旋转 
     public void SetTargetRotation(float rotationY) {
         //角度 转方法.
-      //  MyMath.RotateToVec2(rotation, this._targetDirection);
-        this._targetDirection.Normalize();
+       Quaternion rot = Quaternion.Euler(0, rotationY, 0);
+        Matrix4x4 mat = new Matrix4x4();
+        mat.SetTRS(Vector3.zero, rot, Vector3.one);
+        this._targetDirection = mat.GetColumn(2);
     }
     //设置移动趋向
     public void  SetTargetDir(Vector3 targetDir) {

@@ -37,6 +37,7 @@ public class Player : Character
      public override void initData(){
          base.initData();
          this.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,false);
+         this.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
      }
     //eg: initAvatar("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
     public void initAvatar(string aniUrl, string[] modelpaths){

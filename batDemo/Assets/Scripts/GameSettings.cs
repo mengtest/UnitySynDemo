@@ -59,7 +59,6 @@ public class GameSettings : ScriptableObject
 
     //是否 加载远程资源.
     public bool isLoadRemoteAsset = true;
-
      //游戏更新配置 服务器列表Url mainfest md5 Remotofest md5  ver  
     public string gameConfigUrl = "http://192.168.0.3:8080/gameconfig.xml";
 

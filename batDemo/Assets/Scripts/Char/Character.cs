@@ -19,6 +19,8 @@ public class Character : ObjBase
  // Collider extents for ground test. 
     protected Vector3 colExtents=Vector3.zero; 
     protected CharacterController characterController=null;
+
+    protected AnimatorIK AnimatorIKMono=null;
     protected Rigidbody rigidbody=null;
 
     public   Vector3 dirPos{  get ; private set ; }
@@ -105,11 +107,28 @@ public class Character : ObjBase
            }       
         }
     }
+    public void onActionCG(){
+        if(ctrl!=null){
+            ctrl.OnActionChange();
+        }
+    }
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();
         this.colExtents=this.characterController.bounds.extents;
+        this.AnimatorIKMono=this.node.GetComponent<AnimatorIK>();
+        if(this.AnimatorIKMono==null){
+            this.AnimatorIKMono=this.node.AddComponent<AnimatorIK>();
+        }
+          this.AnimatorIKMono.init(this,onAnimatorIK);
+
+
      //   DebugLog.Log(this.colExtents);
       //移动专用方法.
+    }
+    protected virtual void onAnimatorIK(int layerIndex){
+        if(skillPart!=null){
+            this.skillPart.onAnimatorIK(layerIndex);
+        }
     }
     public override void OnMove(Vector3 dic){
         if(this.characterController!=null){
@@ -165,6 +184,9 @@ public class Character : ObjBase
 
     //用的是 charData mono fixUpdate ;
     protected override void fixUpdate() {
+        if(this.ctrl!=null){
+            this.ctrl.Update();
+        }
         if(this.skillPart!=null){
             this.skillPart.Update();
         }
@@ -289,6 +311,7 @@ public class Character : ObjBase
     public override void onRelease(){
         this.charData=null;
         this.characterController=null;
+          this.AnimatorIKMono=null;
          if(ctrl!=null){
              ctrl.recycleSelf();
              ctrl=null;

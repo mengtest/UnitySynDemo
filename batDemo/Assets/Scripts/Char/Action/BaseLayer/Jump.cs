@@ -7,10 +7,11 @@ using UnityEngine;
 
 public class Jump : ActionBase
 {
-    private Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.4f, -0.4f,-2.8f); //-2.8f   -6.8f
+    private Vector3 pivotOffset = new Vector3(0.0f, 0.5f,  0.0f);
+    private  Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.8f);    //-2.8f   -6.8f
     private int standFrame=0;
     private MovePart movePart;
+    private CharData charData;
     //单次创建.
     public override void init(){
         this.name=GameEnum.ActionLabel.Jump;
@@ -22,6 +23,7 @@ public class Jump : ActionBase
     public override void InitAction(ObjBase obj)
     {
         base.InitAction(obj);
+        charData=this.obj.objData as CharData;
         //添加监听.
         this.obj.GetEvent().addEventListener(CharEvent.Jump_Fall,onJumpFall);
         this.obj.GetEvent().addEventListener(CharEvent.Jump_To_Ground,onJumpToGround);
@@ -52,40 +54,57 @@ public class Jump : ActionBase
             }
     }
     private void onBeginJump(int frame=0){
-        CharData charData=this.obj.objData as CharData;
-        CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
-          CameraManager.Instance.cameraCtrl.smooth=4;
+         if(charData.isMyPlayer){
+            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
+                CameraManager.Instance.cameraCtrl.smooth=5;
+            }
+        }
         if(charData.isDashing){
-             CameraManager.Instance.cameraCtrl.SetFOV(80);
+             if(charData.isMyPlayer){
+                if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                    CameraManager.Instance.cameraCtrl.SetFOV(80);
+                 }
+             }
        //     CameraManager.Instance.postLayer.enabled=true;
             this.obj.moveSpeed=charData.DashSpeed;
-            this.movePart.speed=charData.DashSpeed;
+            this.movePart.speed=charData.DashSpeed; 
         }else{
-            CameraManager.Instance.cameraCtrl.ResetFOV();
+            if(charData.isMyPlayer){
+               if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                    CameraManager.Instance.cameraCtrl.ResetFOV();
+               }
+            }
     ///       CameraManager.Instance.postLayer.enabled=false;
             this.obj.moveSpeed=charData.RunSpeed;
             this.movePart.speed=charData.RunSpeed;
         }
         this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
-        this.movePart.upPow = 9 * this.speed;
+        this.movePart.upPow = 8f * this.speed;
         this.movePart.ZeroUpStop=false;
         this.movePart.useWeightPower = false;
         this.movePart.Jump();
     }
     private void onJumpFall(object[] param=null) {
         //  DebugLog.Log("action >> onJumpFall.........");
+        if(charData.isMyPlayer){
+             if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(new Vector3(0.0f, 1f,  0.0f),camOffset);
+            }
+        }
          this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f/this.speed, 1.3f*this.speed,0.25f,1,true,true);
     }
     private void onJumpToGround(object[] param=null) {
         //  DebugLog.Log("action >> onJumpToGround.........");
-        Character character=this.obj as Character;
-        if(character.dirPos!=Vector3.zero){
+        //Character character=this.obj as Character;
+        Vector3 dirp=charData.getChar().dirPos;
+        if(dirp!=Vector3.zero){
             //还在移动需要继续移动.
-            if(character.charData.isDashing){
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{character.dirPos});
+            if(charData.isDashing){
+                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
             }else{
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{character.dirPos});
+                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
             }
         }else{
            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f/this.speed, 0.7f*this.speed});
@@ -132,9 +151,14 @@ public class Jump : ActionBase
         this.obj.GetEvent().removeEventListener(CharEvent.Jump_To_Ground,onJumpToGround);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-        CameraManager.Instance.cameraCtrl.ResetFOV();
-        CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
-        CameraManager.Instance.cameraCtrl.smooth=10;
+         if(charData.isMyPlayer){
+            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                CameraManager.Instance.cameraCtrl.ResetFOV();
+                CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+                CameraManager.Instance.cameraCtrl.smooth=10;
+            }
+        //     CameraManager.Instance.cameraCtrl.smoothVerAngle=10;
+        }
    //    CameraManager.Instance.postLayer.enabled=false;
 
     }
@@ -151,6 +175,7 @@ public class Jump : ActionBase
     public override void onRecycle()
     {
         this.movePart=null;
+        this.charData=null;
         base.onRecycle();
     }
     /*********
@@ -159,6 +184,7 @@ public class Jump : ActionBase
     public override void onRelease()
     {
         this.movePart=null;
+        this.charData=null;
         base.onRelease();
     }
 }

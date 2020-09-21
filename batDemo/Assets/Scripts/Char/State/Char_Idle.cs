@@ -39,6 +39,8 @@ public class Char_Idle : State<Character>
         _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
         _char.GetEvent().addEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
+        _char.GetEvent().addEventListener(CharEvent.On_Aim_Button,OnAimButton);
+        _char.GetEvent().addEventListener(CharEvent.On_Fire_Button,OnFireButton);
     }
 
     // 退出状态
@@ -47,7 +49,9 @@ public class Char_Idle : State<Character>
         _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
         _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
-         _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
+        _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
+        _char.GetEvent().removeEventListener(CharEvent.On_Aim_Button,OnAimButton);
+        _char.GetEvent().removeEventListener(CharEvent.On_Fire_Button,OnFireButton);
         _char = null;
     }
 
@@ -151,8 +155,22 @@ public class Char_Idle : State<Character>
     //         this.standFrame=0;
     //     }
     // }
-     private void OnPickUpItem(object[] data){
+    private void OnPickUpItem(object[] data){
        (this._char as Player).PickUpNearItem();
+    }
+    private void OnAimButton(object[] data){
+       bool bol =(bool)data[0];
+       Player player=this._char as Player;
+       player.charData.Btn_Aim=bol;
+       if(bol){
+            if(player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                    player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
+            }
+       }
+    }
+    private void OnFireButton(object[] data){
+         bool bol =(bool)data[0];
+       this._char.charData.Btn_Fire=bol;
     }
     private void OnDropWeapon(object[] data){
         int select =(int)data[0];
