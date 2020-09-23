@@ -163,12 +163,13 @@ namespace GameEnum
         public const string pistol_aim="pistol_aim";
         public const string pistol_reload="pistol_reload";
         public const string pistol_shot="pistol_shot";
-
+        public const string pistol_guard="pistol_guard";
 
         public const string rifle_aim="rifle_aim";
         public const string rifle_reload="rifle_reload";
         public const string rifle_shot="rifle_shot";
 
+        public const string rifle_idle="rifle_idle";
 
     }
     //动作层级 

@@ -9,6 +9,7 @@ public class ChangeWeapon : ActionBase
 {
        private float startTime=0f;
        private Player player;
+        private Weapon_Gun weapon_gun;   
         //单次创建.
         public override void init(){
             this.name=GameEnum.ActionLabel.ChangeWeapon;
@@ -25,16 +26,18 @@ public class ChangeWeapon : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
-             player.GetAniUpPart().Play(GameEnum.AniLabel.ChangeWeapon,0,0.5f,1f,0.2f,1);
-             
+     
+            player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_shot,0,0.5f,1,0.15f,0);
+          //  player.GetAniUpPart().endAniAction=toAction;
+
         }
          //动作更新;
         public override void Update(){
             base.Update();
             startTime+=Time.fixedDeltaTime;
             if(startTime>=0.5f){
+                this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                 if(player.charData.Btn_Aim){
-                    this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                     player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
                 }else{
                      player.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
@@ -43,12 +46,14 @@ public class ChangeWeapon : ActionBase
         }
            //new object[]{worldDir,isSprint,false,this.JoyAngle}
   
+        private void toAction(){
 
+        }
         /**
         * 切换动作 处理逻辑;
         */
         public override void executeSwichAction(){
-            
+       //      player.GetAniUpPart().endAniAction=null;
         }
 
         //动作 需要改成3种分支 base up add
@@ -63,6 +68,7 @@ public class ChangeWeapon : ActionBase
         public override void onRecycle()
         {
             player=null;
+            weapon_gun=null;
             base.onRecycle();
         }
         /*********
@@ -71,6 +77,7 @@ public class ChangeWeapon : ActionBase
         public override void onRelease()
         {
              player=null;
+              weapon_gun=null;
              base.onRelease();
         }
 }
