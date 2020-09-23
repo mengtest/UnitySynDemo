@@ -55,23 +55,23 @@ public class Jump : ActionBase
     }
     private void onBeginJump(int frame=0){
          if(charData.isMyPlayer){
-            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+            if(charData.aimState==GameEnum.AimState.Null){
                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
                 CameraManager.Instance.cameraCtrl.smooth=5;
             }
         }
         if(charData.isDashing){
              if(charData.isMyPlayer){
-                if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                if(charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetFOV(80);
-                 }
+                }
              }
        //     CameraManager.Instance.postLayer.enabled=true;
             this.obj.moveSpeed=charData.DashSpeed;
             this.movePart.speed=charData.DashSpeed; 
         }else{
             if(charData.isMyPlayer){
-               if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                if(charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.ResetFOV();
                }
             }
@@ -79,7 +79,12 @@ public class Jump : ActionBase
             this.obj.moveSpeed=charData.RunSpeed;
             this.movePart.speed=charData.RunSpeed;
         }
-        this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
+        if(charData.aimState!=GameEnum.AimState.Null){
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0.333f/this.speed,0.333f/this.speed,1.3f*this.speed,0,1,true,true);
+        }else{
+           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*Time.fixedDeltaTime,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
+        }
+
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
         this.movePart.upPow = 8f * this.speed;
         this.movePart.ZeroUpStop=false;
@@ -89,7 +94,7 @@ public class Jump : ActionBase
     private void onJumpFall(object[] param=null) {
         //  DebugLog.Log("action >> onJumpFall.........");
         if(charData.isMyPlayer){
-             if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+            if(charData.aimState==GameEnum.AimState.Null){
                  CameraManager.Instance.cameraCtrl.SetTargetOffsets(new Vector3(0.0f, 1f,  0.0f),camOffset);
             }
         }
@@ -100,11 +105,15 @@ public class Jump : ActionBase
         //Character character=this.obj as Character;
         Vector3 dirp=charData.getChar().dirPos;
         if(dirp!=Vector3.zero){
-            //还在移动需要继续移动.
-            if(charData.isDashing){
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
+            if(charData.aimState!=GameEnum.AimState.Null){
+                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Walk,0,true,new object[]{dirp});
             }else{
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
+                //还在移动需要继续移动.
+                if(charData.isDashing){
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
+                }else{
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
+                }
             }
         }else{
            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f/this.speed, 0.7f*this.speed});

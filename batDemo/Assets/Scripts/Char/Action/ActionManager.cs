@@ -81,12 +81,16 @@ public class ActionManager
     {
         registerClass(GameEnum.ActionLabel.Stand, typeof(Stand),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Run, typeof(Run),0,GameEnum.CancelPriority.Stand_Move_Null);
+        registerClass(GameEnum.ActionLabel.Walk, typeof(Walk),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Dash, typeof(Dash),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Jump, typeof(Jump),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.PickUp, typeof(PickUp),0,GameEnum.CancelPriority.Stand_Move_Null);
 
         registerClass(GameEnum.ActionLabel.UpIdle, typeof(UpIdle),1,GameEnum.CancelPriority.Stand_Move_Null);
-        registerClass(GameEnum.ActionLabel.Aiming, typeof(Aiming),1,GameEnum.CancelPriority.BaseAction);
+        registerClass(GameEnum.ActionLabel.ChangeWeapon, typeof(ChangeWeapon),1,GameEnum.CancelPriority.BaseAction);
+        registerClass(GameEnum.ActionLabel.Aiming, typeof(Aiming),1,GameEnum.CancelPriority.NormalAction);
+       // registerClass(GameEnum.ActionLabel.Shooting, typeof(Shooting),1,GameEnum.CancelPriority.NormalAction);
+
 
         
         registerClass(GameEnum.ActionLabel.ItemDefault, typeof(ItemDefault),0,GameEnum.CancelPriority.Stand_Move_Null);

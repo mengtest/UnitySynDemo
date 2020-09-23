@@ -5,12 +5,13 @@
 //动作
 using UnityEngine;
 
-public class Dash : ActionBase
+public class Walk : ActionBase
 {
-    private  CharData charData;
+    private CharData charData;
+     private int standFrame=0;
     //单次创建.
     public override void init(){
-        this.name=GameEnum.ActionLabel.Dash;
+        this.name=GameEnum.ActionLabel.Walk;
         this.actionLayer=GameEnum.ActionLayer.BaseLayer;
         this.defultPriority=GameEnum.CancelPriority.Stand_Move_Null;
     }
@@ -27,14 +28,12 @@ public class Dash : ActionBase
     public override void GotoFrame(int frame=0,object[] param=null){
             this.currentFrame = frame;
             this.obj.GetMovePart().StopMove();
-             if(charData.aimState!=GameEnum.AimState.Null){
-                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
-             }
             //播放 站立动作.
             //跑步 改变 动画属性.
-         //   DebugLog.Log("Dash.........");
-            this.obj.moveSpeed=charData.DashSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame*Time.fixedDeltaTime,0.533f,1f,0.25f,0,true);
+           // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
+            //*this.speed;  //0.75f
+            this.obj.moveSpeed=charData.WalkSpeed;
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,frame*Time.fixedDeltaTime,0.99f/this.speed,1f * this.speed,0.25f,0,true);
             if(param!=null){
                 Vector3 dir=(Vector3)param[0];
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
@@ -42,62 +41,76 @@ public class Dash : ActionBase
            }else{
                 this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
            }
-       //     this.obj.GetMovePart().StartMove((Vector3)param[0]);
-            if(charData.isMyPlayer){
-                 CameraManager.Instance.cameraCtrl.SetFOV(80);
-            }
-       //     CameraManager.Instance.postLayer.enabled=true;
     }
 
         //动作更新;
     public override void Update(){
         base.Update();
-    }
-    private  void onJoyMove(object[] data){
-        Vector3 dirPos = (Vector3) data[0];
-        bool isDash = (bool) data[1];
-        if(isDash){
-            this.obj.GetMovePart().SetTargetDir(dirPos);
+        if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+            doRun();
         }else{
-            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
+            if(charData.aimState==GameEnum.AimState.Null){
+                doRun();
+            }
         }
     }
-    // 回到站立动作.
-    private  void onJoyUp(object[] data=null){
-        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1f});
+    private void doRun(){
+        if(charData.isDashing){
+            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash);
+        }else{
+            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run);
+        }
     }
-    
-
-
     /**
     * 切换动作 处理逻辑;
     */
     public override void executeSwichAction(){
-         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
-         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-         CameraManager.Instance.cameraCtrl.ResetFOV();
-    //     CameraManager.Instance.postLayer.enabled=false;
+        this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
+        this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
     }
 
-    //动作 需要改成3种分支 base up add
+    private  void onJoyMove(object[] data){
+        Vector3 dirPos = (Vector3) data[0];
+        bool isDash = (bool) data[1];
+        bool canStop= (bool) data[2];
+        if(canStop){
+            this.standFrame+=1;
+            if(this.standFrame>=4){
+                //发送站立.
+                this.onJoyUp();
+            }
+            return;
+        }
+        this.obj.GetMovePart().SetTargetDir(dirPos);
+        
+        if(this.standFrame>0){
+           this.standFrame=0;
+        }
+      //  DebugLog.Log("onmove");
+    }
+    private  void onJoyUp(object[] data=null){
+        this.standFrame=0;
+        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
+    }
+
+
     public override void onGet()
     {
-            base.onGet();
+       base.onGet();
     }
     /**
     回收..
     **/
     public override void onRecycle()
     {
-        charData=null;
+        standFrame=0;
         base.onRecycle();
     }
     /*********
     销毁
     *******/
     public override void onRelease()
-    {        
-        charData=null;
+    {
         base.onRelease();
     }
 }

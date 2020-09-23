@@ -17,8 +17,8 @@ public class CharData : MonoBehaviour,IData
 
     //是否可以射击;
     public bool isCanShotting=false;
-    //开镜中
-    public bool isAimming=false;
+    //开镜状态.
+    public AimState aimState=AimState.Null;
     //冲刺
     public bool isDashing=false;
     public bool isLie = false;
@@ -46,7 +46,7 @@ public class CharData : MonoBehaviour,IData
     public string currentBaseAction = GameEnum.ActionLabel.Stand;
 
 
-    //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
+    //动作数据; 技能类型; 1 攻击 2技能 0其他.. 3 roll 滚  >0 带IK
     public int currentUpLayerActionType = 0;
     public string currentUpLayerAction = GameEnum.ActionLabel.Null;
 
@@ -55,7 +55,7 @@ public class CharData : MonoBehaviour,IData
     public int currentAddLayerActionType = 0;
     public string currentAddLayerAction =  GameEnum.ActionLabel.Null;
 
-    public float AimSpeed=4;
+    public float WalkSpeed=3.5f;
     public float RunSpeed=5;
     public float DashSpeed=7;
 

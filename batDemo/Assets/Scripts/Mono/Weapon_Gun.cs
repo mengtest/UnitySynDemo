@@ -72,7 +72,16 @@ public class Weapon_Gun : MonoBehaviour,IItemData
      [Tooltip("背饰偏移")]
     public Vector3  backChestPosition=new Vector3(-0.041f,-0.205f,-0.055f); 
      [Tooltip("背饰旋转")]
-     public Vector3  backChestRotation=new Vector3(356.53f,317.77f,86.14f);                             
+     public Vector3  backChestRotation=new Vector3(356.53f,317.77f,86.14f);          
+    
+     public bool ArmTesting=false;
+
+    [Tooltip("肩射摄像机偏移")]
+     public  Vector3 aimPivotOffset = new Vector3(0.5f, 1.13f,  0f); 
+     [Tooltip("肩射摄像机相对位置")]
+	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.54f, -0.71f); 
+     public  float armsRotationY   = 3f; 
+    public  float armsRotationX   = 3f; 
 
      [Tooltip("后坐力")]
     public float recoilAngle=3; 
@@ -113,7 +122,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     }
     public void init(Item items){
        item=items as Weapon;
-       DebugLog.Log("item>>>>>>>>>>",item);
+  //     DebugLog.Log("item>>>>>>>>>>",item);
     }
      //U3D加载数据.
      public void U3d_LoadData(string wpUrl){
@@ -212,6 +221,10 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.relativeRotation=source.relativeRotation;
         tar.backChestPosition=source.backChestPosition;
         tar.backChestRotation=source.backChestRotation;      
+        tar.aimPivotOffset=source.aimPivotOffset;
+        tar.aimCamOffset=source.aimCamOffset;
+        tar.armsRotationY=source.armsRotationY;
+        tar.armsRotationX=source.armsRotationX;
         tar.recoilAngle=source.recoilAngle;
         tar.recoilList= new List<Vector2>(source.recoilList.ToArray());
         tar.Yaw_params=source.Yaw_params;
@@ -221,8 +234,9 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.SphereColRadius=source.SphereColRadius;
         tar.BoxCenter=source.BoxCenter;
         tar.BoxSize=source.BoxSize;
-
-        OnGround();
+        if(this.gameObject.transform.parent==null){
+           OnGround();
+        }
     }
     public void SaveData(){
 #if UNITY_EDITOR   
@@ -248,6 +262,10 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.relativeRotation=source.relativeRotation;
         tar.backChestPosition=source.backChestPosition;
         tar.backChestRotation=source.backChestRotation;  
+        tar.aimPivotOffset=source.aimPivotOffset;
+        tar.aimCamOffset=source.aimCamOffset;
+        tar.armsRotationY=source.armsRotationY;
+        tar.armsRotationX=source.armsRotationX;
         tar.recoilAngle=source.recoilAngle;
         tar.recoilList= new List<Vector2>(source.recoilList.ToArray());
         tar.Yaw_params=source.Yaw_params;

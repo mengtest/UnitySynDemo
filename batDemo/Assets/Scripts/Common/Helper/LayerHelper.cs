@@ -38,7 +38,11 @@ public enum ELayer
     /// <summary>
     /// 毒圈
     /// </summary>
-    PoisonCircle = 18
+    PoisonCircle = 18,
+    /// <summary>
+    /// 道具
+    /// </summary>
+    Item = 19
 }
 
 /// <summary>

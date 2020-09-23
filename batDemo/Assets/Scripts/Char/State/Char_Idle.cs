@@ -174,11 +174,21 @@ public class Char_Idle : State<Character>
     }
     private void OnDropWeapon(object[] data){
         int select =(int)data[0];
+        if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+           this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
+        }
        (this._char as Player).weaponSystem.DropWeapon(select);
     }
     private void OnSelectWeapon(object[] data){
         int select =(int)data[0];
-       (this._char as Player).weaponSystem.UseWeaponSide(select);
+        WeaponSystem weaponSystem=  (this._char as Player).weaponSystem;
+        if(select!=weaponSystem.UseActiveSide){
+            if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
+                this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
+            }
+            //播放 换武器动作.
+        }
+        weaponSystem.UseWeaponSide(select);
     }
     private void OnBeginFall(object[] data){
          if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){

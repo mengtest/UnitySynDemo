@@ -22,7 +22,7 @@ public class AnimatorIK : MonoBehaviour
     private void OnAnimatorIK(int layerIndex)
     {
         if(_onIKFunction!=null){
-             DebugLog.Log("OnAnimatorIK");   
+//             DebugLog.Log("OnAnimatorIK");   
             _onIKFunction(layerIndex);
         }
     }

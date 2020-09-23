@@ -335,7 +335,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast target.
 		Vector3 targetPos = this.target.position + (Vector3.up * deltaPlayerHeight);
 		// If a raycast from the check position to the player hits something...
-		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag))
+		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask()))
 		{
 			// ... if it is not the player...
 			if (hit.transform != this.target && !hit.transform.GetComponent<Collider>().isTrigger)
@@ -353,7 +353,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	{
 		// Cast origin.
 		Vector3 origin = target.position + (Vector3.up * deltaPlayerHeight);
-		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance))
+		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask()))
 		{
 			if (hit.transform != target && hit.transform != transform && !hit.transform.GetComponent<Collider>().isTrigger)
 			{

@@ -32,32 +32,20 @@ public class Run : ActionBase
             //跑步 改变 动画属性.
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
             //*this.speed;  //0.75f
-            if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
-                this.obj.moveSpeed=charData.AimSpeed;
-              this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,frame,0.99f/this.speed,1f * this.speed,0.25f,0,true);
-            }else{
-               this.obj.moveSpeed=charData.RunSpeed;
-               this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
-            }
-            Vector3 dir=(Vector3)param[0];
-        //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
-            this.obj.GetMovePart().StartMove(dir);
+            this.obj.moveSpeed=charData.RunSpeed;
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*Time.fixedDeltaTime,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+           if(param!=null){
+                Vector3 dir=(Vector3)param[0];
+            //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
+                this.obj.GetMovePart().StartMove(dir);
+           }else{
+                this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
+           }
     }
 
         //动作更新;
     public override void Update(){
         base.Update();
-          if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
-              if(this.obj.moveSpeed!=charData.AimSpeed){
-                this.obj.moveSpeed=charData.AimSpeed;
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,0,0.99f/this.speed,1f * this.speed,0.25f,0,true);
-              }
-        }else {
-            if(this.obj.moveSpeed!=charData.RunSpeed){
-                this.obj.moveSpeed=charData.RunSpeed;
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,0,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
-            }
-        }
     }
     /**
     * 切换动作 处理逻辑;

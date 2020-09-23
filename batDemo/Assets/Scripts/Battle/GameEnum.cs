@@ -47,6 +47,14 @@ namespace GameEnum
         AiCtrl=3,
         NetCtrl=4,
     }
+    public enum AimState
+    {
+        Null=0,
+        Begin=1,
+        Aiming=2,
+        AimingFinish=3,
+        AimOff=4,
+    }
     public enum ObjType
     {
         //显示对象----基类.
@@ -102,6 +110,7 @@ namespace GameEnum
         public const string StandUp = "StandUp";        
         public const string Reborn = "Reborn";  
         public const string Run = "Run";  
+        public const string Walk = "Walk";  
          public const string Dash = "Dash";  
         public const string Jump = "Jump";  
         public const string BackOff = "BackOff";  
@@ -110,7 +119,10 @@ namespace GameEnum
         public const string PickUp = "PickUp"; 
 
         public const string Aiming = "Aiming"; 
+        public const string Shooting = "Shooting"; 
+
         public const string UpIdle="UpIdle";
+        public const string ChangeWeapon="ChangeWeapon";
 
         public const string ItemDrop = "ItemDrop";  
         public const string ItemDefault = "ItemDefault"; 
@@ -143,7 +155,10 @@ namespace GameEnum
 
         public const string PickUp = "PickUp"; 
 
+
+          //上半身.....................................................
         public const string UpIdle="UpIdle";
+        public const string ChangeWeapon="ChangeWeapon";
 
         public const string pistol_aim="pistol_aim";
         public const string pistol_reload="pistol_reload";
@@ -153,6 +168,8 @@ namespace GameEnum
         public const string rifle_aim="rifle_aim";
         public const string rifle_reload="rifle_reload";
         public const string rifle_shot="rifle_shot";
+
+
     }
     //动作层级 
     public class  ActionLayer

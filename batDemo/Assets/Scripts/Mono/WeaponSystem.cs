@@ -14,13 +14,13 @@ public class WeaponSystem : MonoBehaviour
     private Weapon weaponMain_2;
     //正在使用的武器
     public int UseActiveSide=1;
+    public Transform ActiveWeapon;
     //~~~end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~武器~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private bool inited = false;
     private Player _objBase;
     private Animator ani;
     // 盘骨 , 脊柱 , 胸部 , 右手 , 左臂
     public Transform hips, spine, chest, rightHand, leftArm;   
-    public float armsRotation = 8f;                                // Rotation of arms to align with aim, according player heigh.
 	public Vector3 initialRootRotation;                                  // Initial root bone local rotation.
 	public Vector3 initialHipsRotation;                                  // Initial hips rotation related to the root bone.
 	public Vector3 initialSpineRotation;                                 // Initial spine rotation related to the root bone.
@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
 	private float distToHand;                                      // Distance from neck to hand.
 	private Vector3 castRelativeOrigin;                            // Position of neck to cast for blocked aim test.
     private bool isAimBlocked;                                       
-
+    private int blockedAimBool;
     public void Init(Player objBase=null)
     {
         this._objBase=objBase;
@@ -60,6 +60,7 @@ public class WeaponSystem : MonoBehaviour
             initialChestRotation = chest.localEulerAngles;
             castRelativeOrigin = neck.position - _objBase.gameObject.transform.position;
             distToHand = (rightHand.position - neck.position).magnitude * 1.5f;
+       //     blockedAimBool = Animator.StringToHash("BlockedAim");
             inited = true;
         }
     }
@@ -68,10 +69,13 @@ public class WeaponSystem : MonoBehaviour
 	{
 		isAimBlocked = Physics.SphereCast(_objBase.gameObject.transform.position + castRelativeOrigin, 0.1f,CameraManager.Instance.mainCamera.transform.forward, out RaycastHit hit, distToHand - 0.1f);
 		isAimBlocked = isAimBlocked && hit.collider.transform != this.transform;
-		//Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
+       // ani.SetBool(blockedAimBool, isAimBlocked);
+		Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
 		return isAimBlocked;
 	}
-    public void OnAniGunIK(ItemType itemType){
+    public void OnAniGunIK(Weapon_Gun weapon){
+        //  上半身 朝人物旋转
+
         //  Orientate upper body where camera  is targeting.
         Quaternion targetRot = Quaternion.Euler(0, _objBase.gameObject.transform.eulerAngles.y, 0);
         targetRot *= Quaternion.Euler(initialRootRotation);
@@ -80,15 +84,15 @@ public class WeaponSystem : MonoBehaviour
         // Set upper body horizontal orientation.
        ani.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
 
-        // Keep upper body orientation regardless strafe direction.
+        
+        //上下 随摄像机旋转
+        // // Keep upper body orientation regardless strafe direction.
         float xCamRot = Quaternion.LookRotation(CameraManager.Instance.mainCamera.transform.forward).eulerAngles.x;
-        targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, _objBase.gameObject.transform.right);
-        // if(itemType==ItemType.Gun){
-        // //     // Correction for long weapons.
-        //     targetRot *= Quaternion.AngleAxis(9f, _objBase.gameObject.transform.right);
-        //      targetRot *= Quaternion.AngleAxis(20f, _objBase.gameObject.transform.up);
+        targetRot = Quaternion.AngleAxis(xCamRot + weapon.armsRotationY, _objBase.gameObject.transform.right);
 
-        // }
+        targetRot *= Quaternion.AngleAxis(weapon.armsRotationX, _objBase.gameObject.transform.up);
+       //  targetRot *= Quaternion.AngleAxis(20f, _objBase.gameObject.transform.up);
+
         targetRot *= spine.rotation;
         targetRot *= Quaternion.Euler(initialChestRotation);
         // Set upper body vertical orientation.
@@ -105,6 +109,7 @@ public class WeaponSystem : MonoBehaviour
                      }
                      if(weaponMain_2!=null){
                          weaponMain_2.EquipWeaponRightHand(_objBase);
+                          this.ActiveWeapon=weaponMain_2.gameObject.transform;
                      }
                  break;
                  case 2:
@@ -113,6 +118,7 @@ public class WeaponSystem : MonoBehaviour
                      }
                      if(weaponMain_1!=null){
                          weaponMain_1.EquipWeaponRightHand(_objBase);
+                          this.ActiveWeapon=weaponMain_1.gameObject.transform;
                      }
                  break;
              }
@@ -218,7 +224,7 @@ public class WeaponSystem : MonoBehaviour
         if (side==1)
         {
             weaponMain_1 = weapon;
-              this._objBase.charData.mainWeapon_1=weapon.poolname;
+            this._objBase.charData.mainWeapon_1=weapon.poolname;
         }
         else
         {
@@ -234,6 +240,7 @@ public class WeaponSystem : MonoBehaviour
            weapon.EquipWeaponBackChest(this._objBase);
         }else{
           weapon.EquipWeaponRightHand(this._objBase);
+            this.ActiveWeapon=weapon.gameObject.transform;
         }
 
         // if (GameSettings.Instance.useAssetBundle)
@@ -280,6 +287,7 @@ public class WeaponSystem : MonoBehaviour
     {
         //释放部件 	
         this.ani=null;
+        this.ActiveWeapon=null;
         if (weaponMain_1 != null)
         {
             weaponMain_1 = null;

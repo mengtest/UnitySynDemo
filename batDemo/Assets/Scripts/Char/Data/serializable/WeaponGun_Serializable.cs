@@ -68,6 +68,12 @@ public class WeaponGun_Serializable : ScriptableObject
      [Tooltip("背饰旋转")]
     public Vector3  backChestRotation=new Vector3(356.53f,317.77f,86.14f);      
 
+       [Tooltip("肩射摄像机偏移")]
+     public  Vector3 aimPivotOffset = new Vector3(0.5f, 1.13f,  0f); 
+     [Tooltip("肩射摄像机相对位置")]
+	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.54f, -0.71f); 
+     public  float armsRotationY   = 3f; 
+    public  float armsRotationX   = 3f; 
 
      [Tooltip("后坐力")]
     public float recoilAngle=3; 

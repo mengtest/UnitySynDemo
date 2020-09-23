@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Stand : ActionBase
 {
-
+        private CharData charData;
         //单次创建.
         public override void init(){
             this.name=GameEnum.ActionLabel.Stand;
@@ -20,6 +20,7 @@ public class Stand : ActionBase
         public override void InitAction(ObjBase obj)
         {
             base.InitAction(obj);
+             charData = (this.obj as Character).charData;
             this.obj.GetEvent().addEventListener(CharEvent.OnJoy_Move,onJoyMove);
         }
          //动作进入
@@ -27,10 +28,9 @@ public class Stand : ActionBase
              this.currentFrame = frame;
             
              this.obj.GetMovePart().StopMove(false,true,true);
-             if((this.obj as Character).charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
-                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame,2f,1.5f,0.35f,0,true);
-             }
-             else if(param!=null){
+             if(charData.aimState!=GameEnum.AimState.Null){
+                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame*Time.fixedDeltaTime,2f,1.5f,0.15f,0,true);
+             }else if(param!=null){
                 string actionLabel=(string)param[0];
                 float lenth =(float)param[1];
                 float speed =(float)param[2];
@@ -38,7 +38,7 @@ public class Stand : ActionBase
                 this.obj.GetAniBasePart().endAniAction=doStandAction;
              }else{
                 //播放 站立动作.
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame,2f,1.5f,0.35f,0,true);
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame*Time.fixedDeltaTime,2f,1.5f,0.35f,0,true);
              }
         }
     
@@ -62,10 +62,14 @@ public class Stand : ActionBase
             if(canStop){
                 return;
             }
-            if(isDash){
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirPos});
+            if(charData.aimState!=GameEnum.AimState.Null){
+                 this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Walk,0,true,new object[]{dirPos});
             }else{
-                this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
+                if(isDash){
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirPos});
+                }else{
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirPos});
+                }
             }
         }
 

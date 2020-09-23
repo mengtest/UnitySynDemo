@@ -32,7 +32,7 @@ public class KeyboardMouseController : Controller
 
     public KeyboardMouseController()
     {
-       
+
     }
     public override void OnActionChange(){
          this.lastDirPos=Vector3.zero;
@@ -41,7 +41,14 @@ public class KeyboardMouseController : Controller
     public override void Update()
     {
          if(!stopMouse){
+             if(Cursor.visible){
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+             }
             CameraManager.Instance.cameraCtrl.onMouseMove();
+         }else if(!Cursor.visible){
+             Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
          }
         // this.KeyDir.x = Input.GetAxis("Horizontal");
 		// this.KeyDir.y = Input.GetAxis("Vertical");
