@@ -18,9 +18,6 @@ public class CharEventWrap
 		L.RegVar("OnJoy_Move", get_OnJoy_Move, null);
 		L.RegVar("OnJoy_Up", get_OnJoy_Up, null);
 		L.RegVar("On_KeyState", get_On_KeyState, null);
-		L.RegVar("On_Select_Weapon", get_On_Select_Weapon, null);
-		L.RegVar("On_Drop_Weapon", get_On_Drop_Weapon, null);
-		L.RegVar("On_PickUp_Item", get_On_PickUp_Item, null);
 		L.RegVar("Char_Move", get_Char_Move, null);
 		L.RegVar("Char_StopMove", get_Char_StopMove, null);
 		L.RegVar("Char_FollowTarget", get_Char_FollowTarget, null);
@@ -177,48 +174,6 @@ public class CharEventWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, CharEvent.On_KeyState);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_On_Select_Weapon(IntPtr L)
-	{
-		try
-		{
-			LuaDLL.lua_pushstring(L, CharEvent.On_Select_Weapon);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_On_Drop_Weapon(IntPtr L)
-	{
-		try
-		{
-			LuaDLL.lua_pushstring(L, CharEvent.On_Drop_Weapon);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_On_PickUp_Item(IntPtr L)
-	{
-		try
-		{
-			LuaDLL.lua_pushstring(L, CharEvent.On_PickUp_Item);
 			return 1;
 		}
 		catch (Exception e)

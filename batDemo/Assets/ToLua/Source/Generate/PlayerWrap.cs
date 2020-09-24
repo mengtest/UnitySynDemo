@@ -13,6 +13,9 @@ public class PlayerWrap
 		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("ChangePart", ChangePart);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
+		L.RegFunction("checkPickUpItem", checkPickUpItem);
+		L.RegFunction("canPickAction", canPickAction);
+		L.RegFunction("checkPickUpNearItem", checkPickUpNearItem);
 		L.RegFunction("EquipWeapon", EquipWeapon);
 		L.RegFunction("EquipNearWeapon", EquipNearWeapon);
 		L.RegFunction("PickUpNearItem", PickUpNearItem);
@@ -177,6 +180,57 @@ public class PlayerWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.OnItemTrigger");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int checkPickUpItem(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			Item arg0 = (Item)ToLua.CheckObject<Item>(L, 2);
+			bool o = obj.checkPickUpItem(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int canPickAction(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			bool o = obj.canPickAction();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int checkPickUpNearItem(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.checkPickUpNearItem();
+			return 0;
 		}
 		catch (Exception e)
 		{

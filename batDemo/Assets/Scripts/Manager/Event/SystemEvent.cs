@@ -25,7 +25,10 @@
        public static string UI_BAT_ON_SPRINT_STATE = "UI_BAT_ON_SPRINT_STATE";
        public static string KEY_INPUT_ONSPRINT_STATE ="KEY_INPUT_ONSPRINT_STATE";
 
+      public static string UI_BAT_ON_Aiming="UI_BAT_ON_Aiming";
        public static string UI_BAT_ON_JUMP = "UI_BAT_ON_JUMP";
+
+       public static string UI_BAT_ON_KEYSTATE="UI_BAT_ON_KEYSTATE";
 
        //角色 碰到道具.
        public static string ITEM_ON_PLAYER_TRIGGER ="ITEM_ON_PLAYER_TRIGGER";

@@ -180,11 +180,27 @@ public class MovePartWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-			obj.StartMove(arg0);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+				obj.StartMove(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.StartMove(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: MovePart.StartMove");
+			}
 		}
 		catch (Exception e)
 		{
@@ -214,11 +230,27 @@ public class MovePartWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
-			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-			obj.StartMoveTo(arg0);
-			return 0;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+				obj.StartMoveTo(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+				UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.StartMoveTo(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: MovePart.StartMoveTo");
+			}
 		}
 		catch (Exception e)
 		{

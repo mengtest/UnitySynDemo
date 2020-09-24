@@ -33,16 +33,16 @@
          public const string OnJoy_Up="OnJoy_Up";
          //各种按键 点击弹起;
          public const string On_KeyState="On_KeyState";
-         //各种按键  选择武器
-         public const string On_Select_Weapon="On_Key_Select_Weapon";
-         // 丢出 武器 0当前使用 1武器栏 2武器栏
-         public const string On_Drop_Weapon="On_Drop_Weapon";
-         // pickup 
-         public const string On_PickUp_Item="On_PickUp_Item";
-         // 开镜 按钮 鼠标 右键
-         public const string On_Aim_Button="On_Aim_Button";
-        // 开火 按钮 鼠标 左键
-         public const string On_Fire_Button="On_Fire_Button";
+        //  //各种按键  选择武器
+        //  public const string On_Select_Weapon="On_Key_Select_Weapon";
+        //  // 丢出 武器 0当前使用 1武器栏 2武器栏
+        //  public const string On_Drop_Weapon="On_Drop_Weapon";
+        //  // pickup 
+        //  public const string On_PickUp_Item="On_PickUp_Item";
+        //  // 开镜 按钮 鼠标 右键
+        //  public const string On_Aim_Button="On_Aim_Button";
+        // // 开火 按钮 鼠标 左键
+        //  public const string On_Fire_Button="On_Fire_Button";
 
          public const string Char_Move="Char_Move";
          public const string  Char_StopMove="Char_StopMove";

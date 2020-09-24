@@ -13,6 +13,14 @@ namespace GameEnum
        public const string Aim="Aim";
         //攻击
         public const string Attack="Attack";
+         //拾取
+         public const string PickUp="PickUp";
+         //丢弃
+         public const string DropItem="DropItem";
+         //选择武器1
+         public const string SelectWeapon_1="SelectWeapon_1";
+         //选择武器2
+         public const string SelectWeapon_2="SelectWeapon_2";
         //蹲下
         public const string Squat="Squat";
         //换弹 

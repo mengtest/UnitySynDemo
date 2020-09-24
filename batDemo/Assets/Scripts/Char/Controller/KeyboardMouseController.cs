@@ -2,7 +2,7 @@
 /****
 键盘鼠标控制器
 ****/
-
+using GameEnum;
 using UnityEngine;
 
 public class KeyboardMouseController : Controller
@@ -138,34 +138,34 @@ public class KeyboardMouseController : Controller
              CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
         }
         if(Input.GetKeyDown(KeyCode.Alpha1)){
-            this.SendMessage(CharEvent.On_Select_Weapon,new object[]{1});
+            this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.SelectWeapon_1});
         }
         if(Input.GetKeyDown(KeyCode.Alpha2)){
-             this.SendMessage(CharEvent.On_Select_Weapon,new object[]{2});
+             this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.SelectWeapon_2});
         }
         if(Input.GetKeyDown(KeyCode.G)){
-         //丢武器;
-           this.SendMessage(CharEvent.On_Drop_Weapon,new object[]{0});
+         //丢使用中的武器;
+           this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.DropItem,0});
         }
         if(Input.GetKeyDown(KeyCode.E)){
          //捡武器;
-           this.SendMessage(CharEvent.On_PickUp_Item);
+           this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.PickUp});
         }
         if (!this._char.charData.Btn_Aim && Input.GetAxisRaw(aimButton) != 0)
 		{
-            this.SendMessage(CharEvent.On_Aim_Button,new object[]{true});
+            this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Aim,true});
 		}
 		else if (this._char.charData.Btn_Aim &&Input.GetAxisRaw(aimButton) == 0)
 		{
-			this.SendMessage(CharEvent.On_Aim_Button,new object[]{false});
+			this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Aim,false});
 		}
          if (!this._char.charData.Btn_Fire &&Input.GetAxisRaw(shootButton) != 0)
 		{
-		  this.SendMessage(CharEvent.On_Fire_Button,new object[]{true});
+		  this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Attack,true});
 		}
 		else if (this._char.charData.Btn_Fire&&Input.GetAxisRaw(shootButton) == 0)
 		{
-			this.SendMessage(CharEvent.On_Fire_Button,new object[]{false});
+			this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Attack,false});
 		}
         
     }
@@ -200,10 +200,7 @@ public class KeyboardMouseController : Controller
         if(data!=null){
            this.isDashing= (bool) data[0];
         }
-        if( _char.charData.isDashing!=this.isDashing){
-            //改变角色属性.
-          _char.charData.isDashing=this.isDashing;
-        }
+        _char.charData.isDashing=this.isDashing;
         this.dashCg=false;
        if(isDashing){
            if(_char.GetCurStateID()==GameEnum.CharState.Char_Idle ){

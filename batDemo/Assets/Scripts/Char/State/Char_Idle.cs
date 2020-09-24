@@ -36,22 +36,22 @@ public class Char_Idle : State<Character>
         charData.lowFLy = false;
         charData.isStandUp = false;
         _char.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
-        _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
-        _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
-        _char.GetEvent().addEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
-        _char.GetEvent().addEventListener(CharEvent.On_Aim_Button,OnAimButton);
-        _char.GetEvent().addEventListener(CharEvent.On_Fire_Button,OnFireButton);
+        // _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
+        // _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
+        // _char.GetEvent().addEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
+        // _char.GetEvent().addEventListener(CharEvent.On_Aim_Button,OnAimButton);
+        // _char.GetEvent().addEventListener(CharEvent.On_Fire_Button,OnFireButton);
     }
 
     // 退出状态
     public override void Leave()
     {
         _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
-        _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
-        _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
-        _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
-        _char.GetEvent().removeEventListener(CharEvent.On_Aim_Button,OnAimButton);
-        _char.GetEvent().removeEventListener(CharEvent.On_Fire_Button,OnFireButton);
+        // _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
+        // _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
+        // _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
+        // _char.GetEvent().removeEventListener(CharEvent.On_Aim_Button,OnAimButton);
+        // _char.GetEvent().removeEventListener(CharEvent.On_Fire_Button,OnFireButton);
         _char = null;
     }
 
@@ -62,6 +62,7 @@ public class Char_Idle : State<Character>
 
     public override void OnEvent(string cmd, object[] param=null)
     {
+        
          switch(cmd){
             // case CharEvent.OnJoy_Move:
                
@@ -74,6 +75,37 @@ public class Char_Idle : State<Character>
                switch(keyType){
                    case GameEnum.KeyInput.Jump:
                        this.OnJump();  
+                   break;
+                   case GameEnum.KeyInput.SelectWeapon_1:
+                       this.OnSelectWeapon(1);  
+                   break;
+                   case GameEnum.KeyInput.SelectWeapon_2:
+                       this.OnSelectWeapon(2);  
+                   break;
+                   case GameEnum.KeyInput.DropItem:
+                       //0 使用中武器, 1 武器_1 2 武器_2
+                       int select=0;
+                       if(param.Length>1){
+                          select =(int)param[1];
+                       }
+                       this.OnDropWeapon(select); 
+                   break;
+                   case GameEnum.KeyInput.PickUp:
+                       this.OnPickUpItem();  
+                   break;
+                   case GameEnum.KeyInput.Aim:
+                       bool isDown=true;
+                       if(param.Length>1){
+                          isDown =(bool)param[1];
+                       }
+                       this.OnAimButton(isDown);  
+                   break;
+                   case GameEnum.KeyInput.Attack:
+                       isDown=true;
+                       if(param.Length>1){
+                          isDown =(bool)param[1];
+                       }
+                       this.OnFireButton(isDown);  
                    break;
                }
             break;
@@ -155,32 +187,30 @@ public class Char_Idle : State<Character>
     //         this.standFrame=0;
     //     }
     // }
-    private void OnPickUpItem(object[] data){
+    private void OnPickUpItem(){
        (this._char as Player).PickUpNearItem();
     }
-    private void OnAimButton(object[] data){
-       bool bol =(bool)data[0];
+    private void OnAimButton(bool isDown){
+      // bool bol =(bool)data[0];
        Player player=this._char as Player;
-       player.charData.Btn_Aim=bol;
-       if(bol){
+       player.charData.Btn_Aim=isDown;
+       if(isDown){
             if(player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
                     player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
             }
        }
     }
-    private void OnFireButton(object[] data){
-         bool bol =(bool)data[0];
-       this._char.charData.Btn_Fire=bol;
+    private void OnFireButton(bool isDown){
+     //    bool bol =(bool)data[0];
+       this._char.charData.Btn_Fire=isDown;
     }
-    private void OnDropWeapon(object[] data){
-        int select =(int)data[0];
+    private void OnDropWeapon(int select){
         if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
            this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
         }
        (this._char as Player).weaponSystem.DropWeapon(select);
     }
-    private void OnSelectWeapon(object[] data){
-        int select =(int)data[0];
+    private void OnSelectWeapon(int select){
         WeaponSystem weaponSystem=  (this._char as Player).weaponSystem;
         if(select!=weaponSystem.UseActiveSide){
             // if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){

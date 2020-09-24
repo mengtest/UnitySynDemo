@@ -16,7 +16,9 @@ public class SystemEventWrap
 		L.RegVar("UI_HUD_ON_JOYSTICK_UP", get_UI_HUD_ON_JOYSTICK_UP, set_UI_HUD_ON_JOYSTICK_UP);
 		L.RegVar("UI_BAT_ON_SPRINT_STATE", get_UI_BAT_ON_SPRINT_STATE, set_UI_BAT_ON_SPRINT_STATE);
 		L.RegVar("KEY_INPUT_ONSPRINT_STATE", get_KEY_INPUT_ONSPRINT_STATE, set_KEY_INPUT_ONSPRINT_STATE);
+		L.RegVar("UI_BAT_ON_Aiming", get_UI_BAT_ON_Aiming, set_UI_BAT_ON_Aiming);
 		L.RegVar("UI_BAT_ON_JUMP", get_UI_BAT_ON_JUMP, set_UI_BAT_ON_JUMP);
+		L.RegVar("UI_BAT_ON_KEYSTATE", get_UI_BAT_ON_KEYSTATE, set_UI_BAT_ON_KEYSTATE);
 		L.RegVar("ITEM_ON_PLAYER_TRIGGER", get_ITEM_ON_PLAYER_TRIGGER, set_ITEM_ON_PLAYER_TRIGGER);
 		L.EndClass();
 	}
@@ -144,11 +146,39 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_UI_BAT_ON_Aiming(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, SystemEvent.UI_BAT_ON_Aiming);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_UI_BAT_ON_JUMP(IntPtr L)
 	{
 		try
 		{
 			LuaDLL.lua_pushstring(L, SystemEvent.UI_BAT_ON_JUMP);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_UI_BAT_ON_KEYSTATE(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, SystemEvent.UI_BAT_ON_KEYSTATE);
 			return 1;
 		}
 		catch (Exception e)
@@ -277,12 +307,42 @@ public class SystemEventWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_UI_BAT_ON_Aiming(IntPtr L)
+	{
+		try
+		{
+			string arg0 = ToLua.CheckString(L, 2);
+			SystemEvent.UI_BAT_ON_Aiming = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_UI_BAT_ON_JUMP(IntPtr L)
 	{
 		try
 		{
 			string arg0 = ToLua.CheckString(L, 2);
 			SystemEvent.UI_BAT_ON_JUMP = arg0;
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_UI_BAT_ON_KEYSTATE(IntPtr L)
+	{
+		try
+		{
+			string arg0 = ToLua.CheckString(L, 2);
+			SystemEvent.UI_BAT_ON_KEYSTATE = arg0;
 			return 0;
 		}
 		catch (Exception e)

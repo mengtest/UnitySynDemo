@@ -112,12 +112,10 @@ public class JoyController : Controller
       //  angleH += delta.x * horizontalAimingSpeed*0.01f;
      //	angleV += delta.y * verticalAimingSpeed*0.01f;
     }
-    private void  onJump(object[] data){
-        //  if(data==null)return;
-        // bool isDown= (bool) data[0];
-        this.SendMessage(CharEvent.On_KeyState,new  object[]{GameEnum.KeyInput.Jump});
+    private void  onKeyState(object[] data){
+          if(data==null)return;
+        this.SendMessage(CharEvent.On_KeyState,data);
     }
-    
     protected override void OnGet_Fun(){
          //添加监听
         this.onJoyTouch=false;
@@ -126,7 +124,8 @@ public class JoyController : Controller
         EventCenter.addListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
         EventCenter.addListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
-         EventCenter.addListener(SystemEvent.UI_BAT_ON_JUMP,onJump);
+        EventCenter.addListener(SystemEvent.UI_BAT_ON_KEYSTATE,onKeyState);
+
     }
     protected override void OnRecycle_Fun(){
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,OnJoyMove);
@@ -134,7 +133,8 @@ public class JoyController : Controller
         EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
-         EventCenter.removeListener(SystemEvent.UI_BAT_ON_JUMP,onJump);
+        EventCenter.removeListener(SystemEvent.UI_BAT_ON_KEYSTATE,onKeyState);
+
     }
     protected override void OnRelease_Fun(){
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_JOYSTICK_MOVE,OnJoyMove);
@@ -142,7 +142,8 @@ public class JoyController : Controller
         EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_MOVE,onTouchMove);
         EventCenter.removeListener(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,onTouchState);
-        EventCenter.removeListener(SystemEvent.UI_BAT_ON_JUMP,onJump);
+        EventCenter.removeListener(SystemEvent.UI_BAT_ON_KEYSTATE,onKeyState);
+ 
     }
 
 }

@@ -12,6 +12,7 @@ public class CharacterWrap
 		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("GetCurStateID", GetCurStateID);
+		L.RegFunction("onActionCG", onActionCG);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("IsGrounded", IsGrounded);
@@ -192,6 +193,22 @@ public class CharacterWrap
 			int o = obj.GetCurStateID();
 			LuaDLL.lua_pushinteger(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int onActionCG(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.onActionCG();
+			return 0;
 		}
 		catch (Exception e)
 		{

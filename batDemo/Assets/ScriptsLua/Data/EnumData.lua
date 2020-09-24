@@ -1,4 +1,36 @@
 --这里存放枚举定义数据
+ButtonInput ={
+    --跳
+   Jump="Jump",
+     --瞄准
+   Aim="Aim",
+     --攻击 
+    Attack="Attack",
+      --拾取
+     PickUp="PickUp",
+      --丢弃
+     DropItem="DropItem",
+      --选择武器1
+     SelectWeapon_1="SelectWeapon_1",
+      --选择武器2
+     SelectWeapon_2="SelectWeapon_2",
+     --蹲下
+    Squat="Squat",
+     --换弹 
+     Reload="Reload",
+
+      --闪避 
+     Roll="Roll",
+
+      --闪现,
+     Blink="Blink",
+
+      --技能 1
+     Skill_1="Skill_1",
+     --技能 2
+     Skill_2="Skill_2",
+}
+
 
 --场景类型
 SceneType = {
