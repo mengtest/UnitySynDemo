@@ -27,8 +27,8 @@ public class MovePart
     public float movePoint = 10000;
     //是否使用重力
     public bool useGravityPower=false;
-    //重力
-    public float GravityPower=-0.75f;
+    //重力  -0.75f;
+    public float GravityPower=-0.98f;
     //重力 贴地位移
     private Vector3 _GravityMove =new Vector3(0,-0.1f,0);
 

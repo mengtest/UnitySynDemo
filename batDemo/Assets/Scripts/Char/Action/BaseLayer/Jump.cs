@@ -86,7 +86,8 @@ public class Jump : ActionBase
         }
 
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
-        this.movePart.upPow = 8f * this.speed;
+        // 8f 
+        this.movePart.upPow = 10f * this.speed;
         this.movePart.ZeroUpStop=false;
         this.movePart.useWeightPower = false;
         this.movePart.Jump();

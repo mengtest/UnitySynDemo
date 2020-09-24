@@ -37,6 +37,12 @@ public class Weapon : Item
         gameObject.transform.localPosition =gunD.backChestPosition;
         gameObject.transform.localRotation = Quaternion.Euler(gunD.backChestRotation);
     }
+   
+    public void Fire(){
+        
+    }
+
+
 
     public override void onViewLoadFin(){
         base.onViewLoadFin();
