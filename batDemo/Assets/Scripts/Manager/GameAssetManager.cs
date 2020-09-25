@@ -521,7 +521,12 @@ public class GameAssetManager : MonoSingleton<GameAssetManager>
         // }
         else
         {
-            bundleName = Path.GetDirectoryName(path).Replace("\\", "_");
+            #if UNITY_EDITOR
+               bundleName = Path.GetDirectoryName(path).Replace("\\", "_");
+            #else
+               bundleName = Path.GetDirectoryName(path).Replace("/", "_");
+            #endif
+
         }
         bundleName = bundleName.ToLower();
         return bundleName;
