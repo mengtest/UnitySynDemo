@@ -9,6 +9,7 @@ public class Run : ActionBase
 {
     private CharData charData;
      private int standFrame=0;
+     private float runTime=0;
     //单次创建.
     public override void init(){
         this.name=GameEnum.ActionLabel.Run;
@@ -46,6 +47,7 @@ public class Run : ActionBase
         //动作更新;
     public override void Update(){
         base.Update();
+        this.runTime+=Time.deltaTime;
     }
     /**
     * 切换动作 处理逻辑;
@@ -79,7 +81,11 @@ public class Run : ActionBase
     }
     private  void onJoyUp(object[] data=null){
         this.standFrame=0;
-        this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1.7f});
+        if(this.runTime>=0.4f){
+           this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1.7f});
+        }else{
+           this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
+        }
     }
 
 
@@ -93,6 +99,7 @@ public class Run : ActionBase
     public override void onRecycle()
     {
         standFrame=0;
+        runTime=0;
         base.onRecycle();
     }
     /*********

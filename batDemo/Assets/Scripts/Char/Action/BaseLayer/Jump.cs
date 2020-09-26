@@ -8,7 +8,7 @@ using UnityEngine;
 public class Jump : ActionBase
 {
     private Vector3 pivotOffset = new Vector3(0.0f, 0.5f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.8f);    //-2.8f   -6.8f
+    private  Vector3 camOffset   = new Vector3(0.2f, 0.5f, -2.8f);    //-2.8f   -6.8f
     private int standFrame=0;
     private MovePart movePart;
     private Character character;
@@ -170,6 +170,9 @@ public class Jump : ActionBase
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
         character.SetCharacterCtrlHeight(1.8f);
+        if(character.charData.aimState!=GameEnum.AimState.Null){
+              character.AniPlay(GameEnum.AniLabel.DownIdle,0,0.1f,1f,0.8f,3);
+         }
          if(character.charData.isMyPlayer){
             if(character.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
                 CameraManager.Instance.cameraCtrl.ResetFOV();

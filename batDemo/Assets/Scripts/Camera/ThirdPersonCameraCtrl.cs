@@ -7,7 +7,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
     public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
-	public Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.2f);       // Offset to relocate the camera related to the player position.
+	public Vector3 camOffset   = new Vector3(0.2f, 0.5f, -2.2f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 
     public float smoothVerAngle=10f;
@@ -27,7 +27,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float relCameraPosMag;                                     // Current camera distance to the player.
 	public Vector3 smoothPivotOffset;                                 // Camera current pivot offset on interpolation.
 	public Vector3 smoothCamOffset;                                   // Camera current offset on interpolation.
+    //目标自己的偏移
 	public Vector3 targetPivotOffset;                                 // Camera pivot offset target to iterpolate.
+    //摄像机 看目标的偏移.
 	public Vector3 targetCamOffset;                                   // Camera offset target to interpolate.
 	private float defaultFOV;                                          // Default camera Field of View.
 	private float targetFOV;                                           // Target camera Field of View.
@@ -336,11 +338,12 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast target.
 		Vector3 targetPos = this.target.position + (Vector3.up * deltaPlayerHeight);
 		// If a raycast from the check position to the player hits something...
-		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask()))
+		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetCameraHitLayerMask()))
 		{
 			// ... if it is not the player...
 			if (hit.transform != this.target && !hit.transform.GetComponent<Collider>().isTrigger)
 			{
+         //       DebugLog.Log(" hit ",hit.transform.name);
 				// This position isn't appropriate.
 				return false;
 			}
@@ -354,10 +357,11 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	{
 		// Cast origin.
 		Vector3 origin = target.position + (Vector3.up * deltaPlayerHeight);
-		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask()))
+		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetCameraHitLayerMask()))
 		{
 			if (hit.transform != target && hit.transform != transform && !hit.transform.GetComponent<Collider>().isTrigger)
 			{
+           //         DebugLog.Log(" hit2 ",hit.transform.name);
 				return false;
 			}
 		}

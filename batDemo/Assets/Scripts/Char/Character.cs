@@ -126,6 +126,9 @@ public class Character : ObjBase
              this.characterController.center=new Vector3(0,height/2f,0);
              this.characterController.height=height;
         }
+        if(this.charData.isMyPlayer){
+            CameraManager.Instance.cameraCtrl.targetFocusHeight=height;
+        }
     }
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();

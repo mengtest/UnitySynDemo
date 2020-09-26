@@ -26,8 +26,8 @@ public class Stand : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
-            
              this.obj.GetMovePart().StopMove(false,true,true);
+             
              if(charData.aimState!=GameEnum.AimState.Null){
                   this.obj.GetAniBasePart().Play(GameEnum.AniLabel.aim_Idle,frame*GameSettings.Instance.deltaTime,4.1f,1.5f,0.15f,0,true);
              }else if(param!=null){
