@@ -122,8 +122,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
         
 		// Get mouse movement to orbit the camera.
 		// Mouse:
-    ///    angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
-    //    angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
+        if(isMouseMove){
+           this.onMouseMove();
+        }
 
 		// Joystick:
         // if(this.isJoyMove){

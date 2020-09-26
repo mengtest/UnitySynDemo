@@ -29,7 +29,7 @@ public class Stand : ActionBase
             
              this.obj.GetMovePart().StopMove(false,true,true);
              if(charData.aimState!=GameEnum.AimState.Null){
-                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame*Time.fixedDeltaTime,2f,1.5f,0.15f,0,true);
+                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.aim_Idle,frame*GameSettings.Instance.deltaTime,4.1f,1.5f,0.15f,0,true);
              }else if(param!=null){
                 string actionLabel=(string)param[0];
                 float lenth =(float)param[1];
@@ -38,7 +38,7 @@ public class Stand : ActionBase
                 this.obj.GetAniBasePart().endAniAction=doStandAction;
              }else{
                 //播放 站立动作.
-                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame*Time.fixedDeltaTime,2f,1.5f,0.35f,0,true);
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,frame*GameSettings.Instance.deltaTime,2f,1.5f,0.35f,0,true);
              }
         }
     

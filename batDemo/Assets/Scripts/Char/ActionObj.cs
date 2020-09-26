@@ -39,11 +39,11 @@ public class ActionObj : ObjBase
             this.currentBaseAction.Begin(frame, param);
             return true;
     }
-     protected override void fixUpdate(){
+     protected override void Update(){
         if (this.currentBaseAction != null) {
             this.currentBaseAction.Update();
         }
-        base.fixUpdate();
+        base.Update();
     }
     public void clearAction(bool switchAction=false) {
         if (this.currentBaseAction != null) {

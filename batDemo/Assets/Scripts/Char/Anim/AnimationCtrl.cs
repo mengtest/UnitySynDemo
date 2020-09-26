@@ -64,7 +64,7 @@ public class AnimationCtrl:IAniCtrl
                 }
         }
 
-        public void play(string aniName, float startTime = 0, float speed = 1, float fBlendTime = 0.25F)
+        public void play(string aniName, float startTime = 0, float speed = 1, float fBlendTime = 0.25F,float totalTime=1f)
         {
               AnimationState state=null;
             if(m_AnimationState.TryGetValue(aniName,out state))
@@ -75,11 +75,6 @@ public class AnimationCtrl:IAniCtrl
                  m_Animations.CrossFade(aniName, m_fBlendTime);
             }
         }
-        public void playUpLayer(string aniName, float startTime = 0, float speed = 1, float fBlendTime = 0.25F)
-        {
-           this.play(aniName, startTime , speed , fBlendTime);
-        }
-
         public void Release()
         {
             this.m_Animations=null;

@@ -34,7 +34,7 @@ public class Dash : ActionBase
             //跑步 改变 动画属性.
          //   DebugLog.Log("Dash.........");
             this.obj.moveSpeed=charData.DashSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame*Time.fixedDeltaTime,0.533f,1f,0.25f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Dash,frame*GameSettings.Instance.deltaTime,0.533f,1f,0.25f,0,true);
             if(param!=null){
                 Vector3 dir=(Vector3)param[0];
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);

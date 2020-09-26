@@ -33,7 +33,7 @@ public class Run : ActionBase
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
             //*this.speed;  //0.75f
             this.obj.moveSpeed=charData.RunSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*Time.fixedDeltaTime,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
            if(param!=null){
                 Vector3 dir=(Vector3)param[0];
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);

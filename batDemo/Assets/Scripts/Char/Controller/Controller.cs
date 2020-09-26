@@ -41,6 +41,9 @@ public class Controller :PoolObj, IController
     {
         
     }
+    public virtual void LateUpdate(){
+        
+    }
     //角色动作改变需要重置数据.
     public virtual void OnActionChange(){
 

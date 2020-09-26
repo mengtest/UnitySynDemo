@@ -77,7 +77,7 @@ public class ObjBase : PoolObj
              GameObject.DestroyImmediate(oldData);
          }
         this.objData = this.dataNode.AddComponent<ObjData>();
-        this.objData.init(this,fixUpdate);
+        this.objData.init(this,Update,LateUpdate);
     }
     //显示类可重写. 初始化显示对象.
     public virtual void initView(string prefabPath=""){
@@ -214,16 +214,18 @@ public class ObjBase : PoolObj
         }
         return this.aniBasePart;
     }
-    protected virtual void fixUpdate() {
+    protected virtual void Update() {
       //  if(!this.needUpdate)return;
         if(this._move!=null){
-            this._move.fixUpdate();
+            this._move.Update();
         }
         if(this.aniBasePart!=null){
-             this.aniBasePart.fixUpdate();
+             this.aniBasePart.Update();
         }
     }
-
+    protected virtual void  LateUpdate() {
+        
+    }
     public override void onGet()
     {
         this.isDead=false;

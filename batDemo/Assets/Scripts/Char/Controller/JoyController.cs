@@ -41,7 +41,7 @@ public class JoyController : Controller
     public override void OnActionChange(){
          this.lastDirPos=Vector3.zero;
     }
-    public override void Update()
+    public override void LateUpdate()
     {
         if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
              //奔跑中

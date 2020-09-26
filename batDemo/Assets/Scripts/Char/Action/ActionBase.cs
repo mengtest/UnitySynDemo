@@ -71,6 +71,9 @@ using UnityEngine;
                 }
             }
         }
+        public virtual void  LateUpdate() {
+            
+        }
         public virtual void Begin(int frame=0,object[] param=null){
 
         //   this. cancelPriorityLimit = -1;

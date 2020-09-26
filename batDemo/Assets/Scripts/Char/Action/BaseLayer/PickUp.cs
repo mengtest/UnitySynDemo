@@ -43,7 +43,7 @@ public class PickUp : ActionBase
          //动作更新;
         public override void Update(){
             base.Update();
-            pickTime+=Time.fixedDeltaTime;
+            pickTime+=Time.deltaTime;
             if(pickTime>=0.297f){
                  pickUpEnd=true;
                  this.cancelPriorityLimit=this.defultPriority;
@@ -57,12 +57,15 @@ public class PickUp : ActionBase
             player.GetMovePart().movePoint=10000;
              Vector3 dirp=player.charData.getChar().dirPos;
             if(dirp!=Vector3.zero){
+                if(player.charData.aimState!=GameEnum.AimState.Null){
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Walk,0,true,new object[]{dirp});
+                }else{
                 //还在移动需要继续移动.
                 // if(player.charData.isDashing){
                 //     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
                 // }else{
                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
-           //     }
+                }
             }else{
                 this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
             }

@@ -57,11 +57,17 @@ using UnityEngine;
                      this.ctrl=new AnimationCtrl(this._obj);
                 }
                 if(this._isPlay){
-                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime,this._totalTime);
                 }
             }
         }
-
+        public Animator GetAnimator()
+        {
+            if( this.ctrl is AnimatorCtrl){
+                return  (this.ctrl as AnimatorCtrl).getAnimator();
+            }
+            return null;
+        }
 
         public bool hasAni(string strAcionName) { 
           return  ctrl.hasAni(strAcionName);      
@@ -109,7 +115,7 @@ using UnityEngine;
         this._isPause = false;
         this._isPlay = true;
         if (this.ctrl!=null) {
-            this.ctrl.play(this.curAniName,this._time,this._speed,this._fBlendTime);
+            this.ctrl.play(this.curAniName,this._time,this._speed,this._fBlendTime,this._totalTime);
         }
     }
 
@@ -158,7 +164,7 @@ using UnityEngine;
                 this._isPause = false;
                 this._isPlay = true;
                  if(this.ctrl!=null&&!this.ctrl.isPlaying(strAcionName)){
-                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime,this._totalTime);
                  }            
             }else{
                 this.curAniName = strAcionName;
@@ -170,17 +176,17 @@ using UnityEngine;
                 this._loop = nLoop;
                 this._isPause = false;
                  if(this.ctrl!=null){
-                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime);
+                     this.ctrl.play(curAniName,this._time,this._speed,this._fBlendTime,this._totalTime);
                  }
             }
         }
-        public void fixUpdate() {
+        public void Update() {
             initCtrl();
             if (!this._isPlay || this._isPause) {
                 return;
             }
             if(this._loop == -1) return;
-            this._time = this._time + Time.fixedDeltaTime * this._speed;
+            this._time = this._time + Time.deltaTime * this._speed;
             if (this._loop == 0 ) {
                 if (this._time >= this._totalTime) {
                     this._time = 0;
@@ -205,7 +211,7 @@ using UnityEngine;
         }
 
         public float getCurrentFrame(){
-           return  this._time/Time.fixedDeltaTime;
+           return  this._time/GameSettings.Instance.deltaTime;
         }
 
         // 清理资源

@@ -43,7 +43,7 @@ public class Aiming : ActionBase
             }
             Weapon weapon =   player.weaponSystem.getActiveWeapon();
             weapon_gun= weapon.itemData.getGunData();
-            aimSmoothing=weapon_gun.AimTime/Time.fixedDeltaTime ;
+            aimSmoothing=weapon_gun.AimTime/Time.deltaTime ;
              AimOn();
         }
 
@@ -63,7 +63,6 @@ public class Aiming : ActionBase
                }
            }
            if(player.charData.isMyPlayer){
-               Rotating();
                 isAimBlocked=player.weaponSystem.CheckforBlockedAim();
                 if(isAimBlocked && player.charData.aimState!=AimState.Null){
                     player.charData.aimState=AimState.AimOff;
@@ -80,7 +79,7 @@ public class Aiming : ActionBase
                     AimOn();
                break;
                case AimState.Aiming:
-                    aimTime+=Time.fixedDeltaTime;
+                    aimTime+=Time.deltaTime;
                     if(aimTime>=weapon_gun.AimTime){
                         this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                         CameraManager.Instance.cameraCtrl.smooth=10;
@@ -97,6 +96,11 @@ public class Aiming : ActionBase
                break;
            }
            
+        }
+        public override void  LateUpdate() {
+            if(player.charData.isMyPlayer){
+               Rotating();
+            }
         }
         //face To Camera
        private 	void Rotating()
@@ -127,15 +131,20 @@ public class Aiming : ActionBase
             DebugLog.Log("shoot");
         }
         private void AimOn(){
+            player.GetMovePart().faceToRotation=false;
+            player.charData.aimState=AimState.Aiming;
             if(player.charData.currentBaseAction==GameEnum.ActionLabel.Dash||player.charData.currentBaseAction==GameEnum.ActionLabel.Run){
                 //冲刺动作  瞄准需立刻切跑步
                     player.doActionSkillByLabel(GameEnum.ActionLabel.Walk);
             }
-            player.GetMovePart().faceToRotation=false;
+            if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
+                    player.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
+            }
             //   DebugLog.Log(aimSmoothing,">>>>>>>>>>>>>>");
             aimTime=0;
             // smooth * Time.deltaTime
              switch(weapon_gun.getItemType()){
+                 //weapon_gun.AimTime/2f
                  case GameEnum.ItemType.Gun:
                     player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_aim,0,0.003f,1,weapon_gun.AimTime/2f,0);
                  break;
@@ -143,7 +152,6 @@ public class Aiming : ActionBase
                      player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/2f,0);
                  break;
              }
-            player.charData.aimState=AimState.Aiming;
             aimTime=0;
             if(player.charData.isMyPlayer){
                  CameraManager.Instance.cameraCtrl.smooth=aimSmoothing;
@@ -151,6 +159,8 @@ public class Aiming : ActionBase
             }
         }
         private void AimOff(){
+            player.GetMovePart().faceToRotation=true;
+            player.charData.aimState=AimState.Null;
              switch(weapon_gun.getItemType()){
                  case GameEnum.ItemType.Gun:
                    player.GetAniUpPart().Play(GameEnum.AniLabel.UpIdle,0,0.1f,1f,0.8f,0);
@@ -159,8 +169,9 @@ public class Aiming : ActionBase
                      player.GetAniUpPart().Play(GameEnum.AniLabel.UpIdle,0,0.1f,1f,0.8f,0);
                  break;
              }
-            player.GetMovePart().faceToRotation=true;
-            player.charData.aimState=AimState.Null;
+             if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
+                   this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.35f,0,true);
+            }
              if(player.charData.isMyPlayer){
                 CameraManager.Instance.cameraCtrl.smooth=10;
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
@@ -177,7 +188,6 @@ public class Aiming : ActionBase
             return;
         }
        player.weaponSystem.OnAniGunIK(weapon_gun);
-	
     }
 
     /**
@@ -195,6 +205,9 @@ public class Aiming : ActionBase
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
                 CameraManager.Instance.cameraCtrl.ResetMaxVerticalAngle();
              }
+           if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
+                   this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.1f,0,true);
+            }
         }
 
         //动作 需要改成3种分支 base up add

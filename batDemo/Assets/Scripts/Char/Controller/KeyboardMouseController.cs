@@ -32,7 +32,7 @@ public class KeyboardMouseController : Controller
 
     public KeyboardMouseController()
     {
-
+          CameraManager.Instance.cameraCtrl.isMouseMove=true;
     }
     public override void OnActionChange(){
          this.lastDirPos=Vector3.zero;
@@ -40,16 +40,6 @@ public class KeyboardMouseController : Controller
      //FixedUpdate
     public override void Update()
     {
-         if(!stopMouse){
-             if(Cursor.visible){
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-             }
-            CameraManager.Instance.cameraCtrl.onMouseMove();
-         }else if(!Cursor.visible){
-             Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-         }
         // this.KeyDir.x = Input.GetAxis("Horizontal");
 		// this.KeyDir.y = Input.GetAxis("Vertical");
     //按键盘W向上移动
@@ -136,6 +126,15 @@ public class KeyboardMouseController : Controller
      //         DebugLog.Log("Down");
              stopMouse=!stopMouse;
              CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
+             if(!stopMouse){
+             if(Cursor.visible){
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+             }
+            }else if(!Cursor.visible){
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
         if(Input.GetKeyDown(KeyCode.Alpha1)){
             this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.SelectWeapon_1});

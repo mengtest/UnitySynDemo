@@ -134,23 +134,23 @@ public class AimBehaviour : GenericBehaviour
 
 		float minSpeed = Quaternion.Angle(transform.rotation, targetRotation) * aimTurnSmoothing;
 
-		// Peeking corner situation.
-		if (peekCorner)
-		{
-			// Rotate only player upper body when peeking a corner.
-			transform.rotation = Quaternion.LookRotation(-behaviourManager.GetLastDirection());
-			targetRotation *= Quaternion.Euler(initialRootRotation);
-			targetRotation *= Quaternion.Euler(initialHipsRotation);
-			targetRotation *= Quaternion.Euler(initialSpineRotation);
-			Transform spine = behaviourManager.GetAnim.GetBoneTransform(HumanBodyBones.Spine);
-			spine.rotation = targetRotation;
-		}
-		else
-		{
+		// // Peeking corner situation.
+		// if (peekCorner)
+		// {
+		// 	// Rotate only player upper body when peeking a corner.
+		// 	transform.rotation = Quaternion.LookRotation(-behaviourManager.GetLastDirection());
+		// 	targetRotation *= Quaternion.Euler(initialRootRotation);
+		// 	targetRotation *= Quaternion.Euler(initialHipsRotation);
+		// 	targetRotation *= Quaternion.Euler(initialSpineRotation);
+		// 	Transform spine = behaviourManager.GetAnim.GetBoneTransform(HumanBodyBones.Spine);
+		// 	spine.rotation = targetRotation;
+		// }
+		// else
+		// {
 			// Rotate entire player to face camera.
 			behaviourManager.SetLastDirection(forward);
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, minSpeed * Time.deltaTime);
-		}
+	//	}
 	}
 
  	// Draw the crosshair when aiming.

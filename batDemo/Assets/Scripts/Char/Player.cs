@@ -92,9 +92,9 @@ public class Player : Character
             //若果是可以自动拾取的道具
         }
     }
-    protected override void fixUpdate() {
-       base.fixUpdate();
-       chekTime+=Time.fixedDeltaTime;
+    protected override void Update() {
+       base.Update();
+       chekTime+=Time.deltaTime;
        if(chekTime>=1){
            chekTime=0;
            this.checkPickUpNearItem();

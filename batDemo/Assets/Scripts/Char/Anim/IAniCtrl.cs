@@ -4,7 +4,7 @@
 //池接口
 public interface IAniCtrl {
     //播放 
-    void play(string aniName,float startTime=0,float speed=1f,float fBlendTime = 0.25f);
+    void play(string aniName,float startTime=0,float speed=1f,float fBlendTime = 0.25f,float totalTime=1f);
 
     //暂停
     void pause(string aniName);

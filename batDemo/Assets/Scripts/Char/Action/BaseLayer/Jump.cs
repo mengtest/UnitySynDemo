@@ -11,7 +11,7 @@ public class Jump : ActionBase
     private  Vector3 camOffset   = new Vector3(0.4f, 0.5f, -2.8f);    //-2.8f   -6.8f
     private int standFrame=0;
     private MovePart movePart;
-    private CharData charData;
+    private Character character;
     //单次创建.
     public override void init(){
         this.name=GameEnum.ActionLabel.Jump;
@@ -23,7 +23,7 @@ public class Jump : ActionBase
     public override void InitAction(ObjBase obj)
     {
         base.InitAction(obj);
-        charData=this.obj.objData as CharData;
+        character=this.obj as Character;
         //添加监听.
         this.obj.GetEvent().addEventListener(CharEvent.Jump_Fall,onJumpFall);
         this.obj.GetEvent().addEventListener(CharEvent.Jump_To_Ground,onJumpToGround);
@@ -34,7 +34,6 @@ public class Jump : ActionBase
         //动作进入
     public override void GotoFrame(int frame=0,object[] param=null){
             this.currentFrame = frame;
-
             if(this.movePart.IsJumping()){
                 switch(this.movePart.jumpState){
                         case GameEnum.JumpState.JumpFall:
@@ -54,70 +53,79 @@ public class Jump : ActionBase
             }
     }
     private void onBeginJump(int frame=0){
-         if(charData.isMyPlayer){
-            if(charData.aimState==GameEnum.AimState.Null){
+         if(character.charData.isMyPlayer){
+            if(character.charData.aimState==GameEnum.AimState.Null){
                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
                 CameraManager.Instance.cameraCtrl.smooth=5;
             }
         }
-        if(charData.isDashing){
-             if(charData.isMyPlayer){
-                if(charData.aimState==GameEnum.AimState.Null){
+        if(character.charData.isDashing){
+             if(character.charData.isMyPlayer){
+                if(character.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetFOV(80);
                 }
              }
        //     CameraManager.Instance.postLayer.enabled=true;
-            this.obj.moveSpeed=charData.DashSpeed;
-            this.movePart.speed=charData.DashSpeed; 
+            this.obj.moveSpeed=character.charData.DashSpeed;
+            this.movePart.speed=character.charData.DashSpeed; 
         }else{
-            if(charData.isMyPlayer){
-                if(charData.aimState==GameEnum.AimState.Null){
+            if(character.charData.isMyPlayer){
+                if(character.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.ResetFOV();
                }
             }
     ///       CameraManager.Instance.postLayer.enabled=false;
-            this.obj.moveSpeed=charData.RunSpeed;
-            this.movePart.speed=charData.RunSpeed;
+            this.obj.moveSpeed=character.charData.RunSpeed;
+            this.movePart.speed=character.charData.RunSpeed;
         }
-        if(charData.aimState!=GameEnum.AimState.Null){
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0.333f/this.speed,0.333f/this.speed,1.3f*this.speed,0,1,true,true);
+        if(character.charData.aimState!=GameEnum.AimState.Null){
+            //DebugLog.Log("player");
+            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f/this.speed,1f*this.speed,0,3);
         }else{
-           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*Time.fixedDeltaTime,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
+           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
         }
-
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
         // 8f 
         this.movePart.upPow = 10f * this.speed;
         this.movePart.ZeroUpStop=false;
         this.movePart.useWeightPower = false;
         this.movePart.Jump();
+         character.SetCharacterCtrlHeight(1);
     }
     private void onJumpFall(object[] param=null) {
         //  DebugLog.Log("action >> onJumpFall.........");
-        if(charData.isMyPlayer){
-            if(charData.aimState==GameEnum.AimState.Null){
+        if(character.charData.isMyPlayer){
+            if(character.charData.aimState==GameEnum.AimState.Null){
                  CameraManager.Instance.cameraCtrl.SetTargetOffsets(new Vector3(0.0f, 1f,  0.0f),camOffset);
             }
         }
-         this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f/this.speed, 1.3f*this.speed,0.25f,1,true,true);
+         if(character.charData.aimState!=GameEnum.AimState.Null){
+            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0,0.333f, 1f*this.speed,0.25f,3);
+         }else{
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f/this.speed, 1.3f*this.speed,0.25f,1,true,true);
+         }
     }
     private void onJumpToGround(object[] param=null) {
         //  DebugLog.Log("action >> onJumpToGround.........");
         //Character character=this.obj as Character;
-        Vector3 dirp=charData.getChar().dirPos;
+         character.SetCharacterCtrlHeight(1.8f);
+         if(character.charData.aimState!=GameEnum.AimState.Null){
+              character.AniPlay(GameEnum.AniLabel.DownIdle,0,0.1f,1f,0.8f,3);
+         }
+        Vector3 dirp=character.dirPos;
         if(dirp!=Vector3.zero){
-            if(charData.aimState!=GameEnum.AimState.Null){
+            if(character.charData.aimState!=GameEnum.AimState.Null){
                 this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Walk,0,true,new object[]{dirp});
             }else{
                 //还在移动需要继续移动.
-                if(charData.isDashing){
+                if(character.charData.isDashing){
                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
                 }else{
                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
                 }
             }
         }else{
-           this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f/this.speed, 0.7f*this.speed});
+            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f/this.speed, 0.7f*this.speed});
         }
           // 回到站立状态.
     }
@@ -161,8 +169,9 @@ public class Jump : ActionBase
         this.obj.GetEvent().removeEventListener(CharEvent.Jump_To_Ground,onJumpToGround);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-         if(charData.isMyPlayer){
-            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+        character.SetCharacterCtrlHeight(1.8f);
+         if(character.charData.isMyPlayer){
+            if(character.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
                 CameraManager.Instance.cameraCtrl.ResetFOV();
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
                 CameraManager.Instance.cameraCtrl.smooth=10;
@@ -185,7 +194,7 @@ public class Jump : ActionBase
     public override void onRecycle()
     {
         this.movePart=null;
-        this.charData=null;
+        this.character=null;
         base.onRecycle();
     }
     /*********
@@ -194,7 +203,7 @@ public class Jump : ActionBase
     public override void onRelease()
     {
         this.movePart=null;
-        this.charData=null;
+        this.character=null;
         base.onRelease();
     }
 }

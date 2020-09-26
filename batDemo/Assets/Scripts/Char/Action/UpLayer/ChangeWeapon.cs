@@ -34,7 +34,7 @@ public class ChangeWeapon : ActionBase
          //动作更新;
         public override void Update(){
             base.Update();
-            startTime+=Time.fixedDeltaTime;
+            startTime+=Time.deltaTime;
             if(startTime>=0.5f){
                 this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                 if(player.charData.Btn_Aim){

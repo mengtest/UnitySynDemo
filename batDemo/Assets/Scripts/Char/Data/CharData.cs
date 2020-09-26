@@ -8,7 +8,8 @@ public class CharData : MonoBehaviour,IData
 
     private Character _char=null;
     public bool isMyPlayer=false;
-    private Action _onFixUpdate; 
+    private Action _onUpdate; 
+    private Action _onLateUpdate;
     
     public int pvpId;
     public CtrlType ctrlType=CtrlType.Null;
@@ -79,16 +80,22 @@ public class CharData : MonoBehaviour,IData
         PlaySpeed=1f;
     }
 
-    public void init(ObjBase obj,Action onFixUpdate){
+    public void init(ObjBase obj,Action onUpdate=null,Action onLateUpdate=null){
           _char=obj  as Character;
-           _onFixUpdate=onFixUpdate;
+           _onUpdate=onUpdate;
+           _onLateUpdate=onLateUpdate;
     }
     public Character getChar(){
         return _char;
     }
     private void FixedUpdate() {
-         if(_onFixUpdate!=null){
-             this._onFixUpdate();
+         if(_onUpdate!=null){
+             this._onUpdate();
+         }
+    }
+    private void LateUpdate() {
+         if(_onLateUpdate!=null){
+             this._onLateUpdate();
          }
     }
     // Update is called once per frame
@@ -98,7 +105,8 @@ public class CharData : MonoBehaviour,IData
     }
     private void OnDestroy() {
         _char=null;
-        _onFixUpdate=null;
+        _onUpdate=null;
+        _onLateUpdate=null;
     }
 
 }

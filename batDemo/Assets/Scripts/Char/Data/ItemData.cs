@@ -7,7 +7,7 @@ using UnityEngine;
 public class ItemData : MonoBehaviour,IData
 {
     private Item _obj;
-    private Action _onFixUpdate; 
+    private Action _onUpdate; 
 
     public float PlaySpeed { get ; set ; }
 
@@ -18,14 +18,14 @@ public class ItemData : MonoBehaviour,IData
     {
          PlaySpeed=1;
     }
-    private void FixedUpdate() {
-         if(_onFixUpdate!=null){
-             this._onFixUpdate();
+    private void Update() {
+         if(_onUpdate!=null){
+             this._onUpdate();
          }
     }
-    public void init(ObjBase obj,Action onFixUpdate){
+    public void init(ObjBase obj,Action onUpdate=null,Action onLateUpdate=null){
          _obj=obj as Item;
-         _onFixUpdate=onFixUpdate;
+         _onUpdate=onUpdate;
          initGunData();
     }
     /*****
@@ -74,14 +74,9 @@ public class ItemData : MonoBehaviour,IData
     public float getHeight(){
         return _Data.getHeight();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnDestroy() {
         _obj=null;
-        _onFixUpdate=null;
+        _onUpdate=null;
         _Data=null;
     }
 }

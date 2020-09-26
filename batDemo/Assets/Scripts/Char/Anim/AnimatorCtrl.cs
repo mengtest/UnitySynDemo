@@ -24,7 +24,9 @@ public class AnimatorCtrl:IAniCtrl
                   DebugLog.LogError("{0}没有添加 Animation系统，请检查资源！", obj.poolname);
              }
         }
-
+        public Animator getAnimator(){
+           return _Animator;
+        }
         public bool isPlaying(string aniName) { 
                 if(_Animator==null) return false;
                  //通过名字获取对应层级的动画是否正在播放
@@ -40,12 +42,12 @@ public class AnimatorCtrl:IAniCtrl
             _Animator.speed=0;
         }
 
-        public void play(string aniName, float startTime = 0, float speed = 1, float fBlendTime = 0.25F)
+        public void play(string aniName, float startTime = 0, float speed = 1, float fBlendTime = 0.25f,float totalTime=1f)
         {
             m_fSpeed = speed;
             m_fBlendTime =fBlendTime;
             _Animator.speed=speed;
-            _Animator.CrossFade(aniName, fBlendTime,this.Layer,startTime);
+            _Animator.CrossFade(aniName, fBlendTime,this.Layer,startTime/totalTime);
         }
         public void Release()
         {

@@ -43,7 +43,18 @@ using UnityEngine;
                 this.currentAddAction.Update();
             }
             //其他后续补...
-
+        }
+        public void LateUpdate(){
+            if (this.currentBaseAction != null) {
+                this.currentBaseAction.LateUpdate();
+            }
+            if (this.currentUpAction != null) {
+                this.currentUpAction.LateUpdate();
+            }
+            if (this.currentAddAction != null) {
+                this.currentAddAction.LateUpdate();
+            }
+            //其他后续补...
         }
         public void onAnimatorIK(int layerIndex){
              if (this.currentBaseAction != null&&this.currentBaseAction.activeIK) {

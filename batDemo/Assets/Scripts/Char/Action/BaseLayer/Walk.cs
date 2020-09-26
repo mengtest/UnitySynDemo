@@ -33,7 +33,7 @@ public class Walk : ActionBase
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
             //*this.speed;  //0.75f
             this.obj.moveSpeed=charData.WalkSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,frame*Time.fixedDeltaTime,0.99f/this.speed,1f * this.speed,0.25f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.walk_fwd,frame*GameSettings.Instance.deltaTime,0.99f/this.speed,1f * this.speed,0.25f,0,true);
             if(param!=null){
                 Vector3 dir=(Vector3)param[0];
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);

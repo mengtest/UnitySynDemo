@@ -7,7 +7,7 @@ using UnityEngine;
 public class ObjData : MonoBehaviour,IData
 {
     private ObjBase _obj;
-    private Action _onFixUpdate; 
+    private Action _onUpdate; 
     
     public string currentAction;
 
@@ -19,13 +19,13 @@ public class ObjData : MonoBehaviour,IData
          PlaySpeed=1;
     }
     private void FixedUpdate() {
-         if(_onFixUpdate!=null){
-             this._onFixUpdate();
+         if(_onUpdate!=null){
+             this._onUpdate();
          }
     }
-    public void init(ObjBase obj,Action onFixUpdate){
+    public void init(ObjBase obj,Action onUpdate=null,Action onLateUpdate=null){
          _obj=obj;
-         _onFixUpdate=onFixUpdate;
+         _onUpdate=onUpdate;
     }
     // Update is called once per frame
     void Update()
@@ -34,6 +34,6 @@ public class ObjData : MonoBehaviour,IData
     }
     public void OnDestroy() {
         _obj=null;
-        _onFixUpdate=null;
+        _onUpdate=null;
     }
 }

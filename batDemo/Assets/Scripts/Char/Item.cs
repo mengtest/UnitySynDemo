@@ -23,7 +23,7 @@ public class Item : ActionObj
         }
         this.itemData = this.dataNode.AddComponent<ItemData>();
         this.objData=this.itemData;
-        this.itemData.init(this,fixUpdate);
+        this.itemData.init(this,Update);
         _height=itemData.getHeight()+0.3f;
           this.GetMovePart().faceToRotation=false;
          this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);

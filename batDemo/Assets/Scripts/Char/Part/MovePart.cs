@@ -135,17 +135,17 @@ public class MovePart
         }
     }
 
-    public void fixUpdate() {
+    public void Update() {
         if (this._pause) return;
         if(useGravityPower&&!_jumping){
             if(_StopMoveGravityChkTime>=0.3f){
                 _StopMoveGravityChkTime=0;
                 this.chkFall();
             }
-            _StopMoveGravityChkTime+=Time.fixedDeltaTime;
+            _StopMoveGravityChkTime+=Time.deltaTime;
         }
         if (!_isMoving && !_jumping) return;
-        //float dt=Time.fixedDeltaTime;
+        //float dt=Time.deltaTime;
         //跟随对象检测;
         if (this.target != null) {
             if (this.target.isRecycled) {
@@ -154,7 +154,7 @@ public class MovePart
                 return;
             }
         }
-        this.changeDir(this.rotateSpeed,Time.fixedDeltaTime);
+        this.changeDir(this.rotateSpeed,Time.deltaTime);
         //移动速度;
         if(_isMoving){
            this.calMoveSpeed();
@@ -174,7 +174,7 @@ public class MovePart
         this.obj.OnMove(_vSpeed);
       //  this.obj.position.addSelf(this._moveSpeed);
         //额外移动
-        this.extraMove(Time.fixedDeltaTime);
+        this.extraMove(Time.deltaTime);
         if(_isMoving){
              this.chkMove();
         }
@@ -444,7 +444,7 @@ public class MovePart
         }
     }
     private void calMoveSpeed() {
-        this.moveStartTime += Time.fixedDeltaTime;
+        this.moveStartTime += Time.deltaTime;
      
         if (this.ZeroSpeedStop) {
             //0衰减没有最大速度限制;
@@ -479,7 +479,7 @@ public class MovePart
                  //DebugLog.Log("转向减速",this._currentSpeed);
             }
         }
-        this._moveSpeed =  this.forwardDirection * this._currentSpeed * Time.fixedDeltaTime;
+        this._moveSpeed =  this.forwardDirection * this._currentSpeed * Time.deltaTime;
     //    MyMath.floor2Vet(this._moveSpeed);
      //  DebugLog.Log("this._moveSpeed",this._moveSpeed);
     }

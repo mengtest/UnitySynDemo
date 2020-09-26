@@ -25,6 +25,8 @@ public class Character : ObjBase
 
     public   Vector3 dirPos{  get ; private set ; }
 
+    private Animator animator;
+
     // public float faceRotateSpeed=7;
     // public bool faceToRotation=false;
     // private Vector3 _moveRoate;
@@ -43,7 +45,7 @@ public class Character : ObjBase
          }
         this.charData = this.dataNode.AddComponent<CharData>();
         this.objData=this.charData;
-        this.charData.init(this,fixUpdate);
+        this.charData.init(this,Update,LateUpdate);
         initStateMachine();
         this.GetMovePart().useGravityPower=true;
         //自己转向. 转向减速
@@ -63,6 +65,13 @@ public class Character : ObjBase
     public void ChangeState(int charState, object param=null,bool checkDic=true)
     {
         m_FSM.ChangeState(charState, param,checkDic);
+    }
+    public void AniPlay(string aniName, float startTime = 0,float totalTime=1f, float speed = 1, float fBlendTime = 0.25F,int Layer=0){
+        if(this.animator){
+             animator.speed=speed;
+        //      DebugLog.Log("player2222",startTime/totalTime);
+             animator.CrossFade(aniName, fBlendTime,Layer,startTime/totalTime);
+        }
     }
     public virtual void OnEvent(string cmd, object[] param=null){
         switch(cmd){
@@ -112,6 +121,12 @@ public class Character : ObjBase
             ctrl.OnActionChange();
         }
     }
+    public void SetCharacterCtrlHeight(float height){
+        if( this.characterController){
+             this.characterController.center=new Vector3(0,height/2f,0);
+             this.characterController.height=height;
+        }
+    }
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();
         this.colExtents=this.characterController.bounds.extents;
@@ -120,7 +135,7 @@ public class Character : ObjBase
             this.AnimatorIKMono=this.node.AddComponent<AnimatorIK>();
         }
           this.AnimatorIKMono.init(this,onAnimatorIK);
-
+        this.animator=this.node.GetComponent<Animator>();
 
      //   DebugLog.Log(this.colExtents);
       //移动专用方法.
@@ -183,7 +198,7 @@ public class Character : ObjBase
     }
 
     //用的是 charData mono fixUpdate ;
-    protected override void fixUpdate() {
+    protected override void Update() {
         if(this.ctrl!=null){
             this.ctrl.Update();
         }
@@ -191,16 +206,24 @@ public class Character : ObjBase
             this.skillPart.Update();
         }
         if(this._move!=null){
-            this._move.fixUpdate();
+            this._move.Update();
         }
         if(this.aniBasePart!=null){
-             this.aniBasePart.fixUpdate();
+             this.aniBasePart.Update();
         }
         if(this.aniUpPart!=null){
-             this.aniUpPart.fixUpdate();
+             this.aniUpPart.Update();
         }
         if(this.aniAddPart!=null){
-             this.aniAddPart.fixUpdate();
+             this.aniAddPart.Update();
+        }
+    }
+     protected override void LateUpdate() {
+         if(this.ctrl!=null){
+            this.ctrl.LateUpdate();
+        }
+        if(this.skillPart!=null){
+            this.skillPart.LateUpdate();
         }
     }
     //获取控制器.

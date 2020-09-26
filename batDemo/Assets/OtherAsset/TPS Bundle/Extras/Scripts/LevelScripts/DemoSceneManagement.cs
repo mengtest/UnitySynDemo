@@ -58,8 +58,8 @@ public class DemoSceneManagement : MonoBehaviour
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			MainMenu();
-			Time.timeScale = 0;
+	//		MainMenu();
+	//		Time.timeScale = 0;
 		}
 	}
 

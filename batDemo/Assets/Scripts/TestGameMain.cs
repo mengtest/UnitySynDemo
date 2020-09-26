@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-21 19:13:09
+ * @LastEditTime: 2020-09-26 08:40:40
  */
 using System;
 using System.Collections;
@@ -217,11 +217,15 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         // CameraManager.Instance.cameraCtrl.init(playerObj.gameObject.transform);
 
           //Infility
+#if UNITY_EDITOR
         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+ #else
+         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char") as Player;
+ #endif
         this.playerObj.avatar.isNewAnimatorSystem=true;
         this.playerObj.charData.isMyPlayer=true;
         this.playerObj.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
-        this.playerObj.gameObject.transform.position=new Vector3(0,0,-5);
+        this.playerObj.gameObject.transform.position=new Vector3(-1.23f,0,0);
         CameraManager.Instance.cameraCtrl.init(playerObj.gameObject.transform);
     }
     

@@ -418,36 +418,36 @@ public class ShootBehaviour : GenericBehaviour
 	// Manage inverse kinematic parameters.
 	public void OnAnimatorIK(int layerIndex)
 	{
-		if (isAiming && activeWeapon > 0)
-		{
-			if (CheckforBlockedAim())
-				return;
+		// if (isAiming && activeWeapon > 0)
+		// {
+		// 	if (CheckforBlockedAim())
+		// 		return;
 
-			// Orientate upper body where camera  is targeting.
-			Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-			targetRot *= Quaternion.Euler(initialRootRotation);
-			targetRot *= Quaternion.Euler(initialHipsRotation);
-			targetRot *= Quaternion.Euler(initialSpineRotation);
-			// Set upper body horizontal orientation.
-			behaviourManager.GetAnim.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
+		// 	// Orientate upper body where camera  is targeting.
+		// 	Quaternion targetRot = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+		// 	targetRot *= Quaternion.Euler(initialRootRotation);
+		// 	targetRot *= Quaternion.Euler(initialHipsRotation);
+		// 	targetRot *= Quaternion.Euler(initialSpineRotation);
+		// 	// Set upper body horizontal orientation.
+		// 	behaviourManager.GetAnim.SetBoneLocalRotation(HumanBodyBones.Spine, Quaternion.Inverse(hips.rotation) * targetRot);
 
-			// Keep upper body orientation regardless strafe direction.
-			float xCamRot = Quaternion.LookRotation(behaviourManager.playerCamera.forward).eulerAngles.x;
-			targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
-			if (weapons[activeWeapon] && weapons[activeWeapon].type == InteractiveWeapon.WeaponType.LONG)
-			{
-				// Correction for long weapons.
-				targetRot *= Quaternion.AngleAxis(9f, this.transform.right);
-				targetRot *= Quaternion.AngleAxis(20f, this.transform.up);
-			}
-			targetRot *= spine.rotation;
-			targetRot *= Quaternion.Euler(initialChestRotation);
-			// Set upper body vertical orientation.
-			behaviourManager.GetAnim.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
-		}
+		// 	// Keep upper body orientation regardless strafe direction.
+		// 	float xCamRot = Quaternion.LookRotation(behaviourManager.playerCamera.forward).eulerAngles.x;
+		// 	targetRot = Quaternion.AngleAxis(xCamRot + armsRotation, this.transform.right);
+		// 	if (weapons[activeWeapon] && weapons[activeWeapon].type == InteractiveWeapon.WeaponType.LONG)
+		// 	{
+		// 		// Correction for long weapons.
+		// 		targetRot *= Quaternion.AngleAxis(9f, this.transform.right);
+		// 		targetRot *= Quaternion.AngleAxis(20f, this.transform.up);
+		// 	}
+		// 	targetRot *= spine.rotation;
+		// 	targetRot *= Quaternion.Euler(initialChestRotation);
+		// 	// Set upper body vertical orientation.
+		// 	behaviourManager.GetAnim.SetBoneLocalRotation(HumanBodyBones.Chest, Quaternion.Inverse(spine.rotation) * targetRot);
+		// }
 	}
 
-	// Manage post animation step corrections.
+	// Manage post animation step corrections.  优化 左手 拿起枪fix
 	private void LateUpdate()
 	{
 		if (!isAiming || isAimBlocked)

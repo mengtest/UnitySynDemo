@@ -150,7 +150,7 @@ public class MovePartWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
-			obj.fixUpdate();
+			obj.Update();
 			return 0;
 		}
 		catch (Exception e)

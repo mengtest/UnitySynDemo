@@ -144,6 +144,9 @@ namespace GameEnum
     public class AniLabel{
          //Ani Name.
         public const string Idle="Idle";
+
+        
+        public const string aim_Idle="aim_Idle";
         public const string Idle_Wait_A="Idle_Wait_A";
         public const string Idle_Wait_B="Idle_Wait_B";
 
@@ -160,8 +163,16 @@ namespace GameEnum
         public const string Jmp_Base_A_Rise="Jmp_Base_A_Rise";
         public const string Jmp_Base_A_OnGround="Jmp_Base_A_OnGround";
         public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
-
         public const string PickUp = "PickUp"; 
+        
+
+        //下半身
+        public const string Down_Jmp_Base_A_Rise="Down_Jmp_Base_A_Rise";
+        public const string Down_Jmp_Base_A_OnGround="Down_Jmp_Base_A_OnGround";
+        public const string Down_Jmp_Base_A_Fall="Down_Jmp_Base_A_Fall";
+          public const string DownIdle="DownIdle";
+
+
 
 
           //上半身.....................................................
