@@ -80,7 +80,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 
 		// Get camera position relative to the player, used for collision test.
 		relCameraPos = transform.position - target.position;
-		relCameraPosMag = relCameraPos.magnitude - 0.5f;
+	//	DebugLog.Log("relCameraPos",relCameraPos);
+	//	DebugLog.Log("relCameraPos.magnitude",relCameraPos.magnitude);
+		relCameraPosMag = relCameraPos.magnitude - 0.2f;
+	//	DebugLog.Log("relCameraPosMag",relCameraPosMag);
 
 		// Set up references and default values.
 		smoothPivotOffset = pivotOffset;
@@ -172,40 +175,40 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Test for collision with the environment based on current camera position.
 		Vector3 baseTempPosition = target.position + camYRotation * targetPivotOffset;
 		Vector3 noCollisionOffset = targetCamOffset;
-		float playerFocusHeight = targetFocusHeight * 0.75f;
+		float playerFocusHeight = targetFocusHeight * 0.9f;
 		//最多打四次射线;
 		float upValue=  (float)(Mathf.Abs(targetCamOffset.z/4f)*100/100);
-	//	DebugLog.Log("upValue",upValue);
+//		DebugLog.Log("upValue",upValue);
 		for(float zOffset = targetCamOffset.z; zOffset <= upValue; zOffset += upValue)
 		{
 			noCollisionOffset.z = zOffset;
-	//		DebugLog.Log("check noCollisionOffset.z",noCollisionOffset.z);
+//			DebugLog.Log("check noCollisionOffset.z",noCollisionOffset.z);
 			if(zOffset>=0){
-				noCollisionOffset.z=0;
+				noCollisionOffset.z=0.1f;
 	//			DebugLog.Log("check Over Zero");
 				break;
 			}
-			else if (DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset, Mathf.Abs(zOffset),playerFocusHeight)) 
+			else if (DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset,playerFocusHeight)) 
 			{
 	//			DebugLog.Log("check Over");
 				break;
 			} 
 		}
-		if(noCollisionOffset.z>=0){
-			//如果 还是有碰撞 就需要往人物身边 X轴靠拢.
-			  	for(float xOffset = targetCamOffset.x; xOffset > 0; xOffset -= 0.1f)
-	         	{
-                    noCollisionOffset.x = xOffset;
-					if(xOffset<=0){
-						noCollisionOffset.x=0;
-						break;
-					}else if(DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset,0, playerFocusHeight)|| xOffset == 0) 
-					{
-			//			DebugLog.Log("checkX Over");
-						break;
-					} 
-				}
-		}
+		// if(noCollisionOffset.z>=0){
+		// 	//如果 还是有碰撞 就需要往人物身边 X轴靠拢.
+		// 	  	for(float xOffset = targetCamOffset.x; xOffset > 0; xOffset -= 0.1f)
+	    //      	{
+        //             noCollisionOffset.x = xOffset;
+		// 			if(xOffset<=0){
+		// 				noCollisionOffset.x=0;
+		// 				break;
+		// 			}else if(DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset,0, playerFocusHeight)|| xOffset == 0) 
+		// 			{
+		// 	//			DebugLog.Log("checkX Over");
+		// 				break;
+		// 			} 
+		// 		}
+		// }
 
 		// Repostition the camera.
 		smoothPivotOffset = Vector3.Lerp(smoothPivotOffset, targetPivotOffset, smooth * Time.deltaTime);
@@ -351,10 +354,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	}
 
 	// Double check for collisions: concave objects doesn't detect hit from outside, so cast in both directions.
-	bool DoubleViewingPosCheck(Vector3 checkPos, float offset,float playerFocusHeight)
+	bool DoubleViewingPosCheck(Vector3 checkPos,float playerFocusHeight)
 	{
        //  target.GetComponent<CharacterController> ().height * 0.75f;
-		return ViewingPosCheck (checkPos, playerFocusHeight) && ReverseViewingPosCheck (checkPos, playerFocusHeight, offset);
+		return ViewingPosCheck (checkPos, playerFocusHeight) && ReverseViewingPosCheck (checkPos, playerFocusHeight);
 	}
 
 	// Check for collision from camera to player.
@@ -363,12 +366,16 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast target.
 		Vector3 targetPos = this.target.position + (Vector3.up * deltaPlayerHeight);
 		// If a raycast from the check position to the player hits something...
-		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask()))
+		Debug.DrawRay(checkPos,  targetPos - checkPos, Color.cyan);
+	    Vector3 dic= targetPos - checkPos;
+		//Physics.Raycast(checkPos,dic,out RaycastHit hit,dic.magnitude,LayerHelper.GetGroundLayerMask())
+		//(Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask())
+		if (Physics.SphereCast(checkPos, 0.1f, dic, out RaycastHit hit, dic.magnitude,LayerHelper.GetGroundLayerMask()))
 		{
 			// ... if it is not the player...
 			if (hit.transform != this.target && !hit.transform.GetComponent<Collider>().isTrigger)
 			{
-         //       DebugLog.Log(" hit ",hit.transform.name);
+           //     DebugLog.Log(" hit ",hit.transform.name);
 				// This position isn't appropriate.
 				return false;
 			}
@@ -378,11 +385,15 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	}
 
 	// Check for collision from player to camera.
-	bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float maxDistance)
+	bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight)
 	{
 		// Cast origin.
 		Vector3 origin = target.position + (Vector3.up * deltaPlayerHeight);
-		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask()))
+		    Vector3 dic= checkPos - origin;
+			Debug.DrawRay(origin,  checkPos - origin, Color.red);
+		//	Physics.Raycast(checkPos,dic,out RaycastHit hit,dic.magnitude,LayerHelper.GetGroundLayerMask())
+			//Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask())
+		if (Physics.SphereCast(origin, 0.1f, dic, out RaycastHit hit, dic.magnitude,LayerHelper.GetGroundLayerMask()))
 		{
 			if (hit.transform != target && hit.transform != transform && !hit.transform.GetComponent<Collider>().isTrigger)
 			{

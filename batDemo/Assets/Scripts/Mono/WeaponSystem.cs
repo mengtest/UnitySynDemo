@@ -70,7 +70,7 @@ public class WeaponSystem : MonoBehaviour
 		isAimBlocked = Physics.SphereCast(_objBase.gameObject.transform.position + castRelativeOrigin, 0.1f,CameraManager.Instance.mainCamera.transform.forward, out RaycastHit hit, distToHand - 0.1f);
 		isAimBlocked = isAimBlocked && hit.collider.transform != this.transform;
        // ani.SetBool(blockedAimBool, isAimBlocked);
-		Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
+	//	Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
 		return isAimBlocked;
 	}
     public void OnAniGunIK(Weapon_Gun weapon){

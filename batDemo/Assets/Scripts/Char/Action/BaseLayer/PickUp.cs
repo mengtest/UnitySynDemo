@@ -43,7 +43,7 @@ public class PickUp : ActionBase
            if(player.charData.isMyPlayer){
                 if(player.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
-         //           CameraManager.Instance.cameraCtrl.smooth=5;
+                    CameraManager.Instance.cameraCtrl.smooth=5;
                 }
            }
         }
@@ -116,7 +116,7 @@ public class PickUp : ActionBase
                 if(player.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
           //          CameraManager.Instance.cameraCtrl.ResetFOV();
                     CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
-        //            CameraManager.Instance.cameraCtrl.smooth=10;
+                    CameraManager.Instance.cameraCtrl.smooth=10;
                 }
             //     CameraManager.Instance.cameraCtrl.smoothVerAngle=10;
             }
