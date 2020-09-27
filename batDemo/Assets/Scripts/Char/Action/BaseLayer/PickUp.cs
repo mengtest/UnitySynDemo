@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class PickUp : ActionBase
 {
+      private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
+      private  Vector3 camOffset   = new Vector3(0.24f, 0.8f, -2.8f);    //-2.8f   -6.8f
         private bool pickUpEnd=false;
         private float pickTime=0f;
         private int standFrame=0;
@@ -38,6 +40,12 @@ public class PickUp : ActionBase
             this.obj.GetAniBasePart().Play(GameEnum.AniLabel.PickUp,0,0.667f,1,0);
             player.EquipNearWeapon();
             player.GetMovePart().movePoint=4000;
+           if(player.charData.isMyPlayer){
+                if(player.charData.aimState==GameEnum.AimState.Null){
+                    CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
+         //           CameraManager.Instance.cameraCtrl.smooth=5;
+                }
+           }
         }
 
          //动作更新;
@@ -104,6 +112,14 @@ public class PickUp : ActionBase
               player.GetMovePart().movePoint=10000;
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
+           if(player.charData.isMyPlayer){
+                if(player.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+          //          CameraManager.Instance.cameraCtrl.ResetFOV();
+                    CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+        //            CameraManager.Instance.cameraCtrl.smooth=10;
+                }
+            //     CameraManager.Instance.cameraCtrl.smoothVerAngle=10;
+            }
         }
 
         //动作 需要改成3种分支 base up add

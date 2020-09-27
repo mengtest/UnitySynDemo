@@ -7,7 +7,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
     public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
-	public Vector3 camOffset   = new Vector3(0.2f, 0.5f, -2.2f);       // Offset to relocate the camera related to the player position.
+	public Vector3 camOffset   = new Vector3(0.24f, 0.8f, -1.8f);       // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 
     public float smoothVerAngle=10f;
@@ -172,13 +172,39 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Test for collision with the environment based on current camera position.
 		Vector3 baseTempPosition = target.position + camYRotation * targetPivotOffset;
 		Vector3 noCollisionOffset = targetCamOffset;
-		for(float zOffset = targetCamOffset.z; zOffset <= 0; zOffset += 0.5f)
+		float playerFocusHeight = targetFocusHeight * 0.75f;
+		//最多打四次射线;
+		float upValue=  (float)(Mathf.Abs(targetCamOffset.z/4f)*100/100);
+	//	DebugLog.Log("upValue",upValue);
+		for(float zOffset = targetCamOffset.z; zOffset <= upValue; zOffset += upValue)
 		{
 			noCollisionOffset.z = zOffset;
-			if (DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset, Mathf.Abs(zOffset)) || zOffset == 0) 
+	//		DebugLog.Log("check noCollisionOffset.z",noCollisionOffset.z);
+			if(zOffset>=0){
+				noCollisionOffset.z=0;
+	//			DebugLog.Log("check Over Zero");
+				break;
+			}
+			else if (DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset, Mathf.Abs(zOffset),playerFocusHeight)) 
 			{
+	//			DebugLog.Log("check Over");
 				break;
 			} 
+		}
+		if(noCollisionOffset.z>=0){
+			//如果 还是有碰撞 就需要往人物身边 X轴靠拢.
+			  	for(float xOffset = targetCamOffset.x; xOffset > 0; xOffset -= 0.1f)
+	         	{
+                    noCollisionOffset.x = xOffset;
+					if(xOffset<=0){
+						noCollisionOffset.x=0;
+						break;
+					}else if(DoubleViewingPosCheck (baseTempPosition + aimRotation * noCollisionOffset,0, playerFocusHeight)|| xOffset == 0) 
+					{
+			//			DebugLog.Log("checkX Over");
+						break;
+					} 
+				}
 		}
 
 		// Repostition the camera.
@@ -325,9 +351,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	}
 
 	// Double check for collisions: concave objects doesn't detect hit from outside, so cast in both directions.
-	bool DoubleViewingPosCheck(Vector3 checkPos, float offset)
+	bool DoubleViewingPosCheck(Vector3 checkPos, float offset,float playerFocusHeight)
 	{
-		float playerFocusHeight = targetFocusHeight * 0.75f;
        //  target.GetComponent<CharacterController> ().height * 0.75f;
 		return ViewingPosCheck (checkPos, playerFocusHeight) && ReverseViewingPosCheck (checkPos, playerFocusHeight, offset);
 	}
@@ -338,7 +363,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast target.
 		Vector3 targetPos = this.target.position + (Vector3.up * deltaPlayerHeight);
 		// If a raycast from the check position to the player hits something...
-		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetCameraHitLayerMask()))
+		if (Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask()))
 		{
 			// ... if it is not the player...
 			if (hit.transform != this.target && !hit.transform.GetComponent<Collider>().isTrigger)
@@ -357,7 +382,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	{
 		// Cast origin.
 		Vector3 origin = target.position + (Vector3.up * deltaPlayerHeight);
-		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetCameraHitLayerMask()))
+		if (Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask()))
 		{
 			if (hit.transform != target && hit.transform != transform && !hit.transform.GetComponent<Collider>().isTrigger)
 			{

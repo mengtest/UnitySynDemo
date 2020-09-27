@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Run : ActionBase
 {
+    private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
+    private  Vector3 camOffset   = new Vector3(0.5f, 0.8f, -2.8f);    //-2.8f   -6.8f
     private CharData charData;
      private int standFrame=0;
      private float runTime=0;
@@ -42,6 +44,12 @@ public class Run : ActionBase
            }else{
                 this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
            }
+           if(charData.isMyPlayer){
+                if(charData.aimState==GameEnum.AimState.Null){
+                    CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
+        //            CameraManager.Instance.cameraCtrl.smooth=5;
+                }
+           }
     }
 
         //动作更新;
@@ -55,6 +63,14 @@ public class Run : ActionBase
     public override void executeSwichAction(){
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
+        if(charData.isMyPlayer){
+            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+    //            CameraManager.Instance.cameraCtrl.ResetFOV();
+                CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+       //         CameraManager.Instance.cameraCtrl.smooth=10;
+            }
+        //     CameraManager.Instance.cameraCtrl.smoothVerAngle=10;
+        }
     }
 
     private  void onJoyMove(object[] data){
@@ -81,7 +97,7 @@ public class Run : ActionBase
     }
     private  void onJoyUp(object[] data=null){
         this.standFrame=0;
-        if(this.runTime>=0.4f){
+        if(this.runTime>=0.6f){
            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Mvm_Stop_Front,0.9f,1.7f});
         }else{
            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true);
@@ -100,6 +116,7 @@ public class Run : ActionBase
     {
         standFrame=0;
         runTime=0;
+        charData=null;
         base.onRecycle();
     }
     /*********

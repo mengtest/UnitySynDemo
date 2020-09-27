@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Dash : ActionBase
 {
+      private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
+    private  Vector3 camOffset   = new Vector3(0.5f, 0.75f, -2.8f);    //-2.8f   -6.8f
     private  CharData charData;
     //单次创建.
     public override void init(){
@@ -43,10 +45,16 @@ public class Dash : ActionBase
                 this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
            }
        //     this.obj.GetMovePart().StartMove((Vector3)param[0]);
-            if(charData.isMyPlayer){
-                 CameraManager.Instance.cameraCtrl.SetFOV(80);
-            }
+            // if(charData.isMyPlayer){
+            // }
        //     CameraManager.Instance.postLayer.enabled=true;
+       if(charData.isMyPlayer){
+                    CameraManager.Instance.cameraCtrl.SetFOV(80);
+                if(charData.aimState==GameEnum.AimState.Null){
+                    CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
+          //          CameraManager.Instance.cameraCtrl.smooth=5;
+                }
+           }
     }
 
         //动作更新;
@@ -75,7 +83,15 @@ public class Dash : ActionBase
     public override void executeSwichAction(){
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-         CameraManager.Instance.cameraCtrl.ResetFOV();
+          if(charData.isMyPlayer){
+            CameraManager.Instance.cameraCtrl.ResetFOV();
+            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+      //          CameraManager.Instance.cameraCtrl.smooth=10;
+            }
+        //     CameraManager.Instance.cameraCtrl.smoothVerAngle=10;
+        }
+     //    CameraManager.Instance.cameraCtrl.ResetFOV();
     //     CameraManager.Instance.postLayer.enabled=false;
     }
 
