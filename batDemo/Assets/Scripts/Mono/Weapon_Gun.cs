@@ -10,9 +10,14 @@ using UnityEngine;
 public class Weapon_Gun : MonoBehaviour,IItemData
 {
     public WeaponGun_Serializable data ;     
+    
+    public GunState gunState=GunState.Idle;
+
+    public int CurrentMagzine=0;
 
     public string UrlPath;
 
+    //需要储存的数据...........................................................
     [Tooltip("枪名称")]
      public string Name ;
      public ItemType itemType = ItemType.Gun;
@@ -33,7 +38,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     public int Damage = 40; 
 
      [Tooltip("前置弹夹容量")]
-    public int Magzine=30;
+    public int FullMagzine=30;
 
     [Tooltip("全弹换弹时间")]
     public float ReloadTime=2.1f;
@@ -79,9 +84,9 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     [Tooltip("肩射摄像机偏移")]
      public  Vector3 aimPivotOffset = new Vector3(0.5f, 1.13f,  0f); 
      [Tooltip("肩射摄像机相对位置")]
-	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.54f, -0.71f); 
-     public  float armsRotationY   = 3f; 
-    public  float armsRotationX   = 3f; 
+	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.55f, -0.71f); 
+    public  float armsRotationY   = 15f; 
+    public  float armsRotationX   = -17f; 
 
      [Tooltip("后坐力")]
     public float recoilAngle=3; 
@@ -108,6 +113,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 	public BoxCollider col;                                  
     public Vector3 BoxCenter =Vector3.zero;
     public Vector3 BoxSize =new Vector3(0.2f,0.2f,0.2f);
+    //以上需要存储数据...........................
 
     // Weapon collider.
 
@@ -116,16 +122,16 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     private string dataUrl;
     private bool isDestory=false;
     private bool pickable = false;
-    private Weapon item;
+    private Weapon weapon;
 
     private void Start() {
     }
     public void init(Item items){
-       item=items as Weapon;
+       weapon=items as Weapon;
   //     DebugLog.Log("item>>>>>>>>>>",item);
     }
      //U3D加载数据.
-     public void U3d_LoadData(string wpUrl){
+     public void LoadData_u3d(string wpUrl){
          this.Name= Path.GetFileName(wpUrl);
          dataUrl="Data/GunData/"+Name;
      //    DebugLog.Log(dataUrl);
@@ -140,7 +146,14 @@ public class Weapon_Gun : MonoBehaviour,IItemData
            //替换node.
             data= objs[0] as WeaponGun_Serializable;
             LoadData();
+            if(weapon.itemData.defaultFull){
+                //子弹满上.
+               FillMagzine();
+            }
         }
+    }
+    public void FillMagzine(){
+         CurrentMagzine=FullMagzine;
     }
     IEnumerator CreateActiveRadius()
 	{
@@ -208,7 +221,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.FireType=source.FireType;
         tar.SwitchWeaponTime=source.SwitchWeaponTime;
         tar.Damage=source.Damage;
-        tar.Magzine=source.Magzine;
+        tar.FullMagzine=source.FullMagzine;
         tar.ReloadTime=source.ReloadTime;
         tar.BattleReloadTime=source.BattleReloadTime;
         tar.SpecialReloadTime=source.SpecialReloadTime;
@@ -249,7 +262,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.FireType=source.FireType;
         tar.SwitchWeaponTime=source.SwitchWeaponTime;
         tar.Damage=source.Damage;
-        tar.Magzine=source.Magzine;
+        tar.FullMagzine=source.FullMagzine;
         tar.ReloadTime=source.ReloadTime;
         tar.BattleReloadTime=source.BattleReloadTime;
         tar.SpecialReloadTime=source.SpecialReloadTime;
@@ -303,7 +316,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 		{
       //     DebugLog.Log("Exit");
            CharData charData= other.gameObject.GetComponentInChildren<CharData>();
-           charData.getChar().OnItemTrigger(item,false);
+           charData.getChar().OnItemTrigger(weapon,false);
 		}
 	}
     private void OnTriggerEnter(Collider other) {
@@ -311,13 +324,13 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 		{
       //     DebugLog.Log("Stay");
 	       CharData charData= other.gameObject.GetComponentInChildren<CharData>();
-           charData.getChar().OnItemTrigger(item);
+           charData.getChar().OnItemTrigger(weapon);
 		}
     }
 
     public void OnDestroy() {
         isDestory=true;
-        item=null;
+        weapon=null;
         if(this._Reqs!=null){
             this._Reqs.Unload();
             this._Reqs = null;

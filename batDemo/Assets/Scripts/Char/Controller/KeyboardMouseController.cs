@@ -33,6 +33,10 @@ public class KeyboardMouseController : Controller
     public KeyboardMouseController()
     {
           CameraManager.Instance.cameraCtrl.isMouseMove=true;
+           if(Cursor.visible){
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+             }
     }
     public override void OnActionChange(){
          this.lastDirPos=Vector3.zero;
@@ -40,6 +44,9 @@ public class KeyboardMouseController : Controller
      //FixedUpdate
     public override void Update()
     {
+        if(CameraManager.Instance.cameraCtrl.isMouseMove){
+           CameraManager.Instance.cameraCtrl.onMouseMove();
+        }
         // this.KeyDir.x = Input.GetAxis("Horizontal");
 		// this.KeyDir.y = Input.GetAxis("Vertical");
     //按键盘W向上移动

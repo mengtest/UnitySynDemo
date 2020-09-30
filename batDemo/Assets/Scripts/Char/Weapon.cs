@@ -6,6 +6,7 @@ using UnityEngine;
 [AutoRegistLua]
 public class Weapon : Item
 {
+
     public Weapon()
     {
          charType=GameEnum.ObjType.Weapon;
@@ -18,30 +19,32 @@ public class Weapon : Item
     }
    
     //安装手上
-    public void EquipWeaponRightHand(Player player){
-        itemData.OnPickUp();
-        ownerPlayer = player;
-    //    this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
-        gameObject.transform.SetParent(player.weaponSystem.rightHand);
-        Weapon_Gun gunD=this.itemData.getGunData();
-        gameObject.transform.localPosition =gunD.rightHandPosition;
-        gameObject.transform.localRotation = Quaternion.Euler(gunD.relativeRotation);
+    public virtual void EquipWeaponRightHand(Player player){
+    //     itemData.OnPickUp();
+    //     ownerPlayer = player;
+    // //    this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
+    //     gameObject.transform.SetParent(player.weaponSystem.rightHand);
+    //     Weapon_Gun gunD=this.itemData.getGunData();
+    //     gameObject.transform.localPosition =gunD.rightHandPosition;
+    //     gameObject.transform.localRotation = Quaternion.Euler(gunD.relativeRotation);
     }
      //安装背部
-    public void EquipWeaponBackChest(Player player){
-        itemData.OnPickUp();
-        ownerPlayer = player;
-   //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
-        gameObject.transform.SetParent(player.weaponSystem.chest);
-        Weapon_Gun gunD=this.itemData.getGunData();
-        gameObject.transform.localPosition =gunD.backChestPosition;
-        gameObject.transform.localRotation = Quaternion.Euler(gunD.backChestRotation);
+    public virtual void EquipWeaponBackChest(Player player){
+//         itemData.OnPickUp();
+//         ownerPlayer = player;
+//    //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
+//         gameObject.transform.SetParent(player.weaponSystem.chest);
+//         Weapon_Gun gunD=this.itemData.getGunData();
+//         gameObject.transform.localPosition =gunD.backChestPosition;
+//         gameObject.transform.localRotation = Quaternion.Euler(gunD.backChestRotation);
     }
    
-    public void Fire(){
+    public virtual void Fire(){
         
     }
+    public virtual void StopFire(){
 
+    }
 
 
     public override void onViewLoadFin(){

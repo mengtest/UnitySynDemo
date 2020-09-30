@@ -3,6 +3,7 @@ using GameEnum;
 using UnityEngine;
 
 //角色数据..同步数据也写在这
+[AutoRegistLua]
 public class CharData : MonoBehaviour,IData
 {
 
@@ -98,11 +99,11 @@ public class CharData : MonoBehaviour,IData
              this._onLateUpdate();
          }
     }
-    // Update is called once per frame
-    void Update()
-    {
+    // // Update is called once per frame
+    // void Update()
+    // {
         
-    }
+    // }
     private void OnDestroy() {
         _char=null;
         _onUpdate=null;

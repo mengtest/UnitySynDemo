@@ -202,7 +202,15 @@ public class Char_Idle : State<Character>
     }
     private void OnFireButton(bool isDown){
      //    bool bol =(bool)data[0];
-       this._char.charData.Btn_Fire=isDown;
+       Player player=this._char as Player;
+       player.charData.Btn_Fire=isDown;
+       if(InputSetting.Instance.AttackAutoAimming){
+            if(isDown&&!player.charData.Btn_Aim){
+                if(player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                        player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
+                }
+            }
+       }
     }
     private void OnDropWeapon(int select){
         if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){

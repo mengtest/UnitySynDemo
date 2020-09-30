@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //角色数据..同步数据也写在这
+[AutoRegistLua]
 public class ObjData : MonoBehaviour,IData
 {
     private ObjBase _obj;
@@ -27,11 +28,7 @@ public class ObjData : MonoBehaviour,IData
          _obj=obj;
          _onUpdate=onUpdate;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
     public void OnDestroy() {
         _obj=null;
         _onUpdate=null;

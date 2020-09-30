@@ -7,7 +7,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public Transform target;                                           // Player's reference.
     public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
-	public Vector3 camOffset   = new Vector3(0.24f, 0.8f, -1.8f);       // Offset to relocate the camera related to the player position.
+	public Vector3 camOffset   = new Vector3(0.4f, 0.6f, -2.2f);// 半身 new Vector3(0.24f, 0.8f, -1.8f);   // Offset to relocate the camera related to the player position.
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 
     public float smoothVerAngle=10f;
@@ -34,12 +34,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float defaultFOV;                                          // Default camera Field of View.
 	private float targetFOV;                                           // Target camera Field of View.
 	private float targetMaxVerticalAngle;                              // Custom camera max vertical clamp angle.
-	private float deltaH = 0;                                          // Delta to horizontaly rotate camera when locking its orientation.      
-	private Vector3 firstDirection;                                    // The direction to lock camera for the first time.
-	private Vector3 directionToLock;                                   // The current direction to lock the camera.
 	private float recoilAngle = 0f;                                    // The angle to vertically bounce the camera in a recoil movement.
-	private Vector3 forwardHorizontalRef;                              // The forward reference on horizontal plane when clamping camera rotation.
-	private float leftRelHorizontalAngle, rightRelHorizontalAngle;     // The left and right angles to limit rotation relative to the forward reference.
    
    //旋转屏幕触发 加速度的 速度
     public int Horizontal_Acce_Dic =60;
@@ -69,6 +64,12 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
              this.init();
          }
 	}
+    public bool isCamTarget(Character chars){
+        if(chars.gameObject.transform==this.target){
+            return true;
+        }
+        return false;
+    }
     public void init(Transform targetP=null){
          if(targetP != null){
              this.target= targetP;
@@ -116,20 +117,26 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
      //	angleV += delta.y * verticalAimingSpeed*0.01f;
     }
     public void  onMouseMove(){
-        angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
-        angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
+   //     DebugLog.Log(Input.GetAxis("Mouse X"));
+      //加速度
+        angleH += Input.GetAxis("Mouse X") * horizontalAimingSpeed/4;
+
+        angleV += Input.GetAxis("Mouse Y") * verticalAimingSpeed/4;
+      //无加速度
+     //  angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
+	//	angleV += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed;
+      //    DebugLog.Log("angleH",angleH);
     }
 
-
-	void Update()
+	void LateUpdate()
 	{
         if(target == null) return;
         
 		// Get mouse movement to orbit the camera.
 		// Mouse:
-        if(isMouseMove){
-           this.onMouseMove();
-        }
+        // if(isMouseMove){
+        //    this.onMouseMove();
+        // }
 
 		// Joystick:
         // if(this.isJoyMove){
@@ -145,22 +152,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Set vertical camera bounce.
 		angleV = Mathf.LerpAngle(angleV, angleV + recoilAngle, smoothVerAngle*Time.deltaTime);
 
-		// Handle camera orientation lock.
-		if (firstDirection != Vector3.zero)
-		{
-			angleH -= deltaH;
-			UpdateLockAngle();
-			angleH += deltaH;
-		}
 
-		// Handle camera horizontal rotation limits if set.
-		// if(forwardHorizontalRef != default(Vector3))
-		// {
-		// 	ClampHorizontal();
-		// }
-        // if(angleH>1000){
-        //     angleH=angleH%360f;
-        // }
+        if(angleH>360){
+            angleH=angleH%360f;
+        }
 
 		// Set camera orientation.
 		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
@@ -226,75 +221,12 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 			recoilAngle += 5 * Time.deltaTime;
 	}
 
-	// Set/Unset horizontal rotation limit angles relative to custom direction.
-	public void ToggleClampHorizontal(float LeftAngle = 0, float RightAngle = 0, Vector3 fwd = default(Vector3))
-	{
-		forwardHorizontalRef = fwd;
-		leftRelHorizontalAngle = LeftAngle;
-		rightRelHorizontalAngle = RightAngle;
-	}
 
-	// Limit camera horizontal rotation.
-	private void ClampHorizontal()
-	{
-		// Get angle between reference and current forward direction.
-		Vector3 cam2dFwd = this.transform.forward;
-		cam2dFwd.y = 0;
-		float angleBetween = Vector3.Angle(cam2dFwd, forwardHorizontalRef);
-		float sign = Mathf.Sign(Vector3.Cross(cam2dFwd, forwardHorizontalRef).y);
-		angleBetween = angleBetween * sign;
-
-		// Get current input movement to compensate after limit angle is reached.
-		float acc = Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed;
-		acc += Mathf.Clamp(Input.GetAxis("Analog X"), -1, 1) * 60 * horizontalAimingSpeed * Time.deltaTime;
-
-		// Limit left angle.
-		if (sign < 0 && angleBetween < leftRelHorizontalAngle)
-		{
-			if (acc > 0)
-				angleH -= acc;
-		}
-		// Limit right angle.
-		else if (angleBetween > rightRelHorizontalAngle)
-		{
-			if (acc < 0)
-				angleH -= acc;
-		}
-	}
-
+	
 	// Bounce the camera vertically.
 	public void BounceVertical(float degrees)
 	{
 		recoilAngle = degrees;
-	}
-
-	// Handle current camera facing when locking on a specific dynamic orientation.
-	private void UpdateLockAngle()
-	{
-		directionToLock.y = 0f;
-		float centerLockAngle = Vector3.Angle(firstDirection, directionToLock);
-		Vector3 cross = Vector3.Cross(firstDirection, directionToLock);
-		if (cross.y < 0) centerLockAngle = -centerLockAngle;
-		deltaH = centerLockAngle;
-	}
-
-	// Lock camera orientation to follow a specific direction. Usually used in short movements.
-	// Example uses: (player turning cover corner, skirting convex wall, vehicle turning)
-	public void LockOnDirection(Vector3 direction)
-	{
-		if (firstDirection == Vector3.zero)
-		{
-			firstDirection = direction;
-			firstDirection.y = 0f;
-		}
-		directionToLock = Vector3.Lerp(directionToLock, direction, 0.15f * smooth * Time.deltaTime);
-	}
-
-	// Unlock camera orientation to free mode.
-	public void UnlockOnDirection()
-	{
-		deltaH = 0;
-		firstDirection = directionToLock = Vector3.zero;
 	}
 
 	// Set camera offsets to custom values.
@@ -328,7 +260,11 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	{
 		targetCamOffset.x = x;
 	}
-
+	// Set camera horizontal offset.
+	public void SetZCamOffset(float z)
+	{
+		targetCamOffset.z = z;
+	}
 	// Set custom Field of View.
 	public void SetFOV(float customFOV)
 	{
@@ -366,7 +302,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast target.
 		Vector3 targetPos = this.target.position + (Vector3.up * deltaPlayerHeight);
 		// If a raycast from the check position to the player hits something...
-		Debug.DrawRay(checkPos,  targetPos - checkPos, Color.cyan);
+	//	Debug.DrawRay(checkPos,  targetPos - checkPos, Color.cyan);
 	    Vector3 dic= targetPos - checkPos;
 		//Physics.Raycast(checkPos,dic,out RaycastHit hit,dic.magnitude,LayerHelper.GetGroundLayerMask())
 		//(Physics.SphereCast(checkPos, 0.2f, targetPos - checkPos, out RaycastHit hit, relCameraPosMag,LayerHelper.GetGroundLayerMask())
@@ -390,7 +326,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		// Cast origin.
 		Vector3 origin = target.position + (Vector3.up * deltaPlayerHeight);
 		    Vector3 dic= checkPos - origin;
-			Debug.DrawRay(origin,  checkPos - origin, Color.red);
+	//		Debug.DrawRay(origin,  checkPos - origin, Color.red);
 		//	Physics.Raycast(checkPos,dic,out RaycastHit hit,dic.magnitude,LayerHelper.GetGroundLayerMask())
 			//Physics.SphereCast(origin, 0.2f, checkPos - origin, out RaycastHit hit, maxDistance,LayerHelper.GetGroundLayerMask())
 		if (Physics.SphereCast(origin, 0.1f, dic, out RaycastHit hit, dic.magnitude,LayerHelper.GetGroundLayerMask()))

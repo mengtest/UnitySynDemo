@@ -41,7 +41,7 @@ public class JoyController : Controller
     public override void OnActionChange(){
          this.lastDirPos=Vector3.zero;
     }
-    public override void LateUpdate()
+    public override void Update()
     {
         if(_char.charData.currentBaseAction == GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction == GameEnum.ActionLabel.Dash){
              //奔跑中
@@ -99,6 +99,7 @@ public class JoyController : Controller
                 //重新赋值.
                 this.SendMessage(CharEvent.OnJoy_Move,new object[]{worldDir,isDashing,false,this.JoyAngle});
         }
+        
     }
     private void  onTouchMove(object[] data){
         if(data==null)return;

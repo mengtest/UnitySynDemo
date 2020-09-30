@@ -8,7 +8,7 @@ using UnityEngine;
 public class PickUp : ActionBase
 {
       private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
-      private  Vector3 camOffset   = new Vector3(0.24f, 0.8f, -2.8f);    //-2.8f   -6.8f
+      private  Vector3 camOffset   = new Vector3(0.4f, 0.6f, -2.8f);    //-2.8f   -6.8f
         private bool pickUpEnd=false;
         private float pickTime=0f;
         private int standFrame=0;
@@ -40,7 +40,7 @@ public class PickUp : ActionBase
             this.obj.GetAniBasePart().Play(GameEnum.AniLabel.PickUp,0,0.667f,1,0);
             player.EquipNearWeapon();
             player.GetMovePart().movePoint=4000;
-           if(player.charData.isMyPlayer){
+           if(CameraManager.Instance.cameraCtrl.isCamTarget(player)){
                 if(player.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
                     CameraManager.Instance.cameraCtrl.smooth=5;
@@ -51,7 +51,7 @@ public class PickUp : ActionBase
          //动作更新;
         public override void Update(){
             base.Update();
-            pickTime+=Time.deltaTime;
+            pickTime+=GameSettings.Instance.deltaTime;
             if(pickTime>=0.297f){
                  pickUpEnd=true;
                  this.cancelPriorityLimit=this.defultPriority;
@@ -112,8 +112,8 @@ public class PickUp : ActionBase
               player.GetMovePart().movePoint=10000;
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
              this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-           if(player.charData.isMyPlayer){
-                if(player.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+           if(CameraManager.Instance.cameraCtrl.isCamTarget(player)){
+                if(player.charData.aimState==GameEnum.AimState.Null){
           //          CameraManager.Instance.cameraCtrl.ResetFOV();
                     CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
                     CameraManager.Instance.cameraCtrl.smooth=10;

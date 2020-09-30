@@ -81,7 +81,7 @@ end
 
 --键盘触发
 function Joystick:onKeySprintDown(param)
-    log("<<<<<<<<<<<<<<<<<<<<<<<");
+ --   log("<<<<<<<<<<<<<<<<<<<<<<<");
     if param~=nil then
         local isSprinting= param[0];
         self:SetSprint(isSprinting);

@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-26 08:40:40
+ * @LastEditTime: 2020-09-30 15:04:09
  */
 using System;
 using System.Collections;
@@ -23,7 +23,6 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
     
     List<MonoBehaviour> _behaviourList = new List<MonoBehaviour>();
 
-    private  Player playerObj ;
 
 
     private void Awake()
@@ -68,8 +67,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         Screen.autorotateToPortraitUpsideDown = false;
         Input.multiTouchEnabled=true;
         luainitCom=false;
-
-
+         Application.targetFrameRate=30;
         DebugLog.addErrorLogCall(onGameError);
         InitManagers();
         yield return InitGameAsset();
@@ -203,7 +201,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
        Weapon_Gun[] guns= FindObjectsOfType<Weapon_Gun>();
        for (int i = 0; i < guns.Length; i++)
        {
-           ObjManager.Instance.CreatWeapon(guns[i]);
+           ObjManager.Instance.CreatGun(guns[i]);
        }
     }
 
@@ -218,26 +216,26 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
 
           //Infility
 #if UNITY_EDITOR
-        this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
+        ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",null,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player);
  #else
-         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char") as Player;
+        ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char") as Player);
  #endif
-        this.playerObj.avatar.isNewAnimatorSystem=true;
-        this.playerObj.charData.isMyPlayer=true;
-        this.playerObj.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
-        this.playerObj.gameObject.transform.position=new Vector3(-1.23f,0,0);
-        CameraManager.Instance.cameraCtrl.init(playerObj.gameObject.transform);
+        ObjManager.MyPlayer.avatar.isNewAnimatorSystem=true;
+         ObjManager.MyPlayer.charData.isMyPlayer=true;
+       ObjManager.MyPlayer.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
+        ObjManager.MyPlayer.gameObject.transform.position=new Vector3(-1.23f,0,0);
+        CameraManager.Instance.cameraCtrl.init( ObjManager.MyPlayer.gameObject.transform);
     }
     
     private void creatPlayer(){
         
         GameObject player= GameObject.FindGameObjectWithTag("Player");
         
-        #if UNITY_EDITOR
-                this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player;
-        #else
+         #if UNITY_EDITOR
+                  ObjManager.setMyPlayer( ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player);
+         #else
                 
-                this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player;
+                 ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player);
         #endif
 
         // #if UNITY_EDITOR
@@ -248,7 +246,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         //         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/MiniChar1-97/MiniChar1-97",player) as Player;
         // #endif
 
-        this.playerObj.charData.isMyPlayer=true;
+         ObjManager.MyPlayer.charData.isMyPlayer=true;
         CameraManager.Instance.cameraCtrl.init(player.transform);
     }
     #if !UNITY_EDITOR

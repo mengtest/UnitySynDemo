@@ -68,7 +68,7 @@ public class ItemDrop : ActionBase
 
     //动作更新;
     public override void Update(){
-        this.obj.gameObject.transform.Rotate(Vector3.right, 1000 * Time.deltaTime);
+        this.obj.gameObject.transform.Rotate(Vector3.right, 1000 * GameSettings.Instance.deltaTime);
         base.Update();
     }
     /**

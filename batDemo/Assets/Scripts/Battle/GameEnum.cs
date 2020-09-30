@@ -6,6 +6,7 @@ using UnityEngine;
 namespace GameEnum
 {
     ///按钮 输入
+    [AutoRegistLua]
     public class KeyInput {
         //跳
        public const string Jump="Jump";
@@ -38,6 +39,7 @@ namespace GameEnum
          public const string Skill_2="Skill_2";
          
     }
+    [AutoRegistLua]
     public class PlayMode {
         ///< 单机重播模式
        public const string ReplayMode="ReplayMode";
@@ -47,6 +49,7 @@ namespace GameEnum
         public const string MultiplayerMode="MultiplayerMode";
     }
      //控制类型...
+     [AutoRegistLua]
     public enum CtrlType
     {
         Null=0,
@@ -55,14 +58,25 @@ namespace GameEnum
         AiCtrl=3,
         NetCtrl=4,
     }
+    [AutoRegistLua]
     public enum AimState
     {
         Null=0,
+        //瞬间状态.
         Begin=1,
         Aiming=2,
         AimingFinish=3,
+        //瞬间状态.
         AimOff=4,
     }
+    [AutoRegistLua]
+    public enum GunState
+    {
+        Idle=0,
+        Firing=1,
+        Reloading=2,
+    }
+    [AutoRegistLua]
     public enum ObjType
     {
         //显示对象----基类.
@@ -77,11 +91,14 @@ namespace GameEnum
         Item=4,
         //武器
          Weapon=5,
+
+         Gun=6,
          
     }
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
      */
+     [AutoRegistLua]
     public class CancelPriority{
         //什么动作都不能切换;
        public static int CantDoAnyAction=-1;
@@ -94,6 +111,7 @@ namespace GameEnum
       public static int  SkillAction=4;
      //   Can 
     }
+    [AutoRegistLua]
     public class CharState{
        public static int  Char_Idle = 0;  //正常状态
        public static int Char_Squat = 1; //蹲下
@@ -110,6 +128,7 @@ namespace GameEnum
       public static int  Char_Swoon=13;  //眩晕  不能攻击
        public static int Char_Strobe =14; //滑索动作.
     }
+    [AutoRegistLua]
     public class  ActionLabel
     {
         //动作标签 
@@ -141,6 +160,7 @@ namespace GameEnum
 
 
     }
+    [AutoRegistLua]
     public class AniLabel{
          //Ani Name.
         public const string Idle="Idle";
@@ -191,6 +211,7 @@ namespace GameEnum
         public const string rifle_idle="rifle_idle";
 
     }
+    [AutoRegistLua]
     //动作层级 
     public class  ActionLayer
     {
@@ -198,6 +219,7 @@ namespace GameEnum
         public const int UpLayer = 1;  
         public const int AddLayer = 2;  
     }
+    [AutoRegistLua]
     public enum JumpState
     { 
         JumpOnGround=0,
@@ -206,6 +228,7 @@ namespace GameEnum
     
     }
     //道具类型  int(id/100000)
+    [AutoRegistLua]
     public enum ItemType                                    
 	{
        //主武器 枪  10101001  
@@ -263,6 +286,7 @@ namespace GameEnum
     }
 
     // 枪武器类型.
+    [AutoRegistLua]
     public enum Weapon_GunType                                    
 	{
 		  NONE=0,
@@ -286,6 +310,7 @@ namespace GameEnum
           Pistol=201,
     }
     //近战武器类型.
+    [AutoRegistLua]
     public enum Weapon_MeleeType                                    
 	{
          //拳击_手套 拳套.
@@ -303,12 +328,14 @@ namespace GameEnum
           //长矛
           Lance =306,
 	}
+    [AutoRegistLua]
     public enum Weapon_GrenadeType                                    
 	{
          FragGrenade=401,
            SmokeGrenade=402,
 
     }
+    [AutoRegistLua]
     public enum GunNameLink                                    
 	{
            M4,
@@ -318,7 +345,7 @@ namespace GameEnum
 
 
     }
-
+    [AutoRegistLua]
     // 开火类型
 	public enum FireType                                    
 	{

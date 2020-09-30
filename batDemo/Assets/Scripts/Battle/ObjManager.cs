@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using GameEnum;
 
 public class ObjManager  : MonoSingleton<ObjManager>
 {
@@ -18,6 +19,17 @@ public class ObjManager  : MonoSingleton<ObjManager>
          }
     }
     private  List<Weapon> _weaponOnList;
+
+    private static Player _Myplayer;
+    public  static void setMyPlayer(Player player=null){
+         _Myplayer=player;
+    }
+    public  static Player MyPlayer{
+      get{
+            return _Myplayer;
+      }  
+    }
+
     public void Init()
     {
        this._characterPool =new MultipleOnListPool<Character>("CharacterPool");
@@ -59,12 +71,21 @@ public class ObjManager  : MonoSingleton<ObjManager>
         return chars;
     }
     //方便新枪 测试 丢地图 加脚本就可以跑了.
-    public Weapon CreatWeapon(Weapon_Gun gunMono){
-       return CreatWeapon(gunMono.getGunPath(),gunMono.gameObject);
+    public Gun CreatGun(Weapon_Gun gunMono){
+       return CreatWeapon(gunMono.getGunPath(),gunMono.gameObject) as Gun;
     }
     //path=Data/GunData/M4A1
-    public Weapon CreatWeapon(string path="",GameObject obj=null){
-        Weapon weapon=this._weaponPool.get<Weapon>(path);
+    public Weapon CreatWeapon(string path="",GameObject obj=null,ItemType itemType =ItemType.Gun){
+        Weapon weapon=null;
+        switch(itemType){
+        case ItemType.Gun:
+        case ItemType.PistolGun:
+            weapon=this._weaponPool.get<Gun>(path);
+        break;
+        default:
+                weapon=this._weaponPool.get<Weapon>(path);
+        break;
+        }
         if(obj!=null){
             weapon.initView(obj);
         }else{

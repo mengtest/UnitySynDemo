@@ -8,7 +8,7 @@ using UnityEngine;
 public class Run : ActionBase
 {
     private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.5f, 0.8f, -2.8f);    //-2.8f   -6.8f
+    private  Vector3 camOffset   = new Vector3(0.45f, 0.6f, -2.8f);    //-2.8f   -6.8f
     private CharData charData;
      private int standFrame=0;
      private float runTime=0;
@@ -36,7 +36,7 @@ public class Run : ActionBase
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
             //*this.speed;  //0.75f
             this.obj.moveSpeed=charData.RunSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f/this.speed,1.12f * this.speed,0.25f,0,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f/this.speed,1.12f * this.speed,0.15f,0,true);
            if(param!=null){
                 Vector3 dir=(Vector3)param[0];
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
@@ -44,7 +44,7 @@ public class Run : ActionBase
            }else{
                 this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
            }
-           if(charData.isMyPlayer){
+           if(CameraManager.Instance.cameraCtrl.isCamTarget(charData.getChar())){
                 if(charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
         //            CameraManager.Instance.cameraCtrl.smooth=5;
@@ -55,7 +55,7 @@ public class Run : ActionBase
         //动作更新;
     public override void Update(){
         base.Update();
-        this.runTime+=Time.deltaTime;
+        this.runTime+=GameSettings.Instance.deltaTime;
     }
     /**
     * 切换动作 处理逻辑;
@@ -63,8 +63,8 @@ public class Run : ActionBase
     public override void executeSwichAction(){
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-        if(charData.isMyPlayer){
-            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(charData.getChar())){
+            if(charData.aimState==GameEnum.AimState.Null){
     //            CameraManager.Instance.cameraCtrl.ResetFOV();
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
        //         CameraManager.Instance.cameraCtrl.smooth=10;

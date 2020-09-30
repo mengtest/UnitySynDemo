@@ -22,7 +22,7 @@ public class UpIdle : ActionBase
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
              this.currentFrame = frame;
-            (this.obj as Character).GetAniUpPart().Play(GameEnum.AniLabel.UpIdle,0,0.1f,1f,0.8f,0);
+            (this.obj as Character).GetAniUpPart().Play(GameEnum.AniLabel.UpIdle,0,0.1f,1f,0.25f,0);
              
         }
          //动作更新;

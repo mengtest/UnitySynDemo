@@ -9,13 +9,11 @@ public class ThirdPersonCameraCtrlWrap
 		L.BeginClass(typeof(ThirdPersonCameraCtrl), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("GetH", GetH);
 		L.RegFunction("GetV", GetV);
+		L.RegFunction("isCamTarget", isCamTarget);
 		L.RegFunction("init", init);
 		L.RegFunction("onTouchMove", onTouchMove);
 		L.RegFunction("onMouseMove", onMouseMove);
-		L.RegFunction("ToggleClampHorizontal", ToggleClampHorizontal);
 		L.RegFunction("BounceVertical", BounceVertical);
-		L.RegFunction("LockOnDirection", LockOnDirection);
-		L.RegFunction("UnlockOnDirection", UnlockOnDirection);
 		L.RegFunction("SetTargetOffsets", SetTargetOffsets);
 		L.RegFunction("ResetTargetOffsets", ResetTargetOffsets);
 		L.RegFunction("ResetYCamOffset", ResetYCamOffset);
@@ -77,6 +75,24 @@ public class ThirdPersonCameraCtrlWrap
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 			float o = obj.GetV();
 			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int isCamTarget(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			Character arg0 = (Character)ToLua.CheckObject<Character>(L, 2);
+			bool o = obj.isCamTarget(arg0);
+			LuaDLL.lua_pushboolean(L, o);
 			return 1;
 		}
 		catch (Exception e)
@@ -150,54 +166,6 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ToggleClampHorizontal(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 1)
-			{
-				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-				obj.ToggleClampHorizontal();
-				return 0;
-			}
-			else if (count == 2)
-			{
-				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				obj.ToggleClampHorizontal(arg0);
-				return 0;
-			}
-			else if (count == 3)
-			{
-				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				obj.ToggleClampHorizontal(arg0, arg1);
-				return 0;
-			}
-			else if (count == 4)
-			{
-				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-				float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 4);
-				obj.ToggleClampHorizontal(arg0, arg1, arg2);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: ThirdPersonCameraCtrl.ToggleClampHorizontal");
-			}
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int BounceVertical(IntPtr L)
 	{
 		try
@@ -206,39 +174,6 @@ public class ThirdPersonCameraCtrlWrap
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.BounceVertical(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LockOnDirection(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-			obj.LockOnDirection(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int UnlockOnDirection(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-			obj.UnlockOnDirection();
 			return 0;
 		}
 		catch (Exception e)

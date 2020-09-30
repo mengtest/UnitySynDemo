@@ -142,10 +142,10 @@ public class MovePart
                 _StopMoveGravityChkTime=0;
                 this.chkFall();
             }
-            _StopMoveGravityChkTime+=Time.deltaTime;
+            _StopMoveGravityChkTime+=GameSettings.Instance.deltaTime;
         }
         if (!_isMoving && !_jumping) return;
-        //float dt=Time.deltaTime;
+        //float dt=GameSettings.Instance.deltaTime;
         //跟随对象检测;
         if (this.target != null) {
             if (this.target.isRecycled) {
@@ -154,7 +154,7 @@ public class MovePart
                 return;
             }
         }
-        this.changeDir(this.rotateSpeed,Time.deltaTime);
+        this.changeDir(this.rotateSpeed,GameSettings.Instance.deltaTime);
         //移动速度;
         if(_isMoving){
            this.calMoveSpeed();
@@ -174,7 +174,7 @@ public class MovePart
         this.obj.OnMove(_vSpeed);
       //  this.obj.position.addSelf(this._moveSpeed);
         //额外移动
-        this.extraMove(Time.deltaTime);
+        this.extraMove(GameSettings.Instance.deltaTime);
         if(_isMoving){
              this.chkMove();
         }
@@ -444,7 +444,7 @@ public class MovePart
         }
     }
     private void calMoveSpeed() {
-        this.moveStartTime += Time.deltaTime;
+        this.moveStartTime += GameSettings.Instance.deltaTime;
      
         if (this.ZeroSpeedStop) {
             //0衰减没有最大速度限制;
@@ -479,7 +479,7 @@ public class MovePart
                  //DebugLog.Log("转向减速",this._currentSpeed);
             }
         }
-        this._moveSpeed =  this.forwardDirection * this._currentSpeed * Time.deltaTime;
+        this._moveSpeed =  this.forwardDirection * this._currentSpeed * GameSettings.Instance.deltaTime;
     //    MyMath.floor2Vet(this._moveSpeed);
      //  DebugLog.Log("this._moveSpeed",this._moveSpeed);
     }
@@ -533,7 +533,7 @@ public class MovePart
      {
         _jumping = true;
         jumpState = JumpState.JumpOnGround;
-        _jumpUp=upPow*Time.deltaTime;
+        _jumpUp=upPow*GameSettings.Instance.deltaTime;
 
         if (_jumpUp > 0)
         {
@@ -551,7 +551,7 @@ public class MovePart
 
     //计算跳跃速度.
     public void calJumpSpeed(){
-        jumpStartTime += Time.deltaTime;
+        jumpStartTime += GameSettings.Instance.deltaTime;
         float zeroTime;
         if (ZeroUpStop)
         {
@@ -562,12 +562,12 @@ public class MovePart
             }
             else
             {
-                _jumpUp = upPow*Time.deltaTime + acceleratedupPow * jumpStartTime;
+                _jumpUp = upPow*GameSettings.Instance.deltaTime + acceleratedupPow * jumpStartTime;
             }
         }
         else
         {
-            _jumpUp = upPow*Time.deltaTime + acceleratedupPow * jumpStartTime;
+            _jumpUp = upPow*GameSettings.Instance.deltaTime + acceleratedupPow * jumpStartTime;
         }
         //      m_vSpeed *= _speed * cos;
         //   dir*_jumpForward+ Vector3.up*_jumpUp;

@@ -94,7 +94,7 @@ public class Player : Character
     }
     protected override void Update() {
        base.Update();
-       chekTime+=Time.deltaTime;
+       chekTime+=GameSettings.Instance.deltaTime;
        if(chekTime>=1){
            chekTime=0;
            this.checkPickUpNearItem();

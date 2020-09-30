@@ -8,7 +8,7 @@ using UnityEngine;
 public class Dash : ActionBase
 {
       private Vector3 pivotOffset = new Vector3(0.0f, 1f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.5f, 0.75f, -2.8f);    //-2.8f   -6.8f
+    private  Vector3 camOffset   = new Vector3(0.46f, 0.6f, -2.8f);    //-2.8f   -6.8f
     private  CharData charData;
     //单次创建.
     public override void init(){
@@ -48,7 +48,7 @@ public class Dash : ActionBase
             // if(charData.isMyPlayer){
             // }
        //     CameraManager.Instance.postLayer.enabled=true;
-       if(charData.isMyPlayer){
+       if(CameraManager.Instance.cameraCtrl.isCamTarget(charData.getChar())){
                     CameraManager.Instance.cameraCtrl.SetFOV(80);
                 if(charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
@@ -83,9 +83,9 @@ public class Dash : ActionBase
     public override void executeSwichAction(){
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
          this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
-          if(charData.isMyPlayer){
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(charData.getChar())){
             CameraManager.Instance.cameraCtrl.ResetFOV();
-            if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+            if(charData.aimState==GameEnum.AimState.Null){
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
       //          CameraManager.Instance.cameraCtrl.smooth=10;
             }

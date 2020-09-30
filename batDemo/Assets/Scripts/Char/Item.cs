@@ -33,6 +33,7 @@ public class Item : ActionObj
     public virtual void OnPickUp(Player player){
         //带在身上;
         ownerPlayer=player;
+           itemData.ItemOnHand=true;
     //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
          gameObject.transform.parent=player.gameObject.transform;
          gameObject.SetActive(false);
@@ -43,6 +44,7 @@ public class Item : ActionObj
        gameObject.transform.parent=null;
        gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
        gameObject.SetActive(true);
+       itemData.ItemOnHand=false;
        itemData.OnDrop();
        //给它向上力 让它掉出来;
        this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDrop);
@@ -62,6 +64,8 @@ public class Item : ActionObj
      }
     //回收.
     public override void onRecycle(){
+        ownerPlayer=null;
+        itemData=null;
         base.onRecycle();
      }
     public override void onRelease(){

@@ -41,7 +41,11 @@ public class GameLuaManager
         }
         return mousePos;
     }
-
+     public  static Player MyPlayer{
+      get{
+            return ObjManager.MyPlayer;
+      }  
+    }
      public static Character CreatCharacter(string path="",GameObject obj=null){
          #if UNITY_EDITOR
         return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);

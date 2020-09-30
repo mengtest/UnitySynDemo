@@ -186,7 +186,7 @@ using UnityEngine;
                 return;
             }
             if(this._loop == -1) return;
-            this._time = this._time + Time.deltaTime * this._speed;
+            this._time = this._time + GameSettings.Instance.deltaTime * this._speed;
             if (this._loop == 0 ) {
                 if (this._time >= this._totalTime) {
                     this._time = 0;

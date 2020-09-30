@@ -25,7 +25,7 @@ public class WeaponGun_Serializable : ScriptableObject
     public int Damage = 40; 
 
      [Tooltip("前置弹夹容量")]
-    public int Magzine=30;
+    public int FullMagzine=30;
 
     [Tooltip("全弹换弹时间")]
     public float ReloadTime=2.1f;
@@ -72,7 +72,7 @@ public class WeaponGun_Serializable : ScriptableObject
      public  Vector3 aimPivotOffset = new Vector3(0.5f, 1.13f,  0f); 
      [Tooltip("肩射摄像机相对位置")]
 	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.55f, -0.71f); 
-     public  float armsRotationY   = 9.5f; 
+     public  float armsRotationY   = 15f; 
     public  float armsRotationX   = 17f; 
 
      [Tooltip("后坐力")]

@@ -8,7 +8,9 @@ using UnityEngine;
 public class Jump : ActionBase
 {
     private Vector3 pivotOffset = new Vector3(0.0f, 0.5f,  0.0f);
-    private  Vector3 camOffset   = new Vector3(0.5f, 0.8f, -3.2f);    //-2.8f   -6.8f
+    private  Vector3 camOffset   = new Vector3(0.45f, 0.6f, -3.2f);    //-2.8f   -6.8f
+    private Vector3 pivotFallOffset=new Vector3(0.0f, 1f,  0.0f);
+    private Vector3 camFallOffset= new Vector3(0.45f, 0.6f, -2.4f);
     private int standFrame=0;
     private MovePart movePart;
     private Character character;
@@ -53,14 +55,15 @@ public class Jump : ActionBase
             }
     }
     private void onBeginJump(int frame=0){
-         if(character.charData.isMyPlayer){
+        bool isCamTarget=CameraManager.Instance.cameraCtrl.isCamTarget(character);
+        if(isCamTarget){
             if(character.charData.aimState==GameEnum.AimState.Null){
                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);
                 CameraManager.Instance.cameraCtrl.smooth=5;
             }
         }
         if(character.charData.isDashing){
-             if(character.charData.isMyPlayer){
+             if(isCamTarget){
                 if(character.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.SetFOV(80);
                 }
@@ -69,7 +72,7 @@ public class Jump : ActionBase
             this.obj.moveSpeed=character.charData.DashSpeed;
             this.movePart.speed=character.charData.DashSpeed; 
         }else{
-            if(character.charData.isMyPlayer){
+            if(isCamTarget){
                 if(character.charData.aimState==GameEnum.AimState.Null){
                     CameraManager.Instance.cameraCtrl.ResetFOV();
                }
@@ -94,9 +97,10 @@ public class Jump : ActionBase
     }
     private void onJumpFall(object[] param=null) {
         //  DebugLog.Log("action >> onJumpFall.........");
-        if(character.charData.isMyPlayer){
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(character)){
             if(character.charData.aimState==GameEnum.AimState.Null){
-                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(new Vector3(0.0f, 1f,  0.0f),camOffset);
+                //平滑 跳跃缩放.
+                 CameraManager.Instance.cameraCtrl.SetTargetOffsets(pivotFallOffset,camFallOffset);
             }
         }
          if(character.charData.aimState!=GameEnum.AimState.Null){
@@ -170,11 +174,9 @@ public class Jump : ActionBase
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Move,onJoyMove);
         this.obj.GetEvent().removeEventListener(CharEvent.OnJoy_Up,onJoyUp);
         character.SetCharacterCtrlHeight(1.8f);
-        if(character.charData.aimState!=GameEnum.AimState.Null){
-              character.AniPlay(GameEnum.AniLabel.DownIdle,0,0.1f,1f,0.8f,3);
-         }
-         if(character.charData.isMyPlayer){
-            if(character.charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+         character.AniPlay(GameEnum.AniLabel.DownIdle,0,0.1f,1f,0.8f,3);
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(character)){
+            if(character.charData.aimState==GameEnum.AimState.Null){
                 CameraManager.Instance.cameraCtrl.ResetFOV();
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
                 CameraManager.Instance.cameraCtrl.smooth=10;

@@ -10,7 +10,7 @@ public class MovePartWrap
 		L.RegFunction("PauseMove", PauseMove);
 		L.RegFunction("PesumeMove", PesumeMove);
 		L.RegFunction("Init", Init);
-		L.RegFunction("fixUpdate", fixUpdate);
+		L.RegFunction("Update", Update);
 		L.RegFunction("InitSpeed", InitSpeed);
 		L.RegFunction("StartMove", StartMove);
 		L.RegFunction("StartMoveToByList", StartMoveToByList);
@@ -144,7 +144,7 @@ public class MovePartWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int fixUpdate(IntPtr L)
+	static int Update(IntPtr L)
 	{
 		try
 		{

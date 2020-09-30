@@ -166,7 +166,7 @@ public class Character : ObjBase
         //                 //180°不能直接相减
         //             this._targetDir = Quaternion.AngleAxis(1, Vector3.up) * this._move.forwardDirection;
         //             }
-        //             this._moveRoate=this._targetDir*(faceRotateSpeed * Time.deltaTime);
+        //             this._moveRoate=this._targetDir*(faceRotateSpeed * GameSettings.Instance.deltaTime);
         //             //最新方向;
         //             this._targetDir =  this.gameObject.transform.forward+this._moveRoate;
         //             this._targetDir.Normalize();
@@ -202,9 +202,9 @@ public class Character : ObjBase
 
     //用的是 charData mono fixUpdate ;
     protected override void Update() {
-        if(this.ctrl!=null){
-            this.ctrl.Update();
-        }
+        // if(this.ctrl!=null){
+        //     this.ctrl.Update();
+        // }
         if(this.skillPart!=null){
             this.skillPart.Update();
         }
@@ -222,9 +222,9 @@ public class Character : ObjBase
         }
     }
      protected override void LateUpdate() {
-         if(this.ctrl!=null){
-            this.ctrl.LateUpdate();
-        }
+        //  if(this.ctrl!=null){
+        //     this.ctrl.LateUpdate();
+        // }
         if(this.skillPart!=null){
             this.skillPart.LateUpdate();
         }

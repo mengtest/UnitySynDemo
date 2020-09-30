@@ -43,14 +43,14 @@ public class Aiming : ActionBase
             }
             Weapon weapon =   player.weaponSystem.getActiveWeapon();
             weapon_gun= weapon.itemData.getGunData();
-            aimSmoothing=weapon_gun.AimTime/Time.deltaTime ;
+            aimSmoothing=weapon_gun.AimTime/GameSettings.Instance.deltaTime ;
              AimOn();
         }
 
          //动作更新;
         public override void Update(){
            base.Update();
-           if(!player.charData.Btn_Aim){
+           if(!player.charData.Btn_Aim&&!player.charData.Btn_Fire){
                 if(weapon_gun==null){
                     this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
@@ -79,7 +79,7 @@ public class Aiming : ActionBase
                     AimOn();
                break;
                case AimState.Aiming:
-                    aimTime+=Time.deltaTime;
+                    aimTime+=GameSettings.Instance.deltaTime;
                     if(aimTime>=weapon_gun.AimTime){
                         this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                         CameraManager.Instance.cameraCtrl.smooth=10;
@@ -120,7 +120,7 @@ public class Aiming : ActionBase
 
             // // Rotate entire player to face camera.
             // behaviourManager.SetLastDirection(forward);
-            player.gameObject.transform.rotation = Quaternion.Slerp( player.gameObject.transform.rotation, targetRotation, minSpeed * Time.deltaTime);
+            player.gameObject.transform.rotation = Quaternion.Slerp( player.gameObject.transform.rotation, targetRotation, minSpeed * GameSettings.Instance.deltaTime);
 
              if(weapon_gun.ArmTesting){
                    CameraManager.Instance.cameraCtrl.SetTargetOffsets (weapon_gun.aimPivotOffset, weapon_gun.aimCamOffset);
@@ -128,7 +128,8 @@ public class Aiming : ActionBase
             
 	    }
         private void Shoot(){
-            DebugLog.Log("shoot");
+         //   DebugLog.Log("shoot");
+           player.weaponSystem.getActiveWeapon().Fire();
         }
         private void AimOn(){
             player.GetMovePart().faceToRotation=false;
@@ -142,7 +143,7 @@ public class Aiming : ActionBase
             }
             //   DebugLog.Log(aimSmoothing,">>>>>>>>>>>>>>");
             aimTime=0;
-            // smooth * Time.deltaTime
+            // smooth * GameSettings.Instance.deltaTime
              switch(weapon_gun.getItemType()){
                  //weapon_gun.AimTime/2f
                  case GameEnum.ItemType.Gun:

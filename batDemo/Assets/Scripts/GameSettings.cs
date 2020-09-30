@@ -120,5 +120,7 @@ public class GameSettings : ScriptableObject
        this.localLua =false;
     //   this.combineTexture=true;
 #endif
+       deltaTime=1f/(float)frameRate;
+
     }
 }

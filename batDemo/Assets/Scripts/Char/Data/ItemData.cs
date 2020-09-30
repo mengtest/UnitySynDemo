@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //武器数据..同步数据也写在这
+[AutoRegistLua]
 public class ItemData : MonoBehaviour,IData
 {
     private Item _obj;
@@ -13,12 +14,16 @@ public class ItemData : MonoBehaviour,IData
 
     private IItemData _Data;
 
+    public bool ItemOnHand=false;
+
+    public bool defaultFull=true;
+
     // Start is called before the first frame update
     void Start()
     {
          PlaySpeed=1;
     }
-    private void Update() {
+    private void FixedUpdate() {
          if(_onUpdate!=null){
              this._onUpdate();
          }
@@ -26,7 +31,8 @@ public class ItemData : MonoBehaviour,IData
     public void init(ObjBase obj,Action onUpdate=null,Action onLateUpdate=null){
          _obj=obj as Item;
          _onUpdate=onUpdate;
-         initGunData();
+         ItemOnHand=false;
+         initItemData();
     }
     /*****
     **
@@ -35,15 +41,19 @@ public class ItemData : MonoBehaviour,IData
 
     **
     *****/
-    public void initGunData(){
+    public void initItemData(){
          string[] split = _obj.poolname.Split('/');
          if(_obj.poolname.StartsWith("Gun")){
             this._Data=_obj.gameObject.GetComponent<Weapon_Gun>();
             if(this._Data==null){
                 Weapon_Gun weapon_Gun=_obj.gameObject.AddComponent<Weapon_Gun>();
                 this._Data=weapon_Gun;
-                weapon_Gun.U3d_LoadData(_obj.poolname);
+                weapon_Gun.LoadData_u3d(_obj.poolname);
                 // DebugLog.LogError("WeaponGunData >>> Weapon_Gun null",_obj.gameObject.name,_obj.id);
+            }else{
+                if(this.defaultFull){
+                   (this._Data as Weapon_Gun).FillMagzine();
+                }
             }
             this._Data.init(_obj);
             _obj.isWeapon=true;

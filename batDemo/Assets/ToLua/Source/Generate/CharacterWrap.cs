@@ -9,10 +9,12 @@ public class CharacterWrap
 		L.BeginClass(typeof(Character), typeof(ObjBase));
 		L.RegFunction("initData", initData);
 		L.RegFunction("ChangeState", ChangeState);
+		L.RegFunction("AniPlay", AniPlay);
 		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("GetCurStateID", GetCurStateID);
 		L.RegFunction("onActionCG", onActionCG);
+		L.RegFunction("SetCharacterCtrlHeight", SetCharacterCtrlHeight);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("IsGrounded", IsGrounded);
@@ -118,6 +120,81 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int AniPlay(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				obj.AniPlay(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				obj.AniPlay(arg0, arg1);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+				obj.AniPlay(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 5)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
+				obj.AniPlay(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else if (count == 6)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 6);
+				obj.AniPlay(arg0, arg1, arg2, arg3, arg4);
+				return 0;
+			}
+			else if (count == 7)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				string arg0 = ToLua.CheckString(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 6);
+				int arg5 = (int)LuaDLL.luaL_checknumber(L, 7);
+				obj.AniPlay(arg0, arg1, arg2, arg3, arg4, arg5);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.AniPlay");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int OnEvent(IntPtr L)
 	{
 		try
@@ -208,6 +285,23 @@ public class CharacterWrap
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 			obj.onActionCG();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetCharacterCtrlHeight(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetCharacterCtrlHeight(arg0);
 			return 0;
 		}
 		catch (Exception e)

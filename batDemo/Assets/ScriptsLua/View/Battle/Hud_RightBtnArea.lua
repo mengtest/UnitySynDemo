@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-09-01 09:44:08
+LastEditTime: 2020-09-30 15:01:58
 --]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
@@ -59,6 +59,7 @@ end
 -----UI加载完成---------
 function Hud_RightBtnArea:OnInit(param)
     self._isSprinting=false;
+    self.Aim_IsDraging = false;
 
     --self.RotateText.text=CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic;
     --- Example.playerObj:GetMovePart().rotateSpeed;
@@ -119,10 +120,17 @@ end
 function Hud_RightBtnArea:onAimBtnDown(eventData)
     if eventData.pointerId<-1 or self.Aim_fingerId~=nil then return end
     self.Aim_fingerId = eventData.pointerId;
-    self.Aim_IsDraging = true;
-    --- log("OnDown ")
-    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Aim,true});
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{self.Aim_IsDraging });
+    if  GameLuaManager.MyPlayer.charData.aimState ~= GameEnum.AimState.Null then
+   --     self.Aim_IsDraging = false;
+        EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Aim,false});
+      --  log("onAimBtnDown false ")
+    else  
+    --    self.Aim_IsDraging = true;
+        EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Aim,true});
+        EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ true });
+   ---     log("onAimBtnDown true ")
+    end
+  --   log("onAimBtnDown ")
 end
 function Hud_RightBtnArea:OnAimBtnDrag(eventData)
     ---   log("onDrag "..eventData.position)
@@ -136,11 +144,11 @@ end
 function Hud_RightBtnArea:OnAimBtnUp(eventData)
     ---正确的手指抬起时重置摇杆
     if self.Aim_fingerId ~= eventData.pointerId then  return end;
-    self.Aim_IsDraging=false;
+ --   self.Aim_IsDraging=false;
     self.Aim_fingerId = nil;
     --- log("OnUp ")
-    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Aim,false});
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ self.Aim_IsDraging });
+  --  EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Aim,false});
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ false });
 end
 
 
@@ -151,7 +159,7 @@ function Hud_RightBtnArea:onFireBtnDown(eventData)
     self.Fire_IsDraging = true;
     --- log("OnDown ")
     EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Attack,true});
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{self.Fire_IsDraging });
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{true });
 end
 function Hud_RightBtnArea:OnFireBtnDrag(eventData)
     ---   log("onDrag "..eventData.position)
@@ -169,7 +177,7 @@ function Hud_RightBtnArea:OnFireBtnUp(eventData)
     self.Fire_fingerId = nil;
     --- log("OnUp ")
     EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Attack,false});
-    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ self.Fire_IsDraging });
+    EventManager.dispatchEventToC(SystemEvent.UI_HUD_ON_ROTATE_TOUCH_STATE,{ false });
 end
 
 

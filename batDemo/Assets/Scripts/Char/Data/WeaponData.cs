@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //武器数据..同步数据也写在这
+[AutoRegistLua]
 public class WeaponData : MonoBehaviour,IData
 {
     private ObjBase _obj;
@@ -18,7 +19,7 @@ public class WeaponData : MonoBehaviour,IData
     {
          PlaySpeed=1;
     }
-    private void FixedUpdate() {
+    private void FixedUpdate(){
          if(_onUpdate!=null){
              this._onUpdate();
          }
@@ -40,11 +41,6 @@ public class WeaponData : MonoBehaviour,IData
       return this._Data as Weapon_Gun;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void OnDestroy() {
         _obj=null;
         _onUpdate=null;

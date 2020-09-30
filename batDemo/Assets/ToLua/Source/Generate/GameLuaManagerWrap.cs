@@ -18,6 +18,7 @@ public class GameLuaManagerWrap
 		L.RegFunction("AddScrollViewOnValueChangeListener", AddScrollViewOnValueChangeListener);
 		L.RegFunction("New", _CreateGameLuaManager);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("MyPlayer", get_MyPlayer, null);
 		L.EndClass();
 	}
 
@@ -277,6 +278,20 @@ public class GameLuaManagerWrap
 			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
 			GameLuaManager.AddScrollViewOnValueChangeListener(arg0, arg1);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_MyPlayer(IntPtr L)
+	{
+		try
+		{
+			ToLua.PushObject(L, GameLuaManager.MyPlayer);
+			return 1;
 		}
 		catch (Exception e)
 		{

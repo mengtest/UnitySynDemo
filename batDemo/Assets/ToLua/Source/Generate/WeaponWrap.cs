@@ -11,6 +11,7 @@ public class WeaponWrap
 		L.RegFunction("EquipWeaponRightHand", EquipWeaponRightHand);
 		L.RegFunction("EquipWeaponBackChest", EquipWeaponBackChest);
 		L.RegFunction("Fire", Fire);
+		L.RegFunction("StopFire", StopFire);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
@@ -102,6 +103,22 @@ public class WeaponWrap
 			ToLua.CheckArgsCount(L, 1);
 			Weapon obj = (Weapon)ToLua.CheckObject<Weapon>(L, 1);
 			obj.Fire();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int StopFire(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Weapon obj = (Weapon)ToLua.CheckObject<Weapon>(L, 1);
+			obj.StopFire();
 			return 0;
 		}
 		catch (Exception e)

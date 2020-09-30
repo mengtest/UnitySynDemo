@@ -36,7 +36,7 @@ public class Controller :PoolObj, IController
     }
 
     #region 继承 可重写..................
-    //Time.deltaTime FixedUpdate
+    //GameSettings.Instance.deltaTime FixedUpdate
     public virtual void Update()
     {
         
