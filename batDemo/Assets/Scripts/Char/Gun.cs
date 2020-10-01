@@ -8,6 +8,7 @@ public class Gun : Weapon
 {
     protected bool onFire=false;
     private  Weapon_Gun gunD;
+    private bool isShooting;
     public Gun()
     {
          charType=GameEnum.ObjType.Gun;
@@ -58,18 +59,30 @@ public class Gun : Weapon
            }
            //有直接切攻击 取消换弹.
         }
-        
-
+        switch(gunD.FireType){
+            case FireType.SEMI:
+             
+            break;
+             case FireType.BURST:
+             
+            break;
+             case FireType.AUTO:
+             
+            break;
+        }
+    }
+    private void onSingleFire(){
+       isShooting = true;
     }
     private bool FireCheck(){
         if(!itemData.ItemOnHand) return false;
         if(!onFire) return false;
         if(ownerPlayer.charData.aimState!=AimState.AimingFinish){
-            onFire=false;
+            StopFire();
             return false;
         }
         if(!ownerPlayer.charData.Btn_Fire){
-            onFire=false;
+            StopFire();
             return false;
         }
         return true;

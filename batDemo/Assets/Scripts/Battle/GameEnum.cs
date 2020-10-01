@@ -351,7 +351,7 @@ namespace GameEnum
 	{
         //1、单发
 		SEMI=1,
-        //2、连发
+        //2、连发 也是 半自动
 		BURST=2,
         //3、全自动
 		AUTO=3,

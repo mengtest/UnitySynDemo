@@ -68,7 +68,7 @@
         "UIEventListener",
         "SystemEvent",
         "EventCenter",
-        "CameraManager"
+        "CameraManager",
     ],
     "Lua.workspace.maxPreload": 1000,
     "git.ignoreLimitWarning": true
