@@ -55,7 +55,9 @@ public class Player : Character
     public override void OnItemTrigger(Item item,bool isEnter=true){
         base.OnItemTrigger(item,isEnter);
         if(isEnter){
-            canPickUpList.Add(item);
+            if(!canPickUpList.Contains(item)){
+               canPickUpList.Add(item);
+            }
             if(canPickAction()){   
                 if(checkPickUpItem(item)){
                     this.doActionSkillByLabel(ActionLabel.PickUp);

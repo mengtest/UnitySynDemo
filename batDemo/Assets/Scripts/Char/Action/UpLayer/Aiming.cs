@@ -14,6 +14,7 @@ public class Aiming : ActionBase
         private float aimSmoothing;   
         private float aimTime=0f;
         private bool isAimBlocked;
+        private bool isFireing=false;
       
         //单次创建.
         public override void init(){
@@ -22,6 +23,7 @@ public class Aiming : ActionBase
            this.actionType=1;
             this.defultPriority=GameEnum.CancelPriority.NormalAction;
             this.activeIK=true;
+            this.isFireing=false;
             
         }
 
@@ -29,7 +31,8 @@ public class Aiming : ActionBase
         public override void InitAction(ObjBase obj)
         {
             base.InitAction(obj);
-             player=this.obj as Player;
+            player=this.obj as Player;
+            this.isFireing=false;
         }
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
@@ -71,6 +74,9 @@ public class Aiming : ActionBase
                       player.charData.aimState=AimState.Begin;
                 }
            }
+           if(this.isFireing&&!player.charData.Btn_Fire){
+                  StopShoot();
+           }
            switch(player.charData.aimState){
                 case AimState.AimOff:
                     AimOff();
@@ -81,16 +87,17 @@ public class Aiming : ActionBase
                case AimState.Aiming:
                     aimTime+=GameSettings.Instance.deltaTime;
                     if(aimTime>=weapon_gun.AimTime){
+                        DebugLog.Log("canShoot");
                         this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                         CameraManager.Instance.cameraCtrl.smooth=10;
                         player.charData.aimState=AimState.AimingFinish;
-                        if(player.charData.Btn_Fire){
+                        if(!this.isFireing&&player.charData.Btn_Fire){
                             Shoot();
                         }
                     }
                break;
                case AimState.AimingFinish:
-                  if(player.charData.Btn_Fire){
+                  if(!this.isFireing&&player.charData.Btn_Fire){
                      Shoot();
                   }
                break;
@@ -130,8 +137,15 @@ public class Aiming : ActionBase
         private void Shoot(){
          //   DebugLog.Log("shoot");
            player.weaponSystem.getActiveWeapon().Fire();
+           this.isFireing=true;
+        }
+        private void StopShoot(){
+         //   DebugLog.Log("shoot");
+           player.weaponSystem.getActiveWeapon().StopFire();
+           this.isFireing=false;
         }
         private void AimOn(){
+            DebugLog.Log("BeginAim");
             player.GetMovePart().faceToRotation=false;
             player.charData.aimState=AimState.Aiming;
             if(player.charData.currentBaseAction==GameEnum.ActionLabel.Dash||player.charData.currentBaseAction==GameEnum.ActionLabel.Run){
@@ -143,14 +157,15 @@ public class Aiming : ActionBase
             }
             //   DebugLog.Log(aimSmoothing,">>>>>>>>>>>>>>");
             aimTime=0;
+         //    aimTime=GameSettings.Instance.deltaTime;
             // smooth * GameSettings.Instance.deltaTime
              switch(weapon_gun.getItemType()){
                  //weapon_gun.AimTime/2f
                  case GameEnum.ItemType.Gun:
-                    player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_aim,0,0.003f,1,weapon_gun.AimTime/2f,0);
+                    player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_aim,0,0.003f,1,weapon_gun.AimTime/1.2f,0);
                  break;
                  case GameEnum.ItemType.PistolGun:
-                     player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/2f,0);
+                     player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/1.2f,0);
                  break;
              }
             aimTime=0;
