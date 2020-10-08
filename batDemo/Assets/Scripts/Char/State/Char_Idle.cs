@@ -214,7 +214,8 @@ public class Char_Idle : State<Character>
     }
     private void OnDropWeapon(int select){
         if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
-           this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
+       //     DebugLog.Log("Aiming>>>>>>>>>>>>>>>>>>>>");
+           this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
         }
        (this._char as Player).weaponSystem.DropWeapon(select);
     }

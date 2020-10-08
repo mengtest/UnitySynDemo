@@ -20,23 +20,23 @@ public class Weapon : Item
    
     //安装手上
     public virtual void EquipWeaponRightHand(Player player){
-    //     itemData.OnPickUp();
-    //     ownerPlayer = player;
-    // //    this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
-    //     gameObject.transform.SetParent(player.weaponSystem.rightHand);
-    //     Weapon_Gun gunD=this.itemData.getGunData();
-    //     gameObject.transform.localPosition =gunD.rightHandPosition;
-    //     gameObject.transform.localRotation = Quaternion.Euler(gunD.relativeRotation);
+        itemData.OnPickUp();
+        ownerPlayer = player;
+    //    this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
+        gameObject.transform.SetParent(player.weaponSystem.rightHand);
+        // Weapon_Gun gunD=this.itemData.getGunData();
+        // gameObject.transform.localPosition =gunD.rightHandPosition;
+        // gameObject.transform.localRotation = Quaternion.Euler(gunD.relativeRotation);
     }
      //安装背部
     public virtual void EquipWeaponBackChest(Player player){
-//         itemData.OnPickUp();
-//         ownerPlayer = player;
-//    //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
-//         gameObject.transform.SetParent(player.weaponSystem.chest);
-//         Weapon_Gun gunD=this.itemData.getGunData();
-//         gameObject.transform.localPosition =gunD.backChestPosition;
-//         gameObject.transform.localRotation = Quaternion.Euler(gunD.backChestRotation);
+        itemData.OnPickUp();
+        ownerPlayer = player;
+   //     this.doActionSkillByLabel(GameEnum.ActionLabel.ItemDefault);
+        gameObject.transform.SetParent(player.weaponSystem.chest);
+        // Weapon_Gun gunD=this.itemData.getGunData();
+        // gameObject.transform.localPosition =gunD.backChestPosition;
+        // gameObject.transform.localRotation = Quaternion.Euler(gunD.backChestRotation);
     }
    
     public virtual void Fire(){

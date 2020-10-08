@@ -83,7 +83,7 @@ public class Jump : ActionBase
         }
         if(character.charData.aimState!=GameEnum.AimState.Null){
             //DebugLog.Log("player");
-            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f/this.speed,1f*this.speed,0,3);
+            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0,0.333f,1f*this.speed,0.25f,3);
         }else{
            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
         }
@@ -104,7 +104,7 @@ public class Jump : ActionBase
             }
         }
          if(character.charData.aimState!=GameEnum.AimState.Null){
-            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0,0.333f, 1f*this.speed,0.25f,3);
+            character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0.333f,0.333f, 1f*this.speed,0f,3);
          }else{
             this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f/this.speed, 1.3f*this.speed,0.25f,1,true,true);
          }
