@@ -29,6 +29,9 @@ public class Reloading : ActionBase
      
             player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_reload,0,0.5f,1,0,1);
             _Gun=player.weaponSystem.getActiveWeapon() as Gun;
+            if(_Gun!=null&&player.charData.isMyPlayer){
+                //UI派发事件
+            }
           //  player.GetAniUpPart().endAniAction=toAction;
 
         }

@@ -15,6 +15,7 @@ public class Aiming : ActionBase
         private float aimTime=0f;
         private bool isAimBlocked;
         private bool isFireing=false;
+        private bool isCamTarget=false;
       
         //单次创建.
         public override void init(){
@@ -39,7 +40,7 @@ public class Aiming : ActionBase
             this.currentFrame = frame;
             //播放 站立动作.
             //判断武器类型 aiming
-
+            this.isCamTarget=CameraManager.Instance.cameraCtrl.isCamTarget(player);
             if(player.charData.currentBaseAction==GameEnum.ActionLabel.PickUp){
                 //自动捡东西在 瞄准需立刻切站立
                     player.doActionSkillByLabel(GameEnum.ActionLabel.Stand);
@@ -105,7 +106,7 @@ public class Aiming : ActionBase
            
         }
         public override void  LateUpdate() {
-            if(player.charData.isMyPlayer){
+            if(isCamTarget){
                Rotating();
             }
         }
@@ -168,7 +169,7 @@ public class Aiming : ActionBase
                      player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/1.2f,0);
                  break;
              }
-            if(player.charData.isMyPlayer){
+            if(isCamTarget){
                  CameraManager.Instance.cameraCtrl.smooth=aimSmoothing;
                   CameraManager.Instance.cameraCtrl.SetTargetOffsets (weapon_gun.aimPivotOffset, weapon_gun.aimCamOffset);
             }
@@ -187,7 +188,7 @@ public class Aiming : ActionBase
              if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
                    this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.35f,0,true);
             }
-             if(player.charData.isMyPlayer){
+             if(isCamTarget){
                 CameraManager.Instance.cameraCtrl.smooth=10;
                 CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
                 CameraManager.Instance.cameraCtrl.ResetMaxVerticalAngle();
@@ -208,45 +209,42 @@ public class Aiming : ActionBase
     /**
     * 切换动作 处理逻辑;
     */
-
-        /**
-        * 切换动作 处理逻辑;
-        */
-        public override void executeSwichAction(){
-             player.charData.aimState=AimState.Null;
-            player.GetMovePart().faceToRotation=true;
-             if(player.charData.isMyPlayer){
-                CameraManager.Instance.cameraCtrl.smooth=10;
-                CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
-                CameraManager.Instance.cameraCtrl.ResetMaxVerticalAngle();
-             }
-           if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
-                   this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.1f,0,true);
+    public override void executeSwichAction(){
+            player.charData.aimState=AimState.Null;
+        player.GetMovePart().faceToRotation=true;
+            if(isCamTarget){
+            CameraManager.Instance.cameraCtrl.smooth=10;
+            CameraManager.Instance.cameraCtrl.ResetTargetOffsets();
+            CameraManager.Instance.cameraCtrl.ResetMaxVerticalAngle();
             }
+        if(player.charData.currentBaseAction==GameEnum.ActionLabel.Stand){
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.1f,0,true);
         }
+    }
 
-        //动作 需要改成3种分支 base up add
-        public override void onGet()
-        {
-             base.onGet();
-        }
-        /**
-        回收..
-        **/
-        public override void onRecycle()
-        {
+    //动作 需要改成3种分支 base up add
+    public override void onGet()
+    {
+            base.onGet();
+    }
+    /**
+    回收..
+    **/
+    public override void onRecycle()
+    {
+        weapon_gun=null;
+        player=null;
+        isCamTarget=false;
+        base.onRecycle();
+    }
+    /*********
+    销毁
+    *******/
+    public override void onRelease()
+    {
             weapon_gun=null;
             player=null;
-            base.onRecycle();
-        }
-        /*********
-        销毁
-        *******/
-        public override void onRelease()
-        {
-             weapon_gun=null;
-             player=null;
-             base.onRelease();
-        }
+            base.onRelease();
+    }
 }
 

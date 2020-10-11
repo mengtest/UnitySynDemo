@@ -128,7 +128,7 @@ public class Gun : Weapon
                 ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.rifle_shot,0,0.5f,1,0,1,false,true);
             break;
             case GameEnum.ItemType.PistolGun:
-               ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.pistol_shot,0,0.967f,1,0,1,false,true);
+                ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.pistol_shot,0,0.967f,1,0,1,false,true);
             break;
         }
        ownerPlayer.GetAniUpPart().endAniAction=backAiming;
