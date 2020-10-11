@@ -89,6 +89,7 @@ public class ActionManager
         registerClass(GameEnum.ActionLabel.UpIdle, typeof(UpIdle),1,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.ChangeWeapon, typeof(ChangeWeapon),1,GameEnum.CancelPriority.BaseAction);
         registerClass(GameEnum.ActionLabel.Aiming, typeof(Aiming),1,GameEnum.CancelPriority.NormalAction);
+         registerClass(GameEnum.ActionLabel.Reloading, typeof(Reloading),1,GameEnum.CancelPriority.BaseAction);
        // registerClass(GameEnum.ActionLabel.Shooting, typeof(Shooting),1,GameEnum.CancelPriority.NormalAction);
 
 

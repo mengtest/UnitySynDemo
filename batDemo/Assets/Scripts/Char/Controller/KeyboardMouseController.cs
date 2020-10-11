@@ -157,6 +157,10 @@ public class KeyboardMouseController : Controller
          //捡武器;
            this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.PickUp});
         }
+        if(Input.GetKeyDown(KeyCode.R)){
+         //换弹;
+           this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Reload});
+        }
         if (!this._char.charData.Btn_Aim && Input.GetAxisRaw(aimButton) != 0)
 		{
             this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Aim,true});

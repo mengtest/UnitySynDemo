@@ -11,7 +11,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 {
     public WeaponGun_Serializable data ;     
     
-    public GunState gunState=GunState.Idle;
+   // public GunState gunState=GunState.Idle;
 
     public int CurrentMagzine=0;
 

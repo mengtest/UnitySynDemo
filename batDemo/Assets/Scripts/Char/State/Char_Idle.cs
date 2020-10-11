@@ -8,7 +8,7 @@ using UnityEngine;
 public class Char_Idle : State<Character>
 {
     private Dictionary<string,bool> canActionDic=new Dictionary<string,bool>();
-    private Character _char = null;
+    private Player _player = null;
     private  CharData charData=null;
 
 
@@ -29,13 +29,13 @@ public class Char_Idle : State<Character>
     // 进入状态
     public override void Enter(object param)
     {
-        _char = m_Statemachine.GetOwner();
-        charData=_char.objData as CharData;
+        _player = m_Statemachine.GetOwner() as Player;
+        charData=_player.objData as CharData;
         charData.isNumb = false;
         charData.isLie = false;
         charData.lowFLy = false;
         charData.isStandUp = false;
-        _char.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
+        _player.GetEvent().addEventListener(CharEvent.Begin_Fall,OnBeginFall);
         // _char.GetEvent().addEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         // _char.GetEvent().addEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
         // _char.GetEvent().addEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
@@ -46,13 +46,13 @@ public class Char_Idle : State<Character>
     // 退出状态
     public override void Leave()
     {
-        _char.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
+        _player.GetEvent().removeEventListener(CharEvent.Begin_Fall,OnBeginFall);
         // _char.GetEvent().removeEventListener(CharEvent.On_Select_Weapon,OnSelectWeapon);
         // _char.GetEvent().removeEventListener(CharEvent.On_Drop_Weapon,OnDropWeapon);
         // _char.GetEvent().removeEventListener(CharEvent.On_PickUp_Item,OnPickUpItem);
         // _char.GetEvent().removeEventListener(CharEvent.On_Aim_Button,OnAimButton);
         // _char.GetEvent().removeEventListener(CharEvent.On_Fire_Button,OnFireButton);
-        _char = null;
+        _player = null;
     }
 
     public override void Update(float dt)
@@ -92,6 +92,9 @@ public class Char_Idle : State<Character>
                    break;
                    case GameEnum.KeyInput.PickUp:
                        this.OnPickUpItem();  
+                   break;
+                   case GameEnum.KeyInput.Reload:
+                       this.OnReload();  
                    break;
                    case GameEnum.KeyInput.Aim:
                        bool isDown=true;
@@ -188,26 +191,29 @@ public class Char_Idle : State<Character>
     //     }
     // }
     private void OnPickUpItem(){
-       (this._char as Player).PickUpNearItem();
+       this._player.PickUpNearItem();
+    }
+    private void OnReload(){
+        if(this._player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading){
+            this._player.doActionSkillByLabel(GameEnum.ActionLabel.Reloading);
+        }
     }
     private void OnAimButton(bool isDown){
       // bool bol =(bool)data[0];
-       Player player=this._char as Player;
-       player.charData.Btn_Aim=isDown;
+       this._player.charData.Btn_Aim=isDown;
        if(isDown){
-            if(player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
-                    player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
+            if(this._player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                    this._player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
             }
        }
     }
     private void OnFireButton(bool isDown){
      //    bool bol =(bool)data[0];
-       Player player=this._char as Player;
-       player.charData.Btn_Fire=isDown;
+       _player.charData.Btn_Fire=isDown;
        if(InputSetting.Instance.AttackAutoAimming){
-            if(isDown&&!player.charData.Btn_Aim){
-                if(player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
-                        player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
+            if(isDown&&!_player.charData.Btn_Aim){
+                if(_player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                        _player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
                 }
             }
        }
@@ -215,24 +221,24 @@ public class Char_Idle : State<Character>
     private void OnDropWeapon(int select){
         if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
        //     DebugLog.Log("Aiming>>>>>>>>>>>>>>>>>>>>");
-           this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
+           this._player.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
         }
-       (this._char as Player).weaponSystem.DropWeapon(select);
+       this._player.weaponSystem.DropWeapon(select);
     }
     private void OnSelectWeapon(int select){
-        WeaponSystem weaponSystem=  (this._char as Player).weaponSystem;
+        WeaponSystem weaponSystem=  this._player.weaponSystem;
         if(select!=weaponSystem.UseActiveSide){
             // if(charData.currentUpLayerAction==GameEnum.ActionLabel.Aiming){
             //     this._char.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle);
             // }
             //播放 换武器动作.
-            this._char.doActionSkillByLabel(GameEnum.ActionLabel.ChangeWeapon);
+            this._player.doActionSkillByLabel(GameEnum.ActionLabel.ChangeWeapon);
         }
         weaponSystem.UseWeaponSide(select);
     }
     private void OnBeginFall(object[] data){
          if(charData.currentBaseAction!=GameEnum.ActionLabel.Jump){
-             this._char.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
+             this._player.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
          }
     }
     public void  OnJump(){
@@ -240,7 +246,7 @@ public class Char_Idle : State<Character>
             //二段跳.
             return;
         }
-        this._char.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
+        this._player.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
     }
 
     public override bool CanDoAction(string ActionLabel)
@@ -265,7 +271,7 @@ public class Char_Idle : State<Character>
           //charData.Syn&&(
         if (this.m_Statemachine.GetCurStateID() != CharState.Char_Skill )
         {
-           _char.GetEvent().send(CharEvent.Syn_NormalState, charData.pvpId);
+           _player.GetEvent().send(CharEvent.Syn_NormalState, charData.pvpId);
         }        
         return true;
     }

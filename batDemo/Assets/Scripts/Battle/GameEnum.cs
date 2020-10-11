@@ -150,7 +150,7 @@ namespace GameEnum
 
         public const string UpIdle="UpIdle";
         public const string ChangeWeapon="ChangeWeapon";
-
+        public const string Reloading="Reloading";
         public const string ItemDrop = "ItemDrop";  
         public const string ItemDefault = "ItemDefault"; 
 

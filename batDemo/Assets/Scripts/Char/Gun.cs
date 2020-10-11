@@ -30,7 +30,9 @@ public class Gun : Weapon
       base.initData();
       this.gunD=this.itemData.getGunData();
     }
-   
+    public Weapon_Gun getGunData(){
+        return this.gunD;
+    }
     //安装手上
     public override void EquipWeaponRightHand(Player player){
         itemData.OnPickUp();
@@ -66,6 +68,9 @@ public class Gun : Weapon
         shotFire=0;
         //TODO : 
     }
+    public void FillMagzin(){
+        gunD.FillMagzine();
+    }
 
     protected override void Update(){
         base.Update();
@@ -81,10 +86,6 @@ public class Gun : Weapon
         }
         if(!FireCheck()) return;
         //开火咯.有子弹
-        if(gunD.gunState==GunState.Reloading){
-           //有直接切攻击 取消换弹.
-
-        }
         switch(gunD.FireType){
             case FireType.SEMI:
                onSingleFire();
@@ -194,7 +195,7 @@ public class Gun : Weapon
     private bool FireCheck(){
         if(!onFire) return false;
         if(gunD.CurrentMagzine<=0){
-           onFire=false;
+           StopFire();
            return false;
         }
         if(ownerPlayer.charData.aimState!=AimState.AimingFinish){

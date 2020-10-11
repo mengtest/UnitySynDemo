@@ -9,7 +9,6 @@ public class ChangeWeapon : ActionBase
 {
        private float startTime=0f;
        private Player player;
-        private Weapon_Gun weapon_gun;   
         //单次创建.
         public override void init(){
             this.name=GameEnum.ActionLabel.ChangeWeapon;
@@ -68,7 +67,6 @@ public class ChangeWeapon : ActionBase
         public override void onRecycle()
         {
             player=null;
-            weapon_gun=null;
             base.onRecycle();
         }
         /*********
@@ -77,7 +75,6 @@ public class ChangeWeapon : ActionBase
         public override void onRelease()
         {
              player=null;
-              weapon_gun=null;
              base.onRelease();
         }
 }
