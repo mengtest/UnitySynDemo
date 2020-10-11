@@ -513,8 +513,8 @@ public class AppBuild {
     public static void allChar(bool needABTexture=false)
     {
         // "Avatar" 
-     //   string[] fileArr = new string[1] { "Avatar"}; //"Avatar",
-        string[] fileArr = new string[3] { "Monster", "Building","Character"};
+     //   string[] fileArr = new string[1] { "Avatar"}; //"Avatar","Building"
+        string[] fileArr = new string[2] { "Monster", "Character"};
         string basePath = "Assets/Res/";
         string assetsPath = "";
         string ffName = "";

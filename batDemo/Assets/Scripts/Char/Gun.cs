@@ -113,7 +113,7 @@ public class Gun : Weapon
              //改变下FirePoint Acc改变.
             // CameraManager.Instance.cameraCtrl.FirePoint;
             gunD.CurrentMagzine-=1;
-            DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
+         //   DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
            // CameraManager.Instance.cameraCtrl.resetFirePoint();
          }
         playShoot();
@@ -174,7 +174,7 @@ public class Gun : Weapon
       if(_burstFire){
            if(_curFireCount>0){
                 if(_curFireInterval>=gunD.FireInterval){
-                    DebugLog.Log("_curFireCount",_curFireCount);
+                //    DebugLog.Log("_curFireCount",_curFireCount);
                     _curFireInterval=0;
                     _curFireCount-=1;
                     FireProcessing(); 

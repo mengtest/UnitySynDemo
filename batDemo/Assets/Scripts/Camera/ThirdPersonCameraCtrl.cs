@@ -14,6 +14,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public float smooth = 10f;                                         // Speed of camera responsiveness.
 
     public float smoothVerAngle=10f;
+
+	private float recoilAngleSub=10f;
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
 	//垂直 6f
@@ -245,32 +247,32 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
           cam.position =  target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset ;
 
 		// Amortize Camera vertical bounce.
+      //  DebugLog.Log(recoilAngle);
 		if (recoilAngle.x > 0){
-			recoilAngle.x -= 5 * Time.deltaTime;
+			recoilAngle.x -= recoilAngleSub * Time.deltaTime;
             if (recoilAngle.x <=0){
                 recoilAngle.x=0;
             }
         }
 		else if(recoilAngle.x < 0){
-			recoilAngle.x += 5 * Time.deltaTime;
+			recoilAngle.x += recoilAngleSub * Time.deltaTime;
               if (recoilAngle.x >=0){
                 recoilAngle.x=0;
             }
         }
 
         if (recoilAngle.y > 0){
-			recoilAngle.y -= 5 * Time.deltaTime;
+			recoilAngle.y -= recoilAngleSub * Time.deltaTime;
             if (recoilAngle.y <=0){
                 recoilAngle.y=0;
             }
         }
 		else if(recoilAngle.y < 0){
-			recoilAngle.y += 5 * Time.deltaTime;
+			recoilAngle.y += recoilAngleSub * Time.deltaTime;
             if (recoilAngle.y >=0){
                 recoilAngle.y=0;
             }
         }
-     //   DebugLog.Log(recoilAngle);
 
         if(this._synAction!=null){
             this._synAction();
@@ -282,7 +284,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	// Bounce the camera vertically.
 	public void SetRecoilAngle(Vector2 recoil)
 	{
-		recoilAngle =recoilAngle+recoil;
+		recoilAngle = recoilAngle+recoil;
+	//	 DebugLog.Log(recoilAngle,recoil);
 	}
 
 	// Set camera offsets to custom values.
