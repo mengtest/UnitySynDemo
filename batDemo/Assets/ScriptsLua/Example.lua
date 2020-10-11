@@ -20,7 +20,7 @@ function Example.CreatPlayer()
   Example.playerObj = GameLuaManager.CreatCharacter("player",Example.player);
  -- Example.playerObj.moveSpeed=4;
  --  Example.playerObj:GetMovePart().rotateSpeed=10;
-  CameraManager.Instance.cameraCtrl:init(Example.player.transform);
+  CameraManager.Instance.cameraCtrl:init(Example.playerObj);
 
 end
 function Example.Class()

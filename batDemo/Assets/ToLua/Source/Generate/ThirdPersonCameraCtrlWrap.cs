@@ -9,16 +9,19 @@ public class ThirdPersonCameraCtrlWrap
 		L.BeginClass(typeof(ThirdPersonCameraCtrl), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("GetH", GetH);
 		L.RegFunction("GetV", GetV);
+		L.RegFunction("InitFirePoint", InitFirePoint);
+		L.RegFunction("resetFirePoint", resetFirePoint);
 		L.RegFunction("isCamTarget", isCamTarget);
 		L.RegFunction("init", init);
 		L.RegFunction("onTouchMove", onTouchMove);
 		L.RegFunction("onMouseMove", onMouseMove);
-		L.RegFunction("BounceVertical", BounceVertical);
+		L.RegFunction("SetRecoilAngle", SetRecoilAngle);
 		L.RegFunction("SetTargetOffsets", SetTargetOffsets);
 		L.RegFunction("ResetTargetOffsets", ResetTargetOffsets);
 		L.RegFunction("ResetYCamOffset", ResetYCamOffset);
 		L.RegFunction("SetYCamOffset", SetYCamOffset);
 		L.RegFunction("SetXCamOffset", SetXCamOffset);
+		L.RegFunction("SetZCamOffset", SetZCamOffset);
 		L.RegFunction("SetFOV", SetFOV);
 		L.RegFunction("ResetFOV", ResetFOV);
 		L.RegFunction("SetMaxVerticalAngle", SetMaxVerticalAngle);
@@ -26,6 +29,7 @@ public class ThirdPersonCameraCtrlWrap
 		L.RegFunction("GetCurrentPivotMagnitude", GetCurrentPivotMagnitude);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("FirePoint", get_FirePoint, set_FirePoint);
 		L.RegVar("target", get_target, set_target);
 		L.RegVar("targetFocusHeight", get_targetFocusHeight, set_targetFocusHeight);
 		L.RegVar("pivotOffset", get_pivotOffset, set_pivotOffset);
@@ -84,6 +88,38 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int InitFirePoint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			obj.InitFirePoint();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int resetFirePoint(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			obj.resetFirePoint();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int isCamTarget(IntPtr L)
 	{
 		try
@@ -114,11 +150,26 @@ public class ThirdPersonCameraCtrlWrap
 				obj.init();
 				return 0;
 			}
-			else if (count == 2)
+			else if (count == 2 && TypeChecker.CheckTypes<Character>(L, 2))
+			{
+				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+				Character arg0 = (Character)ToLua.ToObject(L, 2);
+				obj.init(arg0);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.Transform>(L, 2))
+			{
+				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+				UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.ToObject(L, 2);
+				obj.init(arg0);
+				return 0;
+			}
+			else if (count == 3)
 			{
 				ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 				UnityEngine.Transform arg0 = (UnityEngine.Transform)ToLua.CheckObject<UnityEngine.Transform>(L, 2);
-				obj.init(arg0);
+				System.Action arg1 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 3);
+				obj.init(arg0, arg1);
 				return 0;
 			}
 			else
@@ -166,14 +217,14 @@ public class ThirdPersonCameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int BounceVertical(IntPtr L)
+	static int SetRecoilAngle(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
-			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.BounceVertical(arg0);
+			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
+			obj.SetRecoilAngle(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -258,6 +309,23 @@ public class ThirdPersonCameraCtrlWrap
 			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			obj.SetXCamOffset(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetZCamOffset(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 1);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetZCamOffset(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -365,6 +433,25 @@ public class ThirdPersonCameraCtrlWrap
 		catch (Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_FirePoint(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.GameObject ret = obj.FirePoint;
+			ToLua.PushSealed(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index FirePoint on a nil value");
 		}
 	}
 
@@ -745,6 +832,25 @@ public class ThirdPersonCameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isJoyMove on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_FirePoint(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			ThirdPersonCameraCtrl obj = (ThirdPersonCameraCtrl)o;
+			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+			obj.FirePoint = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index FirePoint on a nil value");
 		}
 	}
 

@@ -69,9 +69,9 @@ public class CharData : MonoBehaviour,IData
      public bool joyTouch=false;
      public Vector3 worldDir=Vector3.zero;
      //摄像机位置.
-     public float cam_angleH;
-     public float cam_angleV;
-
+     public float cam_angleH=0;
+     public float cam_angleV=0;
+     public Vector3 cam_foward=Vector3.zero;
      //操作状态............................................................................................
 
 

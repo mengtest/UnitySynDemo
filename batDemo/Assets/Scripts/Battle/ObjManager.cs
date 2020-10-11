@@ -22,7 +22,11 @@ public class ObjManager  : MonoSingleton<ObjManager>
 
     private static Player _Myplayer;
     public  static void setMyPlayer(Player player=null){
+        if(_Myplayer!=null){
+            _Myplayer.charData.isMyPlayer=false;
+        }
          _Myplayer=player;
+         _Myplayer.charData.isMyPlayer=true;
     }
     public  static Player MyPlayer{
       get{

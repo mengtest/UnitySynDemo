@@ -44,6 +44,7 @@ public class CharDataWrap
 		L.RegVar("worldDir", get_worldDir, set_worldDir);
 		L.RegVar("cam_angleH", get_cam_angleH, set_cam_angleH);
 		L.RegVar("cam_angleV", get_cam_angleV, set_cam_angleV);
+		L.RegVar("cam_foward", get_cam_foward, set_cam_foward);
 		L.RegVar("PlaySpeed", get_PlaySpeed, set_PlaySpeed);
 		L.EndClass();
 	}
@@ -753,6 +754,25 @@ public class CharDataWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_cam_foward(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			UnityEngine.Vector3 ret = obj.cam_foward;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_foward on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_PlaySpeed(IntPtr L)
 	{
 		object o = null;
@@ -1395,6 +1415,25 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_angleV on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_cam_foward(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
+			obj.cam_foward = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_foward on a nil value");
 		}
 	}
 

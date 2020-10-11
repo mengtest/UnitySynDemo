@@ -16,6 +16,9 @@ public class Gun : Weapon
     //连发间隔
     protected float _curFireInterval=0;
     protected bool _burstFire=false;
+     //连续开火数
+    protected float shotFire=0;
+    protected Vector2 _CurRecoil=new Vector2(0,0);
 
     public Gun()
     {
@@ -60,6 +63,8 @@ public class Gun : Weapon
     }
     public override void StopFire(){
         onFire=false;
+        shotFire=0;
+        //TODO : 
     }
 
     protected override void Update(){
@@ -101,8 +106,54 @@ public class Gun : Weapon
     }
     //每次子弹发射.
     protected void FireProcessing(){
-         gunD.CurrentMagzine-=1;
-         DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
+        //AddRecoil 后坐力.
+        AddRecoil();
+         for (int i = 0; i < gunD.BulletNum; i++)
+         {
+             //改变下FirePoint Acc改变.
+            // CameraManager.Instance.cameraCtrl.FirePoint;
+            gunD.CurrentMagzine-=1;
+            DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
+           // CameraManager.Instance.cameraCtrl.resetFirePoint();
+         }
+        playShoot();
+         shotFire+=1;
+        // rifle_shot
+    }
+    private void playShoot(){
+        if(ownerPlayer==null)return;
+         switch(gunD.getItemType()){
+            case GameEnum.ItemType.Gun:
+                ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.rifle_shot,0,0.5f,1,0,1,false,true);
+            break;
+            case GameEnum.ItemType.PistolGun:
+               ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.pistol_shot,0,0.967f,1,0,1,false,true);
+            break;
+        }
+       ownerPlayer.GetAniUpPart().endAniAction=backAiming;
+    }
+    private void backAiming(){
+        if(ownerPlayer==null)return;
+        switch(gunD.getItemType()){
+            case GameEnum.ItemType.Gun:
+                ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.rifle_aim,0,0.003f,1,0,0);
+            break;
+            case GameEnum.ItemType.PistolGun:
+                ownerPlayer.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,0,0);
+            break;
+        }
+    }
+    //添加后坐力.
+    private void AddRecoil(){
+        int recoilIndex =Mathf.Clamp(Mathf.CeilToInt(shotFire),0,gunD.recoilList.Count-1);
+        Vector2 recoil= gunD.recoilList[recoilIndex];
+        if(recoilIndex>0){
+             _CurRecoil.x=recoil.x-gunD.recoilList[recoilIndex-1].x;
+             _CurRecoil.y=recoil.y-gunD.recoilList[recoilIndex-1].y;
+        }
+       _CurRecoil.x= _CurRecoil.x*gunD.RecoilRateYaw;
+       _CurRecoil.y=_CurRecoil.y*gunD.RecoilRatePitch;
+       CameraManager.Instance.cameraCtrl.SetRecoilAngle(_CurRecoil);
     }
     //单发.
     private void onSingleFire(){

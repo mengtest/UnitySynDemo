@@ -16,6 +16,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     public int CurrentMagzine=0;
 
     public string UrlPath;
+    
+    public bool onGround=false;
 
     //需要储存的数据...........................................................
     [Tooltip("枪名称")]
@@ -94,6 +96,13 @@ public class Weapon_Gun : MonoBehaviour,IItemData
 
     [Tooltip("子弹偏移数组")]
     public List<Vector2> recoilList= new List<Vector2>();
+
+    [Tooltip("后坐力缩放比例X轴")]
+    public float RecoilRateYaw = 1;
+    [Tooltip("后坐力缩放比例Y轴")]
+    public float RecoilRatePitch = 1;
+    
+
     [Tooltip("子弹偏移数组")]
     public string Yaw_params = "";
     [Tooltip("子弹偏移数组")]
@@ -157,6 +166,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     }
     IEnumerator CreateActiveRadius()
 	{
+    //    DebugLog.Log("CreateActiveRadius");
          yield return new WaitForSeconds(1f);
         // if(col==null){
         //       col=gameObject.GetComponent<BoxCollider>();
@@ -176,6 +186,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         interactiveRadius.center = this.SphereColCenter;
         interactiveRadius.radius = this.SphereColRadius;
         interactiveRadius.isTrigger = true;
+        this.onGround=true;
 	}
     public string getGunPath(){
          string subPath="";
@@ -240,6 +251,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.armsRotationX=source.armsRotationX;
         tar.recoilAngle=source.recoilAngle;
         tar.recoilList= new List<Vector2>(source.recoilList.ToArray());
+        tar.RecoilRateYaw=source.RecoilRateYaw;
+        tar.RecoilRatePitch=source.RecoilRatePitch;
         tar.Yaw_params=source.Yaw_params;
         tar.Pitch_params=source.Pitch_params;
         tar.muzzlePos=source.muzzlePos;
@@ -281,6 +294,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.armsRotationX=source.armsRotationX;
         tar.recoilAngle=source.recoilAngle;
         tar.recoilList= new List<Vector2>(source.recoilList.ToArray());
+        tar.RecoilRateYaw=source.RecoilRateYaw;
+        tar.RecoilRatePitch=source.RecoilRatePitch;
         tar.Yaw_params=source.Yaw_params;
         tar.Pitch_params=source.Pitch_params;
         tar.muzzlePos=source.muzzlePos;
@@ -296,6 +311,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
           GameObject.Destroy(this.interactiveRadius);
         }
         this.interactiveRadius=null;
+        this.onGround=false;
       //  this.col.enabled=false;
     }
     public void OnDrop(){

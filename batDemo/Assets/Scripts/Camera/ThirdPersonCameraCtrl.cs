@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // This class corresponds to the 3rd person camera features.
 [AutoRegistLua]
 public class ThirdPersonCameraCtrl : MonoBehaviour 
 {
+    //开火点.
+    public GameObject FirePoint;
 	public Transform target;                                           // Player's reference.
     public float targetFocusHeight=1.8f;
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
@@ -19,9 +22,10 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 	public string XAxis = "Analog X";                                  // The default horizontal axis input name.
 	public string YAxis = "Analog Y";                                  // The default vertical axis input name.
-     //横向
+     //横向 水平
 	private float angleH = 0;                                          // Float to store camera horizontal angle related to mouse movement.
-	private float angleV = 0;                                          // Float to store camera vertical angle related to mouse movement.
+	//垂直
+    private float angleV = 0;                                          // Float to store camera vertical angle related to mouse movement.
 	private Transform cam;                                             // This transform.
 	private Vector3 relCameraPos;                                      // Current camera position relative to the player.
 	private float relCameraPosMag;                                     // Current camera distance to the player.
@@ -34,7 +38,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 	private float defaultFOV;                                          // Default camera Field of View.
 	private float targetFOV;                                           // Target camera Field of View.
 	private float targetMaxVerticalAngle;                              // Custom camera max vertical clamp angle.
-	private float recoilAngle = 0f;                                    // The angle to vertically bounce the camera in a recoil movement.
+	private Vector2 recoilAngle = new Vector2();                                    // The angle to vertically bounce the camera in a recoil movement.
    
    //旋转屏幕触发 加速度的 速度
     public int Horizontal_Acce_Dic =60;
@@ -43,6 +47,8 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 
     public bool isMouseMove=false;
      public bool isJoyMove=false;
+
+     private Action _synAction;
 
 	// Get the camera horizontal angle.
 	public float GetH()
@@ -54,6 +60,25 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
         return angleV;
      }
     private Camera _camera;
+
+
+    /// <summary>
+    /// Create new fire point for this weapon.
+    /// </summary>
+    public void InitFirePoint()
+    {
+        if(FirePoint==null)
+        {
+            FirePoint = new GameObject("FirePoint");
+            FirePoint.transform.SetParent(transform);
+        }
+        FirePoint.transform.localPosition = this.transform.localPosition;
+        FirePoint.transform.localRotation = transform.localRotation;
+        FirePoint.transform.localScale = Vector3.one;
+    }
+    public void resetFirePoint(){
+        FirePoint.transform.localRotation = transform.localRotation;
+    }
 
 	void Awake()
 	{
@@ -70,10 +95,14 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
         }
         return false;
     }
-    public void init(Transform targetP=null){
+    public void init(Character chars){
+        this.init(chars.gameObject.transform,chars.synCamData);
+    }
+    public void init(Transform targetP=null,Action synAction=null){
          if(targetP != null){
              this.target= targetP;
          }
+         InitFirePoint();
 
 		// Set camera default position.
 		cam.position = target.position + Quaternion.identity * pivotOffset + Quaternion.identity * camOffset;
@@ -91,6 +120,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		smoothCamOffset = camOffset;
 		defaultFOV = _camera.fieldOfView;
 		angleH = this.target.eulerAngles.y;
+        _synAction=synAction;
 		ResetTargetOffsets ();
 		ResetFOV ();
 		ResetMaxVerticalAngle();
@@ -150,9 +180,9 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 		angleV = Mathf.Clamp(angleV, minVerticalAngle, targetMaxVerticalAngle);
 
 		// Set vertical camera bounce.
-		angleV = Mathf.LerpAngle(angleV, angleV + recoilAngle, smoothVerAngle*Time.deltaTime);
-
-
+		angleV = Mathf.LerpAngle(angleV, angleV + recoilAngle.y, smoothVerAngle*Time.deltaTime);
+	    angleH = Mathf.LerpAngle(angleH, angleH + recoilAngle.x, smoothVerAngle*Time.deltaTime);
+          
         if(angleH>360){
             angleH=angleH%360f;
         }
@@ -215,18 +245,44 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
           cam.position =  target.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset ;
 
 		// Amortize Camera vertical bounce.
-		if (recoilAngle > 0)
-			recoilAngle -= 5 * Time.deltaTime;
-		else if(recoilAngle < 0)
-			recoilAngle += 5 * Time.deltaTime;
+		if (recoilAngle.x > 0){
+			recoilAngle.x -= 5 * Time.deltaTime;
+            if (recoilAngle.x <=0){
+                recoilAngle.x=0;
+            }
+        }
+		else if(recoilAngle.x < 0){
+			recoilAngle.x += 5 * Time.deltaTime;
+              if (recoilAngle.x >=0){
+                recoilAngle.x=0;
+            }
+        }
+
+        if (recoilAngle.y > 0){
+			recoilAngle.y -= 5 * Time.deltaTime;
+            if (recoilAngle.y <=0){
+                recoilAngle.y=0;
+            }
+        }
+		else if(recoilAngle.y < 0){
+			recoilAngle.y += 5 * Time.deltaTime;
+            if (recoilAngle.y >=0){
+                recoilAngle.y=0;
+            }
+        }
+     //   DebugLog.Log(recoilAngle);
+
+        if(this._synAction!=null){
+            this._synAction();
+        }
 	}
 
 
 	
 	// Bounce the camera vertically.
-	public void BounceVertical(float degrees)
+	public void SetRecoilAngle(Vector2 recoil)
 	{
-		recoilAngle = degrees;
+		recoilAngle =recoilAngle+recoil;
 	}
 
 	// Set camera offsets to custom values.

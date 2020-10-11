@@ -65,15 +65,15 @@ public class Aiming : ActionBase
                   return;
                }
            }
-           if(player.charData.isMyPlayer){
-                isAimBlocked=player.weaponSystem.CheckforBlockedAim();
-                if(isAimBlocked && player.charData.aimState!=AimState.Null){
-                    player.charData.aimState=AimState.AimOff;
-                }
-                if(!isAimBlocked&&player.charData.aimState==AimState.Null){
-                      player.charData.aimState=AimState.Begin;
-                }
-           }
+        //   if(player.charData.isMyPlayer){
+            isAimBlocked=player.weaponSystem.CheckforBlockedAim();
+            if(isAimBlocked && player.charData.aimState!=AimState.Null){
+                player.charData.aimState=AimState.AimOff;
+            }
+            if(!isAimBlocked&&player.charData.aimState==AimState.Null){
+                    player.charData.aimState=AimState.Begin;
+            }
+        //   }
            if(this.isFireing&&!player.charData.Btn_Fire){
                   StopShoot();
            }
@@ -145,7 +145,7 @@ public class Aiming : ActionBase
            this.isFireing=false;
         }
         private void AimOn(){
-            DebugLog.Log("BeginAim");
+       //     DebugLog.Log("BeginAim");
             player.GetMovePart().faceToRotation=false;
             player.charData.aimState=AimState.Aiming;
             if(player.charData.currentBaseAction==GameEnum.ActionLabel.Dash||player.charData.currentBaseAction==GameEnum.ActionLabel.Run){
@@ -160,7 +160,7 @@ public class Aiming : ActionBase
          //    aimTime=GameSettings.Instance.deltaTime;
             // smooth * GameSettings.Instance.deltaTime
              switch(weapon_gun.getItemType()){
-                 //weapon_gun.AimTime/2f
+                 //weapon_gun.AimTime/2f   想让他快一点抬手/1.2F 
                  case GameEnum.ItemType.Gun:
                     player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_aim,0,0.003f,1,weapon_gun.AimTime/1.2f,0);
                  break;
@@ -168,7 +168,6 @@ public class Aiming : ActionBase
                      player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/1.2f,0);
                  break;
              }
-            aimTime=0;
             if(player.charData.isMyPlayer){
                  CameraManager.Instance.cameraCtrl.smooth=aimSmoothing;
                   CameraManager.Instance.cameraCtrl.SetTargetOffsets (weapon_gun.aimPivotOffset, weapon_gun.aimCamOffset);

@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-30 15:04:09
+ * @LastEditTime: 2020-10-09 12:13:08
  */
 using System;
 using System.Collections;
@@ -221,10 +221,11 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char") as Player);
  #endif
         ObjManager.MyPlayer.avatar.isNewAnimatorSystem=true;
-         ObjManager.MyPlayer.charData.isMyPlayer=true;
-       ObjManager.MyPlayer.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
+
+        ObjManager.MyPlayer.initAvatar("Char",new string[]{"Char_head_01","Char_body_01","Char_limb_01"});
         ObjManager.MyPlayer.gameObject.transform.position=new Vector3(-1.23f,0,0);
-        CameraManager.Instance.cameraCtrl.init( ObjManager.MyPlayer.gameObject.transform);
+
+        CameraManager.Instance.cameraCtrl.init(ObjManager.MyPlayer);
     }
     
     private void creatPlayer(){
@@ -245,9 +246,8 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
                 
         //         this.playerObj = ObjManager.Instance.CreatCharacter("NAvatar/MiniChar1-97/MiniChar1-97",player) as Player;
         // #endif
-
-         ObjManager.MyPlayer.charData.isMyPlayer=true;
-        CameraManager.Instance.cameraCtrl.init(player.transform);
+        
+        CameraManager.Instance.cameraCtrl.init(ObjManager.MyPlayer);
     }
     #if !UNITY_EDITOR
         private void OnGUI()

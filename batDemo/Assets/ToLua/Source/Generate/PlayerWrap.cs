@@ -10,7 +10,6 @@ public class PlayerWrap
 		L.RegFunction("init", init);
 		L.RegFunction("initData", initData);
 		L.RegFunction("initAvatar", initAvatar);
-		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
 		L.RegFunction("ChangePart", ChangePart);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("checkPickUpItem", checkPickUpItem);
@@ -97,39 +96,6 @@ public class PlayerWrap
 			string[] arg1 = ToLua.CheckStringArray(L, 3);
 			obj.initAvatar(arg0, arg1);
 			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ChangeNodeObj(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 2)
-			{
-				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
-				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-				obj.ChangeNodeObj(arg0);
-				return 0;
-			}
-			else if (count == 3)
-			{
-				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
-				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
-				obj.ChangeNodeObj(arg0, arg1);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.ChangeNodeObj");
-			}
 		}
 		catch (Exception e)
 		{

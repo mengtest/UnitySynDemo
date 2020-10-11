@@ -44,9 +44,6 @@ public class Player : Character
         if(this.avatar==null)return; 
         this.avatar.Init(aniUrl,modelpaths,onBodyFin,this);
     }
-    public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
-        base.ChangeNodeObj(obj,resetPos);
-    }
     //换装.
     public void ChangePart(string partPath){
         if(this.avatar=null)return; 
@@ -125,8 +122,6 @@ public class Player : Character
     protected virtual void onBodyFin(){
         this.initViewFin=true;
         this.onViewLoadFin();
-        //如果是观察者.
-        CameraManager.Instance.cameraCtrl.init(gameObject.transform);
     } 
     public override void OnEvent(string cmd, object[] param=null){
          base.OnEvent(cmd,param);

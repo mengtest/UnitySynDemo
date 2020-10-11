@@ -10,6 +10,7 @@ public class GunWrap
 		L.RegFunction("initData", initData);
 		L.RegFunction("EquipWeaponRightHand", EquipWeaponRightHand);
 		L.RegFunction("EquipWeaponBackChest", EquipWeaponBackChest);
+		L.RegFunction("DropItem", DropItem);
 		L.RegFunction("Fire", Fire);
 		L.RegFunction("StopFire", StopFire);
 		L.RegFunction("onGet", onGet);
@@ -86,6 +87,22 @@ public class GunWrap
 			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
 			Player arg0 = (Player)ToLua.CheckObject<Player>(L, 2);
 			obj.EquipWeaponBackChest(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DropItem(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
+			obj.DropItem();
 			return 0;
 		}
 		catch (Exception e)

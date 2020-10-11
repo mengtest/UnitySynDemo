@@ -4,7 +4,7 @@
  * @Autor: xsddxr909
  * @Date: 2020-05-15 11:13:21
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-22 14:28:24
+ * @LastEditTime: 2020-10-08 17:05:08
  */ 
 using UnityEngine;
 using UnityEditor;
@@ -165,7 +165,7 @@ public class Weapon_GunInspector : Editor {
         }else{
             mono.muzzlePos=mono.muzzleTrans.localPosition;
         }
-        if(mono.gameObject.transform.parent==null){
+        if(mono.onGround){
              CreateInteractiveRadius();
         }
     }

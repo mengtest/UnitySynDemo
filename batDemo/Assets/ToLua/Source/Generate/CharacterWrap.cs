@@ -14,6 +14,8 @@ public class CharacterWrap
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("GetCurStateID", GetCurStateID);
 		L.RegFunction("onActionCG", onActionCG);
+		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
+		L.RegFunction("synCamData", synCamData);
 		L.RegFunction("SetCharacterCtrlHeight", SetCharacterCtrlHeight);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnMove", OnMove);
@@ -285,6 +287,55 @@ public class CharacterWrap
 			ToLua.CheckArgsCount(L, 1);
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 			obj.onActionCG();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChangeNodeObj(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				obj.ChangeNodeObj(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.ChangeNodeObj(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.ChangeNodeObj");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int synCamData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			obj.synCamData();
 			return 0;
 		}
 		catch (Exception e)

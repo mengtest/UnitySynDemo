@@ -81,6 +81,12 @@ public class WeaponGun_Serializable : ScriptableObject
 
     [Tooltip("子弹偏移数组")]
     public List<Vector2> recoilList= new List<Vector2>();
+
+    [Tooltip("后坐力缩放比例X轴")]
+    public float RecoilRateYaw = 1;
+    [Tooltip("后坐力缩放比例Y轴")]
+    public float RecoilRatePitch = 1;
+
     [Tooltip("子弹偏移数组")]
     public string Yaw_params = "";
     [Tooltip("子弹偏移数组")]

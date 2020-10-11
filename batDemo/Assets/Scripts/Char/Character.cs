@@ -121,12 +121,30 @@ public class Character : ObjBase
             ctrl.OnActionChange();
         }
     }
+    
+    public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
+        bool cgCamTarget=false;
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(this)){
+           cgCamTarget=true;
+        }
+        base.ChangeNodeObj(obj,resetPos);
+         if(cgCamTarget){
+            //如果是观察者.
+            CameraManager.Instance.cameraCtrl.init(this);
+        }
+    }
+    public void synCamData(){
+        if(this.charData==null)return;
+        this.charData.cam_angleH=CameraManager.Instance.cameraCtrl.GetH();
+        this.charData.cam_angleV=CameraManager.Instance.cameraCtrl.GetV();
+        this.charData.cam_foward=CameraManager.Instance.mainCamera.transform.forward;
+    }
     public void SetCharacterCtrlHeight(float height){
         if( this.characterController){
              this.characterController.center=new Vector3(0,height/2f,0);
              this.characterController.height=height;
         }
-        if(this.charData.isMyPlayer){
+        if(CameraManager.Instance.cameraCtrl.isCamTarget(this)){
             CameraManager.Instance.cameraCtrl.targetFocusHeight=height;
         }
     }
