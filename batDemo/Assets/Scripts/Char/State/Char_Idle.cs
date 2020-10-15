@@ -194,15 +194,26 @@ public class Char_Idle : State<Character>
        this._player.PickUpNearItem();
     }
     private void OnReload(){
-        if(this._player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading){
-            this._player.doActionSkillByLabel(GameEnum.ActionLabel.Reloading);
+        if(this._player.weaponSystem.hasActiveWeapon()){
+            Weapon weapon= this._player.weaponSystem.getActiveWeapon();
+            switch(weapon.itemData.getItemType()){
+                case ItemType.Gun:
+                case ItemType.PistolGun:
+                    if(charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading){
+                        this._player.doActionSkillByLabel(GameEnum.ActionLabel.Reloading);
+                    }
+                break;
+                case ItemType.Melee:
+                break;
+            }
         }
     }
     private void OnAimButton(bool isDown){
       // bool bol =(bool)data[0];
        this._player.charData.Btn_Aim=isDown;
        if(isDown){
-            if(this._player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+           //&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading
+            if(this._player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading){
                     this._player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
             }
        }
@@ -212,7 +223,7 @@ public class Char_Idle : State<Character>
        _player.charData.Btn_Fire=isDown;
        if(InputSetting.Instance.AttackAutoAimming){
             if(isDown&&!_player.charData.Btn_Aim){
-                if(_player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming){
+                if(_player.weaponSystem.hasActiveWeapon()&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Aiming&&charData.currentUpLayerAction!=GameEnum.ActionLabel.Reloading){
                         _player.doActionSkillByLabel(GameEnum.ActionLabel.Aiming);
                 }
             }

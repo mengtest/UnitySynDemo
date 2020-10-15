@@ -24,9 +24,16 @@ public class ChangeWeapon : ActionBase
         }
          //动作进入
         public override void GotoFrame(int frame=0,object[] param=null){
-             this.currentFrame = frame;
-     
-            player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_shot,0,0.5f,1,0.15f,0);
+            this.currentFrame = frame;
+            Weapon weapon =   player.weaponSystem.getActiveWeapon();
+            switch(weapon.itemData.getItemType()){
+                 case GameEnum.ItemType.Gun:
+                    player.GetAniUpPart().Play(GameEnum.AniLabel.rifle_shot,0,0.5f,1,0.15f,0);
+                 break;
+                 case GameEnum.ItemType.PistolGun:
+                     player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_shot,0,0.5f,1,0.15f,0);
+                 break;
+            }
           //  player.GetAniUpPart().endAniAction=toAction;
 
         }

@@ -96,6 +96,10 @@ public class WeaponGun_Serializable : ScriptableObject
     [Tooltip("开火位置")]
 	public Vector3 muzzlePos=Vector3.zero;   
 
+    [Tooltip("弹壳飞出位置")]
+	public Vector3 shellPos=Vector3.zero;   
+    
+
     [Tooltip("触发区域")]
     public  Vector3 SphereColCenter =Vector3.zero;
     public float SphereColRadius=1; 

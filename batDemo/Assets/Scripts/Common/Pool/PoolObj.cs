@@ -4,6 +4,7 @@
     public string poolname { get; set ; }
     public IPool pool  { get; set ; }
     public bool isRecycled { get; set ; }
+    public float delayRecycleTime { get; set; }
     public PoolObj(){
         this.id = 0;
         this.poolname="PoolObj";
@@ -15,9 +16,18 @@
 
     public void recycleSelf()
     {
-       if (this.isRecycled)
-            return;
+       if (this.isRecycled) return;
         this.onRecycle();
+        if(delayRecycleTime>0){
+            this.isRecycled=true;
+            TimerManager.Instance.Once(delayRecycleTime,onDelayRecycle,false);
+        }else{
+           this.pool.recycle(this);
+        }
+    }
+    private void onDelayRecycle(){
+        if(this.pool==null)return;
+        this.isRecycled=false;
         this.pool.recycle(this);
     }
     public void Release()

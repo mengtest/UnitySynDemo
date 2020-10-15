@@ -6,6 +6,9 @@ public interface IPoolObj {
     string poolname{ get; set; }
     IPool pool {get ; set; }
     bool isRecycled {  get;  set; }
+    //延迟回收.毫秒 特效专用.
+    float delayRecycleTime { get; set; }
+
     void init();
     //在获取时;
     void onGet();

@@ -189,7 +189,7 @@ public class ShootBehaviour : GenericBehaviour
 				if (hit.collider.transform != this.transform)
 				{
 					// Is the target organic?
-					bool isOrganic = (organicMask == (organicMask | (1 << hit.transform.root.gameObject.layer)));
+					bool isOrganic = (organicMask == (organicMask | (1 << hit.transform.root.gameObject.layer))); 
 					// Handle shot effects on target.
 					DrawShoot(weapons[weapon].gameObject, hit.point, hit.normal, hit.collider.transform, !isOrganic, !isOrganic);
 

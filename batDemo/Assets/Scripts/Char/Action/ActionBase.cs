@@ -76,7 +76,7 @@ using UnityEngine;
         }
         public virtual void Begin(int frame=0,object[] param=null){
 
-        //   this. cancelPriorityLimit = -1;
+           this.cancelPriorityLimit =this.defultPriority;
             //帧计数归0
             frame = frame == -1 ? 0 : frame;
             this.GotoFrame(frame,param);

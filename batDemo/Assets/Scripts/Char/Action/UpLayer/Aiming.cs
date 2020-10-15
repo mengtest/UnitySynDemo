@@ -88,7 +88,7 @@ public class Aiming : ActionBase
                case AimState.Aiming:
                     aimTime+=GameSettings.Instance.deltaTime;
                     if(aimTime>=weapon_gun.AimTime){
-                        DebugLog.Log("canShoot");
+                 //       DebugLog.Log("canShoot");
                         this.cancelPriorityLimit=GameEnum.CancelPriority.Stand_Move_Null;
                         CameraManager.Instance.cameraCtrl.smooth=10;
                         player.charData.aimState=AimState.AimingFinish;

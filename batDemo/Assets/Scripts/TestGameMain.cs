@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-10-09 12:13:08
+ * @LastEditTime: 2020-10-14 17:10:37
  */
 using System;
 using System.Collections;
@@ -112,6 +112,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
       this.AddBehaviour<CtrlManager>();
       this.AddBehaviour<ObjManager>();
       this.AddBehaviour<CameraManager>();
+      this.AddBehaviour<TimerManager>();
       EventCenter.init();
       CtrlManager.Instance.Init();
       AFC_Manager.init();

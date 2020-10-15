@@ -85,7 +85,7 @@ public class Jump : ActionBase
             //DebugLog.Log("player");
             character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0,0.333f,1f*this.speed,0.25f,3);
         }else{
-           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f/this.speed,1.3f*this.speed,0.25f,1,true,true);
+           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f,1.3f*this.speed,0.25f,1,true,true);
         }
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
         // 8f 
@@ -106,7 +106,7 @@ public class Jump : ActionBase
          if(character.charData.aimState!=GameEnum.AimState.Null){
             character.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0.333f,0.333f, 1f*this.speed,0f,3);
          }else{
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f/this.speed, 1.3f*this.speed,0.25f,1,true,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f, 1.3f*this.speed,0.25f,1,true,true);
          }
     }
     private void onJumpToGround(object[] param=null) {
@@ -129,7 +129,7 @@ public class Jump : ActionBase
                 }
             }
         }else{
-            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f/this.speed, 0.7f*this.speed});
+            this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,true,new object[]{GameEnum.AniLabel.Jmp_Base_A_OnGround,0.367f, 0.7f*this.speed});
         }
           // 回到站立状态.
     }

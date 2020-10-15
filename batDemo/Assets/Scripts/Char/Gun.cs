@@ -20,6 +20,8 @@ public class Gun : Weapon
     protected float shotFire=0;
     protected Vector2 _CurRecoil=new Vector2(0,0);
 
+    private PsEffect shellEf;
+
     public Gun()
     {
          charType=GameEnum.ObjType.Gun;
@@ -32,6 +34,9 @@ public class Gun : Weapon
     }
     public Weapon_Gun getGunData(){
         return this.gunD;
+    }
+    public Weapon_GunType getGunType(){
+      return this.gunD.Weapon_GunType;
     }
     //安装手上
     public override void EquipWeaponRightHand(Player player){
@@ -66,6 +71,10 @@ public class Gun : Weapon
     public override void StopFire(){
         onFire=false;
         shotFire=0;
+        if(shellEf!=null&&!shellEf.isStop){
+      //         DebugLog.Log("Stop");
+           shellEf.StopNextFrame();
+        }
         //TODO : 
     }
     public void FillMagzin(){
@@ -113,15 +122,37 @@ public class Gun : Weapon
          {
              //改变下FirePoint Acc改变.
             // CameraManager.Instance.cameraCtrl.FirePoint;
-            gunD.CurrentMagzine-=1;
+             gunD.CurrentMagzine-=1;
          //   DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
+
+
            // CameraManager.Instance.cameraCtrl.resetFirePoint();
          }
-        playShoot();
-         shotFire+=1;
+        ownerShoot();
+        shootEffect();
+        shotFire+=1;
+        DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine,"shotFire",shotFire);
         // rifle_shot
     }
-    private void playShoot(){
+    private void shootEffect(){
+       if(gunD.muzzleTrans!=null){
+            EffectBase muzzleEf= ObjManager.Instance.CreatEffect("Effect/shoot/gun/fx_muzzle",null,0,0.4f);
+            muzzleEf.setParent(gunD.muzzleTrans);
+       }
+       if(gunD.shellTrans!=null){
+            if(shellEf==null){
+                shellEf= ObjManager.Instance.CreatEffect("Effect/shoot/gun/fx_danke",null,0,0,EffectType.PsEffect) as PsEffect;
+                shellEf.setParent(gunD.shellTrans);
+                shellEf.setEmissionRate(1/gunD.FireRate);
+            }
+            if(shellEf.isStop){
+                //停了的话重置 粒子
+           //     DebugLog.Log("play");
+               shellEf.RePlay();
+            }
+       }
+    }
+    private void ownerShoot(){
         if(ownerPlayer==null)return;
          switch(gunD.getItemType()){
             case GameEnum.ItemType.Gun:
@@ -151,6 +182,9 @@ public class Gun : Weapon
         if(recoilIndex>0){
              _CurRecoil.x=recoil.x-gunD.recoilList[recoilIndex-1].x;
              _CurRecoil.y=recoil.y-gunD.recoilList[recoilIndex-1].y;
+        }else{
+             _CurRecoil.x=recoil.x;
+            _CurRecoil.y=recoil.y;
         }
        _CurRecoil.x= _CurRecoil.x*gunD.RecoilRateYaw;
        _CurRecoil.y=_CurRecoil.y*gunD.RecoilRatePitch;
@@ -161,7 +195,7 @@ public class Gun : Weapon
         if(_curFireRate>=gunD.FireRate){
            _curFireRate=0;
            FireProcessing();
-           onFire=false;
+            StopFire();
         }
     }
     //连发. 半自动
@@ -215,10 +249,18 @@ public class Gun : Weapon
     //回收.
     public override void onRecycle(){
         gunD=null;
+        if(shellEf!=null){
+            shellEf.recycleSelf();
+            shellEf=null;
+        }
         base.onRecycle();
      }
     public override void onRelease(){
-          gunD=null;
+        gunD=null;
+        if(shellEf!=null){
+            shellEf.recycleSelf();
+            shellEf=null;
+        }
         base.onRelease();
     }
 }

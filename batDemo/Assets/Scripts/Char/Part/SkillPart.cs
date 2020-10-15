@@ -150,7 +150,7 @@ using UnityEngine;
             }
             this._char.charData.currentUpLayerActionType = this.currentUpAction.actionType;
             this._char.charData.currentUpLayerAction = this.currentUpAction.poolname;
-
+           
             this.currentUpAction.Begin(frame, param);  
 
             return true;
@@ -224,7 +224,10 @@ using UnityEngine;
                 //     return false;
                 // }
                 int N_cancelPriorityLimit =ActionManager.instance.GetCancelPriority(actionLabel);
-            //   console.log("linkAction.cancelPriorityLimit  ",linkAction.cancelPriorityLimit,linkAction.actionLabel);
+              // DebugLog.Log("N_cancelPriorityLimit  ",N_cancelPriorityLimit,currentAction.name,currentAction.cancelPriorityLimit);
+               if (N_cancelPriorityLimit==currentAction.cancelPriorityLimit&&N_cancelPriorityLimit==0){
+                   return true;
+               }
                 if (N_cancelPriorityLimit > currentAction.cancelPriorityLimit) {
                     return true;
                 }

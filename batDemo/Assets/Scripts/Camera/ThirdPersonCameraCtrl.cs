@@ -15,7 +15,7 @@ public class ThirdPersonCameraCtrl : MonoBehaviour
 
     public float smoothVerAngle=10f;
 
-	private float recoilAngleSub=10f;
+	private float recoilAngleSub=20f;
 	//水平 6f
     public float horizontalAimingSpeed = 6f;                           // Horizontal turn speed.
 	//垂直 6f

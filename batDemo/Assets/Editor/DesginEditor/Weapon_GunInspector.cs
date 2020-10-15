@@ -4,7 +4,7 @@
  * @Autor: xsddxr909
  * @Date: 2020-05-15 11:13:21
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-10-08 17:05:08
+ * @LastEditTime: 2020-10-14 17:51:26
  */ 
 using UnityEngine;
 using UnityEditor;
@@ -163,7 +163,20 @@ public class Weapon_GunInspector : Editor {
             mono.muzzleTrans.localPosition=Vector3.zero;
             }
         }else{
+            mono.muzzleTrans.localRotation=Quaternion.Euler(0,180,0);
             mono.muzzlePos=mono.muzzleTrans.localPosition;
+        }
+        if(mono.shellTrans==null){
+            mono.shellTrans= mono.gameObject.transform.Find("shellPos");
+            if(mono.shellTrans==null){
+            GameObject shellPos= new GameObject("shellPos"); 
+            mono.shellTrans=shellPos.transform;
+            mono.shellTrans.parent=mono.transform;
+            mono.shellTrans.localPosition=Vector3.zero;
+            }
+        }else{
+            mono.shellTrans.localRotation=Quaternion.Euler(0,180,0);
+            mono.shellPos=mono.shellTrans.localPosition;
         }
         if(mono.onGround){
              CreateInteractiveRadius();

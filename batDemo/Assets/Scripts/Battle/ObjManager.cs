@@ -5,6 +5,8 @@ using GameEnum;
 public class ObjManager  : MonoSingleton<ObjManager>
 {
     public string str="";
+
+    ///角色池;
     private  List<Character> _charOnList;
     private MultipleOnListPool<Character> _characterPool;
     public MultipleOnListPool<Character> CharPool {
@@ -12,6 +14,8 @@ public class ObjManager  : MonoSingleton<ObjManager>
              return this._characterPool;
          }
     }
+    
+    ///武器池
      private MultipleOnListPool<Weapon> _weaponPool;
     public MultipleOnListPool<Weapon> WeaponPool {
          get{
@@ -19,6 +23,26 @@ public class ObjManager  : MonoSingleton<ObjManager>
          }
     }
     private  List<Weapon> _weaponOnList;
+
+     ///其他显示对象   子弹
+    private MultipleOnListPool<ObjBase> _objPool;
+    public MultipleOnListPool<ObjBase> ObjPool {
+         get{
+             return this._objPool;
+         }
+    }
+    private  List<ObjBase> _objOnList;
+
+
+     ///特效池
+    private MultipleOnListPool<EffectBase> _effectPool;
+    public MultipleOnListPool<EffectBase> EffectPool {
+         get{
+             return this._effectPool;
+         }
+    }
+    private  List<EffectBase> _effectOnList;
+
 
     private static Player _Myplayer;
     public  static void setMyPlayer(Player player=null){
@@ -38,9 +62,13 @@ public class ObjManager  : MonoSingleton<ObjManager>
     {
        this._characterPool =new MultipleOnListPool<Character>("CharacterPool");
        this._charOnList= this._characterPool.getOnList();
-        this._weaponPool =new MultipleOnListPool<Weapon>("WeaponPool");
+       this._weaponPool =new MultipleOnListPool<Weapon>("WeaponPool");
        this._weaponOnList= this._weaponPool.getOnList();
-       
+       this._effectPool =new MultipleOnListPool<EffectBase>("EffectPool");
+       this._effectOnList= this._effectPool.getOnList();
+       this._objPool =new MultipleOnListPool<ObjBase>("ObjPool");
+       this._objOnList= this._objPool.getOnList();
+
     }
     public Character CreatCharacter(string path="",GameObject obj=null,GameEnum.ObjType objType=GameEnum.ObjType.Player,GameEnum.CtrlType ctrlType=GameEnum.CtrlType.JoyCtrl){
         Character chars=null; 
@@ -82,13 +110,13 @@ public class ObjManager  : MonoSingleton<ObjManager>
     public Weapon CreatWeapon(string path="",GameObject obj=null,ItemType itemType =ItemType.Gun){
         Weapon weapon=null;
         switch(itemType){
-        case ItemType.Gun:
-        case ItemType.PistolGun:
-            weapon=this._weaponPool.get<Gun>(path);
-        break;
-        default:
+            case ItemType.Gun:
+            case ItemType.PistolGun:
+                weapon=this._weaponPool.get<Gun>(path);
+            break;
+            default:
                 weapon=this._weaponPool.get<Weapon>(path);
-        break;
+            break;
         }
         if(obj!=null){
             weapon.initView(obj);
@@ -98,6 +126,47 @@ public class ObjManager  : MonoSingleton<ObjManager>
         weapon.initData();
         return weapon;
     }
+    public ObjBase CreatObjBase(string path="",GameObject obj=null,GameEnum.ObjType objType = ObjType.Bullet){
+        ObjBase objBase=null;
+        switch(objType){
+            case ObjType.Bullet:
+                objBase=this._objPool.get<Bullet>(path);
+            break;
+            case ObjType.Obj:
+            default:
+                objBase=this._objPool.get<ObjBase>(path);
+            break;
+        }
+        if(obj!=null){
+            objBase.initView(obj);
+        }else{
+            objBase.initView();
+        }
+        objBase.initData();
+        return objBase;
+    }
+    public EffectBase CreatEffect(string path="",GameObject obj=null,float delayRecycleTime=0,float autoDeatoryTime=0, GameEnum.EffectType type=GameEnum.EffectType.Effect){
+        EffectBase effect=null;
+        switch(type){
+            case GameEnum.EffectType.Effect:
+              effect=this._effectPool.get<EffectBase>(path);
+            break;
+            case GameEnum.EffectType.PsEffect:
+               effect=this._effectPool.get<PsEffect>(path);
+            break;
+        }
+        effect.delayRecycleTime=delayRecycleTime;
+        if(autoDeatoryTime>0){
+           effect.autoDestroy(autoDeatoryTime);
+        }
+        if(obj!=null){
+            effect.initView(obj);
+        }else{
+            effect.initView();
+        }
+        return effect;
+    }
+
     private void FixedUpdate() {
         //  for (int i = 0; i < _charOnList.Count; i++)
         //  {

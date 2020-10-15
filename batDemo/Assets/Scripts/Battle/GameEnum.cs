@@ -91,9 +91,17 @@ namespace GameEnum
         Item=4,
         //武器
          Weapon=5,
-
          Gun=6,
-         
+         //子弹.
+         Bullet=7,
+    }
+     [AutoRegistLua]
+    public enum EffectType
+    {
+        //普通特效
+        Effect=0,
+        //可控制粒子特效
+        PsEffect=1,
     }
      /**
      * 取消优先级 高的可以断底的 技能 技能取消用;
@@ -341,9 +349,6 @@ namespace GameEnum
            M4,
            AKM,
            M16A4,
-        
-
-
     }
     [AutoRegistLua]
     // 开火类型

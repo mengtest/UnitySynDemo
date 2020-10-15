@@ -556,7 +556,7 @@ public class AppBuild {
    public static void allEffect(bool needABTexture=false)
     {
        // string[] fileArr = new string[7] { "Character", "hit", "Monster", "Qita", "UIEffect","Boss","Common" };
-        string[] fileArr = new string[1] { "hit" };
+        string[] fileArr = new string[2] { "hit","shoot" };
         string basePath = "Assets/Res/Effect/";
         string ffName = "";
         string prefabStr = "";

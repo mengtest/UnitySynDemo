@@ -116,6 +116,13 @@ public class Weapon_Gun : MonoBehaviour,IItemData
      [Tooltip("开火位置")]
     public Transform muzzleTrans;    
 
+      
+    [Tooltip("弹壳飞出位置")]
+	public Vector3 shellPos=Vector3.zero;   
+
+     [Tooltip("弹壳飞出位置")]
+    public Transform shellTrans;    
+
 	public SphereCollider interactiveRadius;      
     public  Vector3 SphereColCenter =Vector3.zero;
     public float SphereColRadius=1; 
@@ -155,10 +162,37 @@ public class Weapon_Gun : MonoBehaviour,IItemData
            //替换node.
             data= objs[0] as WeaponGun_Serializable;
             LoadData();
+            checkPos();
             if(weapon.itemData.defaultFull){
                 //子弹满上.
                FillMagzine();
             }
+        }
+    }
+    private void checkPos(){
+        if(muzzleTrans==null){
+            muzzleTrans= gameObject.transform.Find("muzzle");
+            if(muzzleTrans==null){
+                GameObject muzzle= new GameObject("muzzle"); 
+                muzzleTrans=muzzle.transform;
+                muzzleTrans.parent=transform;
+                muzzleTrans.localPosition=Vector3.zero;
+                muzzleTrans.localRotation=Quaternion.Euler(0,180,0);
+            }
+        }else{
+            muzzlePos=muzzleTrans.localPosition;
+        }
+        if(shellTrans==null){
+            shellTrans= gameObject.transform.Find("shellPos");
+            if(shellTrans==null){
+                GameObject shellPos= new GameObject("shellPos"); 
+                shellTrans=shellPos.transform;
+                shellTrans.parent=transform;
+                shellTrans.localPosition=Vector3.zero;
+                shellTrans.localRotation=Quaternion.Euler(0,180,0);
+            }
+        }else{
+            shellPos=shellTrans.localPosition;
         }
     }
     public void FillMagzine(){
@@ -256,6 +290,13 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.Yaw_params=source.Yaw_params;
         tar.Pitch_params=source.Pitch_params;
         tar.muzzlePos=source.muzzlePos;
+        if(muzzleTrans!=null){
+            muzzleTrans.localPosition= tar.muzzlePos;
+        }
+        tar.shellPos=source.shellPos;
+        if(shellTrans!=null){
+            shellTrans.localPosition= tar.shellPos;
+        }
         tar.SphereColCenter=source.SphereColCenter;
         tar.SphereColRadius=source.SphereColRadius;
         tar.BoxCenter=source.BoxCenter;
@@ -299,6 +340,7 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.Yaw_params=source.Yaw_params;
         tar.Pitch_params=source.Pitch_params;
         tar.muzzlePos=source.muzzlePos;
+        tar.shellPos=source.shellPos;
         tar.SphereColCenter=source.SphereColCenter;
         tar.SphereColRadius=source.SphereColRadius;
         tar.BoxCenter=source.BoxCenter;
