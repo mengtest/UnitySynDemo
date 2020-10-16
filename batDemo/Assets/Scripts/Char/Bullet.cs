@@ -25,8 +25,10 @@ public class Bullet : ObjBase
         GetMovePart().rotateSpeed=0;
     }
     public void setOwner(Gun gun){
+         if(gun!=null){
             _owner=gun.getOwner();
             _gun=gun;
+         }
     }
     public void setMaxDic(float maxDic){
          if(maxDic>0){
