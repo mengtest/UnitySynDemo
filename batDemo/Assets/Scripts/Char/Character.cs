@@ -218,6 +218,8 @@ public class Character : ObjBase
         }
     }
 
+
+
     //用的是 charData mono fixUpdate ;
     protected override void Update() {
         // if(this.ctrl!=null){
@@ -325,6 +327,11 @@ public class Character : ObjBase
           // ActionManager.instance.GetAction(actionLabel);
            return this.GetSkillPart().doActionSkillByLabel(actionLabel,frame,chkCancelLv,param,skillID);
     }
+    //
+    public void CalculateGunDamage(Weapon_Gun gunD,string bodyPos,Character attacker){
+
+    }
+
 
     //回收.
      public override void onRecycle(){

@@ -42,7 +42,11 @@ public enum ELayer
     /// <summary>
     /// 道具
     /// </summary>
-    Item = 19
+    Item = 19,
+     /// <summary>
+    /// 草 云
+    /// </summary>
+    Grass=20
 }
 
 /// <summary>
@@ -141,14 +145,18 @@ public class LayerHelper
         return GetLayerMask(ELayer.Default, ELayer.Water);
     }
 
-
+      private static int _HitLayerMask=-1;
     /// <summary>
     /// 获取可被击中的层级Mask
     /// </summary>
     /// <returns></returns>
     public static int GetHitLayerMask()
     {
-        return GetLayerMask(ELayer.Damageable, ELayer.Default, ELayer.Water);
+         if(_HitLayerMask!=-1){
+           return _HitLayerMask;
+       } 
+        _HitLayerMask=GetLayerMask(ELayer.Damageable, ELayer.Bound, ELayer.Water);
+        return _HitLayerMask;
     }
 
     /// <summary>
@@ -182,7 +190,7 @@ public class LayerHelper
        if(_CameraHitLayerMask!=-1){
            return _CameraHitLayerMask;
        }
-       _CameraHitLayerMask=GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Player,ELayer.Enemy);
+       _CameraHitLayerMask=GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Player,ELayer.Enemy,ELayer.Water,ELayer.Grass);
        return _CameraHitLayerMask;
     }
 }

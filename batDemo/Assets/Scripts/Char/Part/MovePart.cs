@@ -308,6 +308,9 @@ public class MovePart
         this._targetDirection=targetDir;
         this._targetDirection.Normalize();
     }
+    public Vector3 getTargetDir(){
+        return this._targetDirection;
+    }
     public void followMyTarget() {
         if (this.obj != null && this.obj.Target != null && !this.obj.Target.isRecycled  ) {
             this.startFollowTarget(this.obj.Target);

@@ -15,6 +15,9 @@ public class Item : ActionObj
     {
          charType=GameEnum.ObjType.Item;
     }
+    public Player getOwner(){
+        return ownerPlayer;
+    }
     //重写Data.
     public override void initData(){
         ItemData oldData=this.dataNode.GetComponent<ItemData>();

@@ -70,6 +70,22 @@ public class ObjManager  : MonoSingleton<ObjManager>
        this._objOnList= this._objPool.getOnList();
 
     }
+    //通过受击部位获得 受击本体.
+    public Character GetCharacterByBody(GameObject body){
+       Character character=null;
+       CharacterController cc= body.transform.GetComponentInParent<CharacterController>();
+       if(cc!=null){
+            for (int i = 0; i < this._charOnList.Count; i++)
+            {
+                character=this._charOnList[i];
+                if(character.gameObject==cc.gameObject){
+                    return character;
+                }
+
+            }
+       }
+       return character;
+    }
     public Character CreatCharacter(string path="",GameObject obj=null,GameEnum.ObjType objType=GameEnum.ObjType.Player,GameEnum.CtrlType ctrlType=GameEnum.CtrlType.JoyCtrl){
         Character chars=null; 
         switch(objType){

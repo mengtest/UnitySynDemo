@@ -13,6 +13,9 @@ public class CharData : MonoBehaviour,IData
     private Action _onLateUpdate;
     
     public int pvpId;
+    public int camp;
+
+
     public CtrlType ctrlType=CtrlType.Null;
 
     //状态属性..........................................................................................................................
