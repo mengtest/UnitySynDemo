@@ -61,53 +61,54 @@ public class Bullet : ObjBase
         fireRay.direction = dic.normalized;
         int hitCount = Physics.RaycastNonAlloc(fireRay, fireRayHits, moveDic, LayerHelper.GetHitLayerMask());
 
-        if (hitCount > 1)
+        if (hitCount > 0)
         {
+            if(hitCount>1){
+                SortFireRayHits(fireRayHits, hitCount);
+            }
            //Todo记录 owner 子弹命中.
-            SortFireRayHits(fireRayHits, hitCount);
-        }
-        GameObject hitterObj;
-        // Target was hit.
-        for (int i = 0; i < hitCount; i++)
-        {
-            hitterObj=fireRayHits[i].collider.gameObject;
-            ELayer layer =(ELayer)hitterObj.layer;
-            switch(layer){
-                case ELayer.Damageable:
-                   if (TagHelper.CompareTag(hitterObj, ETag.Shield))
-                   {   
-                      //击中护盾;
-                   }else{
-                       Character hitter=  ObjManager.Instance.GetCharacterByBody(hitterObj);
-                        if(hitter!=null){
-                            if(hitter==_owner){
-                                continue;
-                            }
-                            if(hitter.charData.camp==_owner.charData.camp){
-                                continue;
-                            }
-                            //击中玩家.
-                            hitter.CalculateGunDamage(_gun.getGunData(),hitterObj.tag,_owner);
-                            //普通子弹
-                            this.recycleSelf();
+            GameObject hitterObj;
+            // Target was hit.
+            for (int i = 0; i < hitCount; i++)
+            {
+                hitterObj=fireRayHits[i].collider.gameObject;
+                ELayer layer =(ELayer)hitterObj.layer;
+                switch(layer){
+                    case ELayer.Damageable:
+                        if (TagHelper.CompareTag(hitterObj, ETag.Shield))
+                        {   
+                            //击中护盾;
+                        }else{
+                            Character hitter=  ObjManager.Instance.GetCharacterByBody(hitterObj);
+                                if(hitter!=null){
+                                    if(hitter==_owner){
+                                        continue;
+                                    }
+                                    if(hitter.charData.camp==_owner.charData.camp){
+                                        continue;
+                                    }
+                                    //击中玩家.
+                                    hitter.CalculateGunDamage(_gun.getGunData(),hitterObj.tag,_owner);
+                                    //普通子弹
+                                    this.recycleSelf();
+                                    return;
+                                }
+                        }
+                    break;
+                    case ELayer.Bound:
+                        if(onHitOther(hitterObj)){
                             return;
                         }
-                   }
-                break;
-                case ELayer.Bound:
-                   if(onHitOther(hitterObj)){
-                       return;
-                   }
-                break;
-                case ELayer.Water:
-                    if(onHitWater(hitterObj)){
-                      return;
-                    }
-                break;
+                    break;
+                    case ELayer.Water:
+                        if(onHitWater(hitterObj)){
+                           return;
+                        }
+                    break;
+                }
             }
         }
        
-        
         this.node.transform.position =  this.node.transform.position + dic;
         _moveDic+=moveDic;
         if(_maxDic>0&&_moveDic>=_maxDic){

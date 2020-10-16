@@ -128,7 +128,7 @@ public class Gun : Weapon
 
            // CameraManager.Instance.cameraCtrl.resetFirePoint();
          }
-        ownerShoot();
+        ownerShootAni();
         shootEffect();
         shotFire+=1;
         DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine,"shotFire",shotFire);
@@ -152,7 +152,8 @@ public class Gun : Weapon
             }
        }
     }
-    private void ownerShoot(){
+    //拥有者 射击动作.
+    private void ownerShootAni(){
         if(ownerPlayer==null)return;
          switch(gunD.getItemType()){
             case GameEnum.ItemType.Gun:
