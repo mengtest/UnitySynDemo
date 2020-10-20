@@ -64,7 +64,6 @@ public class Bullet : ObjBase
          fireRay.origin = _owner.cameraCtrl.FirePoint.transform.position;
          fireRay.direction = dir;
         int hitCount = Physics.RaycastNonAlloc(fireRay, fireRayHits, _maxDic, LayerHelper.GetHitLayerMask());
-
         if (hitCount > 0)
         {
             if(hitCount>1){
@@ -118,8 +117,8 @@ public class Bullet : ObjBase
         }else{
              targetPoint=_owner.cameraCtrl.FirePoint.transform.position+dir*_maxDic;  
         }
-        DebugLog.Log("targetPoint",targetPoint);
         dir=(targetPoint-this.gameObject.transform.position).normalized;
+    //    DebugLog.Log("targetPoint",targetPoint,dir,this.gameObject.transform.position);
         this.gameObject.transform.forward=dir;
         this.GetMovePart().StartMove(dir);
        // this.GetMovePart().
@@ -129,9 +128,9 @@ public class Bullet : ObjBase
         //每帧打个射线.
         //check  然后再移动. //我和 队友跳过
         float moveDic =dic.magnitude;
-     //   DebugLog.Log("bulletDic",moveDic);
+    //    DebugLog.Log("bulletDic",moveDic);
         fireRay.origin = this.node.transform.position;
-        fireRay.direction = dic.normalized;
+        fireRay.direction =  this.node.transform.forward;
         int hitCount = Physics.RaycastNonAlloc(fireRay, fireRayHits, moveDic, LayerHelper.GetHitLayerMask());
 
         if (hitCount > 0)
@@ -206,7 +205,7 @@ public class Bullet : ObjBase
     }
     private bool onHitBound(GameObject gameObject){
         //普通子弹
-        DebugLog.Log("回收");
+    //    DebugLog.Log("回收");
         this.recycleSelf();
         return true;
     }
@@ -264,12 +263,20 @@ public class Bullet : ObjBase
         }else{
             effect= ObjManager.Instance.CreatEffect("Effect/shoot/decal/fx_decal_stone",null,0,6f);
         }
+        if(_gun.getGunData().dontClearDecals){
+             effect.autoDestroy(600f);
+        }
         effect.gameObject.transform.parent=hitInfo.transform;
         effect.gameObject.transform.position=hitInfo.point;
         effect.gameObject.transform.rotation=Quaternion.LookRotation(hitInfo.normal);
     }
 
     protected override void Update(){
+            // if(_owner!=null){
+            //     Debug.DrawRay(_owner.cameraCtrl.FirePoint.transform.position, _owner.cameraCtrl.FirePoint.transform.forward*_maxDic,  Color.red );
+            //     Debug.DrawRay(this.gameObject.transform.position, this.gameObject.transform.forward*_maxDic,  Color.green );
+            //     DebugLog.Log(this.isDead,this.isRecycled,this.GetMovePart().IsMove());
+            // }
         base.Update();
     }
      public override void onGet(){

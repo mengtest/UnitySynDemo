@@ -19,8 +19,10 @@ public class Gun : Weapon
      //连续开火数
     protected float shotFire=0;
     protected Vector2 _CurRecoil=new Vector2(0,0);
-
+    //弹壳特效;
     private PsEffect shellEf;
+    //子弹 光速 特效
+    private PsEffect buttle_SpEf;
 
     public Gun()
     {
@@ -72,8 +74,10 @@ public class Gun : Weapon
         onFire=false;
         shotFire=0;
         if(shellEf!=null&&!shellEf.isStop){
-      //         DebugLog.Log("Stop");
            shellEf.StopNextFrame();
+        }
+        if(buttle_SpEf!=null&&!buttle_SpEf.isStop){
+           buttle_SpEf.StopNextFrame();
         }
         //TODO : 
     }
@@ -125,16 +129,27 @@ public class Gun : Weapon
           //   ownerPlayer.cameraCtrl.FirePoint;
              //通过firePoint 和 射程 打射线 计算出最终目标点.
             gunD.CurrentMagzine-=1;
-         //   DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
+          //  DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
             Bullet bullet= ObjManager.Instance.CreatObjBase("Effect/shoot/gun/fx_bullet") as Bullet;
             bullet.setOwner(this);
             bullet.moveToFirePoint();
             ownerPlayer.cameraCtrl.resetFirePoint();
+            if(gunD.muzzleTrans!=null){
+                if(buttle_SpEf==null){
+                    buttle_SpEf= ObjManager.Instance.CreatEffect("Effect/shoot/gun/fx_bullet_fly",null,0,0,EffectType.PsEffect) as PsEffect;
+                    buttle_SpEf.setParent(gunD.muzzleTrans);
+                    buttle_SpEf.setEmissionRate(1/gunD.FireRate);
+                }
+                buttle_SpEf.setDir(bullet.gameObject.transform.forward);
+                if(buttle_SpEf.isStop){
+                     buttle_SpEf.RePlay();
+                }
+             }
          }
         ownerShootAni();
         shootEffect();
         shotFire+=1;
-        DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine,"shotFire",shotFire);
+       // DebugLog.Log("shotFire",shotFire);
         // rifle_shot
     }
     private void shootEffect(){
@@ -257,6 +272,10 @@ public class Gun : Weapon
             shellEf.recycleSelf();
             shellEf=null;
         }
+        if(buttle_SpEf!=null){
+            buttle_SpEf.recycleSelf();
+            buttle_SpEf=null;
+        }
         base.onRecycle();
      }
     public override void onRelease(){
@@ -264,6 +283,10 @@ public class Gun : Weapon
         if(shellEf!=null){
             shellEf.recycleSelf();
             shellEf=null;
+        }
+        if(buttle_SpEf!=null){
+            buttle_SpEf.recycleSelf();
+            buttle_SpEf=null;
         }
         base.onRelease();
     }

@@ -141,6 +141,7 @@ public class ObjBase : PoolObj
         if(resetPos){
             this.node.transform.SetPositionAndRotation(cc.transform.position,cc.transform.rotation);
         }
+        this.node.SetActive(cc.activeSelf);
         this.node.name=this._name;
         this.dataNode.transform.parent=this.node.gameObject.transform;
         this.dataNode.transform.localPosition=Vector3.zero;

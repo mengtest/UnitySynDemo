@@ -52,6 +52,9 @@ public class EffectBase : PoolObj
         this.node.transform.localPosition = Vector3.zero;
         this.node.transform.localEulerAngles = Vector3.zero;
     }
+    public void setDir(Vector3 forward){
+        this.node.transform.forward=forward;
+    }
     //显示类可重写. 初始化显示对象.
     public virtual void initView(string prefabPath=""){
         if(this.poolname == prefabPath){

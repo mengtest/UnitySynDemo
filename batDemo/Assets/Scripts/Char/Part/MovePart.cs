@@ -128,10 +128,11 @@ public class MovePart
         this._moveRoate.Set(0,0,0);
 
         this.targetOffset.Set(0,0,0);
-        if (this.faceToRotation) {
+        if(this.faceToRotation){
            this.forwardDirection=obj.gameObject.transform.forward;
         }else{
-            this.forwardDirection.Set(0,0,0);
+           //   this.forwardDirection.Set(0,0,0);
+            this.forwardDirection=obj.gameObject.transform.forward;
         }
     }
 
@@ -396,7 +397,7 @@ public class MovePart
              //3D.
         }
         if (this.ImmDir || rotateSpeed== 0) {
-            if (this.obj.gameObject.transform.forward!= this._targetDirection) {
+            if (this.obj.gameObject.transform.forward!= this._targetDirection||this.forwardDirection!= this._targetDirection) {
                 this.forwardDirection=this._targetDirection;
                 //旋转;
                 if (this.faceToRotation) {

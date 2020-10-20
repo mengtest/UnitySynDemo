@@ -129,7 +129,7 @@ public class KeyboardMouseController : Controller
         if(Input.GetKeyUp(KeyCode.Space)){
                jumpEvt=false;
         }
-         if(Input.GetKeyDown(KeyCode.Escape)){
+         if(Input.GetKeyDown(KeyCode.BackQuote)){
      //         DebugLog.Log("Down");
              stopMouse=!stopMouse;
              _player.cameraCtrl.isMouseMove=!stopMouse;
