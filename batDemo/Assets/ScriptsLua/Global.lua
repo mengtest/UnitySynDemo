@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:45
 LastEditors: xsddxr909
-LastEditTime: 2020-09-07 19:26:06
+LastEditTime: 2020-10-20 21:05:20
 --]]
 --全局变量和函数统一在此添加和require
 
@@ -29,7 +29,6 @@ Rect            = UnityEngine.Rect
 Image           = UnityEngine.UI.Image
 PlayerPrefs     = UnityEngine.PlayerPrefs
 CanvasGroup     = UnityEngine.CanvasGroup
-
 
 ---游戏常用
 ---@class GameAssetRequest

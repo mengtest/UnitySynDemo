@@ -124,7 +124,8 @@ public class KeyboardMouseController : Controller
      //   DebugLog.Log("this.KeyDir",this.KeyDir,this.onJoyTouch);
        	if (!jumpEvt && Input.GetKeyDown(KeyCode.Space)){
                jumpEvt=true;
-               this.onJump();
+             //  this.onJump();
+            this.SendMessage(CharEvent.On_KeyState,new  object[]{GameEnum.KeyInput.Jump});
         }
         if(Input.GetKeyUp(KeyCode.Space)){
                jumpEvt=false;

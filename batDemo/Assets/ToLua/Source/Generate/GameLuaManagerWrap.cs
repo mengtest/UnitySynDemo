@@ -183,14 +183,14 @@ public class GameLuaManagerWrap
 
 			if (count == 0)
 			{
-				Character o = GameLuaManager.CreatPlayer();
+				Player o = GameLuaManager.CreatPlayer();
 				ToLua.PushObject(L, o);
 				return 1;
 			}
 			else if (count == 1)
 			{
 				string arg0 = ToLua.CheckString(L, 1);
-				Character o = GameLuaManager.CreatPlayer(arg0);
+				Player o = GameLuaManager.CreatPlayer(arg0);
 				ToLua.PushObject(L, o);
 				return 1;
 			}
@@ -198,7 +198,7 @@ public class GameLuaManagerWrap
 			{
 				string arg0 = ToLua.CheckString(L, 1);
 				UnityEngine.GameObject arg1 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-				Character o = GameLuaManager.CreatPlayer(arg0, arg1);
+				Player o = GameLuaManager.CreatPlayer(arg0, arg1);
 				ToLua.PushObject(L, o);
 				return 1;
 			}

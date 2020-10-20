@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-09-15 17:25:44
+ * @LastEditTime: 2020-10-20 21:10:17
  */
 using System.Collections;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class GameExample : SingletonT<GameExample> {
     
     public GameExample()
     {
-
+         
     }
 
     public IEnumerator testPool(){
@@ -40,7 +40,7 @@ public class GameExample : SingletonT<GameExample> {
               char2.recycleSelf();
 
       //       Character player2 =  CharManager.Instance.CreatCharacter("player",null);
-
+        //  char1.gameObject.GetComponent<Image>().
     }
 
 

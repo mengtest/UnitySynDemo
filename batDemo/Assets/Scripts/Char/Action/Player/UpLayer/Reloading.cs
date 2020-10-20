@@ -54,6 +54,7 @@ public class Reloading : ActionBase
              }
             if(_Gun!=null&&player.charData.isMyPlayer){
                 //UI派发事件
+                EventCenter.send(SystemEvent.KEY_INPUT_ONRELOAD_STATE,new object[]{reloadTime},true);
             }
           //  player.GetAniUpPart().endAniAction=toAction;
         }
@@ -87,6 +88,9 @@ public class Reloading : ActionBase
         * 切换动作 处理逻辑;
         */
         public override void executeSwichAction(){
+            if(_Gun!=null&&player.charData.isMyPlayer){
+                EventCenter.send(SystemEvent.KEY_INPUT_ONRELOAD_STATE,new object[]{0},true);
+            }
        //      player.GetAniUpPart().endAniAction=null;
         }
 

@@ -4,7 +4,7 @@ Version: 1.0
 Autor: xsddxr909
 Date: 2020-08-03 17:41:46
 LastEditors: xsddxr909
-LastEditTime: 2020-09-30 15:01:58
+LastEditTime: 2020-10-20 21:46:03
 --]]
 ---@class Hud_RightBtnArea : ChildView
 Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
@@ -12,6 +12,10 @@ Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 --自动生成-------------------------------------------
 ---添加UI引用.
 function Hud_RightBtnArea:OnUIInit()
+    ---@type UnityEngine.UI.Image
+    self.ReloadMask=self:SubGet("ReloadBtn/Mask","Image")
+    ---@type UnityEngine.UI.Text
+    self.ReloadText=self:SubGet("ReloadBtn/Mask/Text","Text")
     ---@type UnityEngine.UI.Button
     self.ReloadBtn=self:SubGet("ReloadBtn","Button")
     ---@type UnityEngine.UI.Button
@@ -32,6 +36,8 @@ end
 
 ---移除UI引用.
 function Hud_RightBtnArea:OnUIDestory()
+self.ReloadMask=nil
+self.ReloadText=nil
 self.ReloadBtn=nil
 self.AimBtn=nil
 self.JumpBtn=nil
@@ -41,7 +47,6 @@ self.SprintImage=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
 end
-
 
 
 
@@ -60,7 +65,7 @@ end
 function Hud_RightBtnArea:OnInit(param)
     self._isSprinting=false;
     self.Aim_IsDraging = false;
-
+    self.reloadTime=0;
     --self.RotateText.text=CameraManager.Instance.cameraCtrl.Horizontal_Acce_Dic;
     --- Example.playerObj:GetMovePart().rotateSpeed;
    -- self.SpeedText.text = CameraManager.Instance.cameraCtrl.Horizontal_Acce_Speed;
@@ -75,6 +80,20 @@ function Hud_RightBtnArea:OnSprintClick(obj)
 end
 function Hud_RightBtnArea:OnJumpClick(obj)
     EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Jump});
+end
+function Hud_RightBtnArea:OnReloadClick(obj)
+    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Reload});
+end
+function Hud_RightBtnArea:onKeyReload(param)
+    if param~=nil then
+        self.reloadTime = param[0];
+        self.reloadTotalTime = self.reloadTime ;
+        if self.reloadTime>0 then
+            self.ReloadMask.gameObject:SetActive(true);
+        else
+            self.ReloadMask.gameObject:SetActive(false);
+        end
+    end
 end
 
 function Hud_RightBtnArea:OnSprintState(isSprinting)
@@ -93,6 +112,7 @@ end
 function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = function(obj)  self:OnSprintClick(obj) end
     UIEventListener.Get(self.JumpBtn.gameObject).onClick = function(obj)  self:OnJumpClick(obj) end
+    UIEventListener.Get(self.ReloadBtn.gameObject).onClick = function(obj)  self:OnReloadClick(obj) end
 
     UIEventListener.Get(self.AimBtn.gameObject).onDown = function(eventData)  self:onAimBtnDown(eventData) end
     UIEventListener.Get(self.AimBtn.gameObject).onDrag = function(eventData)  self:OnAimBtnDrag(eventData) end
@@ -101,11 +121,14 @@ function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.FireBtn.gameObject).onDown = function(eventData)  self:onFireBtnDown(eventData) end
     UIEventListener.Get(self.FireBtn.gameObject).onDrag = function(eventData)  self:OnFireBtnDrag(eventData) end
     UIEventListener.Get(self.FireBtn.gameObject).onUp = function(eventData)  self:OnFireBtnUp(eventData) end
+
+    self.KeyReloadEvtID =  EventManager.addListener(SystemEvent.KEY_INPUT_ONRELOAD_STATE, function(param)  self:onKeyReload(param) end);
 end
 
 function Hud_RightBtnArea:RemoveListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
     UIEventListener.Get(self.JumpBtn.gameObject).onClick = nil
+    UIEventListener.Get(self.ReloadBtn.gameObject).onClick =  nil
 
     UIEventListener.Get(self.AimBtn.gameObject).onDown = nil
     UIEventListener.Get(self.AimBtn.gameObject).onDrag = nil
@@ -114,6 +137,8 @@ function Hud_RightBtnArea:RemoveListener()
     UIEventListener.Get(self.FireBtn.gameObject).onDown = nil
     UIEventListener.Get(self.FireBtn.gameObject).onDrag = nil
     UIEventListener.Get(self.FireBtn.gameObject).onUp = nil
+
+    EventManager.removeListener(SystemEvent.KEY_INPUT_ONRELOAD_STATE,self.KeyReloadEvtID);
 end
 
 ---@param    eventData UnityEngine.EventSystems.PointerEventData
@@ -184,7 +209,21 @@ end
 
 function Hud_RightBtnArea:Update()
 --- update
+---self.reloadTime
+    if self.reloadTime~=nil and self.reloadTime>0 then
+        self.reloadTime=self.reloadTime-Time.deltaTime;
+        if self.reloadTime<=0 then
+            self.reloadTime=0;
+            self.ReloadMask.gameObject:SetActive(false);
+            self.ReloadText.text="";
+        else
+            self.ReloadMask.fillAmount =  self.reloadTime /self.reloadTotalTime;
+            self.ReloadText.text=string.format("%.1f",self.reloadTime).."s";
+        end
+    end
+
 end
+
 
 return Hud_RightBtnArea
 

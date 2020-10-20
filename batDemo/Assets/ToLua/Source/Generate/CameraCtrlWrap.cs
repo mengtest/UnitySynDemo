@@ -47,6 +47,7 @@ public class CameraCtrlWrap
 		L.RegVar("smoothCamOffset", get_smoothCamOffset, set_smoothCamOffset);
 		L.RegVar("targetPivotOffset", get_targetPivotOffset, set_targetPivotOffset);
 		L.RegVar("targetCamOffset", get_targetCamOffset, set_targetCamOffset);
+		L.RegVar("defaultFOV", get_defaultFOV, set_defaultFOV);
 		L.RegVar("Horizontal_Acce_Dic", get_Horizontal_Acce_Dic, set_Horizontal_Acce_Dic);
 		L.RegVar("Horizontal_Acce_Speed", get_Horizontal_Acce_Speed, set_Horizontal_Acce_Speed);
 		L.RegVar("isMouseMove", get_isMouseMove, set_isMouseMove);
@@ -769,6 +770,25 @@ public class CameraCtrlWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_defaultFOV(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CameraCtrl obj = (CameraCtrl)o;
+			float ret = obj.defaultFOV;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index defaultFOV on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_Horizontal_Acce_Dic(IntPtr L)
 	{
 		object o = null;
@@ -1164,6 +1184,25 @@ public class CameraCtrlWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index targetCamOffset on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_defaultFOV(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CameraCtrl obj = (CameraCtrl)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.defaultFOV = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index defaultFOV on a nil value");
 		}
 	}
 
