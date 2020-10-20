@@ -234,7 +234,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         GameObject player= GameObject.FindGameObjectWithTag("Player");
         
          #if UNITY_EDITOR
-                  ObjManager.setMyPlayer( ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player);
+                  ObjManager.setMyPlayer( ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.JoyCtrl) as Player);
          #else
                 
                  ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player);

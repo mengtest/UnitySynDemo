@@ -12,6 +12,8 @@ Hud_RightBtnArea = Class("Hud_RightBtnArea",ChildView)
 --自动生成-------------------------------------------
 ---添加UI引用.
 function Hud_RightBtnArea:OnUIInit()
+    ---@type UnityEngine.UI.Button
+    self.LeftFireBtn=self:SubGet("LeftFireBtn","Button")
     ---@type UnityEngine.UI.Image
     self.ReloadMask=self:SubGet("ReloadBtn/Mask","Image")
     ---@type UnityEngine.UI.Text
@@ -36,6 +38,7 @@ end
 
 ---移除UI引用.
 function Hud_RightBtnArea:OnUIDestory()
+self.LeftFireBtn=nil
 self.ReloadMask=nil
 self.ReloadText=nil
 self.ReloadBtn=nil
@@ -47,6 +50,7 @@ self.SprintImage=nil
 self.SprintBtn=nil
 self.SettingBtn=nil
 end
+
 
 
 
@@ -84,6 +88,12 @@ end
 function Hud_RightBtnArea:OnReloadClick(obj)
     EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Reload});
 end
+function Hud_RightBtnArea:OnLeftAtkDown(obj)
+    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Attack,true});
+end
+function Hud_RightBtnArea:OnLeftAtkUp(obj)
+    EventManager.dispatchEventToC(SystemEvent.UI_BAT_ON_KEYSTATE,{ButtonInput.Attack,false});
+end
 function Hud_RightBtnArea:onKeyReload(param)
     if param~=nil then
         self.reloadTime = param[0];
@@ -114,6 +124,9 @@ function Hud_RightBtnArea:AddListener()
     UIEventListener.Get(self.JumpBtn.gameObject).onClick = function(obj)  self:OnJumpClick(obj) end
     UIEventListener.Get(self.ReloadBtn.gameObject).onClick = function(obj)  self:OnReloadClick(obj) end
 
+    UIEventListener.Get(self.LeftFireBtn.gameObject).onDown = function(obj)  self:OnLeftAtkDown(obj) end
+    UIEventListener.Get(self.LeftFireBtn.gameObject).onUp = function(obj)  self:OnLeftAtkUp(obj) end
+
     UIEventListener.Get(self.AimBtn.gameObject).onDown = function(eventData)  self:onAimBtnDown(eventData) end
     UIEventListener.Get(self.AimBtn.gameObject).onDrag = function(eventData)  self:OnAimBtnDrag(eventData) end
     UIEventListener.Get(self.AimBtn.gameObject).onUp = function(eventData)  self:OnAimBtnUp(eventData) end
@@ -129,6 +142,9 @@ function Hud_RightBtnArea:RemoveListener()
     UIEventListener.Get(self.SprintBtn.gameObject).onClick = nil
     UIEventListener.Get(self.JumpBtn.gameObject).onClick = nil
     UIEventListener.Get(self.ReloadBtn.gameObject).onClick =  nil
+
+    UIEventListener.Get(self.LeftFireBtn.gameObject).onDown = nil
+    UIEventListener.Get(self.LeftFireBtn.gameObject).onUp = nil
 
     UIEventListener.Get(self.AimBtn.gameObject).onDown = nil
     UIEventListener.Get(self.AimBtn.gameObject).onDrag = nil
