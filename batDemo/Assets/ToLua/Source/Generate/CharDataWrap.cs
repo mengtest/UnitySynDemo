@@ -13,6 +13,7 @@ public class CharDataWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("isMyPlayer", get_isMyPlayer, set_isMyPlayer);
 		L.RegVar("pvpId", get_pvpId, set_pvpId);
+		L.RegVar("camp", get_camp, set_camp);
 		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.RegVar("isCanShotting", get_isCanShotting, set_isCanShotting);
 		L.RegVar("aimState", get_aimState, set_aimState);
@@ -42,9 +43,6 @@ public class CharDataWrap
 		L.RegVar("Btn_Fire", get_Btn_Fire, set_Btn_Fire);
 		L.RegVar("joyTouch", get_joyTouch, set_joyTouch);
 		L.RegVar("worldDir", get_worldDir, set_worldDir);
-		L.RegVar("cam_angleH", get_cam_angleH, set_cam_angleH);
-		L.RegVar("cam_angleV", get_cam_angleV, set_cam_angleV);
-		L.RegVar("cam_foward", get_cam_foward, set_cam_foward);
 		L.RegVar("PlaySpeed", get_PlaySpeed, set_PlaySpeed);
 		L.EndClass();
 	}
@@ -161,6 +159,25 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index pvpId on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_camp(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.camp;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index camp on a nil value");
 		}
 	}
 
@@ -716,63 +733,6 @@ public class CharDataWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_cam_angleH(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			float ret = obj.cam_angleH;
-			LuaDLL.lua_pushnumber(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_angleH on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_cam_angleV(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			float ret = obj.cam_angleV;
-			LuaDLL.lua_pushnumber(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_angleV on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_cam_foward(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			UnityEngine.Vector3 ret = obj.cam_foward;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_foward on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_PlaySpeed(IntPtr L)
 	{
 		object o = null;
@@ -826,6 +786,25 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index pvpId on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_camp(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.camp = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index camp on a nil value");
 		}
 	}
 
@@ -1377,63 +1356,6 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index worldDir on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_cam_angleH(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.cam_angleH = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_angleH on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_cam_angleV(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.cam_angleV = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_angleV on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_cam_foward(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			CharData obj = (CharData)o;
-			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
-			obj.cam_foward = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam_foward on a nil value");
 		}
 	}
 

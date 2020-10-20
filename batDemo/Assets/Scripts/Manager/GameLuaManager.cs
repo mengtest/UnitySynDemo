@@ -53,11 +53,11 @@ public class GameLuaManager
           return ObjManager.Instance.CreatCharacter(path,obj);
         #endif
      }
-     public static Character CreatPlayer(string path="",GameObject obj=null){
+     public static Player CreatPlayer(string path="",GameObject obj=null){
          #if UNITY_EDITOR
-        return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl);
+        return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player,CtrlType.keyBordCtrl) as Player;
         #else
-          return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player);
+          return ObjManager.Instance.CreatCharacter(path,obj,ObjType.Player) as Player;
         #endif
      }
      public static Character CreatMonster(string path="",GameObject obj=null){

@@ -19,6 +19,7 @@ public class PoolObjWrap
 		L.RegVar("poolname", get_poolname, set_poolname);
 		L.RegVar("pool", get_pool, set_pool);
 		L.RegVar("isRecycled", get_isRecycled, set_isRecycled);
+		L.RegVar("delayRecycleTime", get_delayRecycleTime, set_delayRecycleTime);
 		L.EndClass();
 	}
 
@@ -219,6 +220,25 @@ public class PoolObjWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_delayRecycleTime(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			PoolObj obj = (PoolObj)o;
+			float ret = obj.delayRecycleTime;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index delayRecycleTime on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_id(IntPtr L)
 	{
 		object o = null;
@@ -291,6 +311,25 @@ public class PoolObjWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isRecycled on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_delayRecycleTime(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			PoolObj obj = (PoolObj)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.delayRecycleTime = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index delayRecycleTime on a nil value");
 		}
 	}
 }

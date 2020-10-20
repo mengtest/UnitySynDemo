@@ -8,10 +8,11 @@ public class CameraManagerWrap
 	{
 		L.BeginClass(typeof(CameraManager), typeof(MonoSingleton<CameraManager>));
 		L.RegFunction("Init", Init);
+		L.RegFunction("FocusPlayer", FocusPlayer);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("mainCamera", get_mainCamera, set_mainCamera);
-		L.RegVar("cameraCtrl", get_cameraCtrl, set_cameraCtrl);
+		L.RegVar("cam", get_cam, set_cam);
 		L.RegVar("postLayer", get_postLayer, set_postLayer);
 		L.EndClass();
 	}
@@ -24,6 +25,23 @@ public class CameraManagerWrap
 			ToLua.CheckArgsCount(L, 1);
 			CameraManager obj = (CameraManager)ToLua.CheckObject<CameraManager>(L, 1);
 			obj.Init();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FocusPlayer(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			CameraManager obj = (CameraManager)ToLua.CheckObject<CameraManager>(L, 1);
+			Player arg0 = (Player)ToLua.CheckObject<Player>(L, 2);
+			obj.FocusPlayer(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -70,7 +88,7 @@ public class CameraManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_cameraCtrl(IntPtr L)
+	static int get_cam(IntPtr L)
 	{
 		object o = null;
 
@@ -78,13 +96,13 @@ public class CameraManagerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			CameraManager obj = (CameraManager)o;
-			ThirdPersonCameraCtrl ret = obj.cameraCtrl;
-			ToLua.Push(L, ret);
+			UnityEngine.Camera ret = obj.cam;
+			ToLua.PushSealed(L, ret);
 			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraCtrl on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam on a nil value");
 		}
 	}
 
@@ -127,7 +145,7 @@ public class CameraManagerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_cameraCtrl(IntPtr L)
+	static int set_cam(IntPtr L)
 	{
 		object o = null;
 
@@ -135,13 +153,13 @@ public class CameraManagerWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			CameraManager obj = (CameraManager)o;
-			ThirdPersonCameraCtrl arg0 = (ThirdPersonCameraCtrl)ToLua.CheckObject<ThirdPersonCameraCtrl>(L, 2);
-			obj.cameraCtrl = arg0;
+			UnityEngine.Camera arg0 = (UnityEngine.Camera)ToLua.CheckObject(L, 2, typeof(UnityEngine.Camera));
+			obj.cam = arg0;
 			return 0;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraCtrl on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cam on a nil value");
 		}
 	}
 

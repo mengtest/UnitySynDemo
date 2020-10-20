@@ -8,11 +8,14 @@ public class GunWrap
 	{
 		L.BeginClass(typeof(Gun), typeof(Weapon));
 		L.RegFunction("initData", initData);
+		L.RegFunction("getGunData", getGunData);
+		L.RegFunction("getGunType", getGunType);
 		L.RegFunction("EquipWeaponRightHand", EquipWeaponRightHand);
 		L.RegFunction("EquipWeaponBackChest", EquipWeaponBackChest);
 		L.RegFunction("DropItem", DropItem);
 		L.RegFunction("Fire", Fire);
 		L.RegFunction("StopFire", StopFire);
+		L.RegFunction("FillMagzin", FillMagzin);
 		L.RegFunction("onGet", onGet);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
@@ -54,6 +57,40 @@ public class GunWrap
 			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
 			obj.initData();
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getGunData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
+			Weapon_Gun o = obj.getGunData();
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getGunType(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
+			GameEnum.Weapon_GunType o = obj.getGunType();
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -135,6 +172,22 @@ public class GunWrap
 			ToLua.CheckArgsCount(L, 1);
 			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
 			obj.StopFire();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int FillMagzin(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Gun obj = (Gun)ToLua.CheckObject<Gun>(L, 1);
+			obj.FillMagzin();
 			return 0;
 		}
 		catch (Exception e)

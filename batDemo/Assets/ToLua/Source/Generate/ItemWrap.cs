@@ -7,6 +7,7 @@ public class ItemWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(Item), typeof(ActionObj));
+		L.RegFunction("getOwner", getOwner);
 		L.RegFunction("initData", initData);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnPickUp", OnPickUp);
@@ -41,6 +42,23 @@ public class ItemWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: Item.New");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getOwner(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Item obj = (Item)ToLua.CheckObject<Item>(L, 1);
+			Player o = obj.getOwner();
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

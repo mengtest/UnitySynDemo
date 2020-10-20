@@ -89,7 +89,7 @@ public class MovePart
     public  Vector3 targetOffset = Vector3.zero;
 
 
-    //额外摇摆加速度
+    //额外摇摆加速度.......................................................................................
     public float extraAcSpeed = -1;
     public float extraCurSpeed = 0;
     //额外摇摆速度 如果和向前速度相同会走圆曲线运动。

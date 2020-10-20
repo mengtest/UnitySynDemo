@@ -7,6 +7,8 @@ using UnityEngine;
 [AutoRegistLua]
 public class Player : Character
 {
+    protected Controller ctrl=null;
+    public CameraCtrl cameraCtrl;
     public AvatarSystem avatar;
     public WeaponSystem weaponSystem;
 
@@ -18,6 +20,34 @@ public class Player : Character
         canPickUpList=new List<Item>();
          charType=GameEnum.ObjType.Player;
     }
+    public CtrlType ctrlType{ 
+        get{ 
+            return charData.ctrlType;
+        }
+        set {
+           if(charData.ctrlType!=value){
+               charData.ctrlType=value;
+               if(ctrl!=null){
+                   ctrl.recycleSelf();
+               }
+               ctrl=CtrlManager.Instance.getController(charData.ctrlType);
+               if(ctrl!=null){
+                 ctrl.init(this);
+               }
+           }       
+        }
+    }
+    //获取控制器.
+    public Controller GetCtrl(){
+        return this.ctrl;
+    }
+    public bool isCamTarget(){
+         return cameraCtrl.isCamTarget();
+    }
+    public void CameraFocus(Camera camera){
+        cameraCtrl.setMainCamera(camera);
+    }
+
 
     //重写显示.
     public override void init(){
@@ -36,9 +66,35 @@ public class Player : Character
     }
      public override void initData(){
          base.initData();
+         initCameraCtrl();
          this.doActionSkillByLabel(GameEnum.ActionLabel.Stand,0,false);
          this.doActionSkillByLabel(GameEnum.ActionLabel.UpIdle,0,false);
      }
+
+     public void initCameraCtrl(){
+         if(cameraCtrl==null){
+            GameObject  cam =new GameObject(this._name+"_Cam");
+            cameraCtrl = cam.AddComponent<CameraCtrl>();
+            cameraCtrl.target=this.gameObject.transform;
+            cameraCtrl.init(this);
+         }
+     }
+     public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
+        base.ChangeNodeObj(obj,resetPos);
+        if(cameraCtrl!=null){
+          cameraCtrl.init(this);
+        }
+    }
+
+    public void SetCharacterCtrlHeight(float height){
+        if( this.characterController){
+             this.characterController.center=new Vector3(0,height/2f,0);
+             this.characterController.height=height;
+        }
+        cameraCtrl.targetFocusHeight=height;  
+    }
+
+
     //eg: initAvatar("Infility",new string[]{"Infility_head_01","Infility_body_01","Infility_limb_02"});
     public void initAvatar(string aniUrl, string[] modelpaths){
         if(this.avatar==null)return; 
@@ -140,14 +196,32 @@ public class Player : Character
         m_FSM.RegisterState(new Char_Dead(m_FSM));
     }
      public override void onGet(){
+        if(this.cameraCtrl){
+             this.cameraCtrl.gameObject.SetActive(true);
+        }
         base.onGet();
      }
     //回收.
      public override void onRecycle(){
          canPickUpList.Clear();
+         if(this.cameraCtrl){
+             this.cameraCtrl.gameObject.SetActive(false);
+         }
+         if(ctrl!=null){
+             ctrl.recycleSelf();
+             ctrl=null;
+         }
         base.onRecycle();
      }
     public override void onRelease(){
+        if(this.cameraCtrl){
+            GameObject.Destroy(this.cameraCtrl.gameObject);
+            this.cameraCtrl=null;
+        }
+        if(ctrl!=null){
+             ctrl.recycleSelf();
+             ctrl=null;
+        }
         canPickUpList.Clear();
         this.canPickUpList=null;
         this.avatar=null;

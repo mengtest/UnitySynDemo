@@ -116,17 +116,20 @@ public class Gun : Weapon
     }
     //每次子弹发射.
     protected void FireProcessing(){
+        if(ownerPlayer==null) return;
         //AddRecoil 后坐力.
         AddRecoil();
          for (int i = 0; i < gunD.BulletNum; i++)
          {
              //改变下FirePoint Acc改变.
-            // CameraManager.Instance.cameraCtrl.FirePoint;
-             gunD.CurrentMagzine-=1;
+          //   ownerPlayer.cameraCtrl.FirePoint;
+             //通过firePoint 和 射程 打射线 计算出最终目标点.
+            gunD.CurrentMagzine-=1;
          //   DebugLog.Log("oneBullet","mag: ",gunD.CurrentMagzine);
-
-
-           // CameraManager.Instance.cameraCtrl.resetFirePoint();
+            Bullet bullet= ObjManager.Instance.CreatObjBase("Effect/shoot/gun/fx_bullet") as Bullet;
+            bullet.setOwner(this);
+            bullet.moveToFirePoint();
+            ownerPlayer.cameraCtrl.resetFirePoint();
          }
         ownerShootAni();
         shootEffect();
@@ -189,7 +192,7 @@ public class Gun : Weapon
         }
        _CurRecoil.x= _CurRecoil.x*gunD.RecoilRateYaw;
        _CurRecoil.y=_CurRecoil.y*gunD.RecoilRatePitch;
-       CameraManager.Instance.cameraCtrl.SetRecoilAngle(_CurRecoil);
+        ownerPlayer.cameraCtrl.SetRecoilAngle(_CurRecoil);
     }
     //单发.
     private void onSingleFire(){

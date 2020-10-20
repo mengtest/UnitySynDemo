@@ -23,6 +23,7 @@ public class MovePartWrap
 		L.RegFunction("GetNextMoveSpeedDic", GetNextMoveSpeedDic);
 		L.RegFunction("SetTargetRotation", SetTargetRotation);
 		L.RegFunction("SetTargetDir", SetTargetDir);
+		L.RegFunction("getTargetDir", getTargetDir);
 		L.RegFunction("followMyTarget", followMyTarget);
 		L.RegFunction("chkFollowTarget", chkFollowTarget);
 		L.RegFunction("startFollowTarget", startFollowTarget);
@@ -418,6 +419,23 @@ public class MovePartWrap
 			UnityEngine.Vector3 arg0 = ToLua.ToVector3(L, 2);
 			obj.SetTargetDir(arg0);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int getTargetDir(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			MovePart obj = (MovePart)ToLua.CheckObject<MovePart>(L, 1);
+			UnityEngine.Vector3 o = obj.getTargetDir();
+			ToLua.Push(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{

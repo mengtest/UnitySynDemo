@@ -67,7 +67,7 @@ public class WeaponSystem : MonoBehaviour
     // Check if aim is blocked by obstacles. 检查瞄准是否被障碍物阻挡。
 	public bool CheckforBlockedAim()
 	{
-		isAimBlocked = Physics.SphereCast(_player.gameObject.transform.position + castRelativeOrigin, 0.1f,_player.charData.cam_foward, out RaycastHit hit, distToHand - 0.1f);
+		isAimBlocked = Physics.SphereCast(_player.gameObject.transform.position + castRelativeOrigin, 0.1f,_player.cameraCtrl.transform.forward, out RaycastHit hit, distToHand - 0.1f);
 		isAimBlocked = isAimBlocked && hit.collider.transform != this.transform;
        // ani.SetBool(blockedAimBool, isAimBlocked);
 	//	Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);
@@ -87,7 +87,7 @@ public class WeaponSystem : MonoBehaviour
         
         //上下 随摄像机旋转
         // // Keep upper body orientation regardless strafe direction.
-        float xCamRot = Quaternion.LookRotation(_player.charData.cam_foward).eulerAngles.x;
+        float xCamRot = Quaternion.LookRotation(_player.cameraCtrl.transform.forward).eulerAngles.x;
         targetRot = Quaternion.AngleAxis(xCamRot + weapon.armsRotationY, _player.gameObject.transform.right);
 
         targetRot *= Quaternion.AngleAxis(weapon.armsRotationX, _player.gameObject.transform.up);

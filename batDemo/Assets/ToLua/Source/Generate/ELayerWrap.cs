@@ -24,6 +24,7 @@ public class ELayerWrap
 		L.RegVar("Scope", get_Scope, null);
 		L.RegVar("PoisonCircle", get_PoisonCircle, null);
 		L.RegVar("Item", get_Item, null);
+		L.RegVar("Grass", get_Grass, null);
 		L.RegFunction("IntToEnum", IntToEnum);
 		L.EndEnum();
 		TypeTraits<ELayer>.Check = CheckType;
@@ -156,6 +157,13 @@ public class ELayerWrap
 	static int get_Item(IntPtr L)
 	{
 		ToLua.Push(L, ELayer.Item);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Grass(IntPtr L)
+	{
+		ToLua.Push(L, ELayer.Grass);
 		return 1;
 	}
 

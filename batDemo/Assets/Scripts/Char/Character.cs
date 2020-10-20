@@ -6,7 +6,6 @@ using GameEnum;
 [AutoRegistLua]
 public class Character : ObjBase
 {
-    protected Controller ctrl=null;
     //1  Uplayer层 动画控件 上半身动作层
     protected AniPart aniUpPart=null;
     //2  Uplayer层 动画控件 叠加动作层
@@ -98,56 +97,7 @@ public class Character : ObjBase
             return  m_FSM.GetCurStateID();
         }
         return CharState.Char_Dead;
-    }
-    public CtrlType ctrlType{ 
-        get{ 
-            return charData.ctrlType;
-        }
-        set {
-           if(charData.ctrlType!=value){
-               charData.ctrlType=value;
-               if(ctrl!=null){
-                   ctrl.recycleSelf();
-               }
-               ctrl=CtrlManager.Instance.getController(charData.ctrlType);
-               if(ctrl!=null){
-                 ctrl.init(this);
-               }
-           }       
-        }
-    }
-    public void onActionCG(){
-        if(ctrl!=null){
-            ctrl.OnActionChange();
-        }
-    }
-    
-    public override void ChangeNodeObj(GameObject obj,bool resetPos=true){
-        bool cgCamTarget=false;
-        if(CameraManager.Instance.cameraCtrl.isCamTarget(this)){
-           cgCamTarget=true;
-        }
-        base.ChangeNodeObj(obj,resetPos);
-         if(cgCamTarget){
-            //如果是观察者.
-            CameraManager.Instance.cameraCtrl.init(this);
-        }
-    }
-    public void synCamData(){
-        if(this.charData==null)return;
-        this.charData.cam_angleH=CameraManager.Instance.cameraCtrl.GetH();
-        this.charData.cam_angleV=CameraManager.Instance.cameraCtrl.GetV();
-        this.charData.cam_foward=CameraManager.Instance.mainCamera.transform.forward;
-    }
-    public void SetCharacterCtrlHeight(float height){
-        if( this.characterController){
-             this.characterController.center=new Vector3(0,height/2f,0);
-             this.characterController.height=height;
-        }
-        if(CameraManager.Instance.cameraCtrl.isCamTarget(this)){
-            CameraManager.Instance.cameraCtrl.targetFocusHeight=height;
-        }
-    }
+    } 
     public override void onViewLoadFin(){
         this.characterController=this.node.GetComponent<CharacterController>();
         this.colExtents=this.characterController.bounds.extents;
@@ -222,9 +172,6 @@ public class Character : ObjBase
 
     //用的是 charData mono fixUpdate ;
     protected override void Update() {
-        // if(this.ctrl!=null){
-        //     this.ctrl.Update();
-        // }
         if(this.skillPart!=null){
             this.skillPart.Update();
         }
@@ -242,16 +189,9 @@ public class Character : ObjBase
         }
     }
      protected override void LateUpdate() {
-        //  if(this.ctrl!=null){
-        //     this.ctrl.LateUpdate();
-        // }
         if(this.skillPart!=null){
             this.skillPart.LateUpdate();
         }
-    }
-    //获取控制器.
-    public Controller GetCtrl(){
-        return this.ctrl;
     }
     public AniPart GetAniUpPart(){
         if(this.aniUpPart==null){
@@ -337,10 +277,6 @@ public class Character : ObjBase
      public override void onRecycle(){
          charData.ctrlType=CtrlType.Null;
          this.dirPos=Vector3.zero;
-         if(ctrl!=null){
-             ctrl.recycleSelf();
-             ctrl=null;
-         }
         if(this.aniBasePart!=null){
              this.aniBasePart.stop();
         }
@@ -363,10 +299,6 @@ public class Character : ObjBase
         this.charData=null;
         this.characterController=null;
           this.AnimatorIKMono=null;
-         if(ctrl!=null){
-             ctrl.recycleSelf();
-             ctrl=null;
-         }
          if(this.skillPart!=null){
             this.skillPart.Release();
         }

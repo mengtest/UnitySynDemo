@@ -11,9 +11,10 @@ public static class LuaBinder
 		L.BeginModule(null);
 		LuaInterface_DebuggerWrap.Register(L);
 		LuaProfilerWrap.Register(L);
+		CameraCtrlWrap.Register(L);
 		CameraManagerWrap.Register(L);
-		ThirdPersonCameraCtrlWrap.Register(L);
 		ActionObjWrap.Register(L);
+		BulletWrap.Register(L);
 		CharacterWrap.Register(L);
 		CharDataWrap.Register(L);
 		ItemDataWrap.Register(L);
@@ -221,6 +222,8 @@ public static class LuaBinder
 		GameEnum_AimStateWrap.Register(L);
 		GameEnum_GunStateWrap.Register(L);
 		GameEnum_ObjTypeWrap.Register(L);
+		GameEnum_HitMatTypeWrap.Register(L);
+		GameEnum_EffectTypeWrap.Register(L);
 		GameEnum_CancelPriorityWrap.Register(L);
 		GameEnum_CharStateWrap.Register(L);
 		GameEnum_ActionLabelWrap.Register(L);

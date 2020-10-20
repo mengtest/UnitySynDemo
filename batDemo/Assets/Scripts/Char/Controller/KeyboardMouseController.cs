@@ -32,20 +32,20 @@ public class KeyboardMouseController : Controller
 
     public KeyboardMouseController()
     {
-          CameraManager.Instance.cameraCtrl.isMouseMove=true;
-           if(Cursor.visible){
+         if(Cursor.visible){
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-             }
+          }
     }
-    public override void OnActionChange(){
-         this.lastDirPos=Vector3.zero;
+    public  override void  init(Player character){
+        base.init(character);
+        _player.cameraCtrl.isMouseMove=!stopMouse;
     }
      //FixedUpdate
     public override void Update()
     {
-        if(CameraManager.Instance.cameraCtrl.isMouseMove){
-           CameraManager.Instance.cameraCtrl.onMouseMove();
+        if(_player.cameraCtrl.isMouseMove){
+           _player.cameraCtrl.onMouseMove();
         }
         // this.KeyDir.x = Input.GetAxis("Horizontal");
 		// this.KeyDir.y = Input.GetAxis("Vertical");
@@ -92,7 +92,7 @@ public class KeyboardMouseController : Controller
            // }
           //   this.OnSprint();
         }
-        if(this._char.charData.isDashing!=this.isDashing){
+        if(this._player.charData.isDashing!=this.isDashing){
              EventCenter.send(SystemEvent.KEY_INPUT_ONSPRINT_STATE,new object[]{this.isDashing},true);
         }
 
@@ -103,17 +103,17 @@ public class KeyboardMouseController : Controller
     //     }
         if(this.onJoyTouch){
             if(this.KeyDir==Vector2.zero){
-                 this._char.charData.joyTouch=false;
+                 this._player.charData.joyTouch=false;
                 this.OnJoyUp();
             }else{
-                this._char.charData.joyTouch=true;
+                this._player.charData.joyTouch=true;
                 this.OnJoyMove(this.KeyDir);
             }  
         }else{
-            if(this.isDashing&&_last_H!=CameraManager.Instance.cameraCtrl.GetH()){
+            if(this.isDashing&&_last_H!=_player.cameraCtrl.GetH()){
                 //根据屏幕的旋转向前走.
-                  _last_H=CameraManager.Instance.cameraCtrl.GetH();
-                   Vector3 worldDir =this._char.GetMovePart().getRotation(_last_H);
+                  _last_H=_player.cameraCtrl.GetH();
+                   Vector3 worldDir =this._player.GetMovePart().getRotation(_last_H);
               //   DebugLog.Log("isDashing rotat",worldDir);
                   this.SendMessage(CharEvent.OnJoy_Move,new object[]{worldDir,isDashing,false,0});
             }else if(this.KeyDir!=Vector2.zero){
@@ -132,7 +132,7 @@ public class KeyboardMouseController : Controller
          if(Input.GetKeyDown(KeyCode.Escape)){
      //         DebugLog.Log("Down");
              stopMouse=!stopMouse;
-             CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
+             _player.cameraCtrl.isMouseMove=!stopMouse;
              if(!stopMouse){
              if(Cursor.visible){
                 Cursor.lockState = CursorLockMode.Locked;
@@ -161,19 +161,19 @@ public class KeyboardMouseController : Controller
          //换弹;
            this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Reload});
         }
-        if (!this._char.charData.Btn_Aim && Input.GetAxisRaw(aimButton) != 0)
+        if (!this._player.charData.Btn_Aim && Input.GetAxisRaw(aimButton) != 0)
 		{
             this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Aim,true});
 		}
-		else if (this._char.charData.Btn_Aim &&Input.GetAxisRaw(aimButton) == 0)
+		else if (this._player.charData.Btn_Aim &&Input.GetAxisRaw(aimButton) == 0)
 		{
 			this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Aim,false});
 		}
-         if (!this._char.charData.Btn_Fire &&Input.GetAxisRaw(shootButton) != 0)
+         if (!this._player.charData.Btn_Fire &&Input.GetAxisRaw(shootButton) != 0)
 		{
 		  this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Attack,true});
 		}
-		else if (this._char.charData.Btn_Fire&&Input.GetAxisRaw(shootButton) == 0)
+		else if (this._player.charData.Btn_Fire&&Input.GetAxisRaw(shootButton) == 0)
 		{
 			this.SendMessage(CharEvent.On_KeyState,new object[]{KeyInput.Attack,false});
 		}
@@ -210,22 +210,22 @@ public class KeyboardMouseController : Controller
         if(data!=null){
            this.isDashing= (bool) data[0];
         }
-        _char.charData.isDashing=this.isDashing;
+        _player.charData.isDashing=this.isDashing;
         this.dashCg=false;
        if(isDashing){
-           if(_char.GetCurStateID()==GameEnum.CharState.Char_Idle ){
-                if( _char.charData.currentBaseAction!=GameEnum.ActionLabel.Run&&_char.charData.currentBaseAction!=GameEnum.ActionLabel.Dash){
-                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._char.gameObject.transform.forward,isDashing,false,0});
-                }else if( _char.charData.currentBaseAction==GameEnum.ActionLabel.Run){
-                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._char.gameObject.transform.forward,isDashing,false,0});
+           if(_player.GetCurStateID()==GameEnum.CharState.Char_Idle ){
+                if( _player.charData.currentBaseAction!=GameEnum.ActionLabel.Run&&_player.charData.currentBaseAction!=GameEnum.ActionLabel.Dash){
+                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._player.gameObject.transform.forward,isDashing,false,0});
+                }else if( _player.charData.currentBaseAction==GameEnum.ActionLabel.Run){
+                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._player.gameObject.transform.forward,isDashing,false,0});
                 }
            }
        }else {
-            if(_char.GetCurStateID()==GameEnum.CharState.Char_Idle ){
-                if(!this.onJoyTouch &&(_char.charData.currentBaseAction==GameEnum.ActionLabel.Run ||_char.charData.currentBaseAction==GameEnum.ActionLabel.Dash)){
+            if(_player.GetCurStateID()==GameEnum.CharState.Char_Idle ){
+                if(!this.onJoyTouch &&(_player.charData.currentBaseAction==GameEnum.ActionLabel.Run ||_player.charData.currentBaseAction==GameEnum.ActionLabel.Dash)){
                     this.SendMessage(CharEvent.OnJoy_Up);
-                }else if( _char.charData.currentBaseAction==GameEnum.ActionLabel.Dash){
-                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._char.gameObject.transform.forward,isDashing,false,0});
+                }else if( _player.charData.currentBaseAction==GameEnum.ActionLabel.Dash){
+                    this.SendMessage(CharEvent.OnJoy_Move,new object[]{this._player.gameObject.transform.forward,isDashing,false,0});
                 }
             }
        }
@@ -243,20 +243,19 @@ public class KeyboardMouseController : Controller
         this.onJoyTouch=false;
          stopMouse=false;
          this.dashCg=false;
-         CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
-           EventCenter.addListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
+        EventCenter.addListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
     }
     protected override void OnRecycle_Fun(){
          this.onJoyTouch=false;
          stopMouse=true;
-         CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
-           EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
+         _player.cameraCtrl.isMouseMove=!stopMouse;
+        EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
     }
     protected override void OnRelease_Fun(){
          this.onJoyTouch=false;
          stopMouse=true;
-         CameraManager.Instance.cameraCtrl.isMouseMove=!stopMouse;
-           EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
+         _player.cameraCtrl.isMouseMove=!stopMouse;
+        EventCenter.removeListener(SystemEvent.UI_BAT_ON_SPRINT_STATE,OnSprint);
     }
 
 }

@@ -7,8 +7,14 @@ public class PlayerWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(Player), typeof(Character));
+		L.RegFunction("GetCtrl", GetCtrl);
+		L.RegFunction("isCamTarget", isCamTarget);
+		L.RegFunction("CameraFocus", CameraFocus);
 		L.RegFunction("init", init);
 		L.RegFunction("initData", initData);
+		L.RegFunction("initCameraCtrl", initCameraCtrl);
+		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
+		L.RegFunction("SetCharacterCtrlHeight", SetCharacterCtrlHeight);
 		L.RegFunction("initAvatar", initAvatar);
 		L.RegFunction("ChangePart", ChangePart);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
@@ -24,8 +30,10 @@ public class PlayerWrap
 		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreatePlayer);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("cameraCtrl", get_cameraCtrl, set_cameraCtrl);
 		L.RegVar("avatar", get_avatar, set_avatar);
 		L.RegVar("weaponSystem", get_weaponSystem, set_weaponSystem);
+		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.EndClass();
 	}
 
@@ -46,6 +54,57 @@ public class PlayerWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: Player.New");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetCtrl(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			Controller o = obj.GetCtrl();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int isCamTarget(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			bool o = obj.isCamTarget();
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CameraFocus(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			UnityEngine.Camera arg0 = (UnityEngine.Camera)ToLua.CheckObject(L, 2, typeof(UnityEngine.Camera));
+			obj.CameraFocus(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -77,6 +136,72 @@ public class PlayerWrap
 			ToLua.CheckArgsCount(L, 1);
 			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
 			obj.initData();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int initCameraCtrl(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			obj.initCameraCtrl();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ChangeNodeObj(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				obj.ChangeNodeObj(arg0);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
+				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
+				obj.ChangeNodeObj(arg0, arg1);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: Player.ChangeNodeObj");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetCharacterCtrlHeight(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			Player obj = (Player)ToLua.CheckObject<Player>(L, 1);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.SetCharacterCtrlHeight(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -335,6 +460,25 @@ public class PlayerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_cameraCtrl(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			CameraCtrl ret = obj.cameraCtrl;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraCtrl on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_avatar(IntPtr L)
 	{
 		object o = null;
@@ -373,6 +517,44 @@ public class PlayerWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ctrlType(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			GameEnum.CtrlType ret = obj.ctrlType;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_cameraCtrl(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			CameraCtrl arg0 = (CameraCtrl)ToLua.CheckObject<CameraCtrl>(L, 2);
+			obj.cameraCtrl = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index cameraCtrl on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_avatar(IntPtr L)
 	{
 		object o = null;
@@ -407,6 +589,25 @@ public class PlayerWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index weaponSystem on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ctrlType(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			Player obj = (Player)o;
+			GameEnum.CtrlType arg0 = (GameEnum.CtrlType)ToLua.CheckObject(L, 2, typeof(GameEnum.CtrlType));
+			obj.ctrlType = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
 		}
 	}
 }

@@ -14,6 +14,7 @@ public class GameEnum_ObjTypeWrap
 		L.RegVar("Item", get_Item, null);
 		L.RegVar("Weapon", get_Weapon, null);
 		L.RegVar("Gun", get_Gun, null);
+		L.RegVar("Bullet", get_Bullet, null);
 		L.RegFunction("IntToEnum", IntToEnum);
 		L.EndEnum();
 		TypeTraits<GameEnum.ObjType>.Check = CheckType;
@@ -76,6 +77,13 @@ public class GameEnum_ObjTypeWrap
 	static int get_Gun(IntPtr L)
 	{
 		ToLua.Push(L, GameEnum.ObjType.Gun);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Bullet(IntPtr L)
+	{
+		ToLua.Push(L, GameEnum.ObjType.Bullet);
 		return 1;
 	}
 

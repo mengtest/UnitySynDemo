@@ -18,6 +18,12 @@ public class WeaponGun_Serializable : ScriptableObject
     [Tooltip("开火类型")]
     public FireType FireType = FireType.AUTO;
 
+    [Tooltip("射程")]
+    public float DamageRange=500f;
+
+    [Tooltip("射速每秒")]
+    public float BulletSpeed=880f;
+
     [Tooltip("切换武器时间")]
     public float SwitchWeaponTime=0.5f;
     

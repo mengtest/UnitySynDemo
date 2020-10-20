@@ -17,10 +17,10 @@ function Example.CreatPlayer()
  -- log("player "..Example.player.name);
  -- log("ObjType "..GameEnum.ObjType.Player);
  -- log("CtrlType "..GameEnum.CtrlType.JoyCtrl);
-  Example.playerObj = GameLuaManager.CreatCharacter("player",Example.player);
+  Example.playerObj = GameLuaManager.CreatPlayer("player",Example.player);
  -- Example.playerObj.moveSpeed=4;
  --  Example.playerObj:GetMovePart().rotateSpeed=10;
-  CameraManager.Instance.cameraCtrl:init(Example.playerObj);
+  CameraManager.Instance:FocusPlayer(Example.playerObj);
 
 end
 function Example.Class()

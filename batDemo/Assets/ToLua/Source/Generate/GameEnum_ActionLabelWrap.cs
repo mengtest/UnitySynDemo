@@ -25,6 +25,7 @@ public class GameEnum_ActionLabelWrap
 		L.RegVar("Shooting", get_Shooting, null);
 		L.RegVar("UpIdle", get_UpIdle, null);
 		L.RegVar("ChangeWeapon", get_ChangeWeapon, null);
+		L.RegVar("Reloading", get_Reloading, null);
 		L.RegVar("ItemDrop", get_ItemDrop, null);
 		L.RegVar("ItemDefault", get_ItemDefault, null);
 		L.RegVar("Action", get_Action, null);
@@ -271,6 +272,20 @@ public class GameEnum_ActionLabelWrap
 		try
 		{
 			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.ChangeWeapon);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_Reloading(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, GameEnum.ActionLabel.Reloading);
 			return 1;
 		}
 		catch (Exception e)

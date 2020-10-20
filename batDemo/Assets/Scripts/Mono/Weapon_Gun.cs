@@ -33,6 +33,12 @@ public class Weapon_Gun : MonoBehaviour,IItemData
     [Tooltip("开火类型")]
     public FireType FireType = FireType.AUTO;
 
+     [Tooltip("射程")]
+    public float DamageRange=500f;
+
+    [Tooltip("射速每秒MuzzleVelocity")]
+    public float BulletSpeed=880f;
+
     [Tooltip("切换武器时间")]
     public float SwitchWeaponTime=0.5f;
     
@@ -264,6 +270,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.GunLinkType=source.GunLinkType;
         tar.Weapon_GunType=source.Weapon_GunType;
         tar.FireType=source.FireType;
+        tar.DamageRange=source.DamageRange;
+        tar.BulletSpeed=source.BulletSpeed;
         tar.SwitchWeaponTime=source.SwitchWeaponTime;
         tar.Damage=source.Damage;
         tar.FullMagzine=source.FullMagzine;
@@ -314,6 +322,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
         tar.GunLinkType=source.GunLinkType;
         tar.Weapon_GunType=source.Weapon_GunType;
         tar.FireType=source.FireType;
+        tar.DamageRange=source.DamageRange;
+        tar.BulletSpeed=source.BulletSpeed;
         tar.SwitchWeaponTime=source.SwitchWeaponTime;
         tar.Damage=source.Damage;
         tar.FullMagzine=source.FullMagzine;

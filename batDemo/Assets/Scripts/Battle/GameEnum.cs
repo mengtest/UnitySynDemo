@@ -95,6 +95,27 @@ namespace GameEnum
          //子弹.
          Bullet=7,
     }
+    [AutoRegistLua]
+    //打击材质.
+    public class HitMatType
+    {
+        //默认 石头
+       public const string Prototype = "Prototype";      
+       //肉类 角色
+        public const string Meat = "Meat"; 
+       //金属
+        public const string Metal = "Metal";      
+        //沙
+        public const string Sand = "Sand";    
+        //雪 冰
+        public const string Snow = "Snow";    
+        //石头 岩石 水泥
+        public const string Stone = "Stone";  
+        //木头
+        public const string Wood = "Wood";  
+        //草地 草各种草
+        public const string Grass = "Grass";  
+    }
      [AutoRegistLua]
     public enum EffectType
     {

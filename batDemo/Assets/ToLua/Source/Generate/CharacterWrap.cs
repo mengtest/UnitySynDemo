@@ -13,15 +13,10 @@ public class CharacterWrap
 		L.RegFunction("OnEvent", OnEvent);
 		L.RegFunction("OnItemTrigger", OnItemTrigger);
 		L.RegFunction("GetCurStateID", GetCurStateID);
-		L.RegFunction("onActionCG", onActionCG);
-		L.RegFunction("ChangeNodeObj", ChangeNodeObj);
-		L.RegFunction("synCamData", synCamData);
-		L.RegFunction("SetCharacterCtrlHeight", SetCharacterCtrlHeight);
 		L.RegFunction("onViewLoadFin", onViewLoadFin);
 		L.RegFunction("OnMove", OnMove);
 		L.RegFunction("IsGrounded", IsGrounded);
 		L.RegFunction("IsNeedFall", IsNeedFall);
-		L.RegFunction("GetCtrl", GetCtrl);
 		L.RegFunction("GetAniUpPart", GetAniUpPart);
 		L.RegFunction("GetAniAddPart", GetAniAddPart);
 		L.RegFunction("hasAni", hasAni);
@@ -29,13 +24,13 @@ public class CharacterWrap
 		L.RegFunction("resumeAni", resumeAni);
 		L.RegFunction("GetSkillPart", GetSkillPart);
 		L.RegFunction("doActionSkillByLabel", doActionSkillByLabel);
+		L.RegFunction("CalculateGunDamage", CalculateGunDamage);
 		L.RegFunction("onRecycle", onRecycle);
 		L.RegFunction("onRelease", onRelease);
 		L.RegFunction("New", _CreateCharacter);
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("charData", get_charData, set_charData);
 		L.RegVar("dirPos", get_dirPos, null);
-		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.EndClass();
 	}
 
@@ -280,88 +275,6 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int onActionCG(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.onActionCG();
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ChangeNodeObj(IntPtr L)
-	{
-		try
-		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 2)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-				obj.ChangeNodeObj(arg0);
-				return 0;
-			}
-			else if (count == 3)
-			{
-				Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-				UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 3);
-				obj.ChangeNodeObj(arg0, arg1);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: Character.ChangeNodeObj");
-			}
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int synCamData(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			obj.synCamData();
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetCharacterCtrlHeight(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.SetCharacterCtrlHeight(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int onViewLoadFin(IntPtr L)
 	{
 		try
@@ -420,23 +333,6 @@ public class CharacterWrap
 			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
 			bool o = obj.IsNeedFall();
 			LuaDLL.lua_pushboolean(L, o);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetCtrl(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
-			Controller o = obj.GetCtrl();
-			ToLua.PushObject(L, o);
 			return 1;
 		}
 		catch (Exception e)
@@ -660,6 +556,25 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CalculateGunDamage(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			Character obj = (Character)ToLua.CheckObject<Character>(L, 1);
+			Weapon_Gun arg0 = (Weapon_Gun)ToLua.CheckObject<Weapon_Gun>(L, 2);
+			string arg1 = ToLua.CheckString(L, 3);
+			Character arg2 = (Character)ToLua.CheckObject<Character>(L, 4);
+			obj.CalculateGunDamage(arg0, arg1, arg2);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int onRecycle(IntPtr L)
 	{
 		try
@@ -730,25 +645,6 @@ public class CharacterWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_ctrlType(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			Character obj = (Character)o;
-			GameEnum.CtrlType ret = obj.ctrlType;
-			ToLua.Push(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_charData(IntPtr L)
 	{
 		object o = null;
@@ -764,25 +660,6 @@ public class CharacterWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index charData on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_ctrlType(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			Character obj = (Character)o;
-			GameEnum.CtrlType arg0 = (GameEnum.CtrlType)ToLua.CheckObject(L, 2, typeof(GameEnum.CtrlType));
-			obj.ctrlType = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ctrlType on a nil value");
 		}
 	}
 }

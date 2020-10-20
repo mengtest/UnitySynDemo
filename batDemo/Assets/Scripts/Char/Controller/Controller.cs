@@ -4,32 +4,32 @@
 ****/
 public class Controller :PoolObj, IController
 {
-    protected Character _char= null;
+    protected Player _player= null;
     
     public Controller()
     {
         
     }
-    public  virtual void  init(Character character){
-        this._char=character;
+    public  virtual void  init(Player character){
+        this._player=character;
     }
 
     public  void SendMessage(string cmd, object[] param=null)
     {
-        if (this._char==null||this._char.isRecycled) {
+        if (this._player==null||this._player.isRecycled) {
             return;
         }
-        this._char.OnEvent(cmd,param);
+        this._player.OnEvent(cmd,param);
         //this._char.GetEvent().send(cmd,param);
     }
     public override void onRecycle()
     {
         this.OnRecycle_Fun();
-        this._char=null;
+        this._player=null;
     }
     public  override void onRelease(){
         this.OnRelease_Fun();
-        this._char=null;
+        this._player=null;
     }
     public override void onGet(){
         this.OnGet_Fun();

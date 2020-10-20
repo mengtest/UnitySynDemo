@@ -6,20 +6,29 @@ using UnityEngine.Rendering.PostProcessing;
 public class CameraManager  : MonoSingleton<CameraManager>
 {
     public GameObject mainCamera;
-    public ThirdPersonCameraCtrl cameraCtrl;
+    public Camera cam;
     public PostProcessLayer postLayer;
+
+    private Player target;
     public void Init()
     {
        
        mainCamera =  GameObject.FindGameObjectWithTag("MainCamera");
-       cameraCtrl = mainCamera.GetComponent<ThirdPersonCameraCtrl>();
-       if(cameraCtrl==null){
-           cameraCtrl =  mainCamera.AddComponent<ThirdPersonCameraCtrl>();
-        //   cameraCtrl.maxVerticalAngle
-       }
+       cam=mainCamera.GetComponent<Camera>();
+    //   cameraCtrl = mainCamera.GetComponent<CameraCtrl>();
+    //    if(cameraCtrl==null){
+    //        cameraCtrl =  mainCamera.AddComponent<CameraCtrl>();
+    //     //   cameraCtrl.maxVerticalAngle
+    //    }
        postLayer = mainCamera.GetComponent<PostProcessLayer>();
        postLayer.enabled=true;
-
+    }
+    public void FocusPlayer(Player player){
+        if(target!=null){
+            target.CameraFocus(null);
+        }
+        target=player;
+        player.CameraFocus(cam);
     }
     private void Update() {
      

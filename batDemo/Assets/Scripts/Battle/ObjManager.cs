@@ -113,8 +113,8 @@ public class ObjManager  : MonoSingleton<ObjManager>
             break;
         }
         chars.initData();
-        if(ctrlType!=GameEnum.CtrlType.Null){
-            chars.ctrlType=ctrlType;
+        if(chars is Player&&ctrlType!=GameEnum.CtrlType.Null){
+            (chars as Player).ctrlType=ctrlType;
         }
         return chars;
     }
