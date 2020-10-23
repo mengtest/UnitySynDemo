@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-10-19 21:51:51
+ * @LastEditTime: 2020-10-22 11:58:03
  */
 using System;
 using System.Collections;
@@ -234,7 +234,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
         GameObject player= GameObject.FindGameObjectWithTag("Player");
         
          #if UNITY_EDITOR
-                  ObjManager.setMyPlayer( ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.JoyCtrl) as Player);
+                  ObjManager.setMyPlayer( ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player,GameEnum.ObjType.Player,GameEnum.CtrlType.keyBordCtrl) as Player);
          #else
                 
                  ObjManager.setMyPlayer(ObjManager.Instance.CreatCharacter("NAvatar/Char/Char",player) as Player);

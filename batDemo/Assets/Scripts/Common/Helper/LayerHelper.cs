@@ -46,7 +46,11 @@ public enum ELayer
      /// <summary>
     /// 草 云
     /// </summary>
-    Grass=20
+    Grass=20,
+      /// <summary>
+    /// 摄像机后处理
+    /// </summary>
+    PostProcessing=21
 }
 
 /// <summary>

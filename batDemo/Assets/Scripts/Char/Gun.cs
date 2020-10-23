@@ -144,8 +144,8 @@ public class Gun : Weapon
                 if(buttle_SpEf.isStop){
                      buttle_SpEf.RePlay();
                 }
-             }
-         }
+            }
+        }
         ownerShootAni();
         shootEffect();
         shotFire+=1;

@@ -15,6 +15,13 @@ public class CharData : MonoBehaviour,IData
     public int pvpId;
     public int camp=1;
 
+    public int HpMax=100;
+    public int HPCur=100;
+
+    public int StaminaMax =1000;
+    public int StaminaCur =1000;
+     //每秒恢复多少体力   
+    public int StaminaRecover=80;
 
     public CtrlType ctrlType=CtrlType.Null;
 
