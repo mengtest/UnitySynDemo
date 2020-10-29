@@ -178,7 +178,8 @@ public class Player : Character
     protected virtual void onBodyFin(){
         this.initViewFin=true;
         this.onViewLoadFin();
-    } 
+    }
+    
     public override void OnEvent(string cmd, object[] param=null){
          base.OnEvent(cmd,param);
     }

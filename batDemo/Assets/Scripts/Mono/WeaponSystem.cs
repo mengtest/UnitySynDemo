@@ -33,32 +33,27 @@ public class WeaponSystem : MonoBehaviour
     {
         this._player=objBase;
         this.UseActiveSide=1;
-    }
-    private void LateUpdate() {
+     }
+    private void Update() {
        if(!inited){   
           initAni();
        }
-
     }
-    private void initAni(){
+    public void initAni(){
         if(!inited&&this._player.initViewFin){
             ani = _player.gameObject.GetComponent<Animator>();
-            Transform neck = ani.GetBoneTransform(HumanBodyBones.Neck);
-            if (!neck)
-            {
-                neck = ani.GetBoneTransform(HumanBodyBones.Head).parent;
-            }
-            hips =ani.GetBoneTransform(HumanBodyBones.Hips);
-            spine = ani.GetBoneTransform(HumanBodyBones.Spine);
-            chest = ani.GetBoneTransform(HumanBodyBones.Chest);
-            rightHand = ani.GetBoneTransform(HumanBodyBones.RightHand);
-            leftArm = ani.GetBoneTransform(HumanBodyBones.LeftUpperArm);
-            initialRootRotation = (hips.parent == _player.gameObject.transform) ? Vector3.zero : hips.parent.localEulerAngles;
-            initialHipsRotation = hips.localEulerAngles;
-            initialSpineRotation = spine.localEulerAngles;
-            initialChestRotation = chest.localEulerAngles;
-            castRelativeOrigin = neck.position - _player.gameObject.transform.position;
-            distToHand = (rightHand.position - neck.position).magnitude * 1.5f;
+            BonePos bonePos=  _player.gameObject.GetComponent<BonePos>();
+            hips = bonePos.hips;
+            spine = bonePos.spine;
+            chest = bonePos.chest;
+            rightHand =  bonePos.rightHand;
+            leftArm =  bonePos.leftArm;
+            initialRootRotation = bonePos.initialRootRotation;
+            initialHipsRotation =  bonePos.initialHipsRotation;
+            initialSpineRotation =  bonePos.initialSpineRotation;
+            initialChestRotation =  bonePos.initialChestRotation;
+            castRelativeOrigin = bonePos.castRelativeOrigin;
+            distToHand = bonePos.distToHand;
        //     blockedAimBool = Animator.StringToHash("BlockedAim");
             inited = true;
         }

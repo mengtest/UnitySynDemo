@@ -105,7 +105,7 @@ public class Character : ObjBase
         if(this.AnimatorIKMono==null){
             this.AnimatorIKMono=this.node.AddComponent<AnimatorIK>();
         }
-          this.AnimatorIKMono.init(this,onAnimatorIK);
+        this.AnimatorIKMono.init(this,onAnimatorIK);
         this.animator=this.node.GetComponent<Animator>();
 
      //   DebugLog.Log(this.colExtents);
