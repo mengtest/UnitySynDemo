@@ -14,6 +14,7 @@
     "com.unity.timeline": "1.2.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.xr.legacyinputhelpers": "1.3.11",
+    "com.whinarn.unitymeshsimplifier": "https://github.com/Unity-Technologies/UnityMeshSimplifier.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -45,5 +46,11 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.whinarn.unitymeshsimplifier": {
+      "revision": "HEAD",
+      "hash": "a6d70fb447098e8f0c9162a63afd679ac410aabb"
+    }
   }
 }
