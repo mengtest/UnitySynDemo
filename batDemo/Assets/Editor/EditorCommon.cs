@@ -98,7 +98,7 @@ public static class EditorCommon
 
     public static void DeleteDirectory(string path)
     {
-        FileUtil.DeleteDirectory(path);
+        FileUtils.DeleteDirectory(path);
     }
 
     public static void CreatPath(string path)

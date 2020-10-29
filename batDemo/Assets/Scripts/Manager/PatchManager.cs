@@ -131,7 +131,7 @@ public class PatchManager : MonoSingleton<PatchManager>
         if(!needUpdate)
         {
             _configInfo = null;
-            FileUtil.ClearDirectory(_downloadPath);
+            FileUtils.ClearDirectory(_downloadPath);
         }
         needUpDownloadWeb = needUpdate;
         DebugLog.Log("needUpDownloadWeb : "+needUpDownloadWeb);
@@ -142,7 +142,7 @@ public class PatchManager : MonoSingleton<PatchManager>
         bool needUpdate = true;
         string persistentDataPath = Path.Combine(_persistentDataPath, AssetBundleFileInfo.GetConfigLocalName(configInfo.fileName));
         string downloadPath = Path.Combine(_downloadPath, configInfo.signedFileName);
-        if (File.Exists(persistentDataPath) && FileUtil.MD5File(persistentDataPath) == configInfo.md5)
+        if (File.Exists(persistentDataPath) && FileUtils.MD5File(persistentDataPath) == configInfo.md5)
         {
             DebugLog.Log("ValidateConfig persistentDataPath sameFile: "+configInfo.signedFileName+"needUpdate: "+needUpdate);
             needUpdate = false;
@@ -150,15 +150,15 @@ public class PatchManager : MonoSingleton<PatchManager>
         else if (string.IsNullOrEmpty(configInfo.md5) || _buildInfo.configMD5 == configInfo.md5)
         {
             //远程与包里版本打包一样. 清除远程保存的数据.
-            FileUtil.DeleteFileSafely(persistentDataPath);
+            FileUtils.DeleteFileSafely(persistentDataPath);
             needUpdate = false;
         }
         if (needUpdate)
         {
-            if (File.Exists(downloadPath) && FileUtil.MD5File(downloadPath) != configInfo.md5)
+            if (File.Exists(downloadPath) && FileUtils.MD5File(downloadPath) != configInfo.md5)
             {
                 //如果缓存与下载不一致,清空当前文件.
-                FileUtil.DeleteFileSafely(downloadPath);
+                FileUtils.DeleteFileSafely(downloadPath);
             }
         }
         return needUpdate;
@@ -465,13 +465,13 @@ public class PatchManager : MonoSingleton<PatchManager>
         }
         DebugLog.Log("moveFile downloadPath: "+downloadPath);
          DebugLog.Log("moveFile persistentDataPath: "+persistentDataPath);
-        FileUtil.MoveFileSafely(downloadPath, persistentDataPath);
+        FileUtils.MoveFileSafely(downloadPath, persistentDataPath);
         //顺便删除 旧版本的
         if(!AssetBundleFileInfo.IsConfigFile(fileInfo.fileName)){
              string  url= GetSignedFileLocalURL(fileInfo.fileName);
              if(url!=""&&!url.Contains(_streamingAssetsURL)){
                  DebugLog.Log("DeleteFileSafely :"+url);
-                FileUtil.DeleteFileSafely(url);
+                FileUtils.DeleteFileSafely(url);
              }
         }
     }

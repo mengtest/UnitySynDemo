@@ -11,13 +11,13 @@ public class NewCharacterBuild {
 public static void CreateMaterials(string allPath,string DirName){
         List<Object> _pList = new List<Object>();
         List<string> _pathTex = new List<string>();
-         List<string> _pathNTex = new List<string>();
+        List<string> _pathNTex = new List<string>();
 
      
         string pOut = allPath + "/Textures/";
         if (!Directory.Exists(pOut))
         {
-           FileUtil.CreateDir(pOut);
+           FileUtils.CreateDir(pOut);
         }
         AssetDatabase.Refresh();
          FileInfo[] fileList = new DirectoryInfo(allPath).GetFiles();
@@ -326,7 +326,7 @@ public static void CreateMaterials(string allPath,string DirName){
         string pOut = allPath + "/" + characterFBX.name+"/Model/";
         if (!Directory.Exists(pOut))
         {
-           FileUtil.CreateDir(pOut);
+           FileUtils.CreateDir(pOut);
         }
             AssetDatabase.Refresh();
         //AssetDatabase.DeleteAsset(pOut+"/xx");
@@ -371,7 +371,7 @@ public static void CreateMaterials(string allPath,string DirName){
         string pOut = allPath +"/"+DirName + "/Model/";
         if (!Directory.Exists(pOut))
         {
-            FileUtil.CreateDir(pOut);
+            FileUtils.CreateDir(pOut);
         }
             AssetDatabase.Refresh();
         // Collect materials.
@@ -447,7 +447,7 @@ public static void CreateMaterials(string allPath,string DirName){
 		 string pOut = allPath +"/"+DirName + "/";
         if (!Directory.Exists(pOut))
         {
-            FileUtil.CreateDir(pOut);
+            FileUtils.CreateDir(pOut);
         }
             AssetDatabase.Refresh();
 		pOut=allPath +"/"+DirName + "/";

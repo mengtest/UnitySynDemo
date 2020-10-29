@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 public class Gen2DMapByCameraEditor : Editor
 {
 	static string path = Application.dataPath;
-	[MenuItem("小地图/生成2d地图(jpg)")]
+	[MenuItem("地图/生成2d小地图(jpg)",false,100)]
 	public static void Gen2DMap()
 	{
        // Scene scene=SceneManager.GetActiveScene();
@@ -16,7 +16,7 @@ public class Gen2DMapByCameraEditor : Editor
 		if (cam == null)
 		{
 			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Editor/MiniMap/EditorCamera.prefab");
-			cam = Instantiate(prefab);
+			cam = GameObject.Instantiate(prefab);
 		}
 		Camera camera = cam.GetComponent<Camera>();
 		CaptureCamera(camera, new Rect(0,0,1920,1080));

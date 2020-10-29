@@ -14,6 +14,11 @@ public class CharDataWrap
 		L.RegVar("isMyPlayer", get_isMyPlayer, set_isMyPlayer);
 		L.RegVar("pvpId", get_pvpId, set_pvpId);
 		L.RegVar("camp", get_camp, set_camp);
+		L.RegVar("HpMax", get_HpMax, set_HpMax);
+		L.RegVar("HPCur", get_HPCur, set_HPCur);
+		L.RegVar("StaminaMax", get_StaminaMax, set_StaminaMax);
+		L.RegVar("StaminaCur", get_StaminaCur, set_StaminaCur);
+		L.RegVar("StaminaRecover", get_StaminaRecover, set_StaminaRecover);
 		L.RegVar("ctrlType", get_ctrlType, set_ctrlType);
 		L.RegVar("isCanShotting", get_isCanShotting, set_isCanShotting);
 		L.RegVar("aimState", get_aimState, set_aimState);
@@ -178,6 +183,101 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index camp on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_HpMax(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.HpMax;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index HpMax on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_HPCur(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.HPCur;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index HPCur on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_StaminaMax(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.StaminaMax;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaMax on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_StaminaCur(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.StaminaCur;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaCur on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_StaminaRecover(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int ret = obj.StaminaRecover;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaRecover on a nil value");
 		}
 	}
 
@@ -805,6 +905,101 @@ public class CharDataWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index camp on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_HpMax(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.HpMax = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index HpMax on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_HPCur(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.HPCur = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index HPCur on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_StaminaMax(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.StaminaMax = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaMax on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_StaminaCur(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.StaminaCur = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaCur on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_StaminaRecover(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			CharData obj = (CharData)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.StaminaRecover = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index StaminaRecover on a nil value");
 		}
 	}
 

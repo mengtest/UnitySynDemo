@@ -4,7 +4,7 @@
  * @Author: xsddxr909
  * @Date: 2020-02-24 16:31:04
  * @LastEditors: xsddxr909
- * @LastEditTime: 2020-10-22 11:58:03
+ * @LastEditTime: 2020-10-30 00:34:41
  */
 using System;
 using System.Collections;
@@ -259,6 +259,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
             {
                 Reporter.Instance.doShow();
             }
+            GUI.color=Color.red;
             GUILayout.Label(LuaMemory);
 
         }
@@ -271,6 +272,7 @@ public class TestGameMain : MonoSingleton<TestGameMain> {
             // {
             //     Reporter.Instance.doShow();
             // }
+             GUI.color=Color.red;
             GUILayout.Label(LuaMemory);
             // if(CharManager.Instance.CharPool!=null){
             //  GUILayout.Label(CharManager.Instance.CharPool.toString());

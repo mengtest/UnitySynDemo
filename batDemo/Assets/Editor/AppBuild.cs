@@ -25,17 +25,17 @@ public class AppBuild {
     //     DebugLog.Log(outPath);
         if (!Directory.Exists(outPath))
         {
-           FileUtil.CreateDir(outPath);
+           FileUtils.CreateDir(outPath);
         }
         string signedOutputPath = outPath+"signed";
          if (!Directory.Exists(signedOutputPath))
         {
-           FileUtil.CreateDir(signedOutputPath);
+           FileUtils.CreateDir(signedOutputPath);
         }
-         FileUtil.ClearDirectory(outPath);
+         FileUtils.ClearDirectory(outPath);
           string localFolderPath = Path.Combine(Application.streamingAssetsPath, AssetBundleConst.AssetBundleFolderSigned);
-         FileUtil.ClearDirectory(localFolderPath);
-          FileUtil.ClearDirectory(signedOutputPath);
+         FileUtils.ClearDirectory(localFolderPath);
+          FileUtils.ClearDirectory(signedOutputPath);
         // DirectoryInfo dir = new DirectoryInfo(outPath);
         // DirectoryInfo[] dirArr = dir.GetDirectories("*", SearchOption.AllDirectories);
         // FileInfo[] fiArr = dir.GetFiles("*.manifest");
@@ -232,7 +232,7 @@ public class AppBuild {
                 return;
             }
           //  DebugLog.Log(Application.dataPath + "/_platform" + plat);
-            FileUtil.CreateDirectorySafely(Application.dataPath + "/_platform" + plat);
+            FileUtils.CreateDirectorySafely(Application.dataPath + "/_platform" + plat);
             var savepaths = new List<string>();
             var luapaths = EditorCommon.LuaPaths;
             List<string> uList = null;
@@ -270,11 +270,11 @@ public class AppBuild {
                         return;
                     }
                     string  sourceP=EditorCommon.realPathToAbsPath(item);
-                    string  saveDp=FileUtil.GetPathDir(savePath);
+                    string  saveDp=FileUtils.GetPathDir(savePath);
             //          DebugLog.Log("saveDp",saveDp);
                     if (!Directory.Exists(saveDp))
                     {
-                       FileUtil.CreateDir(saveDp);
+                       FileUtils.CreateDir(saveDp);
                     }
                    // if()
                     File.Copy(sourceP, savePath,true);
@@ -301,8 +301,8 @@ public class AppBuild {
         }
         static void LuaTempDel()
         {
-            FileUtil.DeleteDirectory(Application.dataPath + "/_platform32");
-            FileUtil.DeleteDirectory(Application.dataPath + "/_platform64");
+            FileUtils.DeleteDirectory(Application.dataPath + "/_platform32");
+            FileUtils.DeleteDirectory(Application.dataPath + "/_platform64");
         }
       static bool IsLuaPath(string path)
     {
@@ -327,7 +327,7 @@ public class AppBuild {
             {
                 continue;
             }
-            string md5 = FileUtil.MD5File(fileInfo.FullName);
+            string md5 = FileUtils.MD5File(fileInfo.FullName);
             string fileName = fileInfo.Name;
             AssetBundleFileInfo bundleFileInfo = new AssetBundleFileInfo(fileName, md5, (ulong)fileInfo.Length);
             builder.AppendLine(bundleFileInfo.ToString());
@@ -344,24 +344,24 @@ public class AppBuild {
         if(copyStreamAsset){
             if (!Directory.Exists(localFolderPath))
             {
-            FileUtil.CreateDir(localFolderPath);
+            FileUtils.CreateDir(localFolderPath);
             }else{
-                FileUtil.ClearDirectory(localFolderPath);
+                FileUtils.ClearDirectory(localFolderPath);
             }
         }
         if(copyToWeb){
             if (!Directory.Exists(webPath))
             {
-               FileUtil.CreateDir(webPath);
+               FileUtils.CreateDir(webPath);
             }else{
-                FileUtil.ClearDirectory(webPath);
+                FileUtils.ClearDirectory(webPath);
             }
         }
          if (!Directory.Exists(signedOutputPath))
         {
-            FileUtil.CreateDir(signedOutputPath);
+            FileUtils.CreateDir(signedOutputPath);
         }else{
-            FileUtil.ClearDirectory(signedOutputPath);
+            FileUtils.ClearDirectory(signedOutputPath);
         }
         AssetDatabase.Refresh();
 
@@ -400,7 +400,7 @@ public class AppBuild {
     static AssetBundleFileInfo GetConfigInfo(string outputPath, string fileName)
     {
         string filePath = Path.Combine(outputPath, fileName);
-        AssetBundleFileInfo configFileInfo = new AssetBundleFileInfo(fileName, FileUtil.MD5File(filePath), 1024);
+        AssetBundleFileInfo configFileInfo = new AssetBundleFileInfo(fileName, FileUtils.MD5File(filePath), 1024);
         return configFileInfo;
     }
 

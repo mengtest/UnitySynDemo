@@ -75,6 +75,7 @@ public class ShowGameFPS : MonoBehaviour
     //    m_Rect.y = 25;
     //    m_Rect.width = 100;
     //    m_Rect.height = 25;
+       GUI.color=Color.red;
        GUI.Label(m_Rect, "FPS:" + currFPS);
     }
 

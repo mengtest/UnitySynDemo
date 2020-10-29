@@ -295,7 +295,7 @@ public class ProtoGenLuaMenuItems
             {
                 ProtoFileInfo curFileInfo = new ProtoFileInfo();
                 curFileInfo.fileName = fileName.Substring(0, fileName.IndexOf("."));
-                curFileInfo.md5Str = FileUtil.md5file(fullName);
+                curFileInfo.md5Str = FileUtils.md5file(fullName);
                 curFileInfo.filePath = fullName.Replace('\\', '/');
                 tempReturnList.Add(curFileInfo);
             }
@@ -307,7 +307,7 @@ public class ProtoGenLuaMenuItems
 		{
 			ProtoFileInfo curFileInfo = new ProtoFileInfo();
 			curFileInfo.fileName = filename.Substring(0, filename.IndexOf("."));
-			curFileInfo.md5Str = FileUtil.md5file(filename);
+			curFileInfo.md5Str = FileUtils.md5file(filename);
 			curFileInfo.filePath = fullname.Replace('\\', '/');
 			tempReturnList.Add(curFileInfo);
 		}
@@ -333,7 +333,7 @@ public class ProtoGenLuaMenuItems
             { 
                 ProtoFileInfo curFileInfo = new ProtoFileInfo();
                 curFileInfo.fileName = fileName.Substring(0, fileName.IndexOf("."));
-                curFileInfo.md5Str = FileUtil.md5file(fullName);
+                curFileInfo.md5Str = FileUtils.md5file(fullName);
                 curFileInfo.filePath = fullName.Replace('\\', '/');
                 tempReturnList.Add(curFileInfo);
             }
@@ -345,7 +345,7 @@ public class ProtoGenLuaMenuItems
         {
             ProtoFileInfo curFileInfo = new ProtoFileInfo();
             curFileInfo.fileName = filename.Substring(0, filename.IndexOf("."));
-            curFileInfo.md5Str = FileUtil.md5file(fullname);
+            curFileInfo.md5Str = FileUtils.md5file(fullname);
             curFileInfo.filePath = fullname.Replace('\\', '/');
             tempReturnList.Add(curFileInfo);
         }

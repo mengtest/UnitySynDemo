@@ -10,7 +10,7 @@ using System.Reflection;
 /// <summary>
 /// 加解密，文件相关的工具方法
 /// </summary>
-public class FileUtil
+public class FileUtils
 {
     // aes加密
     public static byte[] AesEncrypt(byte[] value, string password)

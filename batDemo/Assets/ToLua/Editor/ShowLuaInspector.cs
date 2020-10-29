@@ -71,7 +71,7 @@ public class ShowLuaInspectorRect : Editor
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
 		{
-             FileUtil.CreateDirectorySafely(path);
+             FileUtils.CreateDirectorySafely(path);
 			using (StreamWriter sw = File.CreateText(path1))
 			{
 				StringBuilder sb = new StringBuilder();
@@ -160,7 +160,7 @@ public class ShowLuaInspectorRect : Editor
 		string path1 = path + name + ".lua";
 		if (!File.Exists(path1))
 		{
-            FileUtil.CreateDirectorySafely(path);
+            FileUtils.CreateDirectorySafely(path);
 			using (StreamWriter sw = File.CreateText(path1))
 			{
 				StringBuilder sb = new StringBuilder();
