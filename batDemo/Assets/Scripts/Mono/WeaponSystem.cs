@@ -34,8 +34,7 @@ public class WeaponSystem : MonoBehaviour
         this._player=objBase;
         this.UseActiveSide=1;
     }
-    void Update()
-    {
+    private void LateUpdate() {
        if(!inited){   
           initAni();
        }
@@ -88,6 +87,7 @@ public class WeaponSystem : MonoBehaviour
         //上下 随摄像机旋转
         // // Keep upper body orientation regardless strafe direction.
         float xCamRot = Quaternion.LookRotation(_player.cameraCtrl.transform.forward).eulerAngles.x;
+      //  DebugLog.Log(xCamRot,weapon.armsRotationY,weapon.armsRotationX);
         targetRot = Quaternion.AngleAxis(xCamRot + weapon.armsRotationY, _player.gameObject.transform.right);
 
         targetRot *= Quaternion.AngleAxis(weapon.armsRotationX, _player.gameObject.transform.up);
