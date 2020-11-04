@@ -93,6 +93,7 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
                vertexBufferCount= mf.sharedMesh.vertexCount;
                if(isbuilding){
                    //建筑自动加上4个点.
+                   
                }
             }
             mf=null;

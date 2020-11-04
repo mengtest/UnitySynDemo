@@ -1204,7 +1204,7 @@ public class AutomaticLODEditor : Editor
                         data.m_fMeshVerticesAmount  = 1 ;
                     break;
                     case 1:
-                        data.m_fMeshVerticesAmount  = 0.27f;
+                        data.m_fMeshVerticesAmount  = 0.35f;
                     break;
                 }
          break;
@@ -1217,7 +1217,7 @@ public class AutomaticLODEditor : Editor
                         data.m_fMeshVerticesAmount  = 0.60f;
                     break;
                     case 2:
-                        data.m_fMeshVerticesAmount  = 0.27f;
+                        data.m_fMeshVerticesAmount  = 0.35f;
                     break;
                 }
          break;
@@ -1233,7 +1233,7 @@ public class AutomaticLODEditor : Editor
                     data.m_fMeshVerticesAmount  = 0.60f;
                 break;
                 case 3:
-                    data.m_fMeshVerticesAmount  = 0.27f;
+                    data.m_fMeshVerticesAmount  = 0.35f;
                 break;
             }
          break;
