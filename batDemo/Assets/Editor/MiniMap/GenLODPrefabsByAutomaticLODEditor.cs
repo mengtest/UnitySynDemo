@@ -11,22 +11,24 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
     private   static List<AutomaticLOD> objList;
     private  static List<string> objPathList;
     private  static int doSave=0;
+    private static bool doDelLod=false;
 
     private static float waitTime=0;
-    [MenuItem("地图/选中Prefab目录生成BuildLOD",false,200)]
+    [MenuItem("地图/选中Prefab目录移除LOD",false,200)]
 	public static void GenLODBuild()
 	{
           GenLOD(true);
     }
-	[MenuItem("地图/选中Prefab目录生成Lod",false,200)]
+	[MenuItem("地图/选中Prefab目录生成LOD",false,200)]
 	public static void GenLODOther()
 	{
            GenLOD(false);
     }
-    public static void GenLOD(bool isbuilding)
+    public static void GenLOD(bool isDelLod)
 	{    
            EditorApplication.update -= onUpdate;
          EditorApplication.update += onUpdate;
+         doDelLod=isDelLod;
 
         string  path = Application.dataPath;
         Scene scene = EditorSceneManager.OpenScene(path+"/Scene/LodScene.unity");
@@ -76,8 +78,17 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
             
             AutomaticLOD automaticLOD= MeshClone.GetComponent<AutomaticLOD>();
             if(automaticLOD!=null){
-                GameObject.DestroyImmediate(automaticLOD.gameObject);
-                 continue;
+                if(isDelLod){
+                   //移除脚本;
+                     objList.Add(automaticLOD);
+                     objPathList.Add(objPath);
+                     Selection.activeGameObject = automaticLOD.gameObject;
+                     continue;
+               }else{
+                    GameObject.DestroyImmediate(automaticLOD.gameObject);
+                    continue;
+               }
+
             }
             automaticLOD = MeshClone.AddComponent<AutomaticLOD>();
             //判断顶点数 确认lod分多少个档.
@@ -91,16 +102,14 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
                  skr=null;
             }else{
                vertexBufferCount= mf.sharedMesh.vertexCount;
-               if(isbuilding){
-                   //建筑自动加上4个点.
-                   
-               }
             }
             mf=null;
             
             vertexBufferCount= Mathf.RoundToInt(vertexBufferCount/1000);
             switch(vertexBufferCount){
                 case 0:
+                    automaticLOD.m_levelsToGenerate=AutomaticLOD.LevelsToGenerate._1;
+                break;
                 case 1:
                    automaticLOD.m_levelsToGenerate=AutomaticLOD.LevelsToGenerate._2;
                 break;
@@ -121,10 +130,16 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
                waitTime-=Time.deltaTime;
               if(waitTime<=0){
                   waitTime=3;
-                  DebugLog.Log("GenerateLODData", objList[0].gameObject.name);
-                  Selection.activeGameObject= objList[0].gameObject;
-                  objList[0].GenerateLODData=true;
-                  doSave=1;
+                  if(doDelLod){
+                    Selection.activeGameObject= objList[0].gameObject;
+                    objList[0].DeleteLODData=true;
+                    doSave=2;
+                  }else{
+                    DebugLog.Log("GenerateLODData", objList[0].gameObject.name);
+                    Selection.activeGameObject= objList[0].gameObject;
+                    objList[0].GenerateLODData=true;
+                    doSave=1;
+                  }
                   AssetDatabase.Refresh();
                   return;
                }
@@ -149,11 +164,15 @@ public class GenLODPrefabsByAutomaticLODEditor : Editor
                 if(waitTime<=0){
                      waitTime=3;
                     AutomaticLOD automaticLOD=objList[0];
-
+                    GameObject obj=automaticLOD.gameObject;
+                      if(doDelLod){
+                          //移除脚本;
+                          GameObject.DestroyImmediate(automaticLOD);
+                      }
 
                  //   AssetDatabase.DeleteAsset(objPathList[0]);
-                    PrefabUtility.SaveAsPrefabAsset(automaticLOD.gameObject,objPathList[0]);
-                    GameObject.DestroyImmediate(automaticLOD.gameObject);
+                    PrefabUtility.SaveAsPrefabAsset(obj.gameObject,objPathList[0]);
+                    GameObject.DestroyImmediate(obj.gameObject);
 
                     objList.RemoveAt(0);
                     objPathList.RemoveAt(0);

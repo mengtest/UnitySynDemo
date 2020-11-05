@@ -154,6 +154,7 @@ public class AutomaticLOD : MonoBehaviour
   //Editor 震震.
   public bool GenerateLODData=false;
   public bool EnablePrefabUsage=false; 
+  public bool DeleteLODData=false;
 
   void Awake()
   {
@@ -1964,6 +1965,13 @@ public class AutomaticLOD : MonoBehaviour
                 {
                     float fMaxCameraDistance =1;
                     switch(count){
+                        case 1:
+                           switch(j){
+                                case 0:
+                                   fMaxCameraDistance=0.02f;
+                                break;
+                            }
+                        break;
                         case 2:
                            switch(j){
                                 case 0:

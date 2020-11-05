@@ -230,7 +230,7 @@ public class AutomaticLODEditor : Editor
     AutomaticLOD LODTarget = target as AutomaticLOD;
     m_bGenerateLODData =LODTarget.GenerateLODData;
     m_bEnablePrefabUsage=LODTarget.EnablePrefabUsage;
-
+    m_bDeleteLODData=LODTarget.DeleteLODData;
 
     string strIncludeChildrenLabel = "Recurse Into Children";
 
@@ -520,6 +520,7 @@ public class AutomaticLODEditor : Editor
           if (EditorUtility.DisplayDialog("Delete all LOD data and restore original mesh?", "Are you sure you want to delete all LOD data and restore the original mesh?", "Delete", "Cancel"))
           {
             m_bDeleteLODData = true;
+            LODTarget.DeleteLODData=true;
           }
         }
 
@@ -768,6 +769,7 @@ public class AutomaticLODEditor : Editor
     if (m_bDeleteLODData && Event.current.type == EventType.Repaint)
     {
       m_bDeleteLODData = false;
+      LODTarget.DeleteLODData=false;
       DeleteLODData();
       bRepaint = true;
     }
@@ -1198,13 +1200,20 @@ public class AutomaticLODEditor : Editor
       data.m_fScreenCoverage      = SliderToScreenCoverage(1.0f - oneminust);
       data.m_fMaxCameraDistance   = i == 0 ? 0.0f : i * 100.0f;
       switch(nLevels){
+         case 1:
+              switch(i){
+                    case 0:
+                        data.m_fMeshVerticesAmount  = 1 ;
+                    break;
+                }
+         break;
          case 2:
               switch(i){
                     case 0:
                         data.m_fMeshVerticesAmount  = 1 ;
                     break;
                     case 1:
-                        data.m_fMeshVerticesAmount  = 0.35f;
+                        data.m_fMeshVerticesAmount  = 0.55f;
                     break;
                 }
          break;
@@ -1214,7 +1223,7 @@ public class AutomaticLODEditor : Editor
                         data.m_fMeshVerticesAmount  = 1 ;
                     break;
                     case 1:
-                        data.m_fMeshVerticesAmount  = 0.60f;
+                        data.m_fMeshVerticesAmount  = 0.65f;
                     break;
                     case 2:
                         data.m_fMeshVerticesAmount  = 0.35f;
@@ -1230,7 +1239,7 @@ public class AutomaticLODEditor : Editor
                     data.m_fMeshVerticesAmount  = 0.85f;
                 break;
                 case 2:
-                    data.m_fMeshVerticesAmount  = 0.60f;
+                    data.m_fMeshVerticesAmount  = 0.65f;
                 break;
                 case 3:
                     data.m_fMeshVerticesAmount  = 0.35f;
@@ -1750,7 +1759,8 @@ public class AutomaticLODEditor : Editor
 
           if (string.IsNullOrEmpty(strMeshAssetPath))
           {
-            strMeshAssetPath = UnityEditor.EditorUtility.SaveFilePanelInProject("Save mesh asset(s)", "mesh_" + gameObject.name + gameObject.GetInstanceID().ToString() + ".asset", "asset", "Please enter a file name to save the mesh asset(s) to");
+              //gameObject.GetInstanceID().ToString() + 
+            strMeshAssetPath = UnityEditor.EditorUtility.SaveFilePanelInProject("Save mesh asset(s)", "mesh_" +gameObject.name+  ".asset", "asset", "Please enter a file name to save the mesh asset(s) to");
 
             if (strMeshAssetPath.Length == 0)
             {
