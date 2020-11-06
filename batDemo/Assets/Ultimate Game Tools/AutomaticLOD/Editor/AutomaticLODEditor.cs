@@ -709,8 +709,15 @@ public class AutomaticLODEditor : Editor
 
     if (m_bRecomputeAllMeshes && Event.current.type == EventType.Repaint)
     {
-      m_bRecomputeAllMeshes = false;
-      Simplifier.Cancelled = false;
+       m_bRecomputeAllMeshes = false;
+       Simplifier.Cancelled = false;
+       //防止重复数据.
+      if((target as AutomaticLOD).gameObject.transform.parent==null){
+        string strMeshAssetPath="Assets/Res/LODData/"+ "mesh_" + (target as AutomaticLOD).gameObject.name  + ".asset";
+            DebugLog.Log(strMeshAssetPath);
+            AssetDatabase.DeleteAsset(strMeshAssetPath);
+            AssetDatabase.Refresh();
+      }
 
       foreach (Object targetObject in targets)
       {
@@ -1761,18 +1768,15 @@ public class AutomaticLODEditor : Editor
           {
               //gameObject.GetInstanceID().ToString() + 
             strMeshAssetPath = UnityEditor.EditorUtility.SaveFilePanelInProject("Save mesh asset(s)", "mesh_" +gameObject.name+  ".asset", "asset", "Please enter a file name to save the mesh asset(s) to");
-
             if (strMeshAssetPath.Length == 0)
             {
                 m_bEnablePrefabUsage=false;
                 AutomaticLOD LODTarget = target as AutomaticLOD;
                 LODTarget.EnablePrefabUsage=false;
-              return;
+                return;
             }
-
             automaticLOD.m_strAssetPath = strMeshAssetPath;
           }
-
           int nCounter = 0;
           SaveMeshAssetsRecursive(gameObject, gameObject, strMeshAssetPath, true, System.IO.File.Exists(strMeshAssetPath), ref nCounter);
         }
@@ -1820,6 +1824,7 @@ public class AutomaticLODEditor : Editor
           {
             UnityEditor.AssetDatabase.CreateAsset(automaticLOD.m_listLODLevels[nLOD].m_mesh, strFile);
             bAssetAlreadyCreated = true;
+            DebugLog.Log("creat>>>>>>>>>>>>>>>>");
           }
           else
           {
