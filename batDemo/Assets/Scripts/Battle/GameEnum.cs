@@ -169,6 +169,7 @@ namespace GameEnum
         public const string Walk = "Walk";  
          public const string Dash = "Dash";  
         public const string Jump = "Jump";  
+        public const string DoubleJump = "DoubleJump";
         public const string BackOff = "BackOff";  
         public const string CmdAction = "CmdAction";  
         public const string Dead = "Dead";  
@@ -210,6 +211,8 @@ namespace GameEnum
         public const string Mvm_Stop_Front="Mvm_Stop_Front";
 
         public const string Jmp_Base_A_Rise="Jmp_Base_A_Rise";
+        public const string Jmp_DoubleJump_A_Rise="Jmp_DoubleJump_A_Rise";
+        
         public const string Jmp_Base_A_OnGround="Jmp_Base_A_OnGround";
         public const string Jmp_Base_A_Fall="Jmp_Base_A_Fall";
         public const string PickUp = "PickUp"; 

@@ -197,4 +197,17 @@ public class LayerHelper
        _CameraHitLayerMask=GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Player,ELayer.Enemy,ELayer.Water,ELayer.Grass);
        return _CameraHitLayerMask;
     }
+     private static int _CameraGunLayerMask=-1;
+   /// <summary>
+    /// 获取地面层
+    /// </summary>
+    /// <returns></returns>
+    public static int GetCameraGunLayerMask()
+    {
+       if(_CameraGunLayerMask!=-1){
+           return _CameraGunLayerMask;
+       }
+       _CameraGunLayerMask=GetLayerMask(ELayer.Bound,ELayer.IgnoreShot,ELayer.Water,ELayer.Grass);
+       return _CameraGunLayerMask;
+    }
 }

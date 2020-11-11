@@ -165,6 +165,9 @@ public class Aiming : ActionBase
                      player.GetAniUpPart().Play(GameEnum.AniLabel.pistol_aim,0,0.2f,1,weapon_gun.AimTime/1.2f,0);
                  break;
              }
+             if(player.GetMovePart().IsJumping()){
+                  this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Idle,0,2f,1.5f,0.35f,0,true);
+             }
             player.cameraCtrl.smooth=aimSmoothing;
             player.cameraCtrl.SetTargetOffsets (weapon_gun.aimPivotOffset, weapon_gun.aimCamOffset);
             

@@ -5,9 +5,9 @@
 //动作
 using UnityEngine;
 
-public class Jump : ActionBase
+public class DoubleJump : ActionBase
 {
-    private Vector3 pivotOffset = new Vector3(0.0f, 0.5f,  0.0f);
+    private Vector3 pivotOffset = new Vector3(0.0f, 0.3f,  0.0f);
     private  Vector3 camOffset   = new Vector3(0.45f, 0.6f, -3.2f);    //-2.8f   -6.8f
     private Vector3 pivotFallOffset=new Vector3(0.0f, 1f,  0.0f);
     private Vector3 camFallOffset= new Vector3(0.45f, 0.6f, -2.4f);
@@ -16,7 +16,7 @@ public class Jump : ActionBase
     private Player player;
     //单次创建.
     public override void init(){
-        this.name=GameEnum.ActionLabel.Jump;
+        this.name=GameEnum.ActionLabel.DoubleJump;
         this.actionLayer=GameEnum.ActionLayer.BaseLayer;
         this.defultPriority=GameEnum.CancelPriority.Stand_Move_Null;
     }
@@ -36,23 +36,23 @@ public class Jump : ActionBase
         //动作进入
     public override void GotoFrame(int frame=0,object[] param=null){
             this.currentFrame = frame;
-            if(this.movePart.IsJumping()){
-                switch(this.movePart.jumpState){
-                        case GameEnum.JumpState.JumpFall:
-                        this.onJumpFall();
-                        break;
-                        case GameEnum.JumpState.JumpRise:
-                        this.onJumpToGround();
-                        break;
-                        case GameEnum.JumpState.JumpOnGround:
-                        this.onBeginJump(frame);
-                        break;
-                } 
-            }else{
-                //播放 站立动作.
-                //跑步 改变 动画属性.
+            // if(this.movePart.IsJumping()){
+            //     switch(this.movePart.jumpState){
+            //             case GameEnum.JumpState.JumpFall:
+            //             this.onJumpFall();
+            //             break;
+            //             case GameEnum.JumpState.JumpRise:
+            //             this.onJumpToGround();
+            //             break;
+            //             case GameEnum.JumpState.JumpOnGround:
+            //             this.onBeginJump(frame);
+            //             break;
+            //     } 
+            // }else{
+            //     //播放 站立动作.
+            //     //跑步 改变 动画属性.
                 this.onBeginJump(frame);
-            }
+          //  }
     }
     private void onBeginJump(int frame=0){
         if(player.charData.aimState==GameEnum.AimState.Null){
@@ -78,7 +78,7 @@ public class Jump : ActionBase
             //DebugLog.Log("player");
             player.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0.333f,0.333f,1f*this.speed,0.333f,3);
         }else{
-           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Rise,frame*GameSettings.Instance.deltaTime,0.5f,1.3f*this.speed,0.25f,1,true,true);
+           this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_DoubleJump_A_Rise,frame*GameSettings.Instance.deltaTime,0.533f,1.2f*this.speed,0.25f,1,true,true);
         }
         this.movePart.acceleratedupPow = this.movePart.GravityPower * this.speed * this.speed;
         // 8f 
@@ -89,14 +89,16 @@ public class Jump : ActionBase
          player.SetCharacterCtrlHeight(1);
     }
     private void onJumpFall(object[] param=null) {
-        //  DebugLog.Log("action >> onJumpFall.........");        
+        //  DebugLog.Log("action >> onJumpFall.........");
+      //  player.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);
          if(player.charData.aimState!=GameEnum.AimState.Null){
             player.AniPlay(GameEnum.AniLabel.Down_Jmp_Base_A_Fall,0.333f,0.333f, 1f*this.speed,0f,3);
-            player.cameraCtrl.pivotOffset.y=player.cameraCtrl.targetPivotOffset.y;
+             //立刻恢复
+             player.cameraCtrl.pivotOffset.y=  player.cameraCtrl.targetPivotOffset.y;
          }else{
             //平滑 跳跃缩放.
             player.cameraCtrl.SetTargetOffsets(pivotFallOffset,camFallOffset);
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f, 1.3f*this.speed,0.25f,1,true,true);
+            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Jmp_Base_A_Fall,0,0.333f, 1.3f*this.speed,0.35f,1,true,true);
          }
     }
     private void onJumpToGround(object[] param=null) {

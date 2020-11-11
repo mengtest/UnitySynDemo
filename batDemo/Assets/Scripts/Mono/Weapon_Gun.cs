@@ -95,8 +95,8 @@ public class Weapon_Gun : MonoBehaviour,IItemData
      public  Vector3 aimPivotOffset = new Vector3(0.5f, 1.13f,  0f); 
      [Tooltip("肩射摄像机相对位置")]
 	 public  Vector3 aimCamOffset   = new Vector3(0f, 0.55f, -0.71f); 
-    public  float armsRotationY   = 20f; 
-    public  float armsRotationX   = -15f; 
+    public  float armsRotationY   = 16f; 
+    public  float armsRotationX   = 40f; 
 
      [Tooltip("后坐力")]
     public float recoilAngle=3; 

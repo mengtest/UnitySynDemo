@@ -253,8 +253,13 @@ public class Char_Idle : State<Character>
          }
     }
     public void  OnJump(){
+         if(charData.currentBaseAction==GameEnum.ActionLabel.DoubleJump){
+               return;
+         }
         if(charData.currentBaseAction==GameEnum.ActionLabel.Jump){
             //二段跳.
+            this._player.doActionSkillByLabel(GameEnum.ActionLabel.DoubleJump,0,true);
+        //    DebugLog.Log("DoubleJump");
             return;
         }
         this._player.doActionSkillByLabel(GameEnum.ActionLabel.Jump,0,true);

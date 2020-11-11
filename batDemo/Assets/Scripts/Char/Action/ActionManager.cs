@@ -85,6 +85,8 @@ public class ActionManager
         registerClass(GameEnum.ActionLabel.Dash, typeof(Dash),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.Jump, typeof(Jump),0,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.PickUp, typeof(PickUp),0,GameEnum.CancelPriority.Stand_Move_Null);
+        registerClass(GameEnum.ActionLabel.DoubleJump, typeof(DoubleJump),0,GameEnum.CancelPriority.Stand_Move_Null);
+        
 
         registerClass(GameEnum.ActionLabel.UpIdle, typeof(UpIdle),1,GameEnum.CancelPriority.Stand_Move_Null);
         registerClass(GameEnum.ActionLabel.ChangeWeapon, typeof(ChangeWeapon),1,GameEnum.CancelPriority.BaseAction);

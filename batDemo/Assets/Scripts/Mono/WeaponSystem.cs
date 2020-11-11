@@ -61,7 +61,7 @@ public class WeaponSystem : MonoBehaviour
     // Check if aim is blocked by obstacles. 检查瞄准是否被障碍物阻挡。
 	public bool CheckforBlockedAim()
 	{
-		isAimBlocked = Physics.SphereCast(_player.gameObject.transform.position + castRelativeOrigin, 0.1f,_player.cameraCtrl.transform.forward, out RaycastHit hit, distToHand - 0.1f);
+		isAimBlocked = Physics.SphereCast(_player.gameObject.transform.position + castRelativeOrigin, 0.1f,_player.cameraCtrl.transform.forward, out RaycastHit hit, distToHand - 0.1f,LayerHelper.GetCameraGunLayerMask());
 		isAimBlocked = isAimBlocked && hit.collider.transform != this.transform;
        // ani.SetBool(blockedAimBool, isAimBlocked);
 	//	Debug.DrawRay(this.transform.position + castRelativeOrigin, CameraManager.Instance.mainCamera.transform.forward * distToHand, isAimBlocked ? Color.red : Color.cyan);

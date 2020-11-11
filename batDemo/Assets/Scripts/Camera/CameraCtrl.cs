@@ -284,6 +284,10 @@ public class CameraCtrl : MonoBehaviour
 		recoilAngle = recoilAngle+recoil;
 	//	 DebugLog.Log(recoilAngle,recoil);
 	}
+   public void SetTargetPivotOffset(Vector3 newPivotOffset)
+	{
+		targetPivotOffset = newPivotOffset;
+	}
 
 	// Set camera offsets to custom values.
 	public void SetTargetOffsets(Vector3 newPivotOffset, Vector3 newCamOffset)
@@ -291,7 +295,11 @@ public class CameraCtrl : MonoBehaviour
 		targetPivotOffset = newPivotOffset;
 		targetCamOffset = newCamOffset;
 	}
-
+// Reset camera offsets to default values.
+	public void ResetTargetPivotOffset()
+	{
+		targetPivotOffset = pivotOffset;
+	}
 	// Reset camera offsets to default values.
 	public void ResetTargetOffsets()
 	{
