@@ -1,0 +1,1343 @@
+fileFormatVersion: 2
+guid: 1bafbb58f67f7794997fbe690206aac1
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #1038
+    second: {fileID: 2100000, guid: c90389901ad56b547adb25f17d3c6418, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #1745
+    second: {fileID: 2100000, guid: 1e4b6c57fc26b6d4cb40ef8e85f42edf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #690
+    second: {fileID: 2100000, guid: 8ae26c7f84c02db46acbec0a25ff306b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #691
+    second: {fileID: 2100000, guid: 9ddbc31dc4cc0dd45b642dddba6d4fdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #692
+    second: {fileID: 2100000, guid: db262536bb3dbd04a8b395cd1208e3d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #693
+    second: {fileID: 2100000, guid: 6e19cf9dd3d7afc4e8fc368a660c6b50, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #694
+    second: {fileID: 2100000, guid: d197a184f485a644f9e93b63426ab9a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #695
+    second: {fileID: 2100000, guid: 48add91179abf0f48ad21b865c1ec310, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #696
+    second: {fileID: 2100000, guid: fa6f3c0fdb342c746b1ea0f0e917bb59, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #697
+    second: {fileID: 2100000, guid: 02904c2fa65d85c40833d5fe988651a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #698
+    second: {fileID: 2100000, guid: 236e35d42c8355f45ac41d9d885d000c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #699
+    second: {fileID: 2100000, guid: f21ca5026bfb9ff4fb26029070a75ab8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #700
+    second: {fileID: 2100000, guid: e3ed4615a4aaa5049802c653f9dc968f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #702
+    second: {fileID: 2100000, guid: a022359cd75b31847b48e0a60569d66f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #704
+    second: {fileID: 2100000, guid: 8b7e647f63e10ef47bc40ed5767c137a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #705
+    second: {fileID: 2100000, guid: 9c0f9d0073d0e3c428fae9012d820f35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #706
+    second: {fileID: 2100000, guid: 2229e6690cdf4a74d80f3e36b2871163, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #708
+    second: {fileID: 2100000, guid: 8b0c25300ef369e4f806355b793cd7f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #709
+    second: {fileID: 2100000, guid: a3c5a506f15adcc44b9a4af600d181c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #710
+    second: {fileID: 2100000, guid: bca71e41a99a4fc4e9a20d9ee3dae5b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #738
+    second: {fileID: 2100000, guid: 787518d0cdd396840ad05dacd0b6a230, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #739
+    second: {fileID: 2100000, guid: af18a1d66ecf7f049b94dab5a51db33a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #740
+    second: {fileID: 2100000, guid: a7710db4a541a0d4b88668485333cf0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #741
+    second: {fileID: 2100000, guid: f53fdef55ba45684eb881ee0c9f82eb2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #742
+    second: {fileID: 2100000, guid: eb2378b0ea5fb094e88f095692bb925f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #743
+    second: {fileID: 2100000, guid: 7f690442526193c4ba795be1ec8d643d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #744
+    second: {fileID: 2100000, guid: 805ceae12b43de141bce3d61606de8a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #745
+    second: {fileID: 2100000, guid: 13a2a1895984e634cb0b49e46031a23b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #746
+    second: {fileID: 2100000, guid: fd8b824100394414389cee41b8b591dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #747
+    second: {fileID: 2100000, guid: 41a41ca70d884e74596a3be012da3bbb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #749
+    second: {fileID: 2100000, guid: 0f04f01f36599c543bbb3d6b43e53ddd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #767
+    second: {fileID: 2100000, guid: b565591d7792aaa44a90c9e9b64a8cd5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #768
+    second: {fileID: 2100000, guid: 59271bf5c1dacf744b87f50987372185, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #769
+    second: {fileID: 2100000, guid: 7b1946fdc8e25174598259f43693769a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #770
+    second: {fileID: 2100000, guid: 87b8fea850f302443adcab082152084e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #771
+    second: {fileID: 2100000, guid: abd9eced9dbb2354ab8683d040c9de05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #772
+    second: {fileID: 2100000, guid: b8326ea700fac814293a1a10f617658a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #773
+    second: {fileID: 2100000, guid: 1d730c5860a175244bb41dab217fef29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #774
+    second: {fileID: 2100000, guid: fcbb315e5bd51d94382128c530b53d43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #775
+    second: {fileID: 2100000, guid: d2e13c878ac70b04b940d8321e35e1b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #776
+    second: {fileID: 2100000, guid: 666540d7b4e5af0408b112e3940af782, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #778
+    second: {fileID: 2100000, guid: 30dd17733a28236458443a25d5a13233, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #779
+    second: {fileID: 2100000, guid: f2df438ae0d0f5d43b84916e17f9782f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #780
+    second: {fileID: 2100000, guid: 59b4723e51397014eb6fd6740004548d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #781
+    second: {fileID: 2100000, guid: 19281a84c77c3dc4abb2c8947795c8ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #782
+    second: {fileID: 2100000, guid: ee850714a4f669b4697fe618ba41ede3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #783
+    second: {fileID: 2100000, guid: 2a86d04c3f9c08b4593a809fc070fa8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #784
+    second: {fileID: 2100000, guid: b01b02ac5611de94f991d3a7cb4a75c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #785
+    second: {fileID: 2100000, guid: 2eaf2872d29449245819c06b271ea028, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #786
+    second: {fileID: 2100000, guid: 6bb6be18d2d4359488c0c122264f7a3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #787
+    second: {fileID: 2100000, guid: 90778dc3945487240855f2076b3b6f45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #788
+    second: {fileID: 2100000, guid: 90cbade7a441f5d428e5c6febd3c48cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #789
+    second: {fileID: 2100000, guid: 4b0cf303b87aaf74687c20412f5d57e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #790
+    second: {fileID: 2100000, guid: 681b79de2add8284abe2a4ac4680bd8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #791
+    second: {fileID: 2100000, guid: 8726f81f521db0142a998029e8936ea8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #792
+    second: {fileID: 2100000, guid: 72c60e922c761164bbacb882faf6f38f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #794
+    second: {fileID: 2100000, guid: 9f9a85dd3d9145742a9b62cec08f9be7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #795
+    second: {fileID: 2100000, guid: 06dd401c957e1e24b87a1f5b6107d67b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #796
+    second: {fileID: 2100000, guid: 580694caec6e39e429bf7f8bac093fea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #797
+    second: {fileID: 2100000, guid: 5a26c9d72ba144d4f8fbb02b4ace9b96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #798
+    second: {fileID: 2100000, guid: b05c71f7ec10ace469a6d4497f886469, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #799
+    second: {fileID: 2100000, guid: 2dea351446b2edf4d9797697a3730bf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #800
+    second: {fileID: 2100000, guid: 1c61ca68ffce70944b03e841df1fcba2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #801
+    second: {fileID: 2100000, guid: 5bfda27638db91b44818a8f9d11c0f15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #802
+    second: {fileID: 2100000, guid: e3eeb66fc14984346b723a910bfbb206, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #803
+    second: {fileID: 2100000, guid: 82e627799eb58c544832135e73096b4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #828
+    second: {fileID: 2100000, guid: f9213a7772054a34b88f0446218a8341, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #830
+    second: {fileID: 2100000, guid: d6c6ff4a09da96d4e8a965f25c84ebff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #833
+    second: {fileID: 2100000, guid: 41c05c8f15c27434da0140fa46a3402b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #834
+    second: {fileID: 2100000, guid: 38fcc4d76bc2ba04e9ef4502971dcfb7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #835
+    second: {fileID: 2100000, guid: 5e399790e2cb3ae4c9d5e693c4b6a8b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #836
+    second: {fileID: 2100000, guid: b205070a301f0a2479815f8c33be9247, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #838
+    second: {fileID: 2100000, guid: eee164c9d028502448c5b1cd122b5136, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #839
+    second: {fileID: 2100000, guid: 5a555207c47a86f4c8ede3d6ebadbddd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #840
+    second: {fileID: 2100000, guid: 1e98d6e389a5717498de156594e94ce2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #841
+    second: {fileID: 2100000, guid: c86b0b6c72a9ceb4086d1d605af6746f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #842
+    second: {fileID: 2100000, guid: 3600dba01615bab41ac05b5734bcf657, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #845
+    second: {fileID: 2100000, guid: 7d64efae6af5a9f4f934f2df0c5cb935, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #846
+    second: {fileID: 2100000, guid: d8f25f6c175fd014b894e6198402e8bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #847
+    second: {fileID: 2100000, guid: 7dad2c7fbb36e0a4a8c04e05f6821840, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #849
+    second: {fileID: 2100000, guid: fbc816b42c725d7478c40183ad85f773, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #850
+    second: {fileID: 2100000, guid: 3b85359f605c21a4e8aad8c775254f90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #937
+    second: {fileID: 2100000, guid: 1e4b6c57fc26b6d4cb40ef8e85f42edf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #938
+    second: {fileID: 2100000, guid: 1e4b6c57fc26b6d4cb40ef8e85f42edf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #993
+    second: {fileID: 2100000, guid: 41d5bed002ac3e145afa8b3d5c7a4a6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #994
+    second: {fileID: 2100000, guid: 1b5dda0bd4741734da802315b54d4765, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #995
+    second: {fileID: 2100000, guid: 0d278e25525b25b448ee291cdc79bc97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #996
+    second: {fileID: 2100000, guid: ccbb49a5c5e6511449e4068cd2416252, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #997
+    second: {fileID: 2100000, guid: 6b44ade044a68a5429670ed648a8cc8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #998
+    second: {fileID: 2100000, guid: a67c25a407c1a3445803611bb4d57025, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Bip001 Pelvis
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Thigh
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Thigh
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Calf
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Calf
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Foot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Clavicle
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Clavicle
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L UpperArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R UpperArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Forearm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Forearm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 L Hand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bip001 R Hand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Avatar200_300(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0.0000005508979, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip001
+      parentName: Avatar200_300(Clone)
+      position: {x: 0.0003228399, y: 0.537015, z: -0.0355239}
+      rotation: {x: -0.5000003, y: 0.4999997, z: 0.4999997, w: 0.5000003}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip001 Pelvis
+      parentName: Bip001
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone05
+      parentName: Bip001 Pelvis
+      position: {x: -0.13397053, y: -0.23098493, z: -0.108608045}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999998, y: 0.9999998, z: 0.9999998}
+    - name: Bone06
+      parentName: Bone05
+      position: {x: -0.23352204, y: 0.00000061035155, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone07
+      parentName: Bone06
+      position: {x: -0.20712097, y: 0.0000017929077, z: 0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone01
+      parentName: Bip001 Pelvis
+      position: {x: -0.12567523, y: -0.23126481, z: 0.10003821}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.9999998}
+    - name: Bone02
+      parentName: Bone01
+      position: {x: -0.23520756, y: 0.00000087738033, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone03
+      parentName: Bone02
+      position: {x: -0.20665592, y: -0.000000038146972, z: -0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999997, y: 0.9999997, z: 1}
+    - name: Bone25
+      parentName: Bip001 Pelvis
+      position: {x: -0.10329555, y: 0.17815825, z: -0.14858322}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999997, y: 0.9999998, z: 1}
+    - name: Bone26
+      parentName: Bone25
+      position: {x: -0.1832238, y: 0.000000019073486, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone27
+      parentName: Bone26
+      position: {x: -0.19245891, y: 0.000000076293944, z: 0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone29
+      parentName: Bip001 Pelvis
+      position: {x: -0.09718246, y: 0.19648845, z: 0.13085884}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999998, y: 0.99999976, z: 0.9999995}
+    - name: Bone30
+      parentName: Bone29
+      position: {x: -0.18211822, y: -0.000000019073486, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone31
+      parentName: Bone30
+      position: {x: -0.17509143, y: -0.000000019073486, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone33
+      parentName: Bip001 Pelvis
+      position: {x: -0.093854524, y: -0.27949053, z: 0.00032379152}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone34
+      parentName: Bone33
+      position: {x: -0.22370191, y: 0.000000038146972, z: 0.00000000916722}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone35
+      parentName: Bone34
+      position: {x: -0.20402879, y: 0, z: 0.0000000064352728}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone36
+      parentName: Bip001 Pelvis
+      position: {x: -0.079194754, y: -0.17552887, z: -0.19877687}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 0.99999994}
+    - name: Bone37
+      parentName: Bone36
+      position: {x: -0.19317567, y: -0.000000038146972, z: 0.000000047683713}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone38
+      parentName: Bone37
+      position: {x: -0.26489794, y: 0, z: 0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone41
+      parentName: Bip001 Pelvis
+      position: {x: -0.08652874, y: -0.17510758, z: 0.21434724}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.99999976, z: 1.0000002}
+    - name: Bone42
+      parentName: Bone41
+      position: {x: -0.19317566, y: 0.000000038146972, z: -0.000000047683713}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bone43
+      parentName: Bone42
+      position: {x: -0.264898, y: 0.000000038146972, z: 0.000000104904174}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Bone17
+      parentName: Bip001 Pelvis
+      position: {x: -0.12322513, y: 0.19448932, z: -0.008530044}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999996, y: 0.99999994, z: 1}
+    - name: Bone18
+      parentName: Bone17
+      position: {x: -0.21764682, y: -0.0000000011920929, z: 0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone19
+      parentName: Bone18
+      position: {x: -0.19231296, y: 0.000000019669532, z: -0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone09
+      parentName: Bip001 Pelvis
+      position: {x: -0.12319561, y: -0.025260579, z: -0.29684868}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.9999999}
+    - name: Bone10
+      parentName: Bone09
+      position: {x: -0.21006885, y: -0.000000028610229, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000005, z: 1.0000004}
+    - name: Bone11
+      parentName: Bone10
+      position: {x: -0.18944383, y: 0.000000023841856, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+    - name: Bone39
+      parentName: Bip001 Pelvis
+      position: {x: -0.079275474, y: -0.2209011, z: -0.004154968}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000007, y: 1.0000014, z: 1.0000006}
+    - name: Bone40
+      parentName: Bone39
+      position: {x: -0.20125316, y: 0.00000015258789, z: -0.000000017881392}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Bone13
+      parentName: Bip001 Pelvis
+      position: {x: -0.12311932, y: -0.025485111, z: 0.29361233}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999964}
+    - name: Bone14
+      parentName: Bone13
+      position: {x: -0.21102037, y: -0.000000047683713, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000008, z: 1.0000011}
+    - name: Bone15
+      parentName: Bone14
+      position: {x: -0.18666637, y: 0.000000019073486, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip001 L Thigh
+      parentName: Bip001 Pelvis
+      position: {x: 0.00000022888183, y: 0.00000025510786, z: 0.1675729}
+      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+      scale: {x: 1.0000008, y: 1.000001, z: 1.0000006}
+    - name: Bip001 L Calf
+      parentName: Bip001 L Thigh
+      position: {x: -0.25416127, y: 0, z: -0.000000009536743}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000039, y: 1.0000042, z: 1.0000031}
+    - name: Bip001 L Foot
+      parentName: Bip001 L Calf
+      position: {x: -0.1907156, y: 0, z: 0.000000009536743}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000012, y: 1.0000006, z: 1.0000012}
+    - name: Bip001 R Thigh
+      parentName: Bip001 Pelvis
+      position: {x: -0.00000022888183, y: -0.00000020980835, z: -0.1675729}
+      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000012}
+    - name: Bip001 R Calf
+      parentName: Bip001 R Thigh
+      position: {x: -0.2541612, y: 0.0000000023841857, z: -0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000048, y: 1.0000046, z: 1.0000032}
+    - name: Bip001 R Foot
+      parentName: Bip001 R Calf
+      position: {x: -0.1907156, y: 0, z: 0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 0.9999996, z: 0.9999998}
+    - name: Bip001 Spine
+      parentName: Bip001 Pelvis
+      position: {x: -0.11175678, y: 0.0047383546, z: 0.00000014226883}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000005, z: 1.0000005}
+    - name: Bip001 Spine1
+      parentName: Bip001 Spine
+      position: {x: -0.1475341, y: -0.00017574549, z: -4.842877e-10}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Bip001 Neck
+      parentName: Bip001 Spine1
+      position: {x: -0.26190597, y: 0.029274527, z: 0.000000043995676}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip001 Head
+      parentName: Bip001 Neck
+      position: {x: -0.044310074, y: 0, z: 3.7252902e-11}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone44
+      parentName: Bip001 Head
+      position: {x: 0.012285995, y: 0.0013254723, z: 0.00077774044}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.99999964, z: 1.0000001}
+    - name: BoneLAHair01
+      parentName: Bone44
+      position: {x: -0.6040619, y: -0.2955238, z: 0.19161177}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000004, z: 1}
+    - name: BoneLAHair02
+      parentName: BoneLAHair01
+      position: {x: -0.28236052, y: 0.000000038146972, z: -0.000000009536743}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1}
+    - name: BoneLAHair03
+      parentName: BoneLAHair02
+      position: {x: -0.27021164, y: 0.000000076293944, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999997, y: 0.9999998, z: 1}
+    - name: BoneLBHair01
+      parentName: Bone44
+      position: {x: -0.71535045, y: -0.50352293, z: -0.37680545}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999976, y: 1.0000001, z: 0.99999976}
+    - name: BoneLBHair02
+      parentName: BoneLBHair01
+      position: {x: -0.43073913, y: 0.000000076293944, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000001}
+    - name: BoneLBHair03
+      parentName: BoneLBHair02
+      position: {x: -0.3231417, y: -0.0000050354, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: BoneLHair01
+      parentName: Bone44
+      position: {x: -0.6403656, y: -0.31894958, z: -0.21280318}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
+    - name: BoneLHair02
+      parentName: BoneLHair01
+      position: {x: -0.23679093, y: 0, z: -0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: BoneLHair03
+      parentName: BoneLHair02
+      position: {x: -0.26455763, y: 0.000000076293944, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: BoneCHair01
+      parentName: Bone44
+      position: {x: -0.6724968, y: 0.007931863, z: 0.30055672}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: BoneCHair02
+      parentName: BoneCHair01
+      position: {x: -0.25483498, y: 0.0000033569336, z: -5.820766e-13}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneRAHair01
+      parentName: Bone44
+      position: {x: -0.5973561, y: 0.3090847, z: 0.19157892}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: -1.0000002, y: -1.0000002, z: -1.0000001}
+    - name: BoneRAHair02
+      parentName: BoneRAHair01
+      position: {x: -0.28236052, y: 0.000000038146972, z: -0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000005}
+    - name: BoneRAHair03
+      parentName: BoneRAHair02
+      position: {x: -0.2702117, y: 0.000000038146972, z: 0.000000009536743}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999996, y: 0.9999997, z: 0.9999998}
+    - name: BoneDHair01
+      parentName: Bone44
+      position: {x: -0.70252043, y: 0.008241596, z: -0.13084517}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1}
+    - name: BoneDHair02
+      parentName: BoneDHair01
+      position: {x: -0.30026916, y: -0.000002746582, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneDHair03
+      parentName: BoneDHair02
+      position: {x: -0.33045304, y: 0, z: 0.000000014427641}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneDHair04
+      parentName: BoneDHair03
+      position: {x: -0.38990036, y: 0.000000076293944, z: 0.000000015528057}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneDHair05
+      parentName: BoneDHair04
+      position: {x: -0.29656723, y: 0.000000038146972, z: 5.820766e-13}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneHair01
+      parentName: Bone44
+      position: {x: -0.66981137, y: 0.007871496, z: -0.2829236}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: BoneHair02
+      parentName: BoneHair01
+      position: {x: -0.24563552, y: 0, z: -5.820766e-13}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneHair03
+      parentName: BoneHair02
+      position: {x: -0.26944357, y: 0, z: 0.0000000031315721}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: BoneRBHair01
+      parentName: Bone44
+      position: {x: -0.70400465, y: 0.5194395, z: -0.3768605}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: -0.9999998, y: -1, z: -1.0000001}
+    - name: BoneRBHair02
+      parentName: BoneRBHair01
+      position: {x: -0.43073913, y: 0, z: 0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000007, y: 1.0000007, z: 1.0000005}
+    - name: BoneRBHair03
+      parentName: BoneRBHair02
+      position: {x: -0.3231417, y: -0.0000050354, z: 0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999997, y: 0.9999996, z: 0.9999997}
+    - name: BoneRHair01
+      parentName: Bone44
+      position: {x: -0.6316069, y: 0.3345294, z: -0.21286993}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: -0.99999994, y: -1.0000001, z: -1.0000001}
+    - name: BoneRHair02
+      parentName: BoneRHair01
+      position: {x: -0.23679093, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: BoneRHair03
+      parentName: BoneRHair02
+      position: {x: -0.26455757, y: 0.000000114440915, z: 0.000000019073486}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone051(mirrored)
+      parentName: Bone44
+      position: {x: -1.017083, y: -0.2736094, z: -0.563384}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: Bone052(mirrored)
+      parentName: Bone051(mirrored)
+      position: {x: -0.63679826, y: -0.00000030517577, z: -0.00000022888183}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Bone053(mirrored)
+      parentName: Bone052(mirrored)
+      position: {x: -0.42736274, y: 0.0000012207031, z: 0.0000007629394}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 0.9999997, z: 0.9999999}
+    - name: Bone054(mirrored)
+      parentName: Bone053(mirrored)
+      position: {x: -0.28983116, y: 0, z: -0.0000003814697}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999998, y: 1.0000002, z: 0.99999994}
+    - name: Bone051
+      parentName: Bone44
+      position: {x: -1.0171236, y: 0.29792076, z: -0.5694578}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Bone052
+      parentName: Bone051
+      position: {x: -0.6270752, y: -0.000000076293944, z: 0.000000076293944}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone053
+      parentName: Bone052
+      position: {x: -0.42736182, y: -0.0000010681152, z: 0.00000015258789}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bone054
+      parentName: Bone053
+      position: {x: -0.28983, y: -0.00000030517577, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: Bone048
+      parentName: Bone44
+      position: {x: -0.01267334, y: 0.0005925, z: -0.35680363}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Bone049
+      parentName: Bone048
+      position: {x: -0.32736784, y: -0.000000038146972, z: -0.000000039518998}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: Bone050
+      parentName: Bone049
+      position: {x: -0.20943794, y: 0, z: 3.6379787e-14}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Bone055(mirrored)
+      parentName: Bone44
+      position: {x: -0.70172423, y: 0.17769141, z: -0.0000015258788}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone056(mirrored)
+      parentName: Bone055(mirrored)
+      position: {x: -0.2221466, y: -0.0000005340576, z: -0.00000015258789}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Bone057(mirrored)
+      parentName: Bone056(mirrored)
+      position: {x: -0.22986099, y: 0.000000114440915, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.9999998}
+    - name: Bone055
+      parentName: Bone44
+      position: {x: -0.7053842, y: -0.1522883, z: 0.000001373291}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Bone056
+      parentName: Bone055
+      position: {x: -0.22214645, y: 0.0000005340576, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Bone057
+      parentName: Bone056
+      position: {x: -0.22986099, y: 0, z: -0.000000038146972}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: leftWeaponDummy
+      parentName: Bip001 Spine1
+      position: {x: -0.15902595, y: -0.29421747, z: 0.21350603}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: rightWeaponDummy
+      parentName: Bip001 Spine1
+      position: {x: -0.15902588, y: -0.29421675, z: -0.21778515}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: bagDummy
+      parentName: Bip001 Spine1
+      position: {x: -0.06260162, y: -0.26109838, z: -0.00083796005}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Bone21
+      parentName: Bip001 Spine1
+      position: {x: -0.08783661, y: -0.20395397, z: 0.00032280016}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999998}
+    - name: Bone22
+      parentName: Bone21
+      position: {x: -0.2796428, y: -0.000000038146972, z: -0.0000000024029396}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone23
+      parentName: Bone22
+      position: {x: -0.2451393, y: 0.000000038146972, z: 1.6370904e-13}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: Bip001 L Clavicle
+      parentName: Bip001 Spine1
+      position: {x: -0.16281906, y: 0.026836634, z: 0.08229611}
+      rotation: {x: 0.7071068, y: -0.000000030908623, z: -0.7071068, w: 0.000000030908623}
+      scale: {x: 1.0000006, y: 1.0000007, z: 1.0000006}
+    - name: Bip001 L UpperArm
+      parentName: Bip001 L Clavicle
+      position: {x: -0.097484455, y: 5.9604643e-10, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1.0000027, z: 1.0000021}
+    - name: Bip001 L Forearm
+      parentName: Bip001 L UpperArm
+      position: {x: -0.2694847, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.000001, z: 1.0000007}
+    - name: Bip001 L Hand
+      parentName: Bip001 L Forearm
+      position: {x: -0.17329818, y: -0.0000000047683715, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: 0, w: -0.7071068}
+      scale: {x: 1, y: 1.0000013, z: 1.000001}
+    - name: Bip001 R Clavicle
+      parentName: Bip001 Spine1
+      position: {x: -0.16281906, y: 0.026837088, z: -0.08229596}
+      rotation: {x: 0.7071068, y: -0.000000030908623, z: 0.7071068, w: -0.000000030908623}
+      scale: {x: 1.0000038, y: 1.0000013, z: 1.0000013}
+    - name: Bip001 R UpperArm
+      parentName: Bip001 R Clavicle
+      position: {x: -0.09748443, y: -5.9604643e-10, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000032, y: 1.0000024, z: 1.0000025}
+    - name: Bip001 R Forearm
+      parentName: Bip001 R UpperArm
+      position: {x: -0.2694847, y: -0.000000009536743, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.000002, y: 1.0000011, z: 1.0000012}
+    - name: Bip001 R Hand
+      parentName: Bip001 R Forearm
+      position: {x: -0.17329815, y: 0.0000000047683715, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+      scale: {x: 1.0000014, y: 1.0000012, z: 0.99999994}
+    - name: 225
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 210
+      parentName: Avatar200_300(Clone)
+      position: {x: -5.825073e-10, y: 5.825073e-10, z: -0.013326215}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 213
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 203
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 223
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 220
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 219
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 207
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 211
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 217
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 200
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 208
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 212
+      parentName: Avatar200_300(Clone)
+      position: {x: -0.00056692143, y: 1.7506906e-10, z: -0.004005113}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 218
+      parentName: Avatar200_300(Clone)
+      position: {x: -3.2996123e-10, y: 3.2996123e-10, z: -0.007548633}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 221
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 201
+      parentName: Avatar200_300(Clone)
+      position: {x: -0.0075355475, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 214
+      parentName: Avatar200_300(Clone)
+      position: {x: -3.2895534e-10, y: 3.2895534e-10, z: -0.0075256205}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 215
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 202
+      parentName: Avatar200_300(Clone)
+      position: {x: -0.008030052, y: -0.009140625, z: -3.995494e-10}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 206
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 205
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 209
+      parentName: Avatar200_300(Clone)
+      position: {x: -3.4736825e-10, y: 3.4736825e-10, z: 0.0012026214}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 216
+      parentName: Avatar200_300(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 204
+      parentName: Avatar200_300(Clone)
+      position: {x: -0.000063643456, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 1
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

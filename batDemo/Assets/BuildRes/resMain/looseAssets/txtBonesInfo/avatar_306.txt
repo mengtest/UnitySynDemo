@@ -1,0 +1,20 @@
+{
+  "materials":[
+    "306"
+  ],
+  "bones":[
+    "BoneRHair01",
+    "BoneRHair02",
+    "Bone44",
+    "BoneRAHair01",
+    "BoneRAHair02",
+    "BoneRHair03",
+    "BoneRAHair03",
+    "BoneLHair01",
+    "BoneLHair02",
+    "BoneLAHair01",
+    "BoneLAHair02",
+    "BoneLHair03",
+    "BoneLAHair03"
+  ]
+}

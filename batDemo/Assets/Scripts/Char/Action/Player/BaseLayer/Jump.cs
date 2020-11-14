@@ -115,7 +115,7 @@ public class Jump : ActionBase
                 if(player.charData.isDashing){
                     this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Dash,0,true,new object[]{dirp});
                 }else{
-                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp});
+                    this.obj.doActionSkillByLabel(GameEnum.ActionLabel.Run,0,true,new object[]{dirp,0.3f});
                 }
             }
         }else{

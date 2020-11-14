@@ -1,0 +1,15 @@
+{
+  "materials":[
+    "508"
+  ],
+  "bones":[
+    "Bip001 Spine",
+    "Bip001 Pelvis",
+    "Bip001 L Thigh",
+    "Bip001 R Thigh",
+    "Bip001 R Calf",
+    "Bip001 R Foot",
+    "Bip001 L Calf",
+    "Bip001 L Foot"
+  ]
+}

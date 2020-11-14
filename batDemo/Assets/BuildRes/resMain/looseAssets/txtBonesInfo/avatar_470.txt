@@ -1,0 +1,37 @@
+{
+  "materials":[
+    "470"
+  ],
+  "bones":[
+    "Bone17",
+    "Bone18",
+    "Bone39",
+    "Bone10",
+    "Bone09",
+    "Bone11",
+    "Bone13",
+    "Bone14",
+    "Bone15",
+    "Bip001 Spine",
+    "Bip001 Spine1",
+    "Bip001 Pelvis",
+    "Bip001 R UpperArm",
+    "Bip001 R Clavicle",
+    "Bip001 L UpperArm",
+    "Bip001 L Clavicle",
+    "Bip001 R Forearm",
+    "Bip001 R Hand",
+    "Bip001 L Forearm",
+    "Bip001 L Hand",
+    "Bip001 L Thigh",
+    "Bip001 R Thigh",
+    "Bone061",
+    "Bone062",
+    "Bone057(mirrored)",
+    "Bone058(mirrored)",
+    "Bone059(mirrored)",
+    "Bone057",
+    "Bone058",
+    "Bone059"
+  ]
+}

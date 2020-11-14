@@ -1,0 +1,8 @@
+{
+  "materials":[
+    "459"
+  ],
+  "bones":[
+    "Bip001 Spine1"
+  ]
+}

@@ -36,13 +36,18 @@ public class Run : ActionBase
            // DebugLog.Log("Run.........",GameEnum.ActionLabel.Mvm_Jog);
             //*this.speed;  //0.75f
             this.obj.moveSpeed=player.charData.RunSpeed;
-            this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f,1.12f * this.speed,0.15f,0,true);
            if(param!=null){
                 Vector3 dir=(Vector3)param[0];
+                float crossfade=0.15f;
+                if(param.Length>1){
+                   crossfade=(float)param[1];
+                }
             //    DebugLog.Log("Run..dir ",dir,this.obj.gameObject.transform.forward);
                 this.obj.GetMovePart().StartMove(dir);
+                this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f,1.12f * this.speed,crossfade,0,true);
            }else{
-                this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
+               this.obj.GetMovePart().StartMove( this.obj.gameObject.transform.forward);
+               this.obj.GetAniBasePart().Play(GameEnum.AniLabel.Mvm_Jog,frame*GameSettings.Instance.deltaTime,0.933f,1.12f * this.speed,0.15f,0,true);
            }
             if(player.charData.aimState==GameEnum.AimState.Null){
                 player.cameraCtrl.SetTargetOffsets(pivotOffset,camOffset);

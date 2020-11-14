@@ -1,0 +1,15 @@
+{
+  "materials":[
+    "91"
+  ],
+  "bones":[
+    "Bone44",
+    "BoneHair01",
+    "BoneHair02",
+    "BoneLAHair01",
+    "BoneLAHair02",
+    "BoneHair03",
+    "BoneRAHair01",
+    "BoneRAHair02"
+  ]
+}
